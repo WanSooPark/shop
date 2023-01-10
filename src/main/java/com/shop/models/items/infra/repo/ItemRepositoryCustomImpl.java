@@ -22,7 +22,7 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom {
     }
 
     private BooleanExpression searchSellStatusEq(ItemSellStatus searchSellStatus) {
-        return searchSellStatus == null ? null : QItem.item.itemSellStatus.eq(searchSellStatus);
+        return searchSellStatus == null ? null : QItem.item.status.eq(searchSellStatus);
     }
 
     @Override
@@ -31,7 +31,7 @@ public class ItemRepositoryCustomImpl implements ItemRepositoryCustom {
     }
 
     private BooleanExpression itemNmLike(String searchQuery) {
-        return StringUtils.isEmpty(searchQuery) ? null : QItem.item.itemNm.like("%" + searchQuery + "%");
+        return StringUtils.isEmpty(searchQuery) ? null : QItem.item.name.like("%" + searchQuery + "%");
     }
 
     @Override
