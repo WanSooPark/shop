@@ -1,0 +1,151 @@
+	<?php include("header.html");?>
+    <main id="container">
+        <div id="tool">
+            <div class="info">
+                <div class="title">관리자페이지</div>
+            </div>
+            <div class="logout">
+                <a href="#">로그아웃</a>
+            </div>
+        </div>
+        <div id="contain">
+            <div id="h1">
+                <strong>리뷰관리</strong> 
+                <span>상품 관리 > 리뷰관리</span>
+            </div>
+            <div id="product" class="content product">
+                <div class="control">
+                    <div class="total">총 <strong>10</strong>개</div>
+                    <div class="view">
+                        <select>
+                            <option>10page</option>
+                        </select>
+                        <select>
+                            <option>전체</option>                            
+                        </select>
+                        <select>
+                            <option>전체</option>                            
+                        </select>
+                    </div>
+                </div>
+                <div class="button">
+                    <ul class="fl">
+                        <li><a href="javascript:;" class="btn btn_05">선택 삭제</a></li>
+                    </ul>
+                    <ul class="fr">
+                        <li><a href="./product_category_write.html" class="btn btn_02">추가</a></li>
+                    </ul>
+                </div>
+                <div class="table">
+                    <table id="table_1">
+    <caption>사용후기 목록</caption>
+    <thead>
+    <tr>
+        <th scope="col">
+            <label for="chkall" class="sound_only">전체</label>
+            <input type="checkbox" name="chkall" value="1" id="chkall" onclick="check_all(this.form)">
+        </th>
+        <th scope="col"><a href="/adm/shop_admin/itemuselist.php?&amp;sst=it_name&amp;sod=asc&amp;sfl=a.it_name&amp;stx=&amp;sca=&amp;page=1">상품명</a></th>
+
+		<th scope="col">업로드이미지</th>
+
+        <th scope="col"><a href="/adm/shop_admin/itemuselist.php?&amp;sst=is_subject&amp;sod=asc&amp;sfl=a.it_name&amp;stx=&amp;sca=&amp;page=1">내용</a></th>
+		<th scope="col"><a href="/adm/shop_admin/itemuselist.php?&amp;sst=mb_name&amp;sod=asc&amp;sfl=a.it_name&amp;stx=&amp;sca=&amp;page=1">이름</a></th>
+        <th scope="col" width="150"><a href="/adm/shop_admin/itemuselist.php?&amp;sst=is_score&amp;sod=asc&amp;sfl=a.it_name&amp;stx=&amp;sca=&amp;page=1">평점</a></th>
+        <th scope="col"><a href="/adm/shop_admin/itemuselist.php?&amp;sst=is_confirm&amp;sod=asc&amp;sfl=a.it_name&amp;stx=&amp;sca=&amp;page=1">업로드 승인</a></th>
+        <th scope="col">관리</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+    <tr id="149" class="bg0 tr1">
+        <td class="td_chk">
+            <input type="checkbox" name="chk[]" value="0" id="chk_0">
+            <input type="hidden" name="is_id[0]" value="149">
+            <input type="hidden" name="it_id[0]" value="1666939659">
+        </td>
+        <td width="200"><a href="https://vastyle.co.kr/shop/item.php?it_id=1666939659"><img src="https://vastyle.co.kr/data/item/thumb-1666939659_1666939659_s74YZ_116335_1_50x50.jpg" width="50" height="50" alt="">켄달 셋업 울 부클 자켓(JK-2772)</a></td>
+
+		<td width="400">
+            <div style="display: flex; align-items: center;gap: 7px">
+                                                                                                                                                                                        </div>
+		</td>
+        <td style="padding:15px;width:400px;">
+<style>
+.q_subject { color:#888 }
+.adm_reple { border-top:1px dotted #ddd; padding:5px 0 }
+</style>   
+
+			<div style="font-size:13px; line-height:18px">
+<!--				<div class="q_subject"><strong>제목</strong></div>-->
+<!--				<div class="q_content">--><!--</div><br>-->
+                <a href="https://vastyle.co.kr/shop/item.php?it_id=1666939659#review_box">
+                    <div class="q_subject"><strong>내용</strong></div>
+                    <div class="q_content">test</div><br>
+                </a>
+            </div>
+
+
+        </td>
+		 <td class="td_name" style="text-align:center !important">김지현</td>
+        <td class="td_num">
+			<input type="hidden" name="is_score[0]" value="5">
+							<img src="../../../src/main/resources/static/admin/img/icon-rating-on.png" style="width:20px">
+								<img src="../../../src/main/resources/static/admin/img/icon-rating-on.png" style="width:20px">
+								<img src="../../../src/main/resources/static/admin/img/icon-rating-on.png" style="width:20px">
+								<img src="../../../src/main/resources/static/admin/img/icon-rating-on.png" style="width:20px">
+								<img src="../../../src/main/resources/static/admin/img/icon-rating-on.png" style="width:20px">
+							<!--
+            <label for="score_0" class="sound_only">평점</label>
+            <select name="is_score[0]" id="score_0">
+            <option value="5"  selected="selected">매우만족</option>
+            <option value="4" >만족</option>
+            <option value="3" >보통</option>
+            <option value="2" >불만</option>
+            <option value="1" >매우불만</option>
+            </select>
+			!-->
+        </td>
+        <td class="td_chk" style="width: 50px !important;">
+            <label for="confirm_0" class="sound_only">확인</label>
+            <input type="checkbox" name="is_confirm[0]" checked="" value="1" id="confirm_0">
+        </td>
+<style>
+a.u_btn { padding:4px 6px; display:inline-block; background:#999; color:#fff; text-align:center; margin:0 2px}
+</style> 
+        <td class="td_mngsmall">
+            <a href="./product_review_write.html?w=u&amp;is_id=149&amp;sst=&amp;sod=&amp;sfl=&amp;stx=&amp;page=&amp;sca=&amp;save_stx=" class="u_btn"><span class="sound_only">리뷰제목 </span>수정</a>
+        </td>
+    </tr>
+
+    
+    
+
+        </tbody>
+    </table>
+                </div>
+                <div class="button">
+                    <ul class="fl">
+                        <li><a href="javascript:;" class="btn btn_05">선택 삭제</a></li>
+                    </ul>
+                    <ul class="fr">
+                        <li><a href="./product_category_write.html" class="btn btn_02">추가</a></li>
+                    </ul>
+                </div>
+                <div class="paging">
+                    <a href="#"><i class="xi-backward"></i><span class="skip">처음</span></a>
+                    <a href="#"><i class="xi-step-backward"></i><span class="skip">이전</span></a>
+                    <a href="#" class="current"><span>1</span></a>
+                    <a href="#"><span>2</span></a>
+                    <a href="#"><span>3</span></a>
+                    <a href="#"><span>4</span></a>
+                    <a href="#"><span>5</span></a>
+                    <a href="#"><span>6</span></a>
+                    <a href="#"><i class="xi-step-forward"></i><span class="skip">다음</span></a>
+                    <a href="#"><i class="xi-forward"></i><span class="skip">마지막</span></a>
+                </div>
+            </div>
+        </div>
+	</main>
+</body>
+</html>

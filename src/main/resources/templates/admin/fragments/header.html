@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="adminHead">
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0, user-scalable=yes">
+    <title>올따옴</title>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script type="text/javascript" src="/admin/js/common.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="/admin/css/common.css">
+    <link rel="stylesheet" type="text/css" href="/admin/css/admin.css">
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/swiper@7/swiper-bundle.min.css"/>
+</head>
+<body id="wrap">
+
+<th:block th:fragment="adminHeader()">
+    <header id="header">
+        <div class="head">
+            <div class="logo"><a href="../index.html">올따옴 관리자</a></div>
+            <div class="logout"><a href="./login.html"><i class="xi-power-off"></i></a></div>
+        </div>
+        <div class="menu">
+            <div class="title skip">Menu</div>
+            <ul class="dp1">
+
+                <li class="dl1">
+                    <a href="./member.html" class="da1"><span>회원관리</span></a>
+                    <button class="openMenu"><i class="xi-caret-down-min"></i></button>
+                    <ul class="dp2">
+                        <li class="dl2"><a href="./member.html" class="da2">회원관리</a></li>
+                        <li class="dl2"><a href="./point.html" class="da2">포인트관리</a></li>
+                    </ul>
+                </li>
+
+                <li class="dl1">
+                    <a href="./board_product.html" class="da1"><span>게시판 관리</span></a>
+                    <button class="openMenu"><i class="xi-caret-down-min"></i></button>
+                    <ul class="dp2">
+                        <li class="dl2"><a href="./board_notice.html" class="da2">공지사항</a></li>
+                        <li class="dl2"><a href="./board_faq.html" class="da2">FAQ</a></li>
+                        <li class="dl2"><a href="./board_product.html" class="da2">신고관리</a></li>
+                    </ul>
+                </li>
+
+                <li class="dl1">
+                    <a th:href="@{/admin/item}" class="da1"><span>상품 관리</span></a>
+                    <button class="openMenu"><i class="xi-caret-down-min"></i></button>
+                    <ul class="dp2">
+                        <li class="dl2"><a href="./product_category.html" class="da2">분류관리</a></li>
+                        <li class="dl2"><a th:href="@{/admin/item}" class="da2">상품관리</a></li>
+                        <li class="dl2"><a href="./product_review.html" class="da2">후기관리</a></li>
+                    </ul>
+                </li>
+
+                <li class="dl1">
+                    <a href="./product_product.html" class="da1"><span>SHOP 관리</span></a>
+                    <button class="openMenu"><i class="xi-caret-down-min"></i></button>
+                    <ul class="dp2">
+                        <li class="dl2"><a href="./product_ex.html" class="da2">기획전관리</a></li>
+                        <li class="dl2"><a href="./product_ti.html" class="da2">타임특가</a></li>
+                        <li class="dl2"><a href="./product_re.html" class="da2">추천상품</a></li>
+                        <li class="dl2"><a href="./product_new.html" class="da2">신상품</a></li>
+                        <li class="dl2"><a href="./product_best.html" class="da2">베스트</a></li>
+                        <li class="dl2"><a href="./product_hot.html" class="da2">핫세일</a></li>
+                        <li class="dl2"><a href="./product_brand.html" class="da2">브랜드상품</a></li>
+                        <li class="dl2"><a href="./product_md.html" class="da2">MD추천기획</a></li>
+                        <li class="dl2"><a href="./product_theme.html" class="da2">테마별 인기상품</a></li>
+                    </ul>
+                </li>
+
+                <li class="dl1">
+                    <a href="./content_kv.html" class="da1"><span>컨텐츠 관리</span></a>
+                    <button class="openMenu"><i class="xi-caret-down-min"></i></button>
+                    <ul class="dp2">
+                        <li class="dl2"><a href="./content_keyword.html" class="da2">추천검색어 관리</a></li>
+                        <li class="dl2"><a href="./content_family.html" class="da2">파트너 관리</a></li>
+                        <li class="dl2"><a href="./content_popup.html" class="da2">팝업 관리</a></li>
+                    </ul>
+                </li>
+                <li class="dl1">
+                    <a href="./business_etc.html" class="da1"><span>주문/매출 관리</span></a>
+                    <button class="openMenu"><i class="xi-caret-down-min"></i></button>
+                    <ul class="dp2">
+                        <li class="dl2"><a href="#" class="da2">주문내역</a></li>
+                        <li class="dl2"><a href="#" class="da2">판매분석</a></li>
+                    </ul>
+                </li>
+
+                <li class="dl1">
+                    <a href="./customer_support.html" class="da1"><span>고객지원 관리</span></a>
+                    <button class="openMenu"><i class="xi-caret-down-min"></i></button>
+                    <ul class="dp2">
+                        <li class="dl2"><a href="./customer_support.html" class="da2">고객지원</a></li>
+                    </ul>
+                </li>
+                <li class="dl1">
+                    <a href="./online_inquiry.html" class="da1"><span>고객 문의</span></a>
+                    <button class="openMenu"><i class="xi-caret-down-min"></i></button>
+                    <ul class="dp2">
+                        <li class="dl2"><a href="./online_inquiry.html" class="da2">고객 문의</a></li>
+                    </ul>
+                </li>
+                <li class="dl1">
+                    <a href="./footer_privacy.html" class="da1"><span>하단정보 관리</span></a>
+                    <button class="openMenu"><i class="xi-caret-down-min"></i></button>
+                    <ul class="dp2">
+                        <li class="dl2"><a href="./footer_privacy.html" class="da2">개인정보 처리방침</a></li>
+                        <li class="dl2"><a href="./footer_policy.html" class="da2">정보보호정책</a></li>
+                        <li class="dl2"><a href="./footer_footer.html" class="da2">하단정보</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <script type="text/javascript">
+                //<![CDATA[
+                $(function () {
+                    $(".dp1 .dl1 .openMenu").click(function () {
+                        if ($(this).parent().hasClass("active")) {
+                            $(this).parent().removeClass("active")
+                            $(this).parent().find(".dp2").slideUp(300);
+                        } else {
+                            $(".dp1 .dl1").removeClass("active");
+                            $(".dp2").slideUp();
+                            $(this).parent().find(".dp2").stop().slideDown(300);
+                            $(this).parent().addClass('active');
+                        }
+                    });
+                })
+                //]]>
+            </script>
+        </div>
+    </header>
+</th:block>
+</body>
+</html>

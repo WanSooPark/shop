@@ -1,0 +1,360 @@
+	<?php include("header.html");?>
+
+
+	<link rel="stylesheet" type="text/css" href="https://vastyle.co.kr/skin/admin/basic/css/admin.css?ver=181108">
+
+	<style>
+#adm_content {
+    padding-bottom: 0
+}
+
+.category_tab {
+    margin-top: 30px;
+    margin-bottom: 10px;
+    display: flex;
+}
+
+.category_tab .category_tab_btn {
+    width: 300px;
+    height: 40px;
+    border: 1px solid #000;
+    background: #fff;
+    color: #000;
+}
+
+.category_tab .category_tab_btn.on {
+    background: #000;
+    color: #fff;
+}
+
+.category_box {
+    margin-bottom: 10px;
+}
+
+.category_auto_list {
+    border-left: 1px solid #ced9de;
+    border-right: 1px solid #ced9de;
+    width: 906px;
+    display: none;
+    position: absolute;
+    background: #fff;
+    height: 235px;
+    overflow-y: scroll;
+}
+
+.category_auto_list ul li {
+    border-bottom: 1px solid #ced9de;
+    padding: 15px 20px;
+    cursor: pointer;
+}
+
+.category_auto_list ul li:hover {
+    background: #f3f3f3;
+}
+
+.category_select_box {
+    display: none;
+}
+
+.category_select_box .remove_btn {
+    border: none;
+    background: #fff;
+}
+
+.category_select_box .remove_btn i {
+    font-size: 15px
+}
+
+/*.category_select_box.first {*/
+/*    display: flex;*/
+/*}*/
+
+.category_add {
+    border: none;
+    background: #3e4557;
+    color: #fff;
+    height: 38px;
+    width: 70px;
+}
+
+.va_pl30 th {
+    padding-left: 30px;
+}
+
+.va_pl30 td {
+    padding-left: 10px;
+}
+
+.local_desc02 {
+    margin-left: 0;
+}
+
+#category_select select {
+    width: 100%;
+    height: auto;
+    border-right: 0;
+    border-top: 0;
+}
+
+.va_admin_tb th {
+    min-width: 160px;
+    font-size: 15px;
+    padding: 0 25px !important;
+}
+.va_admin_tb .nomin th {
+    min-width: auto;
+}
+
+#select_category_tb td {
+    padding: 0;
+}
+
+#select_category_tb th {
+    text-align: center;
+}
+
+.va_admin_tb #selected_category_tb th,
+.va_admin_tb #selected_category_tb td {
+    min-width: 60px;
+    text-align: center;
+}
+
+#selected_category_tb th {
+    border-left: 0;
+    border-right: 0;
+}
+
+#selected_category_tb td {
+    border: 1px solid #ececec;
+}
+
+.anchor {
+    margin-bottom: 30px;
+    margin-left: 30px;
+}
+
+.anchor a {
+    background: #F6F6F6;
+    color: #9D9D9F;
+    font-size: 15px;
+    font-weight: 400;
+    padding: 14px 10px;
+	height: 60px;
+}
+
+h2.h2_frm {
+    padding-top: 15px;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.va_help {
+    display: inline-block;
+    margin-left: 20px;
+    font-size: 12px;
+    padding: 0
+}
+
+input[type=text] {
+    background: #fff;
+    border-radius: 5px;
+    height: 35px
+}
+</style>
+<style>
+.btnSelect {
+    min-width: 145px;
+    background: #fff url(../img/icon-select-dropdown.png) no-repeat right 10px center / auto 30px;
+    padding: 0 15px;
+    height: 42px;
+    border-radius: 5px;
+    border: 1px solid #D6D6D6;
+    line-height: 21px;
+    font-size: 15px;
+    font-weight: 500;
+    color: #1f1f1f;
+    text-align: left;
+}
+
+.btnSelect~ul.active {
+    display: flex;
+}
+
+.btnSelect~ul {
+    /*    position: absolute;*/
+    top: 100%;
+    margin-top: -1px;
+    display: flex;
+    flex-direction: column;
+    /*    width: 20%;*/
+    z-index: 5;
+    background: #fff;
+    padding: 10px;
+    border: 1px solid #D6D6D6;
+    display: none;
+}
+
+.stylebtnList {
+    border: solid 0 gray;
+    width: 120px;
+}
+
+#styleCate li {
+    float: left;
+}
+
+.feelbtnList {
+    border: solid 0 gray;
+    width: 120px;
+}
+
+#feelCate li {
+    float: left;
+}
+
+.colorbtnList {
+    border: solid 0 gray;
+    width: 120px;
+    background: #fff;
+    display: flex;
+    /*justify-content: center;*/
+    align-items: center;
+    margin: 0 auto;
+}
+.color_point {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 10px;
+    box-shadow: 2px 2px 3px 1px #e3e3e3;
+}
+.select_color {
+    height: 42px;
+    background: transparent;
+    color: #fff;
+    text-shadow: 0px 0px 2px #000;
+    font-size: 15px;
+    border: 1px solid #e3e3e3;
+    margin-left: 5px;
+}
+#colorCate li {
+    float: left;
+}
+
+.pbtnList {
+    border: solid 0 gray;
+    width: 120px;
+}
+
+#pCate li {
+    float: left;
+}
+
+</style>
+
+    <main id="container">
+        <div id="tool">
+            <div class="info">
+                <div class="title">관리자페이지</div>
+            </div>
+            <div class="logout">
+                <a href="#">로그아웃</a>
+            </div>
+        </div>
+        <div id="contain">
+            <div id="h1">
+                <strong>기획전관리</strong> 
+                <span>상품 관리 > 기획전관리</span>
+            </div>
+            <!--body -->
+<div class="tbl_head01 tbl_wrap" style="padding: 0 30px">
+	<form name="fitemlistupdate" method="post" autocomplete="off">
+    <table id="table_1">
+    <caption>기획전 관리 목록</caption>
+    <thead>
+		<tr style="cursor: move;">
+			<th scope="col">
+				<label for="chkall" class="sound_only">사용후기 전체</label>
+				<input type="checkbox" name="chkall" value="1" id="chkall" onclick="check_all(this.form)">
+			</th>
+			<th scope="col" id="th_id">번호</th>
+			<th scope="col" id="th_id">순서</th>
+			<th scope="col" id="th_dvc">분류</th>
+			<th scope="col" id="th_dvc">기획전명</th>
+			<th scope="col" id="th_loc">기획전이미지</th>
+			<th scope="col" id="th_loc">상품정보</th>
+			<th scope="col" id="th_st">상품수</th>
+			<th scope="col" id="th_odr">상태</th>
+			<th scope="col" id="th_mng" style="width:100px !important">관리</th>
+		</tr>    
+		</thead>
+		<tbody>
+		
+		<tr id="18" class="bg0 bgr1 tr1" style="cursor: move;">
+			<td align="center"><input type="checkbox" name="chk[]" value="18" id="chk_18"></td>
+			<td headers="th_id" class="td_num">
+				20        </td>
+			<td class="td_num">1</td>
+			<td class="td_num" style="width: 100px">designer</td>
+			<td headers="th_dvc">당신의 연말을 더욱 빛내줄 COAT</td>
+			<td class="td_num"><img src="https://demo2022.iwinv.net/thegaon2/resources/img/dummy_product1.png" width="100" alt=""></td>
+			<td headers="th_loc">
+							<div style="display: flex;align-items: center">
+					<div style="float:left;padding-left:15px;display: flex; align-items: center; white-space: nowrap;">
+						<img src="https://demo2022.iwinv.net/thegaon2/resources/img/dummy_product1.png" width="100" height="100" alt="" title="">
+						[ 1669356272 ]
+					</div>
+					<div style="float:left;padding-right:15px;margin-left: 20px;">
+						<p>상품명 </p>
+						<p>349,000 <span style="text-decoration: line-through">349000</span></p>
+						<p>상품명</p>					
+					</div>
+				</div>
+						</td>
+			<td headers="th_st" class="td_datetime">7</td>
+			<td headers="th_odr" class="td_num">활성화</td> 
+			<td headers="th_mng" class="td_mngsmall">
+				<a href="product_ex_write.html" class="new_va_btn">수정</a>
+				<a href="#" onclick="return delete_confirm(this);" class="new_va_btn" style="margin-top: 3px">삭제</a>
+			</td>
+		</tr>
+		
+
+		
+		<tr id="17" class="bg1 bgr1 tr1" style="cursor: move;">
+			<td align="center"><input type="checkbox" name="chk[]" value="17" id="chk_17"></td>
+			<td headers="th_id" class="td_num">
+				19        </td>
+			<td class="td_num">1</td>
+			<td class="td_num" style="width: 100px">women</td>
+			<td headers="th_dvc">상품명</td>
+			<td class="td_num"><img src="https://demo2022.iwinv.net/thegaon2/resources/img/dummy_product1.png" width="100" alt=""></td>
+			<td headers="th_loc">
+							<div style="display: flex;align-items: center">
+					<div style="float:left;padding-left:15px;display: flex; align-items: center; white-space: nowrap;">
+						<img src="https://demo2022.iwinv.net/thegaon2/resources/img/dummy_product1.png" width="100" height="100" alt="" title="">
+						[ 1668755292 ]
+					</div>
+					<div style="float:left;padding-right:15px;margin-left: 20px;">
+						<p>상품명</p>
+						<p>145,300 <span style="text-decoration: line-through">169000</span></p>
+						<p>나인</p>					
+					</div>
+				</div>
+						</td>
+			<td headers="th_st" class="td_datetime">15</td>
+			<td headers="th_odr" class="td_num">활성화</td> 
+			<td headers="th_mng" class="td_mngsmall">
+				<a href="product_ex_write.html" class="new_va_btn">수정</a>
+				<a href="#" onclick="return delete_confirm(this);" class="new_va_btn" style="margin-top: 3px">삭제</a>
+			</td>
+		</tr>
+    
+
+        </tbody>
+    </table>
+
+</form></div>
+	</main>
+</body>
+</html>

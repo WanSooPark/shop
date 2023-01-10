@@ -1,0 +1,68 @@
+@charset "utf-8";
+@import url('//cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;800;900&display=swap');
+
+/* 스타일시트 초기화 */
+*:focus{}
+*{margin:0;padding:0;list-style-type:none;box-sizing:border-box;border:0;outline:0;font-family:'Noto Sans KR','Malgun Gothic','dotum','돋움','gulim','굴림','Tahoma';letter-spacing: -0.01em;}
+
+html{font-size:62.5%;-webkit-text-size-adjust:none;box-sizing:border-box;-webkit-font-smoothing:antialiased;scroll-behavior: smooth;overflow-y: scroll;background:#ffffff;}
+body{line-height: 1.5;font-size:16px;color:#000;-webkit-text-size-adjust:none;box-sizing:border-box;-webkit-font-smoothing:antialiased;}
+article, aside, canvas, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section, summary{display:block}
+blockquote, q{quotes:none}
+blockquote:before, blockquote:after,
+q:before, q:after{content:'';content:none}
+a{color:#222;text-decoration:none;background:transparent;cursor:pointer}
+mark{background-color:#ff9;color:#000;font-style:italic;font-weight:bold}
+ins{color:#000;text-decoration:none}
+del{color:#aaa;text-decoration:line-through}
+abbr[title], dfn[title]{border-bottom:1px dotted #000;cursor:help}
+button{cursor:pointer;background:transparent}
+pre,code,kbd,samp,tt{font-family:monospace;*font-size:108%;line-height:100%}
+legend {position:absolute;margin:0;padding:0;font-size:0;line-height:0;text-indent:-9999em;overflow:hidden}
+select{font-size:14px;font-size:1.4rem;border:1px solid #ccc;border-radius:0px}
+label, input, button, select, img{vertical-align:middle}
+input{min-width:50px}
+select {margin:0}
+select option{color:#303030}
+em,address,cite{font-style:normal}
+input,select,textarea,button{border-radius:0;resize:none}
+p {margin:0;padding:0;word-break:break-all}
+i {font-style:normal}
+caption,
+hr{position:absolute;top:0;left:0;margin:0;padding:0;display:inline-block;line-height:0;font-size:0;border:0;overflow:hidden}
+pre{overflow-x:scroll;font-size:1.1em}
+select {-webkit-appearance: none;-moz-appearance: none;appearance: none;}
+select:disabled{background:#fafafa}
+*::placeholder{color:#767676}
+input:read-only{background:#fafafa}
+.skip{position: absolute;width: 1px;height: 1px;margin: -1px;overflow: hidden;padding: 0;border: 0;clip: rect(0,0,0,0)}
+
+.tal{text-align:left !important}
+.tac{text-align:center !important}
+.tar{text-align:right !important}
+
+.w100{width:100px !important}
+.w200{width:200px !important}
+.w300{width:300px !important}
+.w400{width:400px !important}
+.w500{width:500px !important}
+.w600{width:600px !important}
+.w700{width:700px !important}
+.w800{width:800px !important}
+.w900{width:900px !important}
+.w1000{width:1000px !important}
+
+.bd0{border-width:0px !important}
+.bd1{border-width:1px !important}
+.bd2{border-width:2px !important}
+.bd3{border-width:3px !important}
+.bd4{border-width:4px !important}
+.bd5{border-width:5px !important}
+.bd6{border-width:6px !important}
+.bd7{border-width:7px !important}
+.bd8{border-width:8px !important}
+.bd9{border-width:9px !important}
+.bd10{border-width:10px !important}

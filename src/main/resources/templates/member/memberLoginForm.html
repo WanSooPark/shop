@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layouts/layout2}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+
+<!-- 사용자 CSS 추가 -->
+<th:block layout:fragment="css">
+    <style>
+        .error {
+            color: #bd2130;
+        }
+    </style>
+</th:block>
+
+<div layout:fragment="content">
+    <div id="container">
+        <div id="login">
+            <form method="post" onsubmit="return checkAll();" th:action="@{/members/login}">>
+                <div class="wrap">
+                    <div id="heading">로그인</div>
+                    <div class="form">
+                        <ul>
+                            <li>
+                                <input id="userEmail" name="email" placeholder="이메일을 입력해주세요" type="text">
+                            </li>
+                            <li>
+                                <input id="userPassword" name="password" placeholder="비밀번호" type="password">
+                            </li>
+                        </ul>
+                    </div>
+                    <p class="error" th:if="${loginErrorMsg}" th:text="${loginErrorMsg}"></p>
+                    <div class="tool">
+                        <div class="save">
+                            <label class="checkbox"><input type="checkbox"><i></i>
+                                <p>아이디 저장</p></label>
+                        </div>
+                        <div class="find">
+                            <a href="./find.html">아이디/비밀번호 찾기</a>
+                        </div>
+                    </div>
+                    <br>
+                    <!--로그인에러-->
+                    <div class="alert alert-danger" role="alert" th:if="${param.error}" th:text="${loginFailMsg}"></div>
+
+                    <div class="button">
+                        <a class="btn btn_01" href="#" onclick="login();">로그인</a>
+                        <!--                          <button type="submit" class="btn btn_01" >로그인</button>-->
+                        <a class="btn btn_02" href="#">비회원주문조회</a>
+                    </div>
+                    <div class="register">
+                        <a href="/members/new">올따옴이 처음이신가요? 회원가입하기</a>
+                    </div>
+                    <div class="social">
+                        <a href="#"><img src="../img/icon_naver.png">
+                            <p class="skip">네이버 로그인</p></a>
+                        <a href="#"><img src="../img/icon_kakao.png">
+                            <p class="skip">카카오톡 로그인</p></a>
+                        <!-- <a href="#"><img src="../img/icon_facebook.png"><p class="skip">페이스북 로그인</p></a>-->
+                    </div>
+                </div>
+            </form>
+            <script th:inline="javascript">
+                $("input").keydown(function (key) {
+                    if (key.keyCode == 13) {
+                        login()
+                    }
+                });
+
+                function login() {
+                    const userEmail = $("#userEmail").val();
+                    const userPassword = $("#userPassword").val();
+                    if (!userEmail) {
+                        alert('이메일을 입력하여 주세요');
+                        return;
+                    }
+
+                    if (!userPassword) {
+                        alert('비밀번호를 입력하여 주세요');
+                        return;
+                    }
+
+                    const data = {
+                        email: userEmail,
+                        password: userPassword
+                    }
+                    $.ajax({
+                        url: '/members/login'
+                        , type: 'POST'
+                        , data
+                        , cache: false
+                        , timeout: 20000
+                        , success: function (response) {
+                            alert('로그인을 성공하였습니다.')
+                            location.href = '/';
+                        }
+                        , error: function (e, xpr, mm) {
+                            const message = e.responseText ? e.responseText : '로그인을 실패하였습니다.';
+                            alert(message)
+                        }
+                    });
+                }
+            </script>
+        </div>
+
+        <div class="modal-container" id="login_alert">
+            <div class="modal-wrapper">
+                <div class="text">이름을 입력해주세요.</div>
+                <div class="button">
+                    <button class="modalClose" type="button">확인</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

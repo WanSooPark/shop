@@ -1,0 +1,111 @@
+	<?php include("header.html");?>
+    <main id="container">
+        <div id="tool">
+            <div class="info">
+                <div class="title">관리자페이지</div>
+            </div>
+            <div class="logout">
+                <a href="#">로그아웃</a>
+            </div>
+        </div>
+        <div id="contain">
+            <div id="h1">
+                <strong>온라인 문의</strong>
+                <span>온라인 문의 > 온라인 문의</span>
+            </div>
+            <div id="online" class="content inquiry">
+                <div class="write">
+                    <dl>
+                        <dt>이름 <em class="required">*</em></dt>
+                        <dd><input type="text"></dd>
+                    </dl>
+                    <dl>
+                        <dt>연락처 <em class="required">*</em></dt>
+                        <dd>
+                            <div class="tele">
+                                <select>
+                                    <option>010</option><option>011</option><option>016</option><option>017</option><option>018</option><option>019</option><option>02</option><option>031</option>
+                                    <option>032</option><option>033</option><option>041</option><option>042</option><option>043</option><option>051</option><option>052</option><option>053</option>
+                                    <option>054</option><option>061</option><option>062</option><option>063</option><option>064</option><option>070</option>
+                                </select>
+                                <input type="text">
+                                <input type="text">
+                            </div>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt>주소 <em class="required">*</em></dt>
+                        <dd>
+                            <ul class="addr">
+                                <li><input type="text" placeholder="우편번호"><button type="button">우편번호 검색</button></li>
+                                <li><input type="text" placeholder="주소"></li>
+                                <li><input type="text" placeholder="상세주소"></li>
+                            </ul>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt>이메일 <em class="required">*</em></dt>
+                        <dd>
+                            <div class="mail">
+                                <input type="text">
+                                <em>@</em>
+                                <input type="text">
+                                <select>
+                                    <option>Chol.com</option>
+                                    <option>dreamwiz.com</option>
+                                    <option>Empal.com</option>
+                                    <option>Freechal.com</option>
+                                    <option>Gmail.com</option>
+                                    <option>Hanfos.com</option>
+                                    <option>Hanmail.net</option>
+                                    <option>Korea.com</option>
+                                    <option>Nate.com</option>
+                                    <option>Naver.com</option>
+                                    <option>Netian.com</option>
+                                    <option>Nexon.com</option>
+                                    <option>Paran.com</option>
+                                    <option>Sayclub.com</option>
+                                    <option>Yahoo.co.kr</option>
+                                    <option>직접입력</option>
+                                </select>
+                            </div>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt>문의유형 <em class="required">*</em></dt>
+                        <dd>
+                            <select style="width:200px;flex:unset">
+                                <option>IR 문의</option>
+                                <option>채용 문의</option>
+                                <option>제품 문의</option>
+                                <option>기타 문의</option>
+                            </select>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt>제목 <em class="required">*</em></dt>
+                        <dd><input type="text"></dt>
+                    </dl>
+                    <dl>
+                        <dt>내용 <em class="required">*</em></dt>
+                        <dd><textarea></textarea></dt>
+                    </dl>
+                    <dl>
+                        <dt>첨부파일</dt>
+                        <dd><input type="file"></dt>
+                    </dl>
+                </div>
+                <div class="button">
+                    <ul class="fl">
+                        <li><a href="./online_inquiry.html" class="btn btn_03">목록</a></li>
+                    </ul>
+                    <ul class="fr">
+                        <li><a href="javascript:;" class="btn btn_01">삭제</a></li>
+                        <li><a href="javascript:;" class="btn btn_02">저장</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+	</main>
+</body>
+</html>

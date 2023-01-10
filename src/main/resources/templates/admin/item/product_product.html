@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin/fragments/header :: adminHead">
+<body id="wrap">
+<th:block th:replace="admin/fragments/header :: adminHeader()"></th:block>
+<main id="container">
+    <div id="tool">
+        <div class="info">
+            <div class="title">관리자페이지</div>
+        </div>
+        <div class="logout">
+            <a href="#">로그아웃</a>
+        </div>
+    </div>
+    <div id="contain">
+        <div id="h1">
+            <strong>상품관리</strong>
+            <span>상품 관리 > 상품관리</span>
+        </div>
+        <div id="product" class="content product">
+            <div class="control">
+                <div class="total">총 <strong>10</strong>개</div>
+                <div class="view">
+                    <select>
+                        <option>10page</option>
+                    </select>
+                    <select>
+                        <option>전체</option>
+                    </select>
+                    <select>
+                        <option>전체</option>
+                    </select>
+                </div>
+            </div>
+            <div class="button">
+                <ul class="fl">
+                    <li><a href="javascript:;" class="btn btn_05">선택 삭제</a></li>
+                </ul>
+                <ul class="fr">
+                    <!-- TODO itemId 필요-->
+                    <li><a th:href="@{/admin/item/0}" class="btn btn_02">추가</a></li>
+                </ul>
+            </div>
+            <div class="table">
+                <table>
+                    <colgroup>
+                        <col style="width:60px">
+                        <col style="width:60px">
+                        <col style="width:100px">
+                        <col style="width:100px">
+                        <col style="width:100px">
+                        <col style="width:100px">
+                    </colgroup>
+                    <thead>
+                    <tr>
+                        <th scope="col">
+                            <input type="checkbox" name="chkall" value="1" id="chkall" onclick="check_all(this.form)">
+                        </th>
+                        <th scope="col">순서</th>
+                        <th scope="col">분류코드</th>
+                        <th scope="col"><a
+                                href="/adm/shop_admin/itemlist.php?sca=&amp;sst=it_id&amp;sod=asc&amp;sfl=it_name&amp;stx=&amp;sca=&amp;page=1">상품코드</a>
+                        </th>
+                        <th scope="col" style="display:none"><a
+                                href="/adm/shop_admin/itemlist.php?sca=&amp;sst=it_order&amp;sod=asc&amp;sfl=it_name&amp;stx=&amp;sca=&amp;page=1">순서</a>
+                        </th>
+                        <th scope="col" style="display:none"><a
+                                href="/adm/shop_admin/itemlist.php?sca=&amp;sst=it_soldout&amp;sod=desc&amp;sfl=it_name&amp;stx=&amp;sca=&amp;page=1">품절</a>
+                        </th>
+                        <th scope="col" style="display:none"><a
+                                href="/adm/shop_admin/itemlist.php?sca=&amp;sst=it_hit&amp;sod=desc&amp;sfl=it_name&amp;stx=&amp;sca=&amp;page=1">조회</a>
+                        </th>
+                        <th scope="col" id="th_brand">브랜드명</th>
+                        <th scope="col" id="th_img">이미지</th>
+                        <th scope="col" id="th_pc_title"><a
+                                href="/adm/shop_admin/itemlist.php?sca=&amp;sst=it_name&amp;sod=asc&amp;sfl=it_name&amp;stx=&amp;sca=&amp;page=1">상품명</a>
+                        </th>
+                        <th scope="col" id="th_camt"><a
+                                href="/adm/shop_admin/itemlist.php?sca=&amp;sst=it_cust_price&amp;sod=asc&amp;sfl=it_name&amp;stx=&amp;sca=&amp;page=1">정상가</a>
+                        </th>
+                        <th scope="col" id="th_amt"><a
+                                href="/adm/shop_admin/itemlist.php?sca=&amp;sst=it_price&amp;sod=asc&amp;sfl=it_name&amp;stx=&amp;sca=&amp;page=1">판매가</a>
+                        </th>
+                        <th scope="col" id="th_skin" style="display:none">PC스킨</th>
+                        <th scope="col" id="th_pt" style="display:none"><a
+                                href="/adm/shop_admin/itemlist.php?sca=&amp;sst=it_point&amp;sod=asc&amp;sfl=it_name&amp;stx=&amp;sca=&amp;page=1">포인트</a>
+                        </th>
+                        <th scope="col" id="th_qty"><a
+                                href="/adm/shop_admin/itemlist.php?sca=&amp;sst=it_stock_qty&amp;sod=asc&amp;sfl=it_name&amp;stx=&amp;sca=&amp;page=1">재고</a>
+                        </th>
+                        <th scope="col" id="th_mskin" style="display:none">모바일스킨</th>
+                        <th scope="col"><a
+                                href="/adm/shop_admin/itemlist.php?sca=&amp;sst=it_use&amp;sod=desc&amp;sfl=it_name&amp;stx=&amp;sca=&amp;page=1">판매여부</a>
+                        </th>
+                        <th scope="col">노출여부</th>
+                        <th scope="col">등록일자</th>
+                        <th scope="col">수정일자</th>
+                        <th scope="col" style="width:130px !important;">관리</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="bg0">
+                        <td class="td_chk">
+                            <input type="checkbox" name="chk[]" value="0" id="chk_0" data-it_id="1670207039">
+                        </td>
+                        <td class="td_num">
+                            2864
+                        </td>
+                        <td class="td_num">
+                            <div style="min-width: 80px">3020103020</div>
+                            <div style="min-width: 80px">20103020</div>
+                        </td>
+                        <td class="td_numbig">
+                            <input type="hidden" name="it_id[0]" value="1670207039">
+                            1670207039
+                        </td>
+                        <td class="td_mngsmall" style="display:none">
+                            <label for="order_0" class="sound_only">순서</label>
+                            <input type="text" name="it_order[0]" value="" id="order_0" class="frm_input" size="3">
+                        </td>
+                        <td class="td_chk" style="display:none">
+                            <label for="soldout_0" class="sound_only">품절</label>
+                            <input type="checkbox" name="it_soldout[0]" value="1" id="soldout_0">
+                        </td>
+                        <td class="td_num" style="display:none">0</td>
+                        <td class="td_num"><p
+                                style="width:100px;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden;">
+                            롯데</p></td>
+                        <td class="td_num">
+                            <a href="https://vastyle.co.kr/shop/item.php?it_id=1670207039">
+                                <img src="https://demo2022.iwinv.net/thegaon2/resources/img/dummy_product1.png"
+                                     width="50" height="50" alt=""></a>
+                        </td>
+                        <td headers="th_pc_title" class="td_input td_name">
+                            <label for="name_0" class="sound_only">상품명</label>
+                            <input type="text" name="it_name[0]" value="BLUE STRIPE UNBALANCED PADDING SHIRTS"
+                                   id="name_0" required="" class="frm_input required" size="30" style="display:none">
+                            <p>라면 시리즈</p>
+                        </td>
+                        <td headers="th_camt" class="td_numbig td_input">
+
+                            <input style="display:none" type="text" name="it_cust_price[0]" value="158000"
+                                   id="cust_price_0" class="frm_input sit_camt" size="7">
+                            158,000
+                        </td>
+                        <td headers="th_amt" class="td_numbig td_input">
+
+                            <input style="display:none" type="text" name="it_price[0]" value="158000" id="price_0"
+                                   class="frm_input sit_amt" size="7">
+                            158,000
+                        </td>
+                        <td headers="th_skin" class="td_numbig td_input" style="display:none">
+                            <label for="it_skin_0" class="sound_only">PC 스킨</label>
+                            <select id="it_skin_0" name="it_skin[0]">
+                                <option value="">선택</option>
+                                <option value="basic">basic</option>
+                            </select></td>
+                        <td headers="th_pt" class="td_numbig td_input" style="display:none">1</td>
+                        <td headers="th_qty" class="td_numbig td_input">
+
+                            <input style="display:none" type="text" name="it_stock_qty[0]" value="40" id="stock_qty_0"
+                                   class="frm_input sit_qty" size="7">
+                            40
+                        </td>
+                        <td headers="th_mskin" class="td_numbig td_input" style="display:none">
+                            <label for="it_mobile_skin_0" class="sound_only">모바일 스킨</label>
+                            <select id="it_mobile_skin_0" name="it_mobile_skin[0]">
+                                <option value="">선택</option>
+                                <option value="basic">basic</option>
+                            </select></td>
+                        <td class="td_num">
+                            <input type="checkbox" name="it_use[0]" checked="" value="1" id="use_0"
+                                   style="display:none">
+                            판매중
+                        </td>
+                        <td class="td_num">
+                            노출
+                        </td>
+                        <td class="td_numbig">2022-11-30<br> 18:01</td>
+                        <td class="td_mng" style="width: 105px">
+                        <td>
+                            <div class="link">
+                                <!-- TODO itemId 필요-->
+                                <a th:href="@{/admin/item/1}" class="btn btn_01">
+                                    <img src="https://cdn1.iconfinder.com/data/icons/100-basic-for-user-interface/32/27-pen-256.png">
+                                    <p class="skip">편집</p>
+                                </a>
+                            </div>
+                        </td>
+                        </td>
+                    </tr>
+
+
+                    <tr class="bg0">
+                        <td class="td_chk">
+                            <input type="checkbox" name="chk[]" value="0" id="chk_0" data-it_id="1670207039">
+                        </td>
+                        <td class="td_num">
+                            2864
+                        </td>
+                        <td class="td_num">
+                            <div style="min-width: 80px">3020103020</div>
+                            <div style="min-width: 80px">20103020</div>
+                        </td>
+                        <td class="td_numbig">
+                            <input type="hidden" name="it_id[0]" value="1670207039">
+                            1670207039
+                        </td>
+                        <td class="td_mngsmall" style="display:none">
+                            <label for="order_0" class="sound_only">순서</label>
+                            <input type="text" name="it_order[0]" value="" id="order_0" class="frm_input" size="3">
+                        </td>
+                        <td class="td_chk" style="display:none">
+                            <label for="soldout_0" class="sound_only">품절</label>
+                            <input type="checkbox" name="it_soldout[0]" value="1" id="soldout_0">
+                        </td>
+                        <td class="td_num" style="display:none">0</td>
+                        <td class="td_num"><p
+                                style="width:100px;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden;">
+                            롯데</p></td>
+                        <td class="td_num">
+                            <a href="https://vastyle.co.kr/shop/item.php?it_id=1670207039">
+                                <img src="https://demo2022.iwinv.net/thegaon2/resources/img/dummy_product1.png"
+                                     width="50" height="50" alt=""></a>
+                        </td>
+                        <td headers="th_pc_title" class="td_input td_name">
+                            <label for="name_0" class="sound_only">상품명</label>
+                            <input type="text" name="it_name[0]" value="BLUE STRIPE UNBALANCED PADDING SHIRTS"
+                                   id="name_0" required="" class="frm_input required" size="30" style="display:none">
+                            <p>라면 시리즈</p>
+                        </td>
+                        <td headers="th_camt" class="td_numbig td_input">
+
+                            <input style="display:none" type="text" name="it_cust_price[0]" value="158000"
+                                   id="cust_price_0" class="frm_input sit_camt" size="7">
+                            158,000
+                        </td>
+                        <td headers="th_amt" class="td_numbig td_input">
+
+                            <input style="display:none" type="text" name="it_price[0]" value="158000" id="price_0"
+                                   class="frm_input sit_amt" size="7">
+                            158,000
+                        </td>
+                        <td headers="th_skin" class="td_numbig td_input" style="display:none">
+                            <label for="it_skin_0" class="sound_only">PC 스킨</label>
+                            <select id="it_skin_0" name="it_skin[0]">
+                                <option value="">선택</option>
+                                <option value="basic">basic</option>
+                            </select></td>
+                        <td headers="th_pt" class="td_numbig td_input" style="display:none">1</td>
+                        <td headers="th_qty" class="td_numbig td_input">
+
+                            <input style="display:none" type="text" name="it_stock_qty[0]" value="40" id="stock_qty_0"
+                                   class="frm_input sit_qty" size="7">
+                            40
+                        </td>
+                        <td headers="th_mskin" class="td_numbig td_input" style="display:none">
+                            <label for="it_mobile_skin_0" class="sound_only">모바일 스킨</label>
+                            <select id="it_mobile_skin_0" name="it_mobile_skin[0]">
+                                <option value="">선택</option>
+                                <option value="basic">basic</option>
+                            </select></td>
+                        <td class="td_num">
+                            <input type="checkbox" name="it_use[0]" checked="" value="1" id="use_0"
+                                   style="display:none">
+                            판매중
+                        </td>
+                        <td class="td_num">
+                            노출
+                        </td>
+                        <td class="td_numbig">2022-11-30<br> 18:01</td>
+                        <td class="td_mng" style="width: 105px">
+                        <td>
+                            <div class="link">
+                                <!-- TODO itemId 필요-->
+                                <a th:href="@{/admin/item/2}" class="btn btn_01">
+                                    <img src="https://cdn1.iconfinder.com/data/icons/100-basic-for-user-interface/32/27-pen-256.png">
+                                    <p class="skip">편집</p>
+                                </a>
+                            </div>
+                        </td>
+                        </td>
+                    </tr>
+
+
+                    <tr class="bg0">
+                        <td class="td_chk">
+                            <input type="checkbox" name="chk[]" value="0" id="chk_0" data-it_id="1670207039">
+                        </td>
+                        <td class="td_num">
+                            2864
+                        </td>
+                        <td class="td_num">
+                            <div style="min-width: 80px">3020103020</div>
+                            <div style="min-width: 80px">20103020</div>
+                        </td>
+                        <td class="td_numbig">
+                            <input type="hidden" name="it_id[0]" value="1670207039">
+                            1670207039
+                        </td>
+                        <td class="td_mngsmall" style="display:none">
+                            <label for="order_0" class="sound_only">순서</label>
+                            <input type="text" name="it_order[0]" value="" id="order_0" class="frm_input" size="3">
+                        </td>
+                        <td class="td_chk" style="display:none">
+                            <label for="soldout_0" class="sound_only">품절</label>
+                            <input type="checkbox" name="it_soldout[0]" value="1" id="soldout_0">
+                        </td>
+                        <td class="td_num" style="display:none">0</td>
+                        <td class="td_num"><p
+                                style="width:100px;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden;">
+                            롯데</p></td>
+                        <td class="td_num">
+                            <a href="https://vastyle.co.kr/shop/item.php?it_id=1670207039">
+                                <img src="https://demo2022.iwinv.net/thegaon2/resources/img/dummy_product1.png"
+                                     width="50" height="50" alt=""></a>
+                        </td>
+                        <td headers="th_pc_title" class="td_input td_name">
+                            <label for="name_0" class="sound_only">상품명</label>
+                            <input type="text" name="it_name[0]" value="BLUE STRIPE UNBALANCED PADDING SHIRTS"
+                                   id="name_0" required="" class="frm_input required" size="30" style="display:none">
+                            <p>라면 시리즈</p>
+                        </td>
+                        <td headers="th_camt" class="td_numbig td_input">
+
+                            <input style="display:none" type="text" name="it_cust_price[0]" value="158000"
+                                   id="cust_price_0" class="frm_input sit_camt" size="7">
+                            158,000
+                        </td>
+                        <td headers="th_amt" class="td_numbig td_input">
+
+                            <input style="display:none" type="text" name="it_price[0]" value="158000" id="price_0"
+                                   class="frm_input sit_amt" size="7">
+                            158,000
+                        </td>
+                        <td headers="th_skin" class="td_numbig td_input" style="display:none">
+                            <label for="it_skin_0" class="sound_only">PC 스킨</label>
+                            <select id="it_skin_0" name="it_skin[0]">
+                                <option value="">선택</option>
+                                <option value="basic">basic</option>
+                            </select></td>
+                        <td headers="th_pt" class="td_numbig td_input" style="display:none">1</td>
+                        <td headers="th_qty" class="td_numbig td_input">
+
+                            <input style="display:none" type="text" name="it_stock_qty[0]" value="40" id="stock_qty_0"
+                                   class="frm_input sit_qty" size="7">
+                            40
+                        </td>
+                        <td headers="th_mskin" class="td_numbig td_input" style="display:none">
+                            <label for="it_mobile_skin_0" class="sound_only">모바일 스킨</label>
+                            <select id="it_mobile_skin_0" name="it_mobile_skin[0]">
+                                <option value="">선택</option>
+                                <option value="basic">basic</option>
+                            </select></td>
+                        <td class="td_num">
+                            <input type="checkbox" name="it_use[0]" checked="" value="1" id="use_0"
+                                   style="display:none">
+                            판매중
+                        </td>
+                        <td class="td_num">
+                            노출
+                        </td>
+                        <td class="td_numbig">2022-11-30<br> 18:01</td>
+                        <td class="td_mng" style="width: 105px">
+                        <td>
+                            <div class="link">
+                                <!-- TODO itemId 필요-->
+                                <a th:href="@{/admin/item/3}" class="btn btn_01">
+                                    <img src="https://cdn1.iconfinder.com/data/icons/100-basic-for-user-interface/32/27-pen-256.png">
+                                    <p class="skip">편집</p>
+                                </a>
+                            </div>
+                        </td>
+                        </td>
+                    </tr>
+
+                    <tr class="bg0">
+                        <td class="td_chk">
+                            <input type="checkbox" name="chk[]" value="0" id="chk_0" data-it_id="1670207039">
+                        </td>
+                        <td class="td_num">
+                            2864
+                        </td>
+                        <td class="td_num">
+                            <div style="min-width: 80px">3020103020</div>
+                            <div style="min-width: 80px">20103020</div>
+                        </td>
+                        <td class="td_numbig">
+                            <input type="hidden" name="it_id[0]" value="1670207039">
+                            1670207039
+                        </td>
+                        <td class="td_mngsmall" style="display:none">
+                            <label for="order_0" class="sound_only">순서</label>
+                            <input type="text" name="it_order[0]" value="" id="order_0" class="frm_input" size="3">
+                        </td>
+                        <td class="td_chk" style="display:none">
+                            <label for="soldout_0" class="sound_only">품절</label>
+                            <input type="checkbox" name="it_soldout[0]" value="1" id="soldout_0">
+                        </td>
+                        <td class="td_num" style="display:none">0</td>
+                        <td class="td_num"><p
+                                style="width:100px;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden;">
+                            롯데</p></td>
+                        <td class="td_num">
+                            <a href="https://vastyle.co.kr/shop/item.php?it_id=1670207039">
+                                <img src="https://demo2022.iwinv.net/thegaon2/resources/img/dummy_product1.png"
+                                     width="50" height="50" alt=""></a>
+                        </td>
+                        <td headers="th_pc_title" class="td_input td_name">
+                            <label for="name_0" class="sound_only">상품명</label>
+                            <input type="text" name="it_name[0]" value="BLUE STRIPE UNBALANCED PADDING SHIRTS"
+                                   id="name_0" required="" class="frm_input required" size="30" style="display:none">
+                            <p>라면 시리즈</p>
+                        </td>
+                        <td headers="th_camt" class="td_numbig td_input">
+
+                            <input style="display:none" type="text" name="it_cust_price[0]" value="158000"
+                                   id="cust_price_0" class="frm_input sit_camt" size="7">
+                            158,000
+                        </td>
+                        <td headers="th_amt" class="td_numbig td_input">
+
+                            <input style="display:none" type="text" name="it_price[0]" value="158000" id="price_0"
+                                   class="frm_input sit_amt" size="7">
+                            158,000
+                        </td>
+                        <td headers="th_skin" class="td_numbig td_input" style="display:none">
+                            <label for="it_skin_0" class="sound_only">PC 스킨</label>
+                            <select id="it_skin_0" name="it_skin[0]">
+                                <option value="">선택</option>
+                                <option value="basic">basic</option>
+                            </select></td>
+                        <td headers="th_pt" class="td_numbig td_input" style="display:none">1</td>
+                        <td headers="th_qty" class="td_numbig td_input">
+
+                            <input style="display:none" type="text" name="it_stock_qty[0]" value="40" id="stock_qty_0"
+                                   class="frm_input sit_qty" size="7">
+                            40
+                        </td>
+                        <td headers="th_mskin" class="td_numbig td_input" style="display:none">
+                            <label for="it_mobile_skin_0" class="sound_only">모바일 스킨</label>
+                            <select id="it_mobile_skin_0" name="it_mobile_skin[0]">
+                                <option value="">선택</option>
+                                <option value="basic">basic</option>
+                            </select></td>
+                        <td class="td_num">
+                            <input type="checkbox" name="it_use[0]" checked="" value="1" id="use_0"
+                                   style="display:none">
+                            판매중
+                        </td>
+                        <td class="td_num">
+                            노출
+                        </td>
+                        <td class="td_numbig">2022-11-30<br> 18:01</td>
+                        <td class="td_mng" style="width: 105px">
+                        <td>
+                            <div class="link">
+                                <!-- TODO itemId 필요-->
+                                <a th:href="@{/admin/item/4}" class="btn btn_01">
+                                    <img src="https://cdn1.iconfinder.com/data/icons/100-basic-for-user-interface/32/27-pen-256.png">
+                                    <p class="skip">편집</p>
+                                </a>
+                            </div>
+                        </td>
+                        </td>
+                    </tr>
+
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="button">
+                <ul class="fl">
+                    <li><a href="javascript:;" class="btn btn_05">선택 삭제</a></li>
+                </ul>
+                <ul class="fr">
+                    <!-- TODO itemId 필요-->
+                    <li><a th:href="@{/admin/item/0}" class="btn btn_02">추가</a></li>
+                </ul>
+            </div>
+            <div class="paging">
+                <a href="#"><i class="xi-backward"></i><span class="skip">처음</span></a>
+                <a href="#"><i class="xi-step-backward"></i><span class="skip">이전</span></a>
+                <a href="#" class="current"><span>1</span></a>
+                <a href="#"><span>2</span></a>
+                <a href="#"><span>3</span></a>
+                <a href="#"><span>4</span></a>
+                <a href="#"><span>5</span></a>
+                <a href="#"><span>6</span></a>
+                <a href="#"><i class="xi-step-forward"></i><span class="skip">다음</span></a>
+                <a href="#"><i class="xi-forward"></i><span class="skip">마지막</span></a>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>

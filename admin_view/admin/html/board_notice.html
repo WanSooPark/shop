@@ -1,0 +1,98 @@
+<?php include("header.html");?>
+    <main id="container">
+        <div id="tool">
+            <div class="info">
+                <div class="title">관리자페이지</div>
+            </div>
+            <div class="logout">
+                <a href="#">로그아웃</a>
+            </div>
+        </div>
+        <div id="contain">
+            <div id="h1">
+                <strong>공지사항</strong>
+                <span>게시판 관리 > 공지사항</span>
+            </div>
+            <div id="board" class="content product">
+                <div class="control">
+                    <div class="total">총 <strong>10</strong>개</div>
+                    <div class="view">
+                        <select>
+                            <option>10page</option>
+                        </select>
+                        <select>
+                            <option>전체</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="button">
+                    <ul class="fl">
+                        <li><a href="javascript:;" class="btn btn_05">선택 삭제</a></li>
+                    </ul>
+                    <ul class="fr">
+                        <li><a href="./board_product_write.html" class="btn btn_02">추가</a></li>
+                    </ul>
+                </div>
+                <div class="table">
+                    <table>
+                        <colgroup>
+                            <col style="width:60px">
+                            <col style="width:60px">
+                            <col>
+                            <col style="width:200px">
+                            <col style="width:100px">
+                            <col style="width:100px">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th><label class="checkbox"><input type="checkbox" id="cbx_chkAll"><i></i><p class="skip">선택</p></label></th>
+                                <th>No</th>
+                                <th>제목</th>                                
+                                <th>작성일</th>
+                                <th>첨부파일</th>
+                                <th>편집</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><label class="checkbox"><input type="checkbox" name="chk"><i></i><p class="skip">선택</p></label></td>
+                                <td>1</td>
+                                <td class="tal">홈페이지를 신규오픈하였습니다.</td>
+                                <td>2023-02-01</td>
+                                <td>Y</td>
+                                <td>
+                                    <div class="link">
+                                        <a href="./board_notice_write.html" class="btn btn_01"><img src="https://cdn1.iconfinder.com/data/icons/100-basic-for-user-interface/32/27-pen-256.png"><p class="skip">편집</p></a>
+                                    </div>
+                                </td>
+                            </tr>
+                            
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="button">
+                    <ul class="fl">
+                        <li><a href="javascript:;" class="btn btn_05">선택 삭제</a></li>
+                    </ul>
+                    <ul class="fr">
+                        <li><a href="./board_product_write.html" class="btn btn_02">추가</a></li>
+                    </ul>
+                </div>
+                <div class="paging">
+                    <a href="#"><i class="xi-backward"></i><span class="skip">처음</span></a>
+                    <a href="#"><i class="xi-step-backward"></i><span class="skip">이전</span></a>
+                    <a href="#" class="current"><span>1</span></a>
+                    <a href="#"><span>2</span></a>
+                    <a href="#"><span>3</span></a>
+                    <a href="#"><span>4</span></a>
+                    <a href="#"><span>5</span></a>
+                    <a href="#"><span>6</span></a>
+                    <a href="#"><i class="xi-step-forward"></i><span class="skip">다음</span></a>
+                    <a href="#"><i class="xi-forward"></i><span class="skip">마지막</span></a>
+                </div>
+            </div>
+        </div>
+	</main>
+</body>
+</html>

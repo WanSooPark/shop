@@ -1,0 +1,1 @@
+server:  port: 8080spring:  config:    use-legacy-processing: true  profiles:    include:      - database  servlet:    multipart:      max-file-size: 100MB      max-request-size: 100MB  thymeleaf:    cache: false  mvc:    hiddenmethod:      filter:        enabled: trueitemImgLocation: C:/shop/itemuploadPath: file:///C:/shop/

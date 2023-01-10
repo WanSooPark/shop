@@ -1,0 +1,971 @@
+	<?php include("header.html");?>
+
+	
+	<link rel="stylesheet" type="text/css" href="https://vastyle.co.kr/skin/admin/basic/css/admin.css?ver=181108">
+
+	<style>
+#adm_content {
+    padding-bottom: 0
+}
+
+.category_tab {
+    margin-top: 30px;
+    margin-bottom: 10px;
+    display: flex;
+}
+
+.category_tab .category_tab_btn {
+    width: 300px;
+    height: 40px;
+    border: 1px solid #000;
+    background: #fff;
+    color: #000;
+}
+
+.category_tab .category_tab_btn.on {
+    background: #000;
+    color: #fff;
+}
+
+.category_box {
+    margin-bottom: 10px;
+}
+
+.category_auto_list {
+    border-left: 1px solid #ced9de;
+    border-right: 1px solid #ced9de;
+    width: 906px;
+    display: none;
+    position: absolute;
+    background: #fff;
+    height: 235px;
+    overflow-y: scroll;
+}
+
+.category_auto_list ul li {
+    border-bottom: 1px solid #ced9de;
+    padding: 15px 20px;
+    cursor: pointer;
+}
+
+.category_auto_list ul li:hover {
+    background: #f3f3f3;
+}
+
+.category_select_box {
+    display: none;
+}
+
+.category_select_box .remove_btn {
+    border: none;
+    background: #fff;
+}
+
+.category_select_box .remove_btn i {
+    font-size: 15px
+}
+
+/*.category_select_box.first {*/
+/*    display: flex;*/
+/*}*/
+
+.category_add {
+    border: none;
+    background: #3e4557;
+    color: #fff;
+    height: 38px;
+    width: 70px;
+}
+
+.va_pl30 th {
+    padding-left: 30px;
+}
+
+.va_pl30 td {
+    padding-left: 10px;
+}
+
+.local_desc02 {
+    margin-left: 0;
+}
+
+#category_select select {
+    width: 100%;
+    height: auto;
+    border-right: 0;
+    border-top: 0;
+}
+
+.va_admin_tb th {
+    min-width: 160px;
+    font-size: 15px;
+    padding: 0 25px !important;
+}
+.va_admin_tb .nomin th {
+    min-width: auto;
+}
+
+#select_category_tb td {
+    padding: 0;
+}
+
+#select_category_tb th {
+    text-align: center;
+}
+
+.va_admin_tb #selected_category_tb th,
+.va_admin_tb #selected_category_tb td {
+    min-width: 60px;
+    text-align: center;
+}
+
+#selected_category_tb th {
+    border-left: 0;
+    border-right: 0;
+}
+
+#selected_category_tb td {
+    border: 1px solid #ececec;
+}
+
+.anchor {
+    margin-bottom: 30px;
+    margin-left: 30px;
+}
+
+.anchor a {
+    background: #F6F6F6;
+    color: #9D9D9F;
+    font-size: 15px;
+    font-weight: 400;
+    padding: 14px 10px;
+	height: 60px;
+}
+
+h2.h2_frm {
+    padding-top: 15px;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.va_help {
+    display: inline-block;
+    margin-left: 20px;
+    font-size: 12px;
+    padding: 0
+}
+
+input[type=text] {
+    background: #fff;
+    border-radius: 5px;
+    height: 35px
+}
+</style>
+<style>
+.btnSelect {
+    min-width: 145px;
+    background: #fff url(../img/icon-select-dropdown.png) no-repeat right 10px center / auto 30px;
+    padding: 0 15px;
+    height: 42px;
+    border-radius: 5px;
+    border: 1px solid #D6D6D6;
+    line-height: 21px;
+    font-size: 15px;
+    font-weight: 500;
+    color: #1f1f1f;
+    text-align: left;
+}
+
+.btnSelect~ul.active {
+    display: flex;
+}
+
+.btnSelect~ul {
+    /*    position: absolute;*/
+    top: 100%;
+    margin-top: -1px;
+    display: flex;
+    flex-direction: column;
+    /*    width: 20%;*/
+    z-index: 5;
+    background: #fff;
+    padding: 10px;
+    border: 1px solid #D6D6D6;
+    display: none;
+}
+
+.stylebtnList {
+    border: solid 0 gray;
+    width: 120px;
+}
+
+#styleCate li {
+    float: left;
+}
+
+.feelbtnList {
+    border: solid 0 gray;
+    width: 120px;
+}
+
+#feelCate li {
+    float: left;
+}
+
+.colorbtnList {
+    border: solid 0 gray;
+    width: 120px;
+    background: #fff;
+    display: flex;
+    /*justify-content: center;*/
+    align-items: center;
+    margin: 0 auto;
+}
+.color_point {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 10px;
+    box-shadow: 2px 2px 3px 1px #e3e3e3;
+}
+.select_color {
+    height: 42px;
+    background: transparent;
+    color: #fff;
+    text-shadow: 0px 0px 2px #000;
+    font-size: 15px;
+    border: 1px solid #e3e3e3;
+    margin-left: 5px;
+}
+#colorCate li {
+    float: left;
+}
+
+.pbtnList {
+    border: solid 0 gray;
+    width: 120px;
+}
+
+#pCate li {
+    float: left;
+}
+
+</style>
+
+    <main id="container">
+        <div id="tool">
+            <div class="info">
+                <div class="title">관리자페이지</div>
+            </div>
+            <div class="logout">
+                <a href="#">로그아웃</a>
+            </div>
+        </div>
+        <div id="contain">
+            <div id="h1">
+                <strong>SHOP관리</strong>
+                <span>SHOP 관리 > 기획전관리</span>
+            </div>
+
+			<!--body -->
+<div class="tbl_frm01 tbl_wrap" style="margin-bottom: 30px">
+    <table>
+    <caption>기획전관리</caption>
+    <colgroup>
+        <col class="grid_4">
+        <col>
+    </colgroup>
+    <tbody>
+
+<!--     <tr> -->
+<!--         <th scope="row"><label for="bn_url">링크</label></th> -->
+<!--         <td> -->
+<!--             <span class="frm_info">링크클릭시 이동하는 주소입니다.</span> -->
+<!--             <input type="text" name="bn_url" size="80" value="" id="bn_url" class="frm_input"> -->
+<!--         </td> -->
+<!--     </tr> -->
+	
+	<tr>
+        <th scope="row"><label for="bn_subject">기획전 명</label></th>
+        <td>
+            <input type="text" name="bn_subject" value="라면박스포장 기획전" id="bn_subject" class="frm_input" size="80">
+        </td>
+    </tr>
+	<tr>
+        <th scope="row"><label for="bn_sub_subject">기획전 부제목</label></th>
+        <td>
+            <textarea name="bn_sub_subject">라면박스포장 기획전</textarea>
+        </td>
+    </tr>
+	<tr>
+        <th scope="row"><label for="bn_sub_subject"></label></th>
+        <td>
+            <label><input type="checkbox" name="title_show"> 체크시 기획전 제목/부제목을 본문 페이지에서 숨깁니다</label>
+        </td>
+	</tr>
+	<tr>
+        <th scope="row">기획전 대표이미지</th>
+        <td>
+            <input type="file" name="bn_bimg">
+            <input type="checkbox" name="bn_bimg_del" value="1" id="bn_bimg_del"> <label for="bn_bimg_del">삭제</label><div class="banner_or_img"><img src="https://demo2022.iwinv.net/thegaon2/resources/img/dummy_product1.png" width="250"></div>        </td>
+    </tr>
+
+
+		<tr style="display:none">
+			<th>기획전 상세 배너<br>(개별링크)</th>
+			<td>
+				<table>
+				<caption>이미지 업로드</caption>
+				<colgroup>
+					<col class="grid_4">
+					<col>
+				</colgroup>
+				<tbody>
+								<tr>
+					<th scope="row"><label for="it_img1">이미지 1</label></th>
+					<td>
+						<input type="file" name="it_img1" id="it_img1">
+						
+
+						<table>
+						<tbody><tr>
+							<th scope="row"><label for="bn_url">링크</label></th>
+							<td>
+								<span class="frm_info">배너클릭시 이동하는 주소입니다.</span>
+								<input type="text" name="bn_url1" id="bn_url1" value="" size="80" class="frm_input">
+							</td>
+						</tr>
+						<tr>
+							<th scope="row"><label for="bn_new_win">새창</label></th>
+							<td>
+								<span class="frm_info">배너클릭시 새창을 띄울지를 설정합니다.</span>
+									<select name="bn_new_win1" id="bn_new_win1">
+										<option value="0" selected="">사용안함</option>
+										<option value="1">사용</option>
+									</select>
+							</td>
+						</tr>
+						</tbody></table>
+					</td>
+
+
+				</tr>
+								<tr>
+					<th scope="row"><label for="it_img2">이미지 2</label></th>
+					<td>
+						<input type="file" name="it_img2" id="it_img2">
+						
+
+						<table>
+						<tbody><tr>
+							<th scope="row"><label for="bn_url">링크</label></th>
+							<td>
+								<span class="frm_info">배너클릭시 이동하는 주소입니다.</span>
+								<input type="text" name="bn_url2" id="bn_url2" value="" size="80" class="frm_input">
+							</td>
+						</tr>
+						<tr>
+							<th scope="row"><label for="bn_new_win">새창</label></th>
+							<td>
+								<span class="frm_info">배너클릭시 새창을 띄울지를 설정합니다.</span>
+									<select name="bn_new_win2" id="bn_new_win2">
+										<option value="0" selected="">사용안함</option>
+										<option value="1">사용</option>
+									</select>
+							</td>
+						</tr>
+						</tbody></table>
+					</td>
+
+
+				</tr>
+								<tr>
+					<th scope="row"><label for="it_img3">이미지 3</label></th>
+					<td>
+						<input type="file" name="it_img3" id="it_img3">
+						
+
+						<table>
+						<tbody><tr>
+							<th scope="row"><label for="bn_url">링크</label></th>
+							<td>
+								<span class="frm_info">배너클릭시 이동하는 주소입니다.</span>
+								<input type="text" name="bn_url3" id="bn_url3" value="" size="80" class="frm_input">
+							</td>
+						</tr>
+						<tr>
+							<th scope="row"><label for="bn_new_win">새창</label></th>
+							<td>
+								<span class="frm_info">배너클릭시 새창을 띄울지를 설정합니다.</span>
+									<select name="bn_new_win3" id="bn_new_win3">
+										<option value="0" selected="">사용안함</option>
+										<option value="1">사용</option>
+									</select>
+							</td>
+						</tr>
+						</tbody></table>
+					</td>
+
+
+				</tr>
+								<tr>
+					<th scope="row"><label for="it_img4">이미지 4</label></th>
+					<td>
+						<input type="file" name="it_img4" id="it_img4">
+						
+
+						<table>
+						<tbody><tr>
+							<th scope="row"><label for="bn_url">링크</label></th>
+							<td>
+								<span class="frm_info">배너클릭시 이동하는 주소입니다.</span>
+								<input type="text" name="bn_url4" id="bn_url4" value="" size="80" class="frm_input">
+							</td>
+						</tr>
+						<tr>
+							<th scope="row"><label for="bn_new_win">새창</label></th>
+							<td>
+								<span class="frm_info">배너클릭시 새창을 띄울지를 설정합니다.</span>
+									<select name="bn_new_win4" id="bn_new_win4">
+										<option value="0" selected="">사용안함</option>
+										<option value="1">사용</option>
+									</select>
+							</td>
+						</tr>
+						</tbody></table>
+					</td>
+
+
+				</tr>
+								<tr>
+					<th scope="row"><label for="it_img5">이미지 5</label></th>
+					<td>
+						<input type="file" name="it_img5" id="it_img5">
+						
+
+						<table>
+						<tbody><tr>
+							<th scope="row"><label for="bn_url">링크</label></th>
+							<td>
+								<span class="frm_info">배너클릭시 이동하는 주소입니다.</span>
+								<input type="text" name="bn_url5" id="bn_url5" value="" size="80" class="frm_input">
+							</td>
+						</tr>
+						<tr>
+							<th scope="row"><label for="bn_new_win">새창</label></th>
+							<td>
+								<span class="frm_info">배너클릭시 새창을 띄울지를 설정합니다.</span>
+									<select name="bn_new_win5" id="bn_new_win5">
+										<option value="0" selected="">사용안함</option>
+										<option value="1">사용</option>
+									</select>
+							</td>
+						</tr>
+						</tbody></table>
+					</td>
+
+
+				</tr>
+								<tr>
+					<th scope="row"><label for="it_img6">이미지 6</label></th>
+					<td>
+						<input type="file" name="it_img6" id="it_img6">
+						
+
+						<table>
+						<tbody><tr>
+							<th scope="row"><label for="bn_url">링크</label></th>
+							<td>
+								<span class="frm_info">배너클릭시 이동하는 주소입니다.</span>
+								<input type="text" name="bn_url6" id="bn_url6" value="" size="80" class="frm_input">
+							</td>
+						</tr>
+						<tr>
+							<th scope="row"><label for="bn_new_win">새창</label></th>
+							<td>
+								<span class="frm_info">배너클릭시 새창을 띄울지를 설정합니다.</span>
+									<select name="bn_new_win6" id="bn_new_win6">
+										<option value="0" selected="">사용안함</option>
+										<option value="1">사용</option>
+									</select>
+							</td>
+						</tr>
+						</tbody></table>
+					</td>
+
+
+				</tr>
+								<tr>
+					<th scope="row"><label for="it_img7">이미지 7</label></th>
+					<td>
+						<input type="file" name="it_img7" id="it_img7">
+						
+
+						<table>
+						<tbody><tr>
+							<th scope="row"><label for="bn_url">링크</label></th>
+							<td>
+								<span class="frm_info">배너클릭시 이동하는 주소입니다.</span>
+								<input type="text" name="bn_url7" id="bn_url7" value="" size="80" class="frm_input">
+							</td>
+						</tr>
+						<tr>
+							<th scope="row"><label for="bn_new_win">새창</label></th>
+							<td>
+								<span class="frm_info">배너클릭시 새창을 띄울지를 설정합니다.</span>
+									<select name="bn_new_win7" id="bn_new_win7">
+										<option value="0" selected="">사용안함</option>
+										<option value="1">사용</option>
+									</select>
+							</td>
+						</tr>
+						</tbody></table>
+					</td>
+
+
+				</tr>
+								<tr>
+					<th scope="row"><label for="it_img8">이미지 8</label></th>
+					<td>
+						<input type="file" name="it_img8" id="it_img8">
+						
+
+						<table>
+						<tbody><tr>
+							<th scope="row"><label for="bn_url">링크</label></th>
+							<td>
+								<span class="frm_info">배너클릭시 이동하는 주소입니다.</span>
+								<input type="text" name="bn_url8" id="bn_url8" value="" size="80" class="frm_input">
+							</td>
+						</tr>
+						<tr>
+							<th scope="row"><label for="bn_new_win">새창</label></th>
+							<td>
+								<span class="frm_info">배너클릭시 새창을 띄울지를 설정합니다.</span>
+									<select name="bn_new_win8" id="bn_new_win8">
+										<option value="0" selected="">사용안함</option>
+										<option value="1">사용</option>
+									</select>
+							</td>
+						</tr>
+						</tbody></table>
+					</td>
+
+
+				</tr>
+								<tr>
+					<th scope="row"><label for="it_img9">이미지 9</label></th>
+					<td>
+						<input type="file" name="it_img9" id="it_img9">
+						
+
+						<table>
+						<tbody><tr>
+							<th scope="row"><label for="bn_url">링크</label></th>
+							<td>
+								<span class="frm_info">배너클릭시 이동하는 주소입니다.</span>
+								<input type="text" name="bn_url9" id="bn_url9" value="" size="80" class="frm_input">
+							</td>
+						</tr>
+						<tr>
+							<th scope="row"><label for="bn_new_win">새창</label></th>
+							<td>
+								<span class="frm_info">배너클릭시 새창을 띄울지를 설정합니다.</span>
+									<select name="bn_new_win9" id="bn_new_win9">
+										<option value="0" selected="">사용안함</option>
+										<option value="1">사용</option>
+									</select>
+							</td>
+						</tr>
+						</tbody></table>
+					</td>
+
+
+				</tr>
+								<tr>
+					<th scope="row"><label for="it_img10">이미지 10</label></th>
+					<td>
+						<input type="file" name="it_img10" id="it_img10">
+						
+
+						<table>
+						<tbody><tr>
+							<th scope="row"><label for="bn_url">링크</label></th>
+							<td>
+								<span class="frm_info">배너클릭시 이동하는 주소입니다.</span>
+								<input type="text" name="bn_url10" id="bn_url10" value="" size="80" class="frm_input">
+							</td>
+						</tr>
+						<tr>
+							<th scope="row"><label for="bn_new_win">새창</label></th>
+							<td>
+								<span class="frm_info">배너클릭시 새창을 띄울지를 설정합니다.</span>
+									<select name="bn_new_win10" id="bn_new_win10">
+										<option value="0" selected="">사용안함</option>
+										<option value="1">사용</option>
+									</select>
+							</td>
+						</tr>
+						</tbody></table>
+					</td>
+
+
+				</tr>
+								</tbody>
+				</table>
+			</td>
+		</tr>
+
+
+    <tr>
+        <th scope="row"><label for="bn_kind">분류</label></th>
+        <td>
+            <select name="bn_kind" id="bn_kind">
+                <option value="main">식품분류</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <th scope="row"><label for="bn_begin_time">시작일시</label></th>
+        <td>
+            <span class="frm_info">기획전 게시 시작일시를 설정합니다.</span>            <input type="text" name="bn_begin_time" value="2022-12-01 00:00:00" id="bn_begin_time" class="frm_input" size="21" maxlength="19">
+            <input type="checkbox" name="bn_begin_chk" value="2022-12-08 00:00:00" id="bn_begin_chk" onclick="if (this.checked == true) this.form.bn_begin_time.value=this.form.bn_begin_chk.value; else this.form.bn_begin_time.value = this.form.bn_begin_time.defaultValue;">
+            <label for="bn_begin_chk">오늘</label>
+        </td>
+    </tr>
+    <tr>
+        <th scope="row"><label for="bn_end_time">종료일시</label></th>
+        <td>
+            <span class="frm_info">기획전 게시 종료일시를 설정합니다.</span>            <input type="text" name="bn_end_time" value="2023-01-01 00:00:00" id="bn_end_time" class="frm_input" size="21" maxlength="19">
+            <input type="checkbox" name="bn_end_chk" value="2023-01-08 23:59:59" id="bn_end_chk" onclick="if (this.checked == true) this.form.bn_end_time.value=this.form.bn_end_chk.value; else this.form.bn_end_time.value = this.form.bn_end_time.defaultValue;">
+            <label for="bn_end_chk">오늘+31일</label>
+        </td>
+    </tr>
+	<tr>
+        <th scope="row"><label for="bn_status">활성/비활성</label></th>
+        <td>
+            <span class="frm_info">기획전 활성여부를 설정합니다.</span>            <select name="bn_status" id="bn_status">
+                <option value="0">비활성</option>
+                <option value="1" selected="selected">활성</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <th scope="row"><label for="bn_order">출력 순서</label></th>
+        <td>
+           <span class="frm_info">배너를 출력할 때 순서를 정합니다. 숫자가 작을수록 먼저 출력됩니다.</span>           <select name="bn_order" id="bn_order"><option value="1" selected="">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option><option value="32">32</option><option value="33">33</option><option value="34">34</option><option value="35">35</option><option value="36">36</option><option value="37">37</option><option value="38">38</option><option value="39">39</option><option value="40">40</option><option value="41">41</option><option value="42">42</option><option value="43">43</option><option value="44">44</option><option value="45">45</option><option value="46">46</option><option value="47">47</option><option value="48">48</option><option value="49">49</option><option value="50">50</option><option value="51">51</option><option value="52">52</option><option value="53">53</option><option value="54">54</option><option value="55">55</option><option value="56">56</option><option value="57">57</option><option value="58">58</option><option value="59">59</option><option value="60">60</option><option value="61">61</option><option value="62">62</option><option value="63">63</option><option value="64">64</option><option value="65">65</option><option value="66">66</option><option value="67">67</option><option value="68">68</option><option value="69">69</option><option value="70">70</option><option value="71">71</option><option value="72">72</option><option value="73">73</option><option value="74">74</option><option value="75">75</option><option value="76">76</option><option value="77">77</option><option value="78">78</option><option value="79">79</option><option value="80">80</option><option value="81">81</option><option value="82">82</option><option value="83">83</option><option value="84">84</option><option value="85">85</option><option value="86">86</option><option value="87">87</option><option value="88">88</option><option value="89">89</option><option value="90">90</option><option value="91">91</option><option value="92">92</option><option value="93">93</option><option value="94">94</option><option value="95">95</option><option value="96">96</option><option value="97">97</option><option value="98">98</option><option value="99">99</option><option value="100">100</option></select>        </td>
+    </tr>
+
+	<tr>
+        <th scope="row"><label for="bn_alt2">PC 기획전 기획전 설명</label></th>
+        <td>
+<!--             <input type="text" name="bn_alt2" value="" id="bn_alt2" class="frm_input" size="80"> -->
+				<span class="sound_only">웹에디터 시작</span><script>document.write("<div class='cke_sc'><button type='button' class='btn_cke_sc'>단축키 일람</button></div>");</script><div class="cke_sc"><button type="button" class="btn_cke_sc">단축키 일람</button></div>
+<script src="https://vastyle.co.kr/plugin/editor/smarteditor2/js/service/HuskyEZCreator.js"></script>
+<script>var g5_editor_url = "https://vastyle.co.kr/plugin/editor/smarteditor2", oEditors = [], ed_nonce = "lpXjLeLv7Q|1670452515|fdac050882829975ad50c3435dcd2994818f0349";</script>
+<script src="https://vastyle.co.kr/plugin/editor/smarteditor2/config.js"></script>
+<script>
+        $(function(){
+            $(".btn_cke_sc").click(function(){
+                if ($(this).next("div.cke_sc_def").length) {
+                    $(this).next("div.cke_sc_def").remove();
+                    $(this).text("단축키 일람");
+                } else {
+                    $(this).after("<div class='cke_sc_def' />").next("div.cke_sc_def").load("https://vastyle.co.kr/plugin/editor/smarteditor2/shortcut.html");
+                    $(this).text("단축키 일람 닫기");
+                }
+            });
+            $(document).on("click", ".btn_cke_sc_close", function(){
+                $(this).parent("div.cke_sc_def").remove();
+            });
+        });
+</script>
+<textarea id="bn_desc" name="bn_desc" class="smarteditor2" maxlength="65536" style="width: 100%; height: 300px; display: none;">&lt;p&gt;&lt;img src="https://vastyle.co.kr/data/editor/2212/9f2845f27ba3adc52200a11e0d469f1e_1669873089_9009.jpg" title="9f2845f27ba3adc52200a11e0d469f1e_1669873089_9009.jpg"&gt;&lt;br style="clear:both;"&gt;&lt;img src="https://vastyle.co.kr/data/editor/2212/9f2845f27ba3adc52200a11e0d469f1e_1669873090_5577.jpg" title="9f2845f27ba3adc52200a11e0d469f1e_1669873090_5577.jpg"&gt;&lt;br style="clear:both;"&gt;&lt;img src="https://vastyle.co.kr/data/editor/2212/9f2845f27ba3adc52200a11e0d469f1e_1669873091_649.jpg" title="9f2845f27ba3adc52200a11e0d469f1e_1669873091_649.jpg"&gt;&lt;br style="clear:both;"&gt;&lt;img src="https://vastyle.co.kr/data/editor/2212/9f2845f27ba3adc52200a11e0d469f1e_1669873093_4983.jpg" title="9f2845f27ba3adc52200a11e0d469f1e_1669873093_4983.jpg"&gt;&lt;br style="clear:both;"&gt;&amp;nbsp;&lt;/p&gt;</textarea><iframe frameborder="0" scrolling="no" style="width: 100%; height: 349px;" src="https://vastyle.co.kr/plugin/editor/smarteditor2/SmartEditor2Skin.html"></iframe>
+<span class="sound_only">웹 에디터 끝</span>        </td>
+    </tr>
+
+	<tr>
+        <th scope="row"><label for="bn_alt2">MO 기획전 설명</label></th>
+        <td>            
+<!--             <input type="text" name="bn_alt2" value="" id="bn_alt2" class="frm_input" size="80"> -->
+				<span class="sound_only">웹에디터 시작</span><script>document.write("<div class='cke_sc'><button type='button' class='btn_cke_sc'>단축키 일람</button></div>");</script><div class="cke_sc"><button type="button" class="btn_cke_sc">단축키 일람</button></div>
+<textarea id="bn_desc2" name="bn_desc2" class="smarteditor2" maxlength="65536" style="width: 100%; height: 300px; display: none;">&lt;p&gt;&lt;img src="https://vastyle.co.kr/data/editor/2212/9f2845f27ba3adc52200a11e0d469f1e_1669873105_0541.jpg" title="9f2845f27ba3adc52200a11e0d469f1e_1669873105_0541.jpg"&gt;&lt;br style="clear:both;"&gt;&lt;img src="https://vastyle.co.kr/data/editor/2212/9f2845f27ba3adc52200a11e0d469f1e_1669873105_2666.jpg" title="9f2845f27ba3adc52200a11e0d469f1e_1669873105_2666.jpg"&gt;&lt;br style="clear:both;"&gt;&lt;img src="https://vastyle.co.kr/data/editor/2212/9f2845f27ba3adc52200a11e0d469f1e_1669873105_4316.jpg" title="9f2845f27ba3adc52200a11e0d469f1e_1669873105_4316.jpg"&gt;&lt;br style="clear:both;"&gt;&lt;img src="https://vastyle.co.kr/data/editor/2212/9f2845f27ba3adc52200a11e0d469f1e_1669873105_7734.jpg" title="9f2845f27ba3adc52200a11e0d469f1e_1669873105_7734.jpg"&gt;&lt;br style="clear:both;"&gt;&lt;img src="https://vastyle.co.kr/data/editor/2212/9f2845f27ba3adc52200a11e0d469f1e_1669873106_2578.jpg" title="9f2845f27ba3adc52200a11e0d469f1e_1669873106_2578.jpg"&gt;&lt;br style="clear:both;"&gt;&lt;img src="https://vastyle.co.kr/data/editor/2212/9f2845f27ba3adc52200a11e0d469f1e_1669873106_5588.jpg" title="9f2845f27ba3adc52200a11e0d469f1e_1669873106_5588.jpg"&gt;&lt;br style="clear:both;"&gt;&amp;nbsp;&lt;/p&gt;</textarea><iframe frameborder="0" scrolling="no" style="width: 100%; height: 349px;" src="https://vastyle.co.kr/plugin/editor/smarteditor2/SmartEditor2Skin.html"></iframe>
+<span class="sound_only">웹 에디터 끝</span> 
+        </td>
+    </tr> 
+
+
+
+
+
+
+	<tr>
+		<th scope="row"><label for="bn_order">상품 등록안내</label></th>
+		<td style="color:#e53e53">※카테고리 제목과 설명등록후 상품등록이 가능합니다.</td>
+	</tr>
+    </tbody>
+    </table>
+</div>
+			<!--body -->
+
+			
+			<div class="top_add_wrap">
+    <a href="javascript:openPop()">제품선택 추가</a>
+</div>
+
+<div class="tbl_head01 tbl_wrap" id="itemList" style="margin-bottom: 30px; padding: 0 30px">
+
+
+
+<div class="top_add_wrap" style="padding: 0">
+	<a href="javascript:seldeleteAll()">선택삭제</a>
+	<a href="javascript:deleteAll()">전체삭제</a>
+<!--     <a href="javascript:openPop()" style="height:40px;line-height:40px; margin-left: 10px">제품선택 추가</a> -->
+	<a href="javascript:void()" id="setOrder">정렬 적용</a>
+</div>
+
+	<form name="fitemlistupdate" method="post" autocomplete="off">
+	<input type="hidden" id="gtype" name="gtype">
+
+	<table id="table_1">
+    <caption> 목록</caption>
+    <thead>
+    <tr style="cursor: move;">        
+		<th scope="col" id="th_dvc">선택</th>
+        <th scope="col" id="th_dvc">이미지[ 상품ID ]</th>
+		<th scope="col" id="th_hit">카테고리</th>
+        <th scope="col" id="th_loc">상품명</th>
+        <th scope="col" id="th_st">브랜드명</th>
+        <th scope="col" id="th_end">시중가격</th>
+        <th scope="col" id="th_odr">판매가격</th>
+        <th scope="col" id="th_mng" style="width:100px !important">관리</th>
+    </tr>
+    
+    </thead>
+    <tbody>
+    
+    <tr id="470" class="bg0 tr1" style="cursor: move;">  
+	
+		<td class="td_chk">
+            <input type="hidden" id="bn_id_0" name="bn_id[0]" value="470">
+            <input type="checkbox" id="chk_0" name="chk[]" value="470" title="내역선택">
+        </td>
+
+        <td headers="th_dvc">
+            <img src="https://demo2022.iwinv.net/thegaon2/resources/img/dummy_product1.png" width="100" height="100" alt="" title="">
+			[ 1669356275 ]
+		</td>
+        <td headers="th_loc">카테고리1</td>
+        <td headers="th_st" class="td_datetime" style="white-space: nowrap">상품명</td>
+        <td headers="th_end" class="td_datetime">브랜드명</td>
+        <td headers="th_odr" class="td_num">349,000</td>
+        <td headers="th_hit" class="td_num">349,000</td>
+        <td headers="th_mng" class="td_mngsmall">            
+            <a href="javascript:delete_confirm('470');" class="new_va_btn">삭제</a>
+        </td>
+    </tr>
+
+    <tr class="bg0" style="display: none; cursor: move;">
+        <td headers="th_img" colspan="7" class="td_img_view sbn_img">
+            <div class="sbn_image"></div>
+            <button type="button" class="sbn_img_view btn_frmline">이미지확인</button>
+        </td>
+    </tr>
+
+    
+    <tr id="471" class="bg1 tr1" style="cursor: move;">  
+	
+		<td class="td_chk">
+            <input type="hidden" id="bn_id_1" name="bn_id[1]" value="471">
+            <input type="checkbox" id="chk_1" name="chk[]" value="471" title="내역선택">
+        </td>
+
+        <td headers="th_dvc">
+            <img src="https://demo2022.iwinv.net/thegaon2/resources/img/dummy_product1.png" width="100" height="100" alt="" title="">
+<!-- 			<img src="https://vastyle.co.kr/img/noimage.png" width="50" height="50" alt="" title=""> -->
+			[ 1669356272 ]
+		</td>
+        <td headers="th_loc">
+            카테고리1</td>
+        <td headers="th_st" class="td_datetime" style="white-space: nowrap">상품명</td>
+        <td headers="th_end" class="td_datetime">브랜드명</td>
+        <td headers="th_odr" class="td_num">349,000</td>
+        <td headers="th_hit" class="td_num">349,000</td>
+        <td headers="th_mng" class="td_mngsmall">            
+            <a href="javascript:delete_confirm('471');" class="new_va_btn">삭제</a>
+        </td>
+    </tr>
+
+    <tr class="bg1" style="display: none; cursor: move;">
+        <td headers="th_img" colspan="7" class="td_img_view sbn_img">
+            <div class="sbn_image"></div>
+            <button type="button" class="sbn_img_view btn_frmline">이미지확인</button>
+        </td>
+    </tr>    
+
+        </tbody>
+    </table>
+	</form>
+
+	<script>
+	function delete_confirm(bn_id)
+	{
+		$.get("exhibition_list_delete.php?gtype=only&bn_id="+bn_id, function(data, status){
+		//alert("Data: " + data + "\nStatus: " + status);
+			//$("#feedList").html(data);
+			location.reload();
+		});
+	}
+
+	function deleteAll()
+	{
+		if(confirm("정말 삭제하시겠습니까?")){
+			$.get("exhibition_list_delete.php?gtype=all&bn_id=18", function(data, status){
+				//alert("Data: " + data + "\nStatus: " + status);
+				//$("#feedList").html(data);
+
+				// console.log(data);
+				location.reload();
+			});
+		}
+	}
+
+	function seldeleteAll(){		
+
+//			$.get("exhibition_list_delete.php?gtype=selData&bn_id=18", function(data, status){
+//				//alert("Data: " + data + "\nStatus: " + status);
+//				//$("#feedList").html(data);
+//
+//				console.log(data); 
+//				//location.reload();
+//			});
+			
+			if(confirm("선택한 아이템을 정말 삭제하시겠습니까?")) {
+				   
+				o_OBJ = $('form[name=fitemlistupdate]').serialize();
+				$.ajax({ 
+					url: 'exhibition_list_delete_sel.php',
+					data : o_OBJ,
+		//			data : {'hand':'del','idx':idx},
+					dataType: "json",
+					type : 'POST',
+					timeout : 1000,
+					error : function( xhr, ajaxOptions, thrownError )
+					{
+						alert( "오류가 발생하였습니다.\n잠시후에 시도해주세요." );
+					},
+					success: function(data)
+					{
+
+						console.log(data); 
+						if( data.code == "OK" )
+						{
+
+							alert( data.msg );
+                            location.reload();
+							// window.close();
+							// document.location.reload();
+							//location.href="search_view.html?idx=";
+						}
+						else if( data.code == "ERR" )
+						{
+							alert( data.msg );
+						}
+					}
+				});
+
+			}
+			
+	}
+
+
+	</script>
+
+
+<style>
+body {font-family: "맑은 고딕";}
+table,td,th {border-collapse:collapse}
+/*사용자 정의 스타일 */
+.dragRow {background-color: #fee;}
+
+td.dragHandle {}
+
+td.showDragHandle {
+    background-image: url(images/updown2.gif);
+    background-repeat: no-repeat;
+    background-position: center left;
+    cursor: move;
+}
+
+table td {padding:5px;}
+</style>
+
+<script type="text/javascript">
+
+  $(document).ready(function() {
+	
+	// Initialise the first table (as before)
+	$(function() {
+
+		var ordered_items;
+		$('#table_1').tableDnD({
+			onDragClass: "dragRow",
+			onDrop: function(table, row) {
+					
+					ordered_items = $.tableDnD.serialize('id');
+
+					//alert(ordered_items);
+			}
+		});
+
+
+
+
+		$('#btn_order').css("cursor","pointer").click(function() {
+			alert("order"); 
+	//        $.ajax ({
+	//            type:"POST",
+	//            url:"./order_process.php",
+	//            data:ordered_items,
+	//            success:function(data) {
+	//                alert ("서열순서를 DB에 반영했습니다.");
+	//            }
+	//        });   
+
+		});
+
+		// class td1 중에서 짝수번째 요소만 선택해서 배경색을 지정색으로 표시
+		// $(".tr1:odd").css("background-color","#F4F9FF");
+
+
+	$("#setOrder").click(function()
+{
+	
+	$.ajax ({
+		type:"POST",
+		url:"./order_process_exhibition.php",
+		data:ordered_items,
+		success:function(data) {
+			alert ("서열순서를 DB에 반영했습니다."); 
+			console.log(data);
+		}
+	});   
+});
+
+
+	}); // ready
+
+
+
+	
+
+	
+
+});
+
+
+</script></div>
+            
+	</main>
+</body>
+</html>
