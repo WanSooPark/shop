@@ -1,11 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-  <head th:replace="admin/fragments/header :: adminHead">
-    <head>
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-      <script src="./write.js"></script>
-    </head>
-  </head>
+  <head th:replace="admin/fragments/header :: adminHead"></head>
   <body id="wrap">
     <th:block th:replace="admin/fragments/header :: adminHeader()"></th:block>
     <link
@@ -265,7 +260,7 @@
         float: left;
       }
     </style>
-
+    <script src="/admin/js/write.js"></script>
     <main id="container">
       <div id="tool">
         <div class="info">
@@ -289,21 +284,6 @@
           enctype="MULTIPART/FORM-DATA"
           autocomplete="off"
         >
-          <input type="hidden" name="codedup" value="1" />
-          <input type="hidden" name="w" value="u" />
-          <input type="hidden" name="sca" value="" />
-          <input type="hidden" name="sst" value="" />
-          <input type="hidden" name="sod" value="" />
-          <input type="hidden" name="sfl" value="" />
-          <input type="hidden" name="stx" value="" />
-          <input type="hidden" name="page" value="1" />
-
-          <input type="hidden" name="styleArr" id="styleArr" value="" />
-          <input type="hidden" name="feelArr" id="feelArr" value="" />
-          <input type="hidden" name="colorArr" id="colorArr" value="" />
-          <input type="hidden" name="pArr" id="pArr" value="" />
-
-          <input type="hidden" name="filter1" id="filter1" value="" />
           <input type="hidden" name="filter2" id="filter2" value="" />
           <ul class="anchor">
             <li><a href="#anc_sitfrm_cate">카테고리</a></li>

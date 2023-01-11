@@ -1,4 +1,4 @@
-//package com.shop.services.service.items.service;
+package com.shop.services.service.items.service;//package com.shop.services.service.items.service;
 //
 //import com.shop.commons.file.FileService;
 //import com.shop.models.items.domain.ItemImg;

@@ -1,4 +1,4 @@
-//package com.shop.services.service.orders.dto;
+package com.shop.services.service.orders.dto;//package com.shop.services.service.orders.dto;
 //
 //import lombok.Getter;
 //import lombok.Setter;
