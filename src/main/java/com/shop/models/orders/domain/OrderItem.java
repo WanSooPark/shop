@@ -2,14 +2,19 @@ package com.shop.models.orders.domain;
 
 import com.shop.commons.entity.BaseEntity;
 import com.shop.models.items.domain.Item;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
-@Entity
 @Getter
 @Setter
+@Entity
+@EqualsAndHashCode(of = "id", callSuper = false)
+@NoArgsConstructor
+@AllArgsConstructor
 public class OrderItem extends BaseEntity {
 
     @Id
@@ -22,26 +27,8 @@ public class OrderItem extends BaseEntity {
     @ManyToOne
     private Order order;
 
-    private Long orderPrice; // 주문가격
+    private Long price; // 주문가격
 
     private Long count; // 수량
-
-    public static OrderItem createOrderItem(Item item, long count) {
-        OrderItem orderItem = new OrderItem();
-        orderItem.setItem(item);
-        orderItem.setCount(count);
-        orderItem.setOrderPrice(item.getPrice());
-        item.release(count);
-        return orderItem;
-    }
-
-    public long getTotalPrice() {
-        return orderPrice * count;
-    }
-
-    public void cancel() {
-        this.getItem()
-                .warehousing(count);
-    }
 
 }

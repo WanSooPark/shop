@@ -47,10 +47,11 @@
                 </li>
 
                 <li class="dl1">
-                    <a th:href="@{/admin/item}" class="da1"><span>상품 관리</span></a>
-                    <button class="openMenu"><i class="xi-caret-down-min"></i></button>
+<!--                    <a th:href="@{/admin/item}" class="da1"><span>상품 관리</span></a>-->
+                    <label for="itemMenu" class="da1"><span>상품 관리</span></label>
+                    <button id="itemMenu" class="openMenu"><i class="xi-caret-down-min"></i></button>
                     <ul class="dp2">
-                        <li class="dl2"><a href="./product_category.html" class="da2">분류관리</a></li>
+                        <li class="dl2"><a th:href="@{/admin/category}" class="da2">분류관리</a></li>
                         <li class="dl2"><a th:href="@{/admin/item}" class="da2">상품관리</a></li>
                         <li class="dl2"><a href="./product_review.html" class="da2">후기관리</a></li>
                     </ul>

@@ -2,32 +2,23 @@ package com.shop.models.carts.domain;
 
 import com.shop.commons.entity.BaseEntity;
 import com.shop.models.members.domain.Member;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 
-@Entity
-@Table(name = "cart")
 @Getter
 @Setter
-@ToString
+@Entity
+@EqualsAndHashCode(of = "id", callSuper = false)
+@NoArgsConstructor
+@AllArgsConstructor
 public class Cart extends BaseEntity {
 
     @Id
-    @Column(name = "cart_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
+    @OneToOne
     private Member member;
-
-    public static Cart createCart(Member member) {
-        Cart cart = new Cart();
-        cart.setMember(member);
-        return cart;
-    }
 
 }

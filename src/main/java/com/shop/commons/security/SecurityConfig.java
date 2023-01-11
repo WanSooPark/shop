@@ -32,7 +32,7 @@ public class SecurityConfig {
         http.formLogin()
                 .disable();
 
-        http.csrf();
+        http.csrf().disable();
 //                .csrfTokenRepository(sessionCsrfRepository());
 
         http.authorizeRequests(request -> {

@@ -200,8 +200,8 @@
         </div>
     </div>
 
-    <div class="text-center" th:each="itemImg : ${item.itemImgDtoList}">
-        <img class="rounded mgb-15" th:if="${not #strings.isEmpty(itemImg.imgUrl)}" th:src="${itemImg.imgUrl}"
+    <div class="text-center" th:each="itemImage : ${item.itemImgDtoList}">
+        <img class="rounded mgb-15" th:if="${not #strings.isEmpty(itemImage.imgUrl)}" th:src="${itemImage.imgUrl}"
              width="800">
     </div>
 

@@ -272,23 +272,8 @@
             <span>상품 관리 > 상품관리</span>
         </div>
 
-        <form id="itemForm" name="itemForm" method="post" th:action="@{/admin/item}" enctype="MULTIPART/FORM-DATA" autocomplete="off">
-            <input type="hidden" name="codedup" value="1">
-            <input type="hidden" name="w" value="u">
-            <input type="hidden" name="sca" value="">
-            <input type="hidden" name="sst" value="">
-            <input type="hidden" name="sod" value="">
-            <input type="hidden" name="sfl" value="">
-            <input type="hidden" name="stx" value="">
-            <input type="hidden" name="page" value="1">
-
-            <input type="hidden" name="styleArr" id="styleArr" value="">
-            <input type="hidden" name="feelArr" id="feelArr" value="">
-            <input type="hidden" name="colorArr" id="colorArr" value="">
-            <input type="hidden" name="pArr" id="pArr" value="">
-
-            <input type="hidden" name="filter1" id="filter1" value="">
-            <input type="hidden" name="filter2" id="filter2" value="">
+        <form id="itemForm" name="itemForm" method="post" action="/admin/item" enctype="MULTIPART/FORM-DATA" autocomplete="off">
+            <input type="hidden" name="id" id="id">
             <ul class="anchor">
                 <li><a href="#anc_sitfrm_cate">카테고리</a></li>
                 <li><a href="#anc_sitfrm_ini">기본정보</a></li>
@@ -2031,17 +2016,16 @@
                 </div>
             </section>
         </form>
-            <div class="va_admin_line"></div>
-            <div class="button">
-                <ul class="fl">
-                    <li><a href="javascript:window.history.back();" class="btn btn_03">목록</a></li>
-                    <li><a href="javascript:window.history.back();" class="btn btn_01">취소</a></li>
-                </ul>
-                <ul class="fr">
-                    <li><button class="btn btn_02" onclick="submit()">저장</button></li>
-                </ul>
-            </div>
-
+        <div class="va_admin_line"></div>
+        <div class="button">
+            <ul class="fl">
+                <li><a href="javascript:window.history.back();" class="btn btn_03">목록</a></li>
+                <li><a href="javascript:window.history.back();" class="btn btn_01">취소</a></li>
+            </ul>
+            <ul class="fr">
+                <li><button class="btn btn_02" onclick="submit()">저장</button></li>
+            </ul>
+        </div>
     </div>
 
     <script type="application/javascript" th:inline="javascript">

@@ -2,6 +2,7 @@ package com.shop.commons.file;
 
 import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -32,4 +33,15 @@ public class FileService {
         }
     }
 
+    public FileInfo uploadFile(MultipartFile imageFile) {
+        String originName = ""; // 원본 이미지 명
+        String name = ""; // 저장한 이미지 명
+        String url = ""; // 이미지 주소
+
+        return FileInfo.builder()
+                .originName(originName)
+                .name(name)
+                .url(url)
+                .build();
+    }
 }

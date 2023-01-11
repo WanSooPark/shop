@@ -1,6 +1,6 @@
 package com.shop.services.service.items.dto;
 
-import com.shop.models.items.domain.ItemImg;
+import com.shop.models.items.domain.ItemImage;
 import lombok.Getter;
 import lombok.Setter;
 import org.modelmapper.ModelMapper;
@@ -16,8 +16,8 @@ public class ItemImgDto {
     private String imgUrl;
     private String repImgYn;
 
-    public static ItemImgDto of(ItemImg itemImg) {
-        return modelMapper.map(itemImg, ItemImgDto.class);
+    public static ItemImgDto of(ItemImage itemImage) {
+        return modelMapper.map(itemImage, ItemImgDto.class);
     }
 
 }

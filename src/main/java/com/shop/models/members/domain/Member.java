@@ -3,23 +3,21 @@ package com.shop.models.members.domain;
 import com.shop.commons.entity.BaseEntity;
 import com.shop.commons.utils.Sha256;
 import com.shop.services.service.members.dto.MemberFormDto;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.security.NoSuchAlgorithmException;
 
-@Entity
-@Table(name = "member")
 @Getter
 @Setter
-@ToString
+@Entity
+@EqualsAndHashCode(of = "id", callSuper = false)
+@NoArgsConstructor
+@AllArgsConstructor
 public class Member extends BaseEntity {
 
     @Id
-    @Column(name = "member_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
