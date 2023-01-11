@@ -20,7 +20,7 @@ public class AdminCategoryResponse {
 
         return AdminCategoryResponse.builder()
                 .id(category.getId())
-                .name((category.getDepth() == 2 ? "ㄴ" : "") + category.getName())
+                .name(category.getName())
                 .depth(category.getDepth())
                 .topCategory(ObjectUtils.isEmpty(topCategory) ? null : AdminCategoryResponse.of(topCategory))
                 .topCategoryId(ObjectUtils.isEmpty(topCategory) ? null : topCategory.getId())

@@ -29,7 +29,7 @@
                             <select th:name="topCategoryId">
                                 <option value="">없음</option>
                                 <option th:each="topCategory: ${topCategories}" th:value="${topCategory?.getId()}"
-                                        th:text="${topCategory?.getName()}">분류</option>
+                                        th:text="${(topCategory.getDepth() == 2 ? 'ㄴ' : '') + topCategory?.getName()}">분류</option>
                             </select>
                         </dd>
                     </dl>

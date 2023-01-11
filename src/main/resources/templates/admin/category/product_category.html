@@ -67,13 +67,16 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
+                    <tr th:each="category: ${categoriesPage.getContent()}">
                         <td><label class="checkbox"><input type="checkbox" name="chk"><i></i>
                             <p class="skip">선택</p></label></td>
                         <td>1</td>
-                        <td>카테고리1</td>
-                        <td>카테고리2</td>
-                        <td>카테고리3</td>
+
+                        <td th:if="${category.getTopCategory() != null && category.getTopCategory().getTopCategory() != null}" th:text="${category.getTopCategory().getTopCategory().getName()}">top카테고리</td>
+                        <td th:if="${category.getTopCategory() != null}" th:text="${category.getTopCategory().getName()}">top카테고리</td>
+                        <td th:text="${category.getName()}">카테고리1</td>
+                        <td th:if="${category.getDepth() <= 2}" th:text="${'-'}"></td>
+                        <td th:if="${category.getDepth() == 1}" th:text="${'-'}"></td>
 
                         <td>
                             <div class="link">
