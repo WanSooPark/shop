@@ -2,4 +2,6 @@
 ./gradlew clean
 ./gradlew build
 
-scp -r ./mosazzi-api/build/libs/mosazzi-api-server-*.jar root@ec2-3-35-177-105.ap-northeast-2.compute.amazonaws.com:/home/ec2-user/mosazzi/mosazzi-api-server/mosazzi-api-server.jar
+echo '1_D.BFC7'
+
+scp -r ./build/libs/shop-server-*.jar root@49.247.43.131:/home/ubuntu/shop/shop-server.jar

@@ -65,7 +65,7 @@ tasks.named('test') {
 }
 
 bootJar {
-    archiveFileName = "peak_server-${versionString}.jar"
+    archiveFileName = "shop-server-${versionString}.jar"
 }
 
 //querydsl 추가 시작
