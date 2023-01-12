@@ -3,6 +3,8 @@ package com.shop.services.admin.items.dto;
 import com.shop.models.badges.domain.Badge;
 import com.shop.models.categories.domain.Category;
 import com.shop.models.items.domain.*;
+import com.shop.services.admin.items.dto.form.ItemOptionBuilderForm;
+import com.shop.services.admin.items.dto.form.ItemOptionForm;
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -35,8 +37,8 @@ public class AdminItemUpdateDto {
     private Long stockNotificationQuantity; // 통보 재고 수량
     private Long minimumPurchaseQuantity; // 최소 구매 수량
     private Long maximumPurchaseQuantity; // 최대 구매 가능 수량
-    private List<ItemOptionBuilderAddDto> optionBuilders; // 옵션 빌더
-    private List<ItemOptionAddDto> options; // 옵션
+    private List<ItemOptionBuilderForm> optionBuilders; // 옵션 빌더
+    private List<ItemOptionForm> options; // 옵션
 
     /* 상품정보 */
     private String productionTimeType; // 상품 생산 시기 구분 (정상, 이월)

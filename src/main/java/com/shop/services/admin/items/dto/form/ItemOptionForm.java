@@ -1,11 +1,11 @@
-package com.shop.services.admin.items.dto;
+package com.shop.services.admin.items.dto.form;
 
 import com.shop.models.items.domain.ItemOption;
 import com.shop.models.items.domain.ItemOptionStatus;
 import lombok.Data;
 
 @Data
-public class ItemOptionAddDto {
+public class ItemOptionForm {
 
     private String name;
     private Long price;
@@ -27,9 +27,9 @@ public class ItemOptionAddDto {
 
     public static class DefaultItemOptionBuilder implements ItemOptionBuilder {
         private final ItemOption itemOption;
-        private final ItemOptionAddDto dto;
+        private final ItemOptionForm dto;
 
-        public DefaultItemOptionBuilder(ItemOptionAddDto dto) {
+        public DefaultItemOptionBuilder(ItemOptionForm dto) {
             this.itemOption = new ItemOption();
             this.dto = dto;
         }

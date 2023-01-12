@@ -1,15 +1,21 @@
 package com.shop.services.admin.items.dto.form;
 
+import com.shop.models.badges.domain.Badge;
 import com.shop.models.categories.domain.Category;
-import com.shop.models.items.domain.ItemOption;
-import com.shop.models.items.domain.ItemOptionBuilder;
+import com.shop.models.items.domain.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.Lob;
 import java.util.List;
 
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class AdminItemForm {
     private String method; // post, put
     private Long id = 0L; // 상품 코드
@@ -40,18 +46,19 @@ public class AdminItemForm {
     private Long stockNotificationQuantity = 0L; // 통보 재고 수량
     private Long minimumPurchaseQuantity = 0L; // 최소 구매 수량
     private Long maximumPurchaseQuantity = 0L; // 최대 구매 가능 수량
-    private List<ItemOptionBuilder> optionBuilders; // 옵션 빌더
-    private List<ItemOption> options; // 옵션
+    private List<ItemOptionBuilderForm> optionBuilders; // 옵션 빌더
+    private List<ItemOptionForm> options; // 옵션
     /* 상품정보 */
     private String productionTimeType = "CARRY_OVER"; // ProductProductionTimeType 상품 생산 시기 구분 NORMAL("정상"), CARRY_OVER("이월");
     private Integer productionYear = 2023; // 생산년도
     private Integer manufacturingYear = 2023; // 제조일 년도
     private Integer manufacturingMonth = 5; // 제조일 월
-    private String seasonYear; // 시즌년도
+    private String seasonYear = "2023"; // 시즌년도
     private String season = "FW"; // 시즌 (FW, SS) Season
     private String color; // 색상
+
     /* 이미지 */
-    private List<MultipartFile> images;
+    private List<MultipartFile> imageFiles; // 이미지 파일 목록
 
     @Lob
     private String detailDescription; // 상품 상세 설명
@@ -76,5 +83,148 @@ public class AdminItemForm {
     private List<String> badges; // 뱃지 (BEST, NEW)
     private boolean bestBadge;
     private boolean newBadge = true;
-    private Category category; // 카테고리
+    private Long categoryId; // 카테고리 객체
+
+    /* enum 바인딩 */
+//    public ItemSellStatus getStatus() {
+//        return ItemSellStatus.getStringToEnum(this.status);
+//    }
+
+    /**
+     * Entity -> FormDto
+     */
+    public static AdminItemForm of(Item item) {
+        return AdminItemForm.builder()
+                .id(item.getId())
+                .name(item.getName())
+                .build();
+    }
+    public static AdminItemForm empty() {
+        return AdminItemForm.builder()
+                .id(0L)
+                .build();
+    }
+
+    public VatType getVatType() {
+        return VatType.getStringToEnum(this.vatType);
+    }
+
+    public ProductProductionTimeType getProductionTimeType() {
+        return ProductProductionTimeType.getStringToEnum(this.productionTimeType);
+    }
+
+    public Season getSeason() {
+        return Season.getStringToEnum(this.season);
+    }
+
+    /* 엔티티 빌더 */
+    public ItemBuilder entityBuilder() {
+        return new DefaultBuilder(this);
+    }
+
+    public ItemBuilder entityBuilder(Item item) {
+        return new DefaultBuilder(item, this);
+    }
+
+    public interface ItemBuilder {
+        ItemBuilder optionBuilders(List<ItemOptionBuilder> optionBuilders);
+
+        ItemBuilder options(List<ItemOption> options);
+
+        ItemBuilder images(List<ItemImage> images);
+
+        ItemBuilder badges(List<Badge> badges);
+
+        ItemBuilder category(Category category);
+
+        Item build();
+
+    }
+
+    private static class DefaultBuilder implements ItemBuilder {
+        private final Item item;
+        private final AdminItemForm dto;
+
+        public DefaultBuilder(AdminItemForm dto) {
+            this.item = new Item();
+            this.dto = dto;
+        }
+
+        public DefaultBuilder(Item item, AdminItemForm dto) {
+            this.item = item;
+            this.dto = dto;
+        }
+
+        @Override
+        public ItemBuilder optionBuilders(List<ItemOptionBuilder> optionBuilders) {
+            this.item.setOptionBuilders(optionBuilders);
+            return this;
+        }
+
+        @Override
+        public ItemBuilder options(List<ItemOption> options) {
+            this.item.setOptions(options);
+            return this;
+        }
+
+        @Override
+        public ItemBuilder images(List<ItemImage> images) {
+            this.item.setImages(images);
+            return this;
+        }
+
+        @Override
+        public ItemBuilder badges(List<Badge> badges) {
+            this.item.setBadges(badges);
+            return this;
+        }
+
+        @Override
+        public ItemBuilder category(Category category) {
+            this.item.setCategory(category);
+            return this;
+        }
+
+        @Override
+        public Item build() {
+            this.item.setId(dto.getId());
+            this.item.setName(dto.getName());
+            this.item.setEnglishName(dto.getEnglishName());
+            this.item.setBasicDescription(dto.getBasicDescription());
+            this.item.setManufacturer(dto.getManufacturer());
+            this.item.setOrigin(dto.getOrigin());
+            this.item.setBrand(dto.getBrand());
+            this.item.setBarcode(dto.getBarcode());
+            this.item.setModelName(dto.getModelName());
+            this.item.setKeyword(dto.getKeyword());
+
+//            this.item.setStatus(dto.getStatus());
+            this.item.setRegularPrice(dto.getRegularPrice());
+            this.item.setSalePrice(dto.getSalePrice());
+            this.item.setVatType(dto.getVatType());
+            this.item.setFees(dto.getFees());
+            this.item.setPoint(dto.getPoint());
+            this.item.setStock(dto.getStock());
+            this.item.setStockNotificationQuantity(dto.getStockNotificationQuantity());
+            this.item.setMinimumPurchaseQuantity(dto.getMinimumPurchaseQuantity());
+            this.item.setMaximumPurchaseQuantity(dto.getMaximumPurchaseQuantity());
+
+            this.item.setProductionTimeType(dto.getProductionTimeType());
+            this.item.setProductionYear(dto.getProductionYear());
+            this.item.setManufacturingYear(dto.getManufacturingYear());
+            this.item.setManufacturingMonth(dto.getManufacturingMonth());
+            this.item.setSeasonYear(dto.getSeasonYear());
+            this.item.setSeason(dto.getSeason());
+            this.item.setColor(dto.getColor());
+            this.item.setMaximumPurchaseQuantity(dto.getMaximumPurchaseQuantity());
+
+            this.item.setDetailDescription(dto.getDetailDescription());
+            this.item.setTopDescription(dto.getTopDescription());
+            this.item.setBottomDescription(dto.getBottomDescription());
+
+            //
+            return this.item;
+        }
+    }
+
 }

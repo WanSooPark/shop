@@ -535,4 +535,14 @@ const deleteAddtionalOptionList = (key) => {
 };
 
 
-let typeInfo = document.getElementById("typeInfo");
+let typeInfo = document.getElementById("sit_compact_fields");
+
+let category_id = document.getElementById("categoryId");
+
+
+function selectCategoryChange(event) {
+  const categoryId = event.target.value;
+
+  let category_show = document.getElementById("category_show");
+}
+

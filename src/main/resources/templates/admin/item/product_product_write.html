@@ -275,7 +275,7 @@
             <span>상품 관리 > 상품관리</span>
         </div>
 
-        <form id="itemForm" name="itemForm" method="post" th:action="@{/admin/item}" th:object="${item}" enctype="MULTIPART/FORM-DATA" autocomplete="off" >
+        <form id="itemForm" name="itemForm" th:method="post" th:action="@{/admin/item}" th:object="${item}" enctype="MULTIPART/FORM-DATA" autocomplete="off" >
             <ul class="anchor">
                 <li><a href="#anc_sitfrm_cate">카테고리</a></li>
                 <li><a href="#anc_sitfrm_ini">기본정보</a></li>
@@ -284,7 +284,6 @@
                 <li><a href="#anc_sitfrm_img">이미지</a></li>
                 <li><a href="#anc_sitfrm_optional">상세설명</a></li>
                 <li><a href="#anc_sitfrm_compact">상품정보고시</a></li>
-                <li><a href="#anc_sitfrm_ect">기타정보</a></li>
             </ul>
 
             <div class="va_admin_line"></div>
@@ -316,157 +315,39 @@
                             <tr>
                                 <th>카테고리 선택</th>
                                 <td>
-                                    <div id="ca_id_box">
-                                        <input type="hidden" name="ca_id" id="ca_id" value="3020103020"/>
-                                        <input type="hidden" name="ca_id2" id="ca_id2" value="20103020"/>
-                                        <input type="hidden" name="ca_id3" id="ca_id3" value=""/>
-                                        <input type="hidden" name="ca_id4" id="ca_id4" value=""/>
-                                        <input type="hidden" name="ca_id5" id="ca_id5" value=""/>
-                                        <input type="hidden" name="ca_id6" id="ca_id6" value=""/>
-                                        <input type="hidden" name="ca_id7" id="ca_id7" value=""/>
-                                        <input type="hidden" name="ca_id8" id="ca_id8" value=""/>
-                                        <input type="hidden" name="ca_id9" id="ca_id9" value=""/>
-                                        <input type="hidden" name="ca_id10" id="ca_id10" value=""/>
-                                    </div>
-
-                                    <div class="category_box" id="category_select">
-                                        <div id="sct" class="tbl_head01 tbl_wrap" style="padding: 10px 20px">
-                                            <table id="select_category_tb">
-                                                <thead>
-                                                <tr>
-                                                    <th>1차 카테고리</th>
-                                                    <th>2차 카테고리</th>
-                                                    <th>3차 카테고리</th>
-                                                    <th>4차 카테고리</th>
-                                                    <th>5차 카테고리</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <select id="category1" onchange="get_category(1,this.value)" name="s_ca_id" size="10">
-                                                            <option value="10">가공식품</option>
-                                                            <option value="20">배달용품</option>
-                                                            <option value="30">주방용품</option>
-                                                        </select>
-                                                    </td>
-                                                    <td>
-                                                        <select id="category2" onchange="get_category(2,this.value)" name="s_ca_id2" size="10"></select>
-                                                    </td>
-                                                    <td>
-                                                        <select id="category3" onchange="get_category(3,this.value)" name="s_ca_id3" size="10"></select>
-                                                    </td>
-                                                    <td>
-                                                        <select id="category4" onchange="get_category(4,this.value)" name="s_ca_id4" size="10"></select>
-                                                    </td>
-                                                    <td>
-                                                        <select id="category5" onchange="get_category(5,this.value)" name="s_ca_id5" size="10"></select>
-                                                    </td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        <div style="
-                              margin-top: 20px;
-                              display: flex;
-                              justify-content: center;
-                            ">
-                                            <button type="button" class="new_blue_va_btn" onclick="category_add()" style="border-radius: 5px">선택</button>
-                                        </div>
-                                    </div>
+                                    <select id="categoryId" th:name="categoryId" onchange="selectCategoryChange(event)">
+                                        <option value="">없음</option>
+                                        <option value="">----</option>
+                                        <option th:each="category: ${categories}" th:value="${category?.getId()}"
+                                                th:text="${(category.getDepth() == 2 ? 'ㄴ' : (category.getDepth() == 3 ? '　ㄴ' : '')) + category?.getName()}">분류</option>
+                                    </select>
                                 </td>
                             </tr>
-                            <tr>
-                                <th>선택한 카테고리</th>
-                                <td>
-                                    <div id="sct" class="tbl_head01 tbl_wrap" style="padding: 10px 20px">
-                                        <table id="selected_category_tb">
-                                            <thead>
-                                            <tr>
-                                                <th style="width: 90%">카테고리</th>
-                                                <th></th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <tr class="category_select_box" id="category_select_box1" style="display: table-row">
-                                                <td style="width: 90%">
-                                                    <p id="category_show" class="category_show_text">가공식품 &gt; 냉장식품 &gt; 어묵/맛살</p>
-                                                </td>
-                                                <td>
-                                                    <button type="button" class="remove_btn" id="category_remove_btn1">삭제
-                                                    </button>
-                                                </td>
-                                            </tr>
-
-                                            <tr class="category_select_box" id="category_select_box3">
-                                                <td style="width: 90%">
-                                                    <p id="category_show3" class="category_show_text"></p>
-                                                </td>
-                                                <td>
-                                                    <button type="button" class="remove_btn" id="category_remove_btn3">삭제</button>
-                                                </td>
-                                            </tr>
-                                            <tr class="category_select_box" id="category_select_box4">
-                                                <td style="width: 90%">
-                                                    <p id="category_show4" class="category_show_text"></p>
-                                                </td>
-                                                <td>
-                                                    <button type="button" class="remove_btn" id="category_remove_btn4">삭제</button>
-                                                </td>
-                                            </tr>
-                                            <tr class="category_select_box" id="category_select_box5">
-                                                <td style="width: 90%">
-                                                    <p id="category_show5" class="category_show_text"></p>
-                                                </td>
-                                                <td>
-                                                    <button type="button" class="remove_btn" id="category_remove_btn5">삭제</button>
-                                                </td>
-                                            </tr>
-                                            <tr class="category_select_box" id="category_select_box6">
-                                                <td style="width: 90%">
-                                                    <p id="category_show6" class="category_show_text"></p>
-                                                </td>
-                                                <td>
-                                                    <button type="button" class="remove_btn" id="category_remove_btn6">삭제</button>
-                                                </td>
-                                            </tr>
-                                            <tr class="category_select_box" id="category_select_box7">
-                                                <td style="width: 90%">
-                                                    <p id="category_show7" class="category_show_text"></p>
-                                                </td>
-                                                <td>
-                                                    <button type="button" class="remove_btn" id="category_remove_btn7">삭제</button>
-                                                </td>
-                                            </tr>
-                                            <tr class="category_select_box" id="category_select_box8">
-                                                <td style="width: 90%">
-                                                    <p id="category_show8" class="category_show_text"></p>
-                                                </td>
-                                                <td>
-                                                    <button type="button" class="remove_btn" id="category_remove_btn8">삭제</button>
-                                                </td>
-                                            </tr>
-                                            <tr class="category_select_box" id="category_select_box9">
-                                                <td style="width: 90%">
-                                                    <p id="category_show9" class="category_show_text"></p>
-                                                </td>
-                                                <td>
-                                                    <button type="button" class="remove_btn" id="category_remove_btn9">삭제</button>
-                                                </td>
-                                            </tr>
-                                            <tr class="category_select_box" id="category_select_box10">
-                                                <td style="width: 90%">
-                                                    <p id="category_show10" class="category_show_text"></p>
-                                                </td>
-                                                <td>
-                                                    <button type="button" class="remove_btn" id="category_remove_btn10">삭제</button>
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </td>
-                            </tr>
+<!--                            <tr>-->
+<!--                                <th>카테고리 여러개 선택</th>-->
+<!--                                <td>-->
+<!--                                    <div id="sct" class="tbl_head01 tbl_wrap" style="padding: 10px 20px">-->
+<!--                                        <table id="selected_category_tb">-->
+<!--                                            <thead>-->
+<!--                                            <tr>-->
+<!--                                                <th style="width: 10%;"><input type="checkbox" id="category_checkbox_head" name="category_checkbox_head"></th>-->
+<!--                                                <th>분류1</th>-->
+<!--                                                <th>분류2</th>-->
+<!--                                                <th>분류3</th>-->
+<!--                                            </tr>-->
+<!--                                            </thead>-->
+<!--                                            <tbody>-->
+<!--                                            <tr class="category_select_box" id="category_row_1" style="display: table-row">-->
+<!--                                                <td style="width: 10%;"><input type="checkbox" id="category_checkbox_1" name="category_checkbox_1"></td>-->
+<!--                                                <td><p id="category_1_1" class="category_show_text">분류1</p></td>-->
+<!--                                                <td><p id="category_1_2" class="category_show_text">분류2</p></td>-->
+<!--                                                <td><p id="category_1_3" class="category_show_text">분류3</p></td>-->
+<!--                                            </tr>-->
+<!--                                            </tbody>-->
+<!--                                        </table>-->
+<!--                                    </div>-->
+<!--                                </td>-->
+<!--                            </tr>-->
                             </tbody>
                         </table>
                     </div>
@@ -1085,7 +966,7 @@
                         <option value="etc" th:selected="${item.getType()} == etc" >기타</option>
                     </select>
                 </div>
-                <div id="typeInfo" id="sit_compact_fields" class="">
+                <div id="sit_compact_fields" class="">
                     <div class="tbl_frm01 tbl_wrap va_pl30" style="margin-left: 0; margin-bottom: 30px">
                         <table>
                             <caption>상품요약정보 입력</caption>
@@ -1198,9 +1079,9 @@
                     </div>
                 </div>
             </section>
-        </form>
-        <div class="va_admin_line"></div>
-        <div class="button">
+
+            <div class="va_admin_line"></div>
+            <div class="button">
             <ul class="fl">
                 <li>
                     <a href="javascript:window.history.back();" class="btn btn_03"
@@ -1215,10 +1096,12 @@
             </ul>
             <ul class="fr">
                 <li>
-                    <button class="btn btn_02" onclick="submit()">저장</button>
+                    <input class="btn btn_02" type="submit" value="저장"/>
+<!--                    <button class="btn btn_02" onclick="submit()">저장</button>-->
                 </li>
             </ul>
         </div>
+        </form>
     </div>
 </main>
 <script type="application/javascript" th:inline="javascript">
@@ -1231,8 +1114,6 @@
             method = "PUT";
             // action = /*[[@{/admin/item/1}]]*/;
         }
-        alert(method);
-        alert(action);
         let itemForm = $("#itemForm");
         // itemForm.attr('method', method);
         // itemForm.attr('action', action);

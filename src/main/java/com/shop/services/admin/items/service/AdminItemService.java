@@ -15,7 +15,11 @@ import com.shop.models.items.service.ItemImageService;
 import com.shop.models.items.service.ItemOptionBuilderService;
 import com.shop.models.items.service.ItemOptionService;
 import com.shop.models.items.service.ItemService;
-import com.shop.services.admin.items.dto.*;
+import com.shop.services.admin.items.dto.AdminItemResponse;
+import com.shop.services.admin.items.dto.AdminItemSearchDto;
+import com.shop.services.admin.items.dto.form.ItemOptionForm;
+import com.shop.services.admin.items.dto.form.ItemOptionBuilderForm;
+import com.shop.services.admin.items.dto.form.AdminItemForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -43,7 +47,7 @@ public class AdminItemService {
     /**
      * 상품 추가
      */
-    public AdminItemResponse addItem(AdminItemAddDto dto) {
+    public AdminItemResponse addItem(AdminItemForm dto) {
         List<ItemOptionBuilder> optionBuilders = addItemOptionBuilders(dto.getOptionBuilders());
         List<ItemOption> options = addItemOptions(dto.getOptions());
         List<ItemImage> images = addItemImages(dto.getImageFiles());
@@ -65,7 +69,8 @@ public class AdminItemService {
     /**
      * 상품 정보 수정
      */
-    public AdminItemResponse updateItem(Long id, AdminItemUpdateDto dto) {
+    public AdminItemResponse updateItem(AdminItemForm dto) {
+        Long id = dto.getId();
         Item item = itemService.findById(id);
 
         List<ItemOptionBuilder> optionBuilders = item.getOptionBuilders();
@@ -80,7 +85,7 @@ public class AdminItemService {
         List<Badge> badges = getBadges(dto.getBadges());
         Category category = getCategory(dto.getCategoryId());
 
-        item = dto.entityUpdate(item)
+        item = dto.entityBuilder()
                 .optionBuilders(optionBuilders)
                 .options(options)
                 .images(images)
@@ -95,7 +100,7 @@ public class AdminItemService {
     /**
      * 상품 옵션 생성기 추가
      */
-    private List<ItemOptionBuilder> addItemOptionBuilders(List<ItemOptionBuilderAddDto> optionBuildersAddDto) {
+    private List<ItemOptionBuilder> addItemOptionBuilders(List<ItemOptionBuilderForm> optionBuildersAddDto) {
         return optionBuildersAddDto.stream()
                 .map(optionBuilderAddDto -> {
                     ItemOptionBuilder itemOptionBuilder = optionBuilderAddDto.entityBuilder()
@@ -108,7 +113,7 @@ public class AdminItemService {
     /**
      * 상품 옵션 추가
      */
-    private List<ItemOption> addItemOptions(List<ItemOptionAddDto> optionsAddDto) {
+    private List<ItemOption> addItemOptions(List<ItemOptionForm> optionsAddDto) {
         return optionsAddDto.stream()
                 .map(optionAddDto -> {
                     ItemOption itemOption = optionAddDto.entityBuilder()
@@ -164,5 +169,10 @@ public class AdminItemService {
     public AdminItemResponse getItem(Long id) {
         Item item = itemService.findById(id);
         return AdminItemResponse.of(item);
+    }
+
+    public AdminItemForm getItemForm(Long id) {
+        Item item = itemService.findById(id);
+        return AdminItemForm.of(item);
     }
 }

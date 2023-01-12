@@ -1,8 +1,11 @@
 package com.shop.services.admin.items.dto;
 
-import com.shop.models.badges.domain.Badge;
-import com.shop.models.categories.domain.Category;
-import com.shop.models.items.domain.*;
+import com.shop.models.items.domain.ItemSellStatus;
+import com.shop.models.items.domain.ProductProductionTimeType;
+import com.shop.models.items.domain.Season;
+import com.shop.models.items.domain.VatType;
+import com.shop.services.admin.items.dto.form.ItemOptionBuilderForm;
+import com.shop.services.admin.items.dto.form.ItemOptionForm;
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -35,8 +38,8 @@ public class AdminItemAddDto {
     private Long stockNotificationQuantity; // 통보 재고 수량
     private Long minimumPurchaseQuantity; // 최소 구매 수량
     private Long maximumPurchaseQuantity; // 최대 구매 가능 수량
-    private List<ItemOptionBuilderAddDto> optionBuilders; // 옵션 빌더
-    private List<ItemOptionAddDto> options; // 옵션
+    private List<ItemOptionBuilderForm> optionBuilders; // 옵션 빌더
+    private List<ItemOptionForm> options; // 옵션
 
     /* 상품정보 */
     private String productionTimeType; // 상품 생산 시기 구분 (정상, 이월)
@@ -93,121 +96,6 @@ public class AdminItemAddDto {
 
     public Season getSeason() {
         return Season.getStringToEnum(this.season);
-    }
-
-    /* 엔티티 빌더 */
-    public ItemBuilder entityBuilder() {
-        return new DefaultBuilder(this);
-    }
-
-    public interface ItemBuilder {
-        ItemBuilder optionBuilders(List<ItemOptionBuilder> optionBuilders);
-
-        ItemBuilder options(List<ItemOption> options);
-
-        ItemBuilder images(List<ItemImage> images);
-
-        ItemBuilder badges(List<Badge> badges);
-
-        ItemBuilder category(Category category);
-
-        Item build();
-
-    }
-
-    private static class DefaultBuilder implements ItemBuilder {
-        private final Item item;
-        private final AdminItemAddDto dto;
-
-        public DefaultBuilder(AdminItemAddDto dto) {
-            this.item = new Item();
-            this.dto = dto;
-        }
-
-        @Override
-        public ItemBuilder optionBuilders(List<ItemOptionBuilder> optionBuilders) {
-            this.item.setOptionBuilders(optionBuilders);
-            return this;
-        }
-
-        @Override
-        public ItemBuilder options(List<ItemOption> options) {
-            this.item.setOptions(options);
-            return this;
-        }
-
-        @Override
-        public ItemBuilder images(List<ItemImage> images) {
-            this.item.setImages(images);
-            return this;
-        }
-
-        @Override
-        public ItemBuilder badges(List<Badge> badges) {
-            this.item.setBadges(badges);
-            return this;
-        }
-
-        @Override
-        public ItemBuilder category(Category category) {
-            this.item.setCategory(category);
-            return this;
-        }
-
-        @Override
-        public Item build() {
-            this.item.setId(dto.getId());
-            this.item.setName(dto.getName());
-            this.item.setEnglishName(dto.getEnglishName());
-            this.item.setBasicDescription(dto.getBasicDescription());
-            this.item.setManufacturer(dto.getManufacturer());
-            this.item.setOrigin(dto.getOrigin());
-            this.item.setBrand(dto.getBrand());
-            this.item.setBarcode(dto.getBarcode());
-            this.item.setModelName(dto.getModelName());
-            this.item.setKeyword(dto.getKeyword());
-
-            this.item.setStatus(dto.getStatus());
-            this.item.setRegularPrice(dto.getRegularPrice());
-            this.item.setSalePrice(dto.getSalePrice());
-            this.item.setVatType(dto.getVatType());
-            this.item.setFees(dto.getFees());
-            this.item.setPoint(dto.getPoint());
-            this.item.setStock(dto.getStock());
-            this.item.setStockNotificationQuantity(dto.getStockNotificationQuantity());
-            this.item.setMinimumPurchaseQuantity(dto.getMinimumPurchaseQuantity());
-            this.item.setMaximumPurchaseQuantity(dto.getMaximumPurchaseQuantity());
-
-            this.item.setProductionTimeType(dto.getProductionTimeType());
-            this.item.setProductionYear(dto.getProductionYear());
-            this.item.setManufacturingYear(dto.getManufacturingYear());
-            this.item.setManufacturingMonth(dto.getManufacturingMonth());
-            this.item.setSeasonYear(dto.getSeasonYear());
-            this.item.setSeason(dto.getSeason());
-            this.item.setColor(dto.getColor());
-            this.item.setMaximumPurchaseQuantity(dto.getMaximumPurchaseQuantity());
-
-            this.item.setDetailDescription(dto.getDetailDescription());
-            this.item.setTopDescription(dto.getTopDescription());
-            this.item.setBottomDescription(dto.getBottomDescription());
-
-//            this.item.setItemGroup(dto.getItemGroup());
-//            this.item.setIngredient(dto.getIngredient());
-//            this.item.setColor2(dto.getColor2());
-//            this.item.setDimensions(dto.getDimensions());
-//            this.item.setManufacturer2(dto.getManufacturer2());
-//            this.item.setManufacturingCountry(dto.getManufacturingCountry());
-//            this.item.setWashingMethodAndHandlingPrecautions(dto.getWashingMethodAndHandlingPrecautions());
-//            this.item.setDateOfManufacture(dto.getDateOfManufacture());
-//            this.item.setQualityAssuranceStandard(dto.getQualityAssuranceStandard());
-//            this.item.setAsManagerAndPhoneNumber(dto.getAsManagerAndPhoneNumber());
-//            this.item.setSubjectToKCSafetyCertification(dto.getSubjectToKCSafetyCertification());
-//            this.item.setIncome(dto.getIncome());
-//            this.item.setKinds(dto.getKinds());
-//            this.item.setWeight(dto.getWeight());
-//            this.item.setDimensionsXYZ(dto.getDimensionsXYZ());
-            return this.item;
-        }
     }
 
 }

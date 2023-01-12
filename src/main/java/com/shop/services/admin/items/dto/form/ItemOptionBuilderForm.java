@@ -1,10 +1,10 @@
-package com.shop.services.admin.items.dto;
+package com.shop.services.admin.items.dto.form;
 
 import com.shop.models.items.domain.ItemOptionBuilder;
 import lombok.Data;
 
 @Data
-public class ItemOptionBuilderAddDto {
+public class ItemOptionBuilderForm {
     private String name; // 옵션 빌더 명
     private String value; // 옵션 항목 값
 
@@ -18,9 +18,9 @@ public class ItemOptionBuilderAddDto {
 
     public static class DefaultItemOptionBuilderBuilder implements ItemOptionBuilderBuilder {
         private final ItemOptionBuilder itemOptionBuilder;
-        private final ItemOptionBuilderAddDto dto;
+        private final ItemOptionBuilderForm dto;
 
-        public DefaultItemOptionBuilderBuilder(ItemOptionBuilderAddDto dto) {
+        public DefaultItemOptionBuilderBuilder(ItemOptionBuilderForm dto) {
             this.itemOptionBuilder = new ItemOptionBuilder();
             this.dto = dto;
         }
