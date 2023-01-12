@@ -79,16 +79,4 @@ public class AdminItemController {
         return "redirect:/admin/item";
     }
 
-//    @PutMapping("/{id}")
-//    public String updateItem(@PathVariable Long id, @Valid AdminItemForm dto, RedirectAttributes attributes) {
-//        try {
-//            AdminItemResponse response = adminItemService.updateItem(id, dto);
-//        } catch (BusinessException businessException) {
-//            attributes.addAttribute("message", businessException.getMessage());
-//            attributes.addAttribute("exception", businessException);
-//            return "admin/item/product_product_write";
-//        }
-//        return "redirect:/admin/item";
-//    }
-
 }
