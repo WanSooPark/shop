@@ -319,6 +319,7 @@
                                         <option value="">없음</option>
                                         <option value="">----</option>
                                         <option th:each="category: ${categories}" th:value="${category?.getId()}"
+                                                th:selected="${category.getId()} == ${item.getCategoryId()}"
                                                 th:text="${(category.getDepth() == 2 ? 'ㄴ' : (category.getDepth() == 3 ? '　ㄴ' : '')) + category?.getName()}">분류</option>
                                     </select>
                                 </td>

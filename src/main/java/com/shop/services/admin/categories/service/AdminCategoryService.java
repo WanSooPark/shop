@@ -6,6 +6,7 @@ import com.shop.models.categories.service.CategoryService;
 import com.shop.services.admin.categories.dto.AdminCategoryAddDto;
 import com.shop.services.admin.categories.dto.AdminCategoryResponse;
 import com.shop.services.admin.categories.dto.AdminCategorySearchDto;
+import com.shop.services.admin.categories.dto.form.AdminCategoryForm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -36,11 +37,31 @@ public class AdminCategoryService {
         Category category = categoryService.findById(id);
         return AdminCategoryResponse.of(category);
     }
+    public AdminCategoryForm getCategoryForm(Long id) {
+        Category category = categoryService.findById(id);
+        return AdminCategoryForm.of(category);
+    }
 
-    public AdminCategoryResponse add(AdminCategoryAddDto addDto) {
-        Category topCategory = categoryService.findTopCategoryById(addDto.getTopCategoryId());
+    /**
+     * 분류(카테고리) 추가
+     */
+    public AdminCategoryResponse add(AdminCategoryForm dto) {
+        Category topCategory = categoryService.findTopCategoryById(dto.getTopCategoryId());
 
-        Category category = addDto.entityBuilder()
+        Category category = dto.entityBuilder()
+                .topCategory(topCategory)
+                .build();
+        category = categoryService.add(category);
+        return AdminCategoryResponse.of(category);
+    }
+
+    /**
+     * 분류(카테고리) 수정
+     */
+    public AdminCategoryResponse update(AdminCategoryForm dto) {
+        Category topCategory = categoryService.findTopCategoryById(dto.getTopCategoryId());
+
+        Category category = dto.entityBuilder()
                 .topCategory(topCategory)
                 .build();
         category = categoryService.add(category);

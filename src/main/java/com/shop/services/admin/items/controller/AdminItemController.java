@@ -33,7 +33,7 @@ public class AdminItemController {
     private final AdminCategoryService adminCategoryService;
 
     @GetMapping
-    public String itemListView(@Valid AdminItemSearchDto.Request searchDto, @PageableDefault Pageable pageable, Model model) {
+    public String itemListView(@Valid AdminItemSearchDto.Request searchDto, @PageableDefault(size = 5) Pageable pageable, Model model) {
         AdminItemSearchDto.Response response = adminItemService.search(searchDto, pageable);
         model.addAttribute("itemPage", response.getItemPage());
         return "admin/item/product_product";

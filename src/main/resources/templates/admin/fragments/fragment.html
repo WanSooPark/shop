@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="pagination(page, url)">
+    <style>
+        .button_disabled {
+            pointer-events: none;
+            color: #8C8C8C;
+        }
+    </style>
+    <div class="paging">
+        <a th:href="@{${url} + '?page=0'}"
+           th:classappend="${page.getPage() < 1} ? button_disabled">
+            <i class="xi-backward"></i><span class="skip">처음</span>
+        </a>
+        <a th:href="@{${url} + '?page=' + ${page.getPage() - 1}}"
+           th:classappend="${page.getPage() < 1} ? button_disabled">
+            <i class="xi-step-backward"></i><span class="skip">이전</span>
+        </a>
+
+        <th:block th:each="i: ${#numbers.sequence(1, page.getTotalPages())}">
+            <a th:href="@{${url} + '?page=' + ${i - 1}}"
+               th:classappend="${i == page.getPage() + 1} ? current">
+                <span th:text="${i}">1</span>
+            </a>
+        </th:block>
+
+        <a th:href="@{${url} + '?page=' + ${page.getPage() + 1}}"
+           th:classappend="${page.getPage() >= page.getTotalPages() - 1} ? button_disabled">
+            <i class="xi-step-forward"></i><span class="skip">다음</span>
+        </a>
+        <a th:href="@{${url} + '?page=' + ${page.getTotalPages() - 1}}"
+           th:classappend="${page.getPage() >= page.getTotalPages() - 1} ? button_disabled">
+            <i class="xi-forward"></i><span class="skip">마지막</span>
+        </a>
+    </div>
+</div>
+</body>
+</html>

@@ -38,7 +38,6 @@
                     <li><a href="javascript:;" class="btn btn_05">선택 삭제</a></li>
                 </ul>
                 <ul class="fr">
-                    <!-- TODO itemId 필요-->
                     <li><a th:href="@{/admin/item/form}" class="btn btn_02">추가</a></li>
                 </ul>
             </div>
@@ -82,16 +81,19 @@
                             </td>
                             <td class="td_num">
                                 <p th:value="${item.getBrand()}" th:text="${item.getBrand()}"
-                                   style="width:100px;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden;">롯데</p>
+                                   style="width:100px;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden;">
+                                    롯데</p>
                             </td>
                             <td class="td_num">
-                                <img th:if="${!item.getMainImageUrl().isEmpty()}" th:src="${item.getMainImageUrl()}" width="50" height="50" alt="">
+                                <img th:if="${!item.getMainImageUrl().isEmpty()}" th:src="${item.getMainImageUrl()}"
+                                     width="50" height="50" alt="">
                             </td>
                             <td headers="th_pc_title" class="td_input td_name">
                                 <p th:value="${item.getName()}" th:text="${item.getName()}">라면 시리즈</p>
                             </td>
                             <td headers="th_amt" class="td_numbig td_input">
-                                <span th:value="${item.getSalePrice()}" th:text="${item.getRegularPrice()}">158,000</span>
+                                <span th:value="${item.getSalePrice()}"
+                                      th:text="${item.getRegularPrice()}">158,000</span>
                             </td>
                             <td headers="th_amt2" class="td_numbig td_input">
                                 <span th:value="${item.getSalePrice()}" th:text="${item.getSalePrice()}">158,000</span>
@@ -131,22 +133,10 @@
                     <li><a href="javascript:;" class="btn btn_05">선택 삭제</a></li>
                 </ul>
                 <ul class="fr">
-                    <!-- TODO itemId 필요-->
                     <li><a th:href="@{/admin/item/form}" class="btn btn_02">추가</a></li>
                 </ul>
             </div>
-            <div class="paging">
-                <a href="#"><i class="xi-backward"></i><span class="skip">처음</span></a>
-                <a href="#"><i class="xi-step-backward"></i><span class="skip">이전</span></a>
-                <a href="#" class="current"><span>1</span></a>
-                <a href="#"><span>2</span></a>
-                <a href="#"><span>3</span></a>
-                <a href="#"><span>4</span></a>
-                <a href="#"><span>5</span></a>
-                <a href="#"><span>6</span></a>
-                <a href="#"><i class="xi-step-forward"></i><span class="skip">다음</span></a>
-                <a href="#"><i class="xi-forward"></i><span class="skip">마지막</span></a>
-            </div>
+            <th:block th:replace="admin/fragments/fragment :: pagination(${itemPage}, '/admin/item')"></th:block>
         </div>
     </div>
 </main>
