@@ -1,12 +1,18 @@
 package com.shop.models.items.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import org.springframework.util.ObjectUtils;
 
 import java.util.Arrays;
 import java.util.Objects;
 
+@Getter
+@AllArgsConstructor
 public enum ItemSellStatus {
-    SELL, SOLD_OUT;
+    BEFORE_APPROVAL("승인 전"), SALE("판매 중"), PRODUCT_EXPOSURE("상품 노출"), SOLD_OUT("품절"), NO_SALE("판매 금지");
+
+    private final String description;
 
     public static ItemSellStatus getStringToEnum(String name) {
         if (!ObjectUtils.isEmpty(name)) {

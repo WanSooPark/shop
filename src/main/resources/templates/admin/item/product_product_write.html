@@ -3,10 +3,263 @@
 <head th:replace="admin/fragments/header :: adminHead"></head>
 <body id="wrap">
 <th:block th:replace="admin/fragments/header :: adminHeader()"></th:block>
-<link rel="stylesheet" type="text/css" href="/admin/css/product.css"/>
-<link rel="stylesheet" type="text/css" href="/admin/css/product2.css"/>
-<link rel="stylesheet" type="text/css" href="/admin/css/product3.css"/>
 <script src="/admin/js/write.js"></script>
+<!--<link rel="stylesheet" type="text/css" href="/admin/css/product.css"/>-->
+<!--<link rel="stylesheet" type="text/css" href="/admin/css/product2.css"/>-->
+<!--<link rel="stylesheet" type="text/css" href="/admin/css/product3.css"/>-->
+<link rel="stylesheet" type="text/css" href="https://vastyle.co.kr/skin/admin/basic/css/admin.css?ver=181108"/>
+<style>
+    #adm_content {
+        padding-bottom: 0;
+    }
+
+    .category_tab {
+        margin-top: 30px;
+        margin-bottom: 10px;
+        display: flex;
+    }
+
+    .category_tab .category_tab_btn {
+        width: 300px;
+        height: 40px;
+        border: 1px solid #000;
+        background: #fff;
+        color: #000;
+    }
+
+    .category_tab .category_tab_btn.on {
+        background: #000;
+        color: #fff;
+    }
+
+    .category_box {
+        margin-bottom: 10px;
+    }
+
+    .category_auto_list {
+        border-left: 1px solid #ced9de;
+        border-right: 1px solid #ced9de;
+        width: 906px;
+        display: none;
+        position: absolute;
+        background: #fff;
+        height: 235px;
+        overflow-y: scroll;
+    }
+
+    .category_auto_list ul li {
+        border-bottom: 1px solid #ced9de;
+        padding: 15px 20px;
+        cursor: pointer;
+    }
+
+    .category_auto_list ul li:hover {
+        background: #f3f3f3;
+    }
+
+    .category_select_box {
+        display: none;
+    }
+
+    .category_select_box .remove_btn {
+        border: none;
+        background: #fff;
+    }
+
+    .category_select_box .remove_btn i {
+        font-size: 15px;
+    }
+
+    /*.category_select_box.first {*/
+    /*    display: flex;*/
+    /*}*/
+
+    .category_add {
+        border: none;
+        background: #3e4557;
+        color: #fff;
+        height: 38px;
+        width: 70px;
+    }
+
+    .va_pl30 th {
+        padding-left: 30px;
+    }
+
+    .va_pl30 td {
+        padding-left: 10px;
+    }
+
+    .local_desc02 {
+        margin-left: 0;
+    }
+
+    #category_select select {
+        width: 100%;
+        height: auto;
+        border-right: 0;
+        border-top: 0;
+    }
+
+    .va_admin_tb th {
+        min-width: 160px;
+        font-size: 15px;
+        padding: 0 25px !important;
+    }
+
+    .va_admin_tb .nomin th {
+        min-width: auto;
+    }
+
+    #select_category_tb td {
+        padding: 0;
+    }
+
+    #select_category_tb th {
+        text-align: center;
+    }
+
+    .va_admin_tb #selected_category_tb th,
+    .va_admin_tb #selected_category_tb td {
+        min-width: 60px;
+        text-align: center;
+    }
+
+    #selected_category_tb th {
+        border-left: 0;
+        border-right: 0;
+    }
+
+    #selected_category_tb td {
+        border: 1px solid #ececec;
+    }
+
+    .anchor {
+        margin-bottom: 30px;
+        margin-left: 30px;
+    }
+
+    .anchor a {
+        background: #f6f6f6;
+        color: #9d9d9f;
+        font-size: 15px;
+        font-weight: 400;
+        padding: 14px 10px;
+        height: 60px;
+    }
+
+    h2.h2_frm {
+        padding-top: 15px;
+        font-size: 20px;
+        font-weight: 500;
+    }
+
+    .va_help {
+        display: inline-block;
+        margin-left: 20px;
+        font-size: 12px;
+        padding: 0;
+    }
+
+    input[type="text"] {
+        background: #fff;
+        border-radius: 5px;
+        height: 35px;
+    }
+</style>
+<style>
+    .btnSelect {
+        min-width: 145px;
+        background: #fff url(../img/icon-select-dropdown.png) no-repeat right 10px center / auto 30px;
+        padding: 0 15px;
+        height: 42px;
+        border-radius: 5px;
+        border: 1px solid #d6d6d6;
+        line-height: 21px;
+        font-size: 15px;
+        font-weight: 500;
+        color: #1f1f1f;
+        text-align: left;
+    }
+
+    .btnSelect ~ ul.active {
+        display: flex;
+    }
+
+    .btnSelect ~ ul {
+        /*    position: absolute;*/
+        top: 100%;
+        margin-top: -1px;
+        display: flex;
+        flex-direction: column;
+        /*    width: 20%;*/
+        z-index: 5;
+        background: #fff;
+        padding: 10px;
+        border: 1px solid #d6d6d6;
+        display: none;
+    }
+
+    .stylebtnList {
+        border: solid 0 gray;
+        width: 120px;
+    }
+
+    #styleCate li {
+        float: left;
+    }
+
+    .feelbtnList {
+        border: solid 0 gray;
+        width: 120px;
+    }
+
+    #feelCate li {
+        float: left;
+    }
+
+    .colorbtnList {
+        border: solid 0 gray;
+        width: 120px;
+        background: #fff;
+        display: flex;
+        /*justify-content: center;*/
+        align-items: center;
+        margin: 0 auto;
+    }
+
+    .color_point {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        margin-right: 10px;
+        box-shadow: 2px 2px 3px 1px #e3e3e3;
+    }
+
+    .select_color {
+        height: 42px;
+        background: transparent;
+        color: #fff;
+        text-shadow: 0px 0px 2px #000;
+        font-size: 15px;
+        border: 1px solid #e3e3e3;
+        margin-left: 5px;
+    }
+
+    #colorCate li {
+        float: left;
+    }
+
+    .pbtnList {
+        border: solid 0 gray;
+        width: 120px;
+    }
+
+    #pCate li {
+        float: left;
+    }
+</style>
+
 <main id="container">
     <div id="tool">
         <div class="info">
@@ -22,8 +275,7 @@
             <span>상품 관리 > 상품관리</span>
         </div>
 
-        <form id="itemForm" name="itemForm" method="post" th:action="@{/admin/item}" enctype="MULTIPART/FORM-DATA" autocomplete="off">
-            <input type="hidden" name="filter2" id="filter2" value=""/>
+        <form id="itemForm" name="itemForm" method="post" th:action="@{/admin/item}" th:object="${item}" enctype="MULTIPART/FORM-DATA" autocomplete="off" >
             <ul class="anchor">
                 <li><a href="#anc_sitfrm_cate">카테고리</a></li>
                 <li><a href="#anc_sitfrm_ini">기본정보</a></li>
@@ -48,13 +300,12 @@
                                 <td>
                                     <div style="padding-left: 20px; display: flex; align-items: center;">
                                         <label class="ca_checkbox" style="margin-right: 20px">
-                                            <input type="checkbox" name="it_type4" value="best" onclick="mainCategoryCheckbox(event)" id="it_type4"/>
+                                            <input type="checkbox" name="bestBadge" value="best" onclick="mainCategoryCheckbox(event)" id="bestBadge" th:field="*{bestBadge}"/>
                                             <i></i>
                                             <p>BEST</p>
                                         </label>
-
                                         <label class="ca_checkbox" style="margin-right: 20px">
-                                            <input type="checkbox" name="it_type3" value="new" onclick="mainCategoryCheckbox(event)" id="it_type3"/>
+                                            <input type="checkbox" name="newBadge" value="new" onclick="mainCategoryCheckbox(event)" id="newBadge" th:field="*{newBadge}"/>
                                             <i></i>
                                             <p>NEW</p>
                                         </label>
@@ -239,64 +490,62 @@
                         <tr>
                             <th scope="row">상품코드</th>
                             <td colspan="2">
-                                <input type="hidden" name="it_id"/>
-                                <span class="frm_ca_id" id="it_id"></span>
+                                <input type="hidden" name="id" th:field="*{id}"/>
+                                <span class="frm_ca_id" id="id" th:text="${item.id}"></span>
                                 <script>
-                                    let randomCode = "1";
-                                    for (let i = 0; i < 9; i++) {
-                                        randomCode += Math.floor(Math.random() * 10);
-                                    }
-                                    document.getElementsByName("it_id").value = randomCode;
-                                    document.getElementById("it_id").innerHTML = randomCode;
-                                    basic_code = randomCode;
+                                    // let randomCode = "1";
+                                    // for (let i = 0; i < 9; i++) {
+                                    //     randomCode += Math.floor(Math.random() * 10);
+                                    // }
+                                    // document.getElementsByName("it_id").value = randomCode;
+                                    // document.getElementById("it_id").innerHTML = randomCode;
+                                    // basic_code = randomCode; TODO id 안넣어줌
                                 </script>
-
                                 <a href="#" class="btn_frmline">상품확인</a>
                                 <a href="#" class="btn_frmline">리뷰관리</a>
                                 <a href="#" class="btn_frmline">Q&A관리</a>
                             </td>
                         </tr>
                         <tr>
-                            <th scope="row"><label for="it_name">상품명</label></th>
+                            <th scope="row"><label for="name">상품명</label></th>
                             <td colspan="2">
-                                <input type="text" name="it_name" id="it_name" required="" class="frm_input required" size="95"
-                                       onchange="(function(){basic_kr_name = event.target.value;console.log(`basic_kr_name`,basic_kr_name)})()"/>
+                                <input type="text" th:field="*{name}" name="name" id="name" required="" class="frm_input required" size="95"
+                                       onchange="(function(){name = event.target.value;console.log(`name`,name)})()"/>
                             </td>
                         </tr>
                         <tr>
-                            <th scope="row"><label for="entitle">영문상품명</label></th>
+                            <th scope="row"><label for="englishName">영문상품명</label></th>
                             <td colspan="2">
-                                <input type="text" name="enTitle" value="" id="enTitle" class="frm_input" size="95"
-                                       onchange="(function(){basic_en_name = event.target.value;console.log(`basic_en_name`,basic_en_name)})()"/>
+                                <input type="text" th:field="*{englishName}" name="englishName" value="" id="englishName" class="frm_input" size="95"
+                                       onchange="(function(){englishName = event.target.value;console.log(`englishName`,englishName)})()"/>
                             </td>
                         </tr>
                         <tr>
-                            <th scope="row"><label for="it_basic">기본설명</label></th>
+                            <th scope="row"><label for="basicDescription">기본설명</label></th>
                             <td colspan="2">
-                                <input type="text" name="it_basic" value="" id="it_basic" class="frm_input" size="95"
-                                       onchange="(function(){basic_description = event.target.value;console.log(`basic_description`,basic_description)})()"/>
+                                <input type="text" th:field="*{basicDescription}" name="basicDescription" value="" id="basicDescription" class="frm_input" size="95"
+                                       onchange="(function(){basicDescription = event.target.value;console.log(`basicDescription`,basicDescription)})()"/>
                             </td>
                         </tr>
                         <tr>
-                            <th scope="row"><label for="it_maker">제조사</label></th>
+                            <th scope="row"><label for="manufacturer">제조사</label></th>
                             <td colspan="2">
-                                <input type="text" name="it_maker" value="" id="it_maker" class="frm_input" size="40"
-                                       onchange="(function(){basic_made = event.target.value;console.log(`basic_made`,basic_made)})()"/>
+                                <input type="text" th:field="*{manufacturer}" name="manufacturer" value="" id="manufacturer" class="frm_input" size="40"
+                                       onchange="(function(){manufacturer = event.target.value;console.log(`manufacturer`,manufacturer)})()"/>
                             </td>
                         </tr>
                         <tr>
-                            <th scope="row"><label for="it_origin">원산지</label></th>
+                            <th scope="row"><label for="origin">원산지</label></th>
                             <td colspan="2">
-                                <input type="text" name="it_origin" value="" id="it_origin" class="frm_input" size="40" placeholder="대한민국"
-                                       onchange="(function(){basic_origin = event.target.value;console.log(`basic_origin`,basic_origin)})()"/>
+                                <input type="text" th:field="*{origin}" name="origin" value="" id="origin" class="frm_input" size="40" placeholder="대한민국"
+                                       onchange="(function(){origin = event.target.value;console.log(`origin`,origin)})()"/>
                             </td>
                         </tr>
                         <tr>
-                            <th scope="row"><label for="it_brand">브랜드</label></th>
+                            <th scope="row"><label for="brand">브랜드</label></th>
                             <td colspan="2">
-                                <input type="hidden" id="pt_id" name="pt_id"/>
-                                <input type="text" name="it_brand" value="" id="it_brand" class="frm_input" size="40" placeholder="오디너리피플"
-                                       onchange="(function(){basic_brand = event.target.value;console.log(`basic_brand`,basic_brand)})()"/>
+                                <input type="text" th:field="*{brand}" name="brand" value="" id="brand" class="frm_input" size="40" placeholder="오디너리피플"
+                                       onchange="(function(){brand = event.target.value;console.log(`brand`,brand)})()"/>
                                 <a href="javascript:openPop()" style="margin-left: 20px">브랜드선택</a>
                             </td>
                         </tr>
@@ -306,17 +555,17 @@
                                 <label for="barcode">자체 상품 바코드</label>
                             </th>
                             <td colspan="2">
-                                <input type="text" name="barcode" value="" id="barcode" class="frm_input" size="95"
-                                       onchange="(function(){basic_barcode = event.target.value;console.log(`basic_barcode`,basic_barcode)})()"/>
+                                <input type="text" th:field="*{barcode}" name="barcode" value="" id="barcode" class="frm_input" size="95"
+                                       onchange="(function(){barcode = event.target.value;console.log(`barcode`,barcode)})()"/>
                             </td>
                         </tr>
                         <tr>
                             <th scope="row">
-                                <label for="it_model">자체 상품 모델명</label>
+                                <label for="modelName">자체 상품 모델명</label>
                             </th>
                             <td colspan="2">
-                                <input type="text" name="it_model" value="" id="it_model" class="frm_input" size="40"
-                                       onchange="(function(){basic_model_name = event.target.value;console.log(`basic_model_name`,basic_model_name)})()"/>
+                                <input type="text" th:field="*{modelName}" name="modelName" value="" id="modelName" class="frm_input" size="40"
+                                       onchange="(function(){modelName = event.target.value;console.log(`modelName`,modelName)})()"/>
                             </td>
                         </tr>
                         <tr>
@@ -326,8 +575,8 @@
                                 <span class="frm_info">띄어쓰기 불가하며 키워드당 최대 국문 15자,영문45자(45byte)까지 등록 가능</span>
                                 <span class="frm_info">특수문자(# {} [] () &lt;&gt; / ? * ' " ^ |)는 입력불가</span>
                                 <span class="frm_info">관련이 없는 셀럽 명, 해당되지 않는 품목 군, 기타 논란이우려되는 키워드 입력 불가</span>
-                                <input type="text" name="it_stx" id="it_stx" class="frm_input" size="95" value="" placeholder="박스포장, 배달주문"
-                                       onchange="(function(){basic_search = event.target.value;console.log(`basic_search`,basic_search)})()"/>
+                                <input type="text" th:field="*{keyword}" name="keyword" id="keyword" class="frm_input" size="95" value="" placeholder="박스포장, 배달주문"
+                                       onchange="(function(){keyword = event.target.value;console.log(`keyword`,keyword)})()"/>
                             </td>
                         </tr>
                         </tbody>
@@ -338,7 +587,6 @@
             <div class="va_admin_line"></div>
             <section id="anc_sitfrm_cost">
                 <h2 class="h2_frm va_pl30">판매정보</h2>
-
                 <div class="tbl_frm01 tbl_wrap va_pl30" style="margin-bottom: 30px">
                     <table class="va_admin_tb">
                         <caption>가격 및 재고 입력</caption>
@@ -352,118 +600,116 @@
                             <th scope="row">상품 상태</th>
                             <td colspan="3">
                                 <div style="display: flex; align-items: center">
-                                    <label class="ca_checkbox" style="margin-right: 20px">
-                                        <input type="checkbox" name="it_approve_no" value="it_approve_no" id="it_approve_no" class="it_status" onclick="productStatus('it_approve_no')"/><i></i>
+                                    <label class="ca_checkbox" for="beforeApprovalStatus" style="margin-right: 20px">
+                                        <input type="checkbox" th:field="*{beforeApprovalStatus}" name="beforeApprovalStatus" id="beforeApprovalStatus" class="it_status" onclick="productStatus('beforeApprovalStatus')"/><i></i>
                                         <p>승인 전</p>
                                     </label>
                                     <label class="ca_checkbox" style="margin-right: 20px">
-                                        <input type="checkbox" name="it_use" value="it_use" id="it_use" class="it_status" onclick="productStatus('it_use')"/><i></i>
+                                        <input type="checkbox" th:field="*{saleStatus}" name="saleStatus" value="saleStatus" id="saleStatus" class="it_status" onclick="productStatus('saleStatus')"/><i></i>
                                         <p>판매 중</p>
                                     </label>
                                     <label class="ca_checkbox" style="margin-right: 20px">
-                                        <input type="checkbox" name="it_open" value="it_open" id="it_open" class="it_status" onclick="productStatus('it_open')"/><i></i>
+                                        <input type="checkbox" th:field="*{productExposureStatus}" name="productExposureStatus" value="productExposureStatus" id="productExposureStatus" class="it_status" onclick="productStatus('productExposureStatus')"/><i></i>
                                         <p>상품 노출</p>
                                     </label>
                                     <label class="ca_checkbox" style="margin-right: 20px">
-                                        <input type="checkbox" name="it_soldout" value="it_soldout" id="it_soldout" class="it_status" onclick="productStatus('it_soldout')"/><i></i>
+                                        <input type="checkbox" th:field="*{soldOutStatus}" name="soldOutStatus" value="soldOutStatus" id="soldOutStatus" class="it_status" onclick="productStatus('soldOutStatus')"/><i></i>
                                         <p>품절</p>
                                     </label>
                                     <label class="ca_checkbox" style="margin-right: 20px">
-                                        <input type="checkbox" name="it_ban" value="it_ban" id="it_ban" class="it_status" onclick="productStatus('it_ban')"/><i></i>
+                                        <input type="checkbox" th:field="*{noSaleStatus}" name="noSaleStatus" value="noSaleStatus" id="noSaleStatus" class="it_status" onclick="productStatus('noSaleStatus')"/><i></i>
                                         <p>판매 금지</p>
                                     </label>
                                 </div>
                             </td>
                         </tr>
-
                         <tr>
                             <th scope="row">
-                                <label for="it_cust_price">정상가</label>
+                                <label for="regularPrice">정상가</label>
                             </th>
                             <td>
-                                <input type="text" name="it_cust_price" value="" id="it_cust_price" class="frm_input" size="8"
-                                       onchange="(function(){sales_regular_price = event.target.value;console.log(`sales_regular_price`,sales_regular_price)})()"/>
+                                <input type="text" th:field="*{regularPrice}" name="regularPrice" value="" id="regularPrice" class="frm_input" size="8"
+                                       onchange="(function(){regularPrice = event.target.value;console.log(`regularPrice`,regularPrice)})()"/>
                                 원
                             </td>
                             <th scope="row">
-                                <label for="it_notax">상품과세 유형</label>
+                                <label for="vatType">상품과세 유형</label>
                             </th>
                             <td>
                                 <span class="frm_info">상품의 과세유형(과세, 비과세)을 설정합니다.</span>
-                                <select name="it_notax" id="it_notax" onchange="taxationType()">
-                                    <option value="과세" selected="selected">과세</option>
-                                    <option value="비과세">비과세</option>
+                                <select name="vatType" id="vatType" th:name="vatType" onchange="taxationType()">
+                                    <option value="USE" th:selected="${item.getVatType()} == USE" selected="selected">과세</option>
+                                    <option value="UNUSED" th:selected="${item.getVatType()} == UNUSED">비과세</option>
                                 </select>
                             </td>
                         </tr>
                         <tr>
-                            <th scope="row"><label for="it_price">판매가</label></th>
+                            <th scope="row"><label for="salePrice">판매가</label></th>
                             <td>
-                                <input type="text" name="it_price" id="it_price" class="frm_input" size="8"
-                                       onchange="(function(){sales_sales_price = event.target.value;console.log(`sales_sales_price`,sales_sales_price)})()"/>
+                                <input type="text" th:field="*{salePrice}" name="salePrice" id="salePrice" class="frm_input" size="8"
+                                       onchange="(function(){salePrice = event.target.value;console.log(`salePrice`,salePrice)})()"/>
                                 원
                             </td>
-                            <th scope="row">수수료</th>
+                            <th scope="row"><label for="fees">수수료</label></th>
                             <td>
-                                <input type="text" class="frm_input" name="it_fee" id="it_fee"
-                                       onchange="(function(){sales_fees = event.target.value;console.log(`sales_fees`,sales_fees)})()"/>
+                                <input type="text" th:field="*{fees}" class="frm_input" name="fees" id="fees"
+                                       onchange="(function(){fees = event.target.value;console.log(`fees`,fees)})()"/>
                             </td>
                         </tr>
-
                         <tr>
                             <th scope="row">
-                                <label for="it_point_type">포인트 유형</label>
+                                <label for="pointType">포인트 유형</label>
                             </th>
                             <td>
-                                <select name="it_point_type" id="it_point_type" disabled="">
-                                    <option value="0" selected="selected">설정금액</option>
-                                    <option value="1">정상가기준 설정비율</option>
-                                    <option value="2">판매가기준 설정비율</option>
+                                <select th:name="pointType" name="pointType" id="pointType" disabled="">
+                                    <option value="0" th:selected="${item.getPointType()} == 0" selected="selected">설정금액</option>
+                                    <option value="1" th:selected="${item.getPointType()} == 1">정상가기준 설정비율</option>
+                                    <option value="2" th:selected="${item.getPointType()} == 2">판매가기준 설정비율</option>
                                 </select>
                             </td>
                             <th scope="row">
-                                <label for="it_point">포인트</label>
+                                <label for="point">포인트</label>
                             </th>
                             <td>
-                                <input type="text" name="it_point" id="it_point" class="frm_input" size="8" disabled=""
-                                       onchange="(function(){sales_point = event.target.value;console.log(`sales_point`,sales_point)})()"/>
-                                <span id="it_point_unit">점</span>
+                                <input type="text" th:field="*{point}" name="point" id="point" class="frm_input" size="8" disabled=""
+                                       onchange="(function(){point = event.target.value;console.log(`point`,point)})()"/>
+                                <span id="point_unit">점</span>
                             </td>
                         </tr>
                         <tr>
                             <th scope="row">
-                                <label for="it_stock_qty">재고수량</label>
+                                <label for="stock">재고수량</label>
                             </th>
                             <td>
                                 <span class="frm_info">선택옵션이 있을 경우 자동으로 선택옵션 재고의 합으로 적용됩니다.</span>
-                                <input type="text" name="it_stock_qty" id="it_stock_qty" class="frm_input" size="8"
-                                       onchange="(function(){sales_available_stock = event.target.value;console.log(`sales_available_stock`,sales_available_stock)})()"/>
+                                <input type="text" th:field="*{stock}" name="stock" id="stock" class="frm_input" size="8"
+                                       onchange="(function(){stock = event.target.value;console.log(`stock`,stock)})()"/>
                                 개
                             </td>
                             <th scope="row">
-                                <label for="it_noti_qty">통보 재고 수량</label>
+                                <label for="stockNotificationQuantity">통보 재고 수량</label>
                             </th>
                             <td>
-                                <input type="text" name="it_noti_qty" value="" id="it_noti_qty" class="frm_input" size="8"
-                                       onchange="(function(){sales_notified_available_stock = event.target.value;console.log(`sales_notified_available_stock`,sales_notified_available_stock)})()"/>
+                                <input type="text" th:field="*{stockNotificationQuantity}" name="stockNotificationQuantity" value="" id="stockNotificationQuantity" class="frm_input" size="8"
+                                       onchange="(function(){stockNotificationQuantity = event.target.value;console.log(`stockNotificationQuantity`,stockNotificationQuantity)})()"/>
                                 개
                             </td>
                         </tr>
                         <tr>
                             <th scope="row">
-                                <label for="it_buy_min_qty">최소구매수량</label>
+                                <label for="minimumPurchaseQuantity">최소구매수량</label>
                             </th>
                             <td>
-                                <input type="text" name="it_buy_min_qty" id="it_buy_min_qty" class="frm_input" size="8"
-                                       onchange="(function(){sales_min_available_stock = event.target.value;console.log(`sales_min_available_stock`,sales_min_available_stock)})()"/>
+                                <input type="text" th:field="*{minimumPurchaseQuantity}" name="minimumPurchaseQuantity" id="minimumPurchaseQuantity" class="frm_input" size="8"
+                                       onchange="(function(){minimumPurchaseQuantity = event.target.value;console.log(`minimumPurchaseQuantity`,minimumPurchaseQuantity)})()"/>
                                 개
                             </td>
                             <th scope="row">
-                                <label for="it_buy_max_qty">최대구매수량</label>
+                                <label for="maximumPurchaseQuantity">최대구매수량</label>
                             </th>
                             <td>
-                                <input type="text" name="it_buy_max_qty" value="" id="it_buy_max_qty" class="frm_input" size="8"
-                                       onchange="(function(){sales_max_available_stock = event.target.value;console.log(`sales_max_available_stock`,sales_max_available_stock)})()"/>
+                                <input type="text" th:field="*{maximumPurchaseQuantity}" name="maximumPurchaseQuantity" value="" id="maximumPurchaseQuantity" class="frm_input" size="8"
+                                       onchange="(function(){maximumPurchaseQuantity = event.target.value;console.log(`maximumPurchaseQuantity`,maximumPurchaseQuantity)})()"/>
                                 개
                             </td>
                         </tr>
@@ -567,87 +813,61 @@
                         </colgroup>
                         <tbody>
                         <tr>
-                            <th scope="row"><label for="itemKind">상품 구분</label></th>
+                            <th scope="row"><label for="productionTimeType">상품 구분</label></th>
                             <td>
-                                <select name="itemKind" id="itemKind" style="width: 329px; height: 37px; border-radius: 5px" onchange="itemSortation()">
-                                    <option value="정상" selected="selected">정상</option>
-                                    <option value="이월">이월</option>
+                                <select th:name="productionTimeType" name="productionTimeType" id="productionTimeType" style="width: 329px; height: 37px; border-radius: 5px" onchange="itemSortation()">
+                                    <option value="NORMAL" th:selected="${item.getProductionTimeType()} == NORMAL" selected="selected">정상</option>
+                                    <option value="CARRY_OVER" th:selected="${item.getProductionTimeType()} == CARRY_OVER">이월</option>
                                 </select>
                             </td>
                             <th scope="row">
-                                <label for="produceYear">생산연도</label>
+                                <label for="productionYear">생산연도</label>
                             </th>
                             <td colspan="2">
-                                <input type="text" name="produceYear" value="2022" id="produceYear" class="frm_input" size="40"
-                                       onchange="(function(){product_made_date = event.target.value;console.log(`product_made_date`,product_made_date)})()"/>
+                                <input type="text" th:field="*{productionYear}" name="productionYear" value="2022" id="productionYear" class="frm_input" size="40"
+                                       onchange="(function(){productionYear = event.target.value;console.log(`productionYear`,productionYear)})()"/>
                             </td>
                         </tr>
                         <tr>
-                            <th scope="row"><label for="produceDay">제조일</label></th>
+                            <th scope="row">
+                                <label for="manufacturingYear">제조일</label>
+                            </th>
                             <td>
-                                <select name="produceDayY" id="produceDayY" style="width: 100px; height: 37px; border-radius: 5px"
-                                        onchange="(function(){product_manufacture_year = event.target.value;console.log(`product_manufacture_year`, product_manufacture_year)})()">
-                                    <option value="">년도</option>
-                                    <option value="2022">2022</option>
-                                    <option value="2021">2021</option>
-                                    <option value="2020">2020</option>
-                                    <option value="2019">2019</option>
-                                    <option value="2018">2018</option>
-                                    <option value="2017">2017</option>
+                                <select th:name="manufacturingYear" name="manufacturingYear" id="manufacturingYear" style="width: 100px; height: 37px; border-radius: 5px"
+                                        onchange="(function(){manufacturingYear = event.target.value;console.log(`manufacturingYear`, productionYear)})()">
+                                    <option value="0000" selected="selected">년도</option>
+                                    <option th:value="${yyyy}" th:text="${yyyy}" th:each="yyyy: ${#numbers.sequence(year, year - 20)}" th:selected="${item.getManufacturingYear()} == ${yyyy}">2023</option>
                                 </select>
                                 년
-                                <select name="produceDayM" id="produceDayM" style="
-                          width: 70px;
-                          height: 37px;
-                          border-radius: 5px;
-                          margin-left: 10px;
-                        "
-                                        onchange="(function(){product_manufacture_month = event.target.value;console.log(`product_manufacture_month`,product_manufacture_month)})()">
-                                    <option value="">월</option>
-                                    <option value="01">01</option>
-                                    <option value="02">02</option>
-                                    <option value="03">03</option>
-                                    <option value="04">04</option>
-                                    <option value="05">05</option>
-                                    <option value="06">06</option>
-                                    <option value="07">07</option>
-                                    <option value="08">08</option>
-                                    <option value="09">09</option>
-                                    <option value="10">10</option>
-                                    <option value="11">11</option>
-                                    <option value="12">12</option>
+                                <select th:name="manufacturingMonth" name="manufacturingMonth" id="manufacturingMonth" style="width: 70px;height: 37px;border-radius: 5px;margin-left: 10px;"
+                                        onchange="(function(){manufacturingMonth = event.target.value;console.log(`manufacturingMonth`,manufacturingMonth)})()">
+                                    <option value="1" selected="selected">월</option>
+                                    <option th:value="${mm}" th:text="${mm}" th:each="mm: ${#numbers.sequence(1, 12)}" th:selected="${item.getManufacturingMonth()} == ${mm}">2023</option>
                                 </select>
                                 월
                             </td>
                             <th scope="row">
-                                <label for="season">시즌</label>
+                                <label>시즌</label>
                             </th>
                             <td>
-                                <select name="seasonY" id="seasonY" style="width: 100px; height: 37px; border-radius: 5px"
-                                        onchange="(function(){product_season_year = event.target.value;console.log(`product_season_year`, product_season_year);})()">
-                                    <option value="">년도</option>
-                                    <option value="2022">2022</option>
-                                    <option value="2021">2021</option>
-                                    <option value="2020">2020</option>
-                                    <option value="2019">2019</option>
-                                    <option value="2018">2018</option>
-                                    <option value="2017">2017</option>
-                                    <option value="2016">2016</option>
-                                    <option value="2015">2015</option>
-                                    <option value="2014">2014</option>
-                                    <option value="2013">2013</option>
+                                <select th:name="seasonYear" name="seasonYear" id="seasonYear" style="width: 100px; height: 37px; border-radius: 5px"
+                                        onchange="(function(){seasonYear = event.target.value;console.log(`seasonYear`, seasonYear);})()">
+                                    <option value="0000" selected="selected">년도</option>
+                                    <option th:value="${yyyy}" th:text="${yyyy}" th:each="yyyy: ${#numbers.sequence(year, year - 20)}">2023</option>
                                 </select>
                                 년
-                                <select name="seasonM" id="seasonM" style="width: 100px; height: 37px; border-radius: 5px"
-                                        onchange="(function(){product_season_month = event.target.value;console.log(`product_season_month`, product_season_month);})()">
-                                    <option value="SS" selected="selected">SS</option>
-                                    <option value="FW">FW</option>
+                                <select th:name="season" name="season" id="season" style="width: 100px; height: 37px; border-radius: 5px"
+                                        onchange="(function(){season = event.target.value;console.log(`season`, season);})()">
+                                    <option value="SS" th:selected="${item.getSeason()} == SS" selected="selected">SS</option>
+                                    <option value="FW" th:selected="${item.getSeason()} == FW">FW</option>
                                 </select>
                             </td>
                         </tr>
                         <!--추가로 들어갈 부분 -->
                         <tr>
-                            <th scope="row"><label for="it_brand">색상</label></th>
+                            <th scope="row">
+                                <label>색상</label>
+                            </th>
                             <td colspan="3">
                                 <ul id="colorCate">
                                     <li>
@@ -825,47 +1045,47 @@
                 </div>
                 <div id="sit_compact">
                     <span class="frm_info">상품군을 선택하면 자동으로 항목이 변환됩니다.</span>
-                    <select id="it_info_gubun" name="it_info_gubun"
+                    <select th:name="type" id="type" name="type"
                             onchange="(function(){proinfo_product = event.target.value;console.log(`proinfo_product`,proinfo_product);})()">
-                        <option value="">상품군을 선택하세요.</option>
-                        <option value="wear" selected="selected">의류</option>
-                        <option value="shoes">구두/신발</option>
-                        <option value="bag">가방</option>
-                        <option value="fashion">패션잡화(모자/벨트/액세서리)</option>
-                        <option value="bedding">침구류/커튼</option>
-                        <option value="furniture">가구(침대/소파/싱크대/DIY제품)</option>
-                        <option value="image_appliances">영상가전 (TV류)</option>
-                        <option value="home_appliances">가정용전기제품(냉장고/세탁기/식기세척기/전자레인지)</option>
-                        <option value="season_appliances">계절가전(에어컨/온풍기)</option>
-                        <option value="office_appliances">사무용기기(컴퓨터/노트북/프린터)</option>
-                        <option value="optics_appliances">광학기기(디지털카메라/캠코더)</option>
-                        <option value="microelectronics">소형전자(MP3/전자사전등)</option>
-                        <option value="mobile">휴대폰</option>
-                        <option value="navigation">네비게이션</option>
-                        <option value="car">자동차용품(자동차부품/기타자동차용품)</option>
-                        <option value="medical">의료기기</option>
-                        <option value="kitchenware">주방용품</option>
-                        <option value="cosmetics">화장품</option>
-                        <option value="jewelry">귀금속/보석/시계류</option>
-                        <option value="food">식품(농수산물)</option>
-                        <option value="general_food">가공식품</option>
-                        <option value="diet_food">건강기능식품</option>
-                        <option value="kids">영유아용품</option>
-                        <option value="instrument">악기</option>
-                        <option value="sports">스포츠용품</option>
-                        <option value="books">서적</option>
-                        <option value="reserve">호텔/펜션예약</option>
-                        <option value="travel">여행패키지</option>
-                        <option value="airline_ticket">항공권</option>
-                        <option value="rent_car">자동차대여서비스(렌터카)</option>
-                        <option value="rental_water">물품대여서비스(정수기,비데,공기청정기 등)</option>
-                        <option value="rental_etc">물품대여서비스(서적,유아용품,행사용품 등)</option>
-                        <option value="digital_contents">디지털콘텐츠(음원,게임,인터넷강의 등)</option>
-                        <option value="gift_card">상품권/쿠폰</option>
-                        <option value="etc">기타</option>
+                        <option value="none" selected="selected">상품군을 선택하세요.</option>
+                        <option value="wear" th:selected="${item.getType()} == wear" >의류</option>
+                        <option value="shoes" th:selected="${item.getType()} == shoes" >구두/신발</option>
+                        <option value="bag" th:selected="${item.getType()} == bag" >가방</option>
+                        <option value="fashion" th:selected="${item.getType()} == fashion" >패션잡화(모자/벨트/액세서리)</option>
+                        <option value="bedding" th:selected="${item.getType()} == bedding" >침구류/커튼</option>
+                        <option value="furniture" th:selected="${item.getType()} == furniture" >가구(침대/소파/싱크대/DIY제품)</option>
+                        <option value="image_appliances" th:selected="${item.getType()} == image_appliances" >영상가전 (TV류)</option>
+                        <option value="home_appliances" th:selected="${item.getType()} == home_appliances" >가정용전기제품(냉장고/세탁기/식기세척기/전자레인지)</option>
+                        <option value="season_appliances" th:selected="${item.getType()} == season_appliances" >계절가전(에어컨/온풍기)</option>
+                        <option value="office_appliances" th:selected="${item.getType()} == office_appliances" >사무용기기(컴퓨터/노트북/프린터)</option>
+                        <option value="optics_appliances" th:selected="${item.getType()} == optics_appliances" >광학기기(디지털카메라/캠코더)</option>
+                        <option value="microelectronics" th:selected="${item.getType()} == microelectronics" >소형전자(MP3/전자사전등)</option>
+                        <option value="mobile" th:selected="${item.getType()} == mobile" >휴대폰</option>
+                        <option value="navigation" th:selected="${item.getType()} == navigation" >네비게이션</option>
+                        <option value="car" th:selected="${item.getType()} == car" >자동차용품(자동차부품/기타자동차용품)</option>
+                        <option value="medical" th:selected="${item.getType()} == medical" >의료기기</option>
+                        <option value="kitchenware" th:selected="${item.getType()} == kitchenware" >주방용품</option>
+                        <option value="cosmetics" th:selected="${item.getType()} == cosmetics" >화장품</option>
+                        <option value="jewelry" th:selected="${item.getType()} == jewelry" >귀금속/보석/시계류</option>
+                        <option value="food" th:selected="${item.getType()} == food" >식품(농수산물)</option>
+                        <option value="general_food" th:selected="${item.getType()} == general_food" >가공식품</option>
+                        <option value="diet_food" th:selected="${item.getType()} == diet_food" >건강기능식품</option>
+                        <option value="kids" th:selected="${item.getType()} == kids" >영유아용품</option>
+                        <option value="instrument" th:selected="${item.getType()} == instrument" >악기</option>
+                        <option value="sports" th:selected="${item.getType()} == sports" >스포츠용품</option>
+                        <option value="books" th:selected="${item.getType()} == books" >서적</option>
+                        <option value="reserve" th:selected="${item.getType()} == reserve" >호텔/펜션예약</option>
+                        <option value="travel" th:selected="${item.getType()} == travel" >여행패키지</option>
+                        <option value="airline_ticket" th:selected="${item.getType()} == airline_ticket" >항공권</option>
+                        <option value="rent_car" th:selected="${item.getType()} == rent_car" >자동차대여서비스(렌터카)</option>
+                        <option value="rental_water" th:selected="${item.getType()} == rental_water" >물품대여서비스(정수기,비데,공기청정기 등)</option>
+                        <option value="rental_etc" th:selected="${item.getType()} == rental_etc" >물품대여서비스(서적,유아용품,행사용품 등)</option>
+                        <option value="digital_contents" th:selected="${item.getType()} == digital_contents" >디지털콘텐츠(음원,게임,인터넷강의 등)</option>
+                        <option value="gift_card" th:selected="${item.getType()} == gift_card" >상품권/쿠폰</option>
+                        <option value="etc" th:selected="${item.getType()} == etc" >기타</option>
                     </select>
                 </div>
-                <div id="sit_compact_fields" class="">
+                <div id="typeInfo" id="sit_compact_fields" class="">
                     <div class="tbl_frm01 tbl_wrap va_pl30" style="margin-left: 0; margin-bottom: 30px">
                         <table>
                             <caption>상품요약정보 입력</caption>
@@ -876,249 +1096,106 @@
                             <tbody>
                             <tr>
                                 <th scope="row">
-                                    <label for="ii_article_material">제품 소재</label>
+                                    <label for="productName">제품명</label>
                                 </th>
                                 <td colspan="2">
-                                    <input type="hidden" name="ii_article[]" value="material"/>
-                                    <input type="text" name="ii_value[]" value="상세설명참조" id="ii_article_material" required="" class="frm_input required"
-                                           onchange="(function(){proinfo_material = event.target.value;console.log(`proinfo_material`,proinfo_material);})()"/>
+                                    <input type="text" th:field="*{productName}" name="productName" value="상세설명참조" id="productName" required="" class="frm_input required"
+                                           onchange="(function(){productName = event.target.value;console.log(`productName`,productName);})()"/>
                                 </td>
                             </tr>
                             <tr>
                                 <th scope="row">
-                                    <label for="ii_article_color">색상</label>
+                                    <label for="foodType">식품의 유형</label>
                                 </th>
                                 <td colspan="2">
-                                    <input type="hidden" name="ii_article[]" value="color"/>
-                                    <input type="text" name="ii_value[]" value="상세설명참조" id="ii_article_color" required="" class="frm_input required"
-                                           onchange="(function(){proinfo_color = event.target.value;console.log(`proinfo_color`,proinfo_color);})()"/>
+                                    <input type="text" th:field="*{foodType}" name="foodType" value="상세설명참조" id="foodType" required="" class="frm_input required"
+                                           onchange="(function(){foodType = event.target.value;console.log(`foodType`,foodType);})()"/>
                                 </td>
                             </tr>
                             <tr>
                                 <th scope="row">
-                                    <label for="ii_article_size">치수</label>
+                                    <label for="producerAndLocation">생산자 및 소재지</label>
                                 </th>
                                 <td colspan="2">
-                                    <input type="hidden" name="ii_article[]" value="size"/>
-                                    <input type="text" name="ii_value[]" value="상세설명참조" id="ii_article_size" required="" class="frm_input required"
-                                           onchange="(function(){proinfo_size = event.target.value;console.log(`proinfo_size`,proinfo_size);})()"/>
+                                    <input type="text" th:field="*{producerAndLocation}" name="producerAndLocation" value="상세설명참조" id="producerAndLocation" required="" class="frm_input required"
+                                           onchange="(function(){producerAndLocation = event.target.value;console.log(`producerAndLocation`,producerAndLocation);})()"/>
                                 </td>
                             </tr>
                             <tr>
                                 <th scope="row">
-                                    <label for="ii_article_maker">제조사(수입자/병행수입)</label>
+                                    <label for="qualityMaintenancePeriod">제조연월일, 소비기한 또는 품질유지기한</label>
                                 </th>
                                 <td colspan="2">
-                                    <input type="hidden" name="ii_article[]" value="maker"/>
-                                    <input type="text" name="ii_value[]" value="상세설명참조" id="ii_article_maker" required="" class="frm_input required"
-                                           onchange="(function(){proinfo_made = event.target.value;console.log(`proinfo_made`,proinfo_made);})()"/>
+                                    <input type="text" th:field="*{qualityMaintenancePeriod}" name="qualityMaintenancePeriod" value="상세설명참조" id="qualityMaintenancePeriod" required="" class="frm_input required"
+                                           onchange="(function(){qualityMaintenancePeriod = event.target.value;console.log(`qualityMaintenancePeriod`,qualityMaintenancePeriod);})()"/>
                                 </td>
                             </tr>
                             <tr>
                                 <th scope="row">
-                                    <label for="ii_article_madein">제조국</label>
+                                    <label for="quantityPerUnit">제조국</label>
                                 </th>
                                 <td colspan="2">
-                                    <input type="hidden" name="ii_article[]" value="madein"/>
-                                    <input type="text" name="ii_value[]" value="상세설명참조" id="ii_article_madein" required="" class="frm_input required"
-                                           onchange="(function(){proinfo_made_country = event.target.value;console.log(`proinfo_made_country`,proinfo_made_country);})()"/>
+                                    <input type="text" th:field="*{quantityPerUnit}" name="quantityPerUnit" value="상세설명참조" id="quantityPerUnit" required="" class="frm_input required"
+                                           onchange="(function(){quantityPerUnit = event.target.value;console.log(`quantityPerUnit`,quantityPerUnit);})()"/>
                                 </td>
                             </tr>
                             <tr>
                                 <th scope="row">
-                                    <label for="ii_article_caution">세탁방법 및 취급시 주의사항</label>
+                                    <label for="rawMaterials">원재료명 및 함량</label>
                                 </th>
                                 <td colspan="2">
-                                    <input type="hidden" name="ii_article[]" value="caution"/>
-                                    <input type="text" name="ii_value[]" value="상세설명참조" id="ii_article_caution" required="" class="frm_input required"
-                                           onchange="(function(){proinfo_laundry = event.target.value;console.log(`proinfo_laundry`,proinfo_laundry);})()"/>
+                                    <input type="text" th:field="*{rawMaterials}" name="rawMaterials" value="상세설명참조" id="rawMaterials" required="" class="frm_input required"
+                                           onchange="(function(){rawMaterials = event.target.value;console.log(`rawMaterials`,rawMaterials);})()"/>
                                 </td>
                             </tr>
                             <tr>
                                 <th scope="row">
-                                    <label for="ii_article_manufacturing_ym">제조연월</label>
+                                    <label for="nutrient">영양성분</label>
                                 </th>
                                 <td colspan="2">
-                                    <input type="hidden" name="ii_article[]" value="manufacturing_ym"/>
-                                    <input type="text" name="ii_value[]" value="상세설명참조" id="ii_article_manufacturing_ym" required="" class="frm_input required"
-                                           onchange="(function(){proinfo_made_date = event.target.value;console.log(`proinfo_made_date`,proinfo_made_date);})()"/>
+                                    <input type="text" th:field="*{nutrient}" name="nutrient" value="상세설명참조" id="nutrient" required="" class="frm_input required"
+                                           onchange="(function(){nutrient = event.target.value;console.log(`nutrient`,nutrient);})()"/>
                                 </td>
                             </tr>
                             <tr>
                                 <th scope="row">
-                                    <label for="ii_article_warranty">품질보증기준</label>
+                                    <label for="geneticallyModifiedFood">유전자변형식품에 해당하는 경우의 표시</label>
                                 </th>
                                 <td colspan="2">
-                                    <input type="hidden" name="ii_article[]" value="warranty"/>
-                                    <input type="text" name="ii_value[]" value="상세설명참조" id="ii_article_warranty" required="" class="frm_input required"
-                                           onchange="(function(){proinfo_quality = event.target.value;console.log(`proinfo_quality`,proinfo_quality);})()"/>
+                                    <input type="text" th:field="*{geneticallyModifiedFood}" name="geneticallyModifiedFood" value="상세설명참조" id="geneticallyModifiedFood" required="" class="frm_input required"
+                                           onchange="(function(){geneticallyModifiedFood = event.target.value;console.log(`geneticallyModifiedFood`,geneticallyModifiedFood);})()"/>
                                 </td>
                             </tr>
                             <tr>
                                 <th scope="row">
-                                    <label for="ii_article_as">A/S 책임자와 전화번호</label>
+                                    <label for="safetyPrecautions">소비자안전을 위한 주의사항</label>
                                 </th>
                                 <td colspan="2">
-                                    <input type="hidden" name="ii_article[]" value="as"/>
-                                    <input type="text" name="ii_value[]" value="상세설명참조" id="ii_article_as" required="" class="frm_input required"
-                                           onchange="(function(){proinfo_as = event.target.value;console.log(`proinfo_as`,proinfo_as);})()"/>
+                                    <input type="text" th:field="*{safetyPrecautions}" name="safetyPrecautions" value="상세설명참조" id="safetyPrecautions" required="" class="frm_input required"
+                                           onchange="(function(){safetyPrecautions = event.target.value;console.log(`safetyPrecautions`,safetyPrecautions);})()"/>
                                 </td>
                             </tr>
                             <tr>
                                 <th scope="row">
-                                    <label for="ii_article_certification">KC 안전인증 대상 유무</label>
+                                    <label for="importedFoodStationery">수입식품 문구</label>
                                 </th>
                                 <td colspan="2">
-                                    <input type="hidden" name="ii_article[]" value="certification"/>
-                                    <input type="text" name="ii_value[]" value="상세설명참조" id="ii_article_certification" required="" class="frm_input required"
-                                           onchange="(function(){proinfo_kc = event.target.value;console.log(`proinfo_kc`,proinfo_kc);})()"/>
+                                    <input type="text" th:field="*{importedFoodStationery}" name="importedFoodStationery" value="상세설명참조" id="importedFoodStationery" required="" class="frm_input required"
+                                           onchange="(function(){importedFoodStationery = event.target.value;console.log(`importedFoodStationery`,importedFoodStationery);})()"/>
                                 </td>
                             </tr>
                             <tr>
                                 <th scope="row">
-                                    <label for="ii_article_import">수입여부</label>
+                                    <label for="managerAndPhoneNumber">소비자상담관련 전화번호</label>
                                 </th>
                                 <td colspan="2">
-                                    <input type="hidden" name="ii_article[]" value="import"/>
-                                    <input type="text" name="ii_value[]" value="상세설명참조" id="ii_article_import" required="" class="frm_input required"
-                                           onchange="(function(){proinfo_income = event.target.value;console.log(`proinfo_income`,proinfo_income);})()"/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">
-                                    <label for="ii_article_kind">종류</label>
-                                </th>
-                                <td colspan="2">
-                                    <input type="hidden" name="ii_article[]" value="kind"/>
-                                    <input type="text" name="ii_value[]" value="상세설명참조" id="ii_article_kind" required="" class="frm_input required"
-                                           onchange="(function(){proinfo_kinds = event.target.value;console.log(`proinfo_kinds`,proinfo_kinds);})()"/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">
-                                    <label for="ii_article_weight">상품무게</label>
-                                </th>
-                                <td colspan="2">
-                                    <input type="hidden" name="ii_article[]" value="weight"/>
-                                    <input type="text" name="ii_value[]" value="상세설명참조" id="ii_article_weight" required="" class="frm_input required"
-                                           onchange="(function(){proinfo_weight = event.target.value;console.log(`proinfo_weight`,proinfo_weight);})()"/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">
-                                    <label for="ii_article_area">상품 가로_세로_높이</label>
-                                </th>
-                                <td colspan="2">
-                                    <input type="hidden" name="ii_article[]" value="area"/>
-                                    <input type="text" name="ii_value[]" value="상세설명참조" id="ii_article_area" required="" class="frm_input required"
-                                           onchange="(function(){proinfo_length = event.target.value;console.log(`proinfo_length`,proinfo_length);})()"/>
+                                    <input type="text" th:field="*{managerAndPhoneNumber}" name="managerAndPhoneNumber" value="상세설명참조" id="managerAndPhoneNumber" required="" class="frm_input required"
+                                           onchange="(function(){managerAndPhoneNumber = event.target.value;console.log(`managerAndPhoneNumber`,managerAndPhoneNumber);})()"/>
                                 </td>
                             </tr>
                             </tbody>
                         </table>
                     </div>
-                </div>
-            </section>
-
-            <div class="va_admin_line"></div>
-            <section id="anc_sitfrm_ect">
-                <h2 class="h2_frm va_pl30">기타정보</h2>
-                <div class="tbl_frm01 tbl_wrap va_pl30" style="margin-bottom: 30px">
-                    <table class="va_admin_tb">
-                        <tbody>
-                        <tr>
-                            <th scope="row"><label for="authNo">인증 번호</label></th>
-                            <td>
-                                <input type="text" name="authNo" value="" id="authNo" class="frm_input" size="40"
-                                       onchange="(function(){etc_number = event.target.value;console.log(`etc_number`,etc_number);})()"/>
-                            </td>
-                            <th scope="row"><label for="authDate">인증 일자</label></th>
-                            <td>
-                                <input type="text" name="authDate" value="" id="authDate" class="frm_input" size="40"
-                                       onchange="(function(){etc_certification_date = event.target.value;console.log(`etc_certification_date`,etc_certification_date);})()"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">
-                                <label for="authStart">인증 유효 시작일</label>
-                            </th>
-                            <td>
-                                <input type="text" name="authStart" value="" id="authStart" class="frm_input" size="40"
-                                       onchange="(function(){etc_start_date = event.target.value;console.log(`etc_start_date`,etc_start_date);})()"/>
-                            </td>
-                            <th scope="row">
-                                <label for="authEnd">인증 유효 마지막일</label>
-                            </th>
-                            <td>
-                                <input type="text" name="authEnd" value="" id="authEnd" class="frm_input" size="40"
-                                       onchange="(function(){etc_end_date = event.target.value;console.log(`etc_end_date`,etc_end_date);})()"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">
-                                <label for="createDate">발급 일자</label>
-                            </th>
-                            <td>
-                                <input type="text" name="createDate" value="" id="createDate" class="frm_input" size="40"
-                                       onchange="(function(){etc_Issued_date = event.target.value;console.log(`etc_Issued_date`,etc_Issued_date);})()"/>
-                            </td>
-                            <th scope="row">
-                                <label for="authInstitude">인증 기관</label>
-                            </th>
-                            <td>
-                                <input type="text" name="authInstitude" value="" id="authInstitude" class="frm_input" size="40"
-                                       onchange="(function(){etc_certification = event.target.value;console.log(`etc_certification`,etc_certification);})()"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">
-                                <label for="authField">인증 분야</label>
-                            </th>
-                            <td colspan="3">
-                                <input type="text" name="authField" value="" id="authField" class="frm_input" size="95"
-                                       onchange="(function(){etc_certification_field = event.target.value;console.log(`etc_certification_field`,etc_certification_field);})()"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">
-                                <label for="customNo">수입신고번호</label>
-                            </th>
-                            <td colspan="3">
-                                <input type="text" name="customNo" value="" id="customNo" class="frm_input" size="95"
-                                        onchange="(function(){etc_income_number = event.target.value;console.log(`etc_income_number`,etc_income_number);})()"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">
-                                <label for="customImg">수입면장이미지</label>
-                            </th>
-                            <td colspan="3">
-                                <input type="text" name="customImg" value="" id="customImg" class="frm_input" size="95"
-                                       onchange="(function(){etc_income_img = event.target.value;console.log(`etc_income_img`,etc_income_img);})()"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">
-                                <label for="it_sell_email">이메일</label>
-                            </th>
-                            <td colspan="3">
-                                <span class="frm_info">운영자와 실제 판매자가 다른 경우 실제 판매자의 e-mail을 입력하면, 상품 주문 시점을 기준으로 실제 판매자에게도 주문서를 발송합니다.</span>
-                                <input type="text" name="it_sell_email" value="" id="it_sell_email" class="frm_input" size="40"
-                                       onchange="(function(){etc_email = event.target.value;console.log(`etc_email`,etc_email);})()"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">
-                                <label for="it_shop_memo">관리자 메모</label>
-                            </th>
-                            <td colspan="3">
-                                <textarea name="it_shop_memo" id="it_shop_memo" style="background: #fff"
-                                          onchange="(function(){etc_admin_memo = event.target.value;console.log(`etc_admin_memo`,etc_admin_memo);})()"></textarea>
-                            </td>
-                        </tr>
-                        <!-- 추가된 부분 끝 -->
-                        </tbody>
-                    </table>
                 </div>
             </section>
         </form>

@@ -41,7 +41,8 @@ public class AdminItemUpdateDto {
     /* 상품정보 */
     private String productionTimeType; // 상품 생산 시기 구분 (정상, 이월)
     private Integer productionYear; // 생산년도
-    private Integer productionMonth; // 생산월
+    private Integer manufacturingYear; // 제조일 년도
+    private Integer manufacturingMonth; // 제조일 월
     private String seasonYear; // 시즌년도
     private String season; // 시즌 (FW, SS)
     private String color; // 색상
@@ -80,7 +81,7 @@ public class AdminItemUpdateDto {
     /* enum 바인딩 */
     public ItemSellStatus getStatus() {
         // TODO
-        return ItemSellStatus.SELL;
+        return ItemSellStatus.SALE;
     }
 
     public VatType getVatType() {
@@ -183,7 +184,8 @@ public class AdminItemUpdateDto {
 
             this.item.setProductionTimeType(dto.getProductionTimeType());
             this.item.setProductionYear(dto.getProductionYear());
-            this.item.setProductionMonth(dto.getProductionMonth());
+            this.item.setManufacturingYear(dto.getManufacturingYear());
+            this.item.setManufacturingMonth(dto.getManufacturingMonth());
             this.item.setSeasonYear(dto.getSeasonYear());
             this.item.setSeason(dto.getSeason());
             this.item.setColor(dto.getColor());
@@ -193,21 +195,21 @@ public class AdminItemUpdateDto {
             this.item.setTopDescription(dto.getTopDescription());
             this.item.setBottomDescription(dto.getBottomDescription());
 
-            this.item.setItemGroup(dto.getItemGroup());
-            this.item.setIngredient(dto.getIngredient());
-            this.item.setColor2(dto.getColor2());
-            this.item.setDimensions(dto.getDimensions());
-            this.item.setManufacturer2(dto.getManufacturer2());
-            this.item.setManufacturingCountry(dto.getManufacturingCountry());
-            this.item.setWashingMethodAndHandlingPrecautions(dto.getWashingMethodAndHandlingPrecautions());
-            this.item.setDateOfManufacture(dto.getDateOfManufacture());
-            this.item.setQualityAssuranceStandard(dto.getQualityAssuranceStandard());
-            this.item.setAsManagerAndPhoneNumber(dto.getAsManagerAndPhoneNumber());
-            this.item.setSubjectToKCSafetyCertification(dto.getSubjectToKCSafetyCertification());
-            this.item.setIncome(dto.getIncome());
-            this.item.setKinds(dto.getKinds());
-            this.item.setWeight(dto.getWeight());
-            this.item.setDimensionsXYZ(dto.getDimensionsXYZ());
+//            this.item.setItemGroup(dto.getItemGroup());
+//            this.item.setIngredient(dto.getIngredient());
+//            this.item.setColor2(dto.getColor2());
+//            this.item.setDimensions(dto.getDimensions());
+//            this.item.setManufacturer2(dto.getManufacturer2());
+//            this.item.setManufacturingCountry(dto.getManufacturingCountry());
+//            this.item.setWashingMethodAndHandlingPrecautions(dto.getWashingMethodAndHandlingPrecautions());
+//            this.item.setDateOfManufacture(dto.getDateOfManufacture());
+//            this.item.setQualityAssuranceStandard(dto.getQualityAssuranceStandard());
+//            this.item.setAsManagerAndPhoneNumber(dto.getAsManagerAndPhoneNumber());
+//            this.item.setSubjectToKCSafetyCertification(dto.getSubjectToKCSafetyCertification());
+//            this.item.setIncome(dto.getIncome());
+//            this.item.setKinds(dto.getKinds());
+//            this.item.setWeight(dto.getWeight());
+//            this.item.setDimensionsXYZ(dto.getDimensionsXYZ());
             return this.item;
         }
     }

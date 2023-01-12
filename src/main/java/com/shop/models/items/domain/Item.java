@@ -63,9 +63,10 @@ public class Item extends BaseEntity {
     /* 상품정보 */
     @Enumerated(EnumType.STRING)
     private ProductProductionTimeType productionTimeType; // 상품 생산 시기 구분 (정상, 이월)
-    private Integer productionYear; // 생산년도
-    private Integer productionMonth; // 생산월
-    private String seasonYear; // 시즌년도
+    private Integer productionYear; // 생산연도
+    private Integer manufacturingYear; // 제조일 년도
+    private Integer manufacturingMonth; // 제조일 월
+    private String seasonYear; // 시즌연도
     @Enumerated(EnumType.STRING)
     private Season season; // 시즌 (FW, SS)
     private String color; // 색상
@@ -87,6 +88,7 @@ public class Item extends BaseEntity {
     private String bottomDescription; // 상품 하단 내용
 
     /* 상품정보고시 - 식품 */
+    private String type; // 상품 타입
     private String productName; // 제품명
     private String foodType; // 식품의 유형
     private String producerAndLocation; // 생산자 및 소재지

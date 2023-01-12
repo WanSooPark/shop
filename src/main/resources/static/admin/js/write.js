@@ -2,32 +2,34 @@
 
 // 1. 메인분류 노출
 let ca_checkbox = "";
+let bestBadge = "";
+let newBadge = "";
 let ca_category = "";
 
 // 2. 기본정보
-let basic_code = "";
-let basic_kr_name = "";
-let basic_en_name = "";
-let basic_description = "";
-let basic_made = "";
-let basic_origin = "";
-let basic_brand = "";
-let basic_barcode = "";
-let basic_model_name = "";
-let basic_search = "";
+let basic_code = ""; // id
+let name = "";
+let englishName = "";
+let basicDescription = "";
+let manufacturer = "";
+let origin = "";
+let brand = "";
+let barcode = "";
+let modelName = "";
+let keyword = "";
 
 // 3. 판매정보
-let sales_product_status = "";
-let sales_regular_price = null;
+let status = "";
+let regularPrice = null;
 let sales_product_taxation_type = "";
-let sales_sales_price = null;
-let sales_fees = null;
+let salePrice = null;
+let fees = null;
 let sales_point_type = "";
-let sales_point = null;
-let sales_available_stock = null;
-let sales_notified_available_stock = "";
-let sales_min_available_stock = "";
-let sales_max_available_stock = "";
+let point = null;
+let stock = null;
+let stockNotificationQuantity = "";
+let minimumPurchaseQuantity = "";
+let maximumPurchaseQuantity = "";
 let sales_option = [
   {
     option: "",
@@ -59,11 +61,11 @@ let sales_every_option_use = "";
 
 // 4. 상품정보
 let product_product_classification = "";
-let product_made_date = null;
-let product_manufacture_year = "";
-let product_manufacture_month = "";
-let product_season_year = "";
-let product_season_month = "";
+let productionYear = null;
+let manufacturingYear = "";
+let manufacturingMonth = "";
+let seasonYear = "";
+let season = "";
 let product_color = "";
 
 // 5. 이미지
@@ -85,17 +87,17 @@ let detail_bottom_content = "";
 
 //7. 상품 정보 고시
 let proinfo_product = "";
-let proinfo_material = "";
-let proinfo_color = "";
-let proinfo_size = "";
-let proinfo_made = "";
-let proinfo_made_country = "";
-let proinfo_laundry = "";
-let proinfo_made_date = "";
-let proinfo_quality = "";
-let proinfo_as = "";
-let proinfo_kc = "";
-let proinfo_income = "";
+let productName = "";
+let foodType = "";
+let producerAndLocation = "";
+let qualityMaintenancePeriod = "";
+let quantityPerUnit = "";
+let rawMaterials = "";
+let nutrient = "";
+let geneticallyModifiedFood = "";
+let safetyPrecautions = "";
+let importedFoodStationery = "";
+let managerAndPhoneNumber = "";
 let proinfo_kinds = "";
 let proinfo_weight = "";
 let proinfo_length = "";
@@ -125,11 +127,11 @@ let etc_admin_memo = "";
 // 1. 메인분류 노출
 const mainCategoryCheckbox = (event) => {
   ca_checkbox = event.target.value;
-  if (event.target.value === "best") {
-    document.querySelector("#it_type3").checked = false;
-  } else {
-    document.querySelector("#it_type4").checked = false;
-  }
+  // if (event.target.value === "best") {
+  //   document.querySelector("#bestBadge").checked = false;
+  // } else {
+  //   document.querySelector("#newBadge").checked = false;
+  // }
 
   console.log(ca_checkbox);
 };
@@ -141,41 +143,41 @@ const mainCategoryCheckbox = (event) => {
 // 상품상태
 const productStatus = (id) => {
   //   console.log(id);
-  sales_product_status = event.target.value;
+  status = event.target.value;
 
-  if (event.target.id == "it_approve_no") {
-    event.target.checked = true;
-    document.querySelector("#it_use").checked = false;
-    document.querySelector("#it_open").checked = false;
-    document.querySelector("#it_soldout").checked = false;
-    document.querySelector("#it_ban").checked = false;
-  } else if (event.target.id == "it_use") {
-    event.target.checked = true;
-    document.querySelector("#it_approve_no").checked = false;
-    document.querySelector("#it_open").checked = false;
-    document.querySelector("#it_soldout").checked = false;
-    document.querySelector("#it_ban").checked = false;
-  } else if (event.target.id == "it_open") {
-    event.target.checked = true;
-    document.querySelector("#it_approve_no").checked = false;
-    document.querySelector("#it_use").checked = false;
-    document.querySelector("#it_soldout").checked = false;
-    document.querySelector("#it_ban").checked = false;
-  } else if (event.target.id == "it_soldout") {
-    event.target.checked = true;
-    document.querySelector("#it_approve_no").checked = false;
-    document.querySelector("#it_use").checked = false;
-    document.querySelector("#it_open").checked = false;
-    document.querySelector("#it_ban").checked = false;
-  } else if (event.target.id == "it_ban") {
-    event.target.checked = true;
-    document.querySelector("#it_approve_no").checked = false;
-    document.querySelector("#it_use").checked = false;
-    document.querySelector("#it_soldout").checked = false;
-    document.querySelector("#it_open").checked = false;
-  }
+  // if (event.target.id == "beforeApprovalStatus") {
+  //   event.target.checked = true;
+  //   document.querySelector("#saleStatus").checked = false;
+  //   document.querySelector("#productExposureStatus").checked = false;
+  //   document.querySelector("#soldOutStatus").checked = false;
+  //   document.querySelector("#noSaleStatus").checked = false;
+  // } else if (event.target.id == "saleStatus") {
+  //   event.target.checked = true;
+  //   document.querySelector("#beforeApprovalStatus").checked = false;
+  //   document.querySelector("#productExposureStatus").checked = false;
+  //   document.querySelector("#soldOutStatus").checked = false;
+  //   document.querySelector("#noSaleStatus").checked = false;
+  // } else if (event.target.id == "productExposureStatus") {
+  //   event.target.checked = true;
+  //   document.querySelector("#beforeApprovalStatus").checked = false;
+  //   document.querySelector("#saleStatus").checked = false;
+  //   document.querySelector("#soldOutStatus").checked = false;
+  //   document.querySelector("#noSaleStatus").checked = false;
+  // } else if (event.target.id == "soldOutStatus") {
+  //   event.target.checked = true;
+  //   document.querySelector("#beforeApprovalStatus").checked = false;
+  //   document.querySelector("#saleStatus").checked = false;
+  //   document.querySelector("#productExposureStatus").checked = false;
+  //   document.querySelector("#noSaleStatus").checked = false;
+  // } else if (event.target.id == "noSaleStatus") {
+  //   event.target.checked = true;
+  //   document.querySelector("#beforeApprovalStatus").checked = false;
+  //   document.querySelector("#saleStatus").checked = false;
+  //   document.querySelector("#soldOutStatus").checked = false;
+  //   document.querySelector("#productExposureStatus").checked = false;
+  // }
 
-  console.log(`sales_product_status`, sales_product_status);
+  console.log(`status`, status);
 };
 
 // 과세 비과세
@@ -531,3 +533,6 @@ const deleteAddtionalOptionList = (key) => {
     ? specific_tbody.children[key].remove()
     : specific_tbody.children[key + 1].remove();
 };
+
+
+let typeInfo = document.getElementById("typeInfo");

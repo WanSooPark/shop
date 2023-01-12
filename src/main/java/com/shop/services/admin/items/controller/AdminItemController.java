@@ -7,6 +7,7 @@ import com.shop.services.admin.items.dto.AdminItemAddDto;
 import com.shop.services.admin.items.dto.AdminItemResponse;
 import com.shop.services.admin.items.dto.AdminItemSearchDto;
 import com.shop.services.admin.items.dto.AdminItemUpdateDto;
+import com.shop.services.admin.items.dto.form.AdminItemForm;
 import com.shop.services.admin.items.service.AdminItemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.time.LocalDateTime;
 
 @Controller
 @RequestMapping("/admin/item")
@@ -37,15 +39,18 @@ public class AdminItemController {
     @GetMapping("/form")
     public String itemListView(@RequestParam(required = false) Long id, Model model) {
         boolean isNew = true;
+
+        AdminItemForm form = new AdminItemForm();
         if (!ObjectUtils.isEmpty(id)) {
             try {
                 AdminItemResponse item = adminItemService.getItem(id);
-                model.addAttribute("item", item);
                 isNew = false;
             } catch (NoContentException noContentException) {
             }
         }
 
+        model.addAttribute("year", LocalDateTime.now().getYear());
+        model.addAttribute("item", form);
         model.addAttribute("isNew", isNew);
         return "admin/item/product_product_write";
     }
