@@ -86,22 +86,18 @@ public class Item extends BaseEntity {
     @Lob
     private String bottomDescription; // 상품 하단 내용
 
-    /* 상품정보고시 */
-    private String itemGroup; // 상품군
-    private String ingredient; // 제품 소재
-    private String color2; // 색상
-    private String dimensions; // 치수
-    private String manufacturer2; // 제조사(수입자/병행수입)
-    private String manufacturingCountry; // 제조국
-    private String washingMethodAndHandlingPrecautions; // 세탁방법 및 취급시 주의사항
-    private String dateOfManufacture; // 제조연월
-    private String qualityAssuranceStandard; // 품질보증기준
-    private String asManagerAndPhoneNumber; // A/S 책임자와 전화번호
-    private String subjectToKCSafetyCertification; // KC 안전인증 대상 유무
-    private Boolean income; // 수입여부
-    private String kinds; // 종류
-    private String weight; // 상품무게
-    private String dimensionsXYZ; // 상품치수 가로_세로_높이
+    /* 상품정보고시 - 식품 */
+    private String productName; // 제품명
+    private String foodType; // 식품의 유형
+    private String producerAndLocation; // 생산자 및 소재지
+    private String qualityMaintenancePeriod; // 제조연월일, 소비기한 또는 품질유지기한
+    private String quantityPerUnit; // 포장단위별 내용물의 용량(중량), 수량
+    private String rawMaterials; // 원재료명 및 함량
+    private String nutrient; // 영양성분
+    private String geneticallyModifiedFood; // 유전자변형식품에 해당하는 경우의 표시
+    private String safetyPrecautions; // 소비자안전을 위한 주의사항
+    private String importedFoodStationery; // 수입식품 문구
+    private String managerAndPhoneNumber; // 소비자상담관련 전화번호
 
     /* 분류 */
     @OneToMany
