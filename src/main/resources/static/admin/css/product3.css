@@ -1,0 +1,91 @@
+
+.btnSelect {
+    min-width: 145px;
+    background: #fff url(../img/icon-select-dropdown.png) no-repeat right 10px center / auto 30px;
+    padding: 0 15px;
+    height: 42px;
+    border-radius: 5px;
+    border: 1px solid #d6d6d6;
+    line-height: 21px;
+    font-size: 15px;
+    font-weight: 500;
+    color: #1f1f1f;
+    text-align: left;
+}
+
+.btnSelect ~ ul.active {
+    display: flex;
+}
+
+.btnSelect ~ ul {
+    /*    position: absolute;*/
+    top: 100%;
+    margin-top: -1px;
+    display: flex;
+    flex-direction: column;
+    /*    width: 20%;*/
+    z-index: 5;
+    background: #fff;
+    padding: 10px;
+    border: 1px solid #d6d6d6;
+    display: none;
+}
+
+.stylebtnList {
+    border: solid 0 gray;
+    width: 120px;
+}
+
+#styleCate li {
+    float: left;
+}
+
+.feelbtnList {
+    border: solid 0 gray;
+    width: 120px;
+}
+
+#feelCate li {
+    float: left;
+}
+
+.colorbtnList {
+    border: solid 0 gray;
+    width: 120px;
+    background: #fff;
+    display: flex;
+    /*justify-content: center;*/
+    align-items: center;
+    margin: 0 auto;
+}
+
+.color_point {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 10px;
+    box-shadow: 2px 2px 3px 1px #e3e3e3;
+}
+
+.select_color {
+    height: 42px;
+    background: transparent;
+    color: #fff;
+    text-shadow: 0px 0px 2px #000;
+    font-size: 15px;
+    border: 1px solid #e3e3e3;
+    margin-left: 5px;
+}
+
+#colorCate li {
+    float: left;
+}
+
+.pbtnList {
+    border: solid 0 gray;
+    width: 120px;
+}
+
+#pCate li {
+    float: left;
+}

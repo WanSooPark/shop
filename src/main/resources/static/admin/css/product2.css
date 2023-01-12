@@ -1,0 +1,157 @@
+#adm_content {
+    padding-bottom: 0;
+}
+
+.category_tab {
+    margin-top: 30px;
+    margin-bottom: 10px;
+    display: flex;
+}
+
+.category_tab .category_tab_btn {
+    width: 300px;
+    height: 40px;
+    border: 1px solid #000;
+    background: #fff;
+    color: #000;
+}
+
+.category_tab .category_tab_btn.on {
+    background: #000;
+    color: #fff;
+}
+
+.category_box {
+    margin-bottom: 10px;
+}
+
+.category_auto_list {
+    border-left: 1px solid #ced9de;
+    border-right: 1px solid #ced9de;
+    width: 906px;
+    display: none;
+    position: absolute;
+    background: #fff;
+    height: 235px;
+    overflow-y: scroll;
+}
+
+.category_auto_list ul li {
+    border-bottom: 1px solid #ced9de;
+    padding: 15px 20px;
+    cursor: pointer;
+}
+
+.category_auto_list ul li:hover {
+    background: #f3f3f3;
+}
+
+.category_select_box {
+    display: none;
+}
+
+.category_select_box .remove_btn {
+    border: none;
+    background: #fff;
+}
+
+.category_select_box .remove_btn i {
+    font-size: 15px;
+}
+
+/*.category_select_box.first {*/
+/*    display: flex;*/
+/*}*/
+
+.category_add {
+    border: none;
+    background: #3e4557;
+    color: #fff;
+    height: 38px;
+    width: 70px;
+}
+
+.va_pl30 th {
+    padding-left: 30px;
+}
+
+.va_pl30 td {
+    padding-left: 10px;
+}
+
+.local_desc02 {
+    margin-left: 0;
+}
+
+#category_select select {
+    width: 100%;
+    height: auto;
+    border-right: 0;
+    border-top: 0;
+}
+
+.va_admin_tb th {
+    min-width: 160px;
+    font-size: 15px;
+    padding: 0 25px !important;
+}
+
+.va_admin_tb .nomin th {
+    min-width: auto;
+}
+
+#select_category_tb td {
+    padding: 0;
+}
+
+#select_category_tb th {
+    text-align: center;
+}
+
+.va_admin_tb #selected_category_tb th,
+.va_admin_tb #selected_category_tb td {
+    min-width: 60px;
+    text-align: center;
+}
+
+#selected_category_tb th {
+    border-left: 0;
+    border-right: 0;
+}
+
+#selected_category_tb td {
+    border: 1px solid #ececec;
+}
+
+.anchor {
+    margin-bottom: 30px;
+    margin-left: 30px;
+}
+
+.anchor a {
+    background: #f6f6f6;
+    color: #9d9d9f;
+    font-size: 15px;
+    font-weight: 400;
+    padding: 14px 10px;
+    height: 60px;
+}
+
+h2.h2_frm {
+    padding-top: 15px;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.va_help {
+    display: inline-block;
+    margin-left: 20px;
+    font-size: 12px;
+    padding: 0;
+}
+
+input[type="text"] {
+    background: #fff;
+    border-radius: 5px;
+    height: 35px;
+}
