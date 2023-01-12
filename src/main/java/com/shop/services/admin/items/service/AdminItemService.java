@@ -16,15 +16,17 @@ import com.shop.models.items.service.ItemOptionBuilderService;
 import com.shop.models.items.service.ItemOptionService;
 import com.shop.models.items.service.ItemService;
 import com.shop.services.admin.items.dto.AdminItemResponse;
-import com.shop.services.admin.items.dto.AdminItemSearchDto;
+import com.shop.services.admin.items.dto.search.AdminItemSearchDto;
 import com.shop.services.admin.items.dto.form.ItemOptionForm;
 import com.shop.services.admin.items.dto.form.ItemOptionBuilderForm;
 import com.shop.services.admin.items.dto.form.AdminItemForm;
+import com.shop.services.admin.items.dto.search.AdminItemSearchResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -101,6 +103,9 @@ public class AdminItemService {
      * 상품 옵션 생성기 추가
      */
     private List<ItemOptionBuilder> addItemOptionBuilders(List<ItemOptionBuilderForm> optionBuildersAddDto) {
+        if (ObjectUtils.isEmpty(optionBuildersAddDto)) {
+            return null;
+        }
         return optionBuildersAddDto.stream()
                 .map(optionBuilderAddDto -> {
                     ItemOptionBuilder itemOptionBuilder = optionBuilderAddDto.entityBuilder()
@@ -114,6 +119,9 @@ public class AdminItemService {
      * 상품 옵션 추가
      */
     private List<ItemOption> addItemOptions(List<ItemOptionForm> optionsAddDto) {
+        if (ObjectUtils.isEmpty(optionsAddDto)) {
+            return null;
+        }
         return optionsAddDto.stream()
                 .map(optionAddDto -> {
                     ItemOption itemOption = optionAddDto.entityBuilder()
@@ -127,6 +135,9 @@ public class AdminItemService {
      * 상품 이미지 추가(저장)
      */
     private List<ItemImage> addItemImages(List<MultipartFile> imageFiles) {
+        if (ObjectUtils.isEmpty(imageFiles)) {
+            return null;
+        }
         return imageFiles.stream()
                 .map(imageFile -> {
                     FileInfo fileInfo = fileService.uploadFile(imageFile);
@@ -144,6 +155,7 @@ public class AdminItemService {
     /**
      * 뱃지 조회
      */
+    @Deprecated
     private List<Badge> getBadges(List<String> badgesString) {
         return badgeService.findByCodeIn(badgesString);
     }
@@ -152,6 +164,9 @@ public class AdminItemService {
      * 분류(카테고리) 조회
      */
     private Category getCategory(Long categoryId) {
+        if (ObjectUtils.isEmpty(categoryId)) {
+            return null;
+        }
         return categoryService.findById(categoryId);
     }
 
@@ -160,9 +175,9 @@ public class AdminItemService {
      */
     public AdminItemSearchDto.Response search(AdminItemSearchDto.Request searchDto, Pageable pageable) {
         Page<Item> itemPage = itemService.searchForAdmin(searchDto.getSearchType(), searchDto.getSearch(), searchDto.getCategoryId(), pageable);
-        Page<AdminItemResponse> adminItemPage = itemPage.map(AdminItemResponse::of);
+        Page<AdminItemSearchResponse> adminItemPage = itemPage.map(AdminItemSearchResponse::of);
         return AdminItemSearchDto.Response.builder()
-                .items(new BasePage<>(adminItemPage))
+                .itemPage(new BasePage<>(adminItemPage))
                 .build();
     }
 

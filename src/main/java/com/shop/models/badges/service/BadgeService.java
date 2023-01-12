@@ -6,6 +6,7 @@ import com.shop.models.badges.infra.repo.BadgeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.ObjectUtils;
 
 import java.util.List;
 
@@ -22,6 +23,9 @@ public class BadgeService {
     }
 
     public List<Badge> findByCodeIn(List<String> badgesString) {
+        if (ObjectUtils.isEmpty(badgesString)) {
+            return null;
+        }
         return repository.findByCodeIn(badgesString);
     }
 

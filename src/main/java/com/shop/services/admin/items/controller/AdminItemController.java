@@ -5,8 +5,8 @@ import com.shop.commons.errors.exceptions.NoContentException;
 import com.shop.services.admin.categories.dto.AdminCategoryResponse;
 import com.shop.services.admin.categories.service.AdminCategoryService;
 import com.shop.services.admin.items.dto.AdminItemResponse;
-import com.shop.services.admin.items.dto.AdminItemSearchDto;
 import com.shop.services.admin.items.dto.form.AdminItemForm;
+import com.shop.services.admin.items.dto.search.AdminItemSearchDto;
 import com.shop.services.admin.items.service.AdminItemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -35,7 +35,7 @@ public class AdminItemController {
     @GetMapping
     public String itemListView(@Valid AdminItemSearchDto.Request searchDto, @PageableDefault Pageable pageable, Model model) {
         AdminItemSearchDto.Response response = adminItemService.search(searchDto, pageable);
-        model.addAttribute("items", response.getItems());
+        model.addAttribute("itemPage", response.getItemPage());
         return "admin/item/product_product";
     }
 
@@ -67,9 +67,9 @@ public class AdminItemController {
         try {
             AdminItemResponse response;
             if (dto.getId() == 0) {
-//                response = adminItemService.addItem(dto);
+                response = adminItemService.addItem(dto);
             } else {
-//                response = adminItemService.updateItem(dto);
+                response = adminItemService.updateItem(dto);
             }
         } catch (BusinessException businessException) {
             attributes.addAttribute("message", businessException.getMessage());

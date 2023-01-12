@@ -1,4 +1,4 @@
-package com.shop.services.admin.items.dto;
+package com.shop.services.admin.items.dto.search;
 
 import com.shop.commons.entity.BasePage;
 import lombok.Builder;
@@ -16,7 +16,7 @@ public class AdminItemSearchDto {
     @Data
     @Builder
     public static class Response {
-        private BasePage<AdminItemResponse> items;
+        private BasePage<AdminItemSearchResponse> itemPage;
     }
 
 }

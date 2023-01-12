@@ -7,6 +7,7 @@ import org.springframework.util.ObjectUtils;
 import java.util.Arrays;
 import java.util.Objects;
 
+@Deprecated
 @Getter
 @AllArgsConstructor
 public enum ItemSellStatus {

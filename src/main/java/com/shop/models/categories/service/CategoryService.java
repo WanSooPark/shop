@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.ObjectUtils;
 
 import java.util.List;
 
@@ -28,6 +29,22 @@ public class CategoryService {
     }
 
     public Category add(Category category) {
+        Category topCategory = category.getTopCategory();
+
+        Category exists = repository.findByNameAndTopCategory(category.getName(), topCategory);
+        if (!ObjectUtils.isEmpty(exists)) {
+            // 같은 레벨 같은 이름의 카테고리가 있으면 추가 하지 않음
+            exists.setStatus(category.getStatus());
+            return exists;
+        }
+
+        if (!ObjectUtils.isEmpty(topCategory)) {
+            Long topCategoryDepth = topCategory.getDepth();
+            category.setDepth(topCategoryDepth + 1);
+        } else {
+            category.setDepth(1L);
+        }
+
         return repository.save(category);
     }
 
@@ -41,5 +58,9 @@ public class CategoryService {
 
     public List<Category> findByDepthLessThanEqual(long depth) {
         return repository.findByDepthLessThanEqual(depth); // depth 보다 작거나 같은
+    }
+
+    public Category findByNameAndTopCategory(String name, Category topCategory) {
+        return repository.findByNameAndTopCategory(name, topCategory);
     }
 }

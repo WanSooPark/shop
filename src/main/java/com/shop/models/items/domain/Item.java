@@ -33,8 +33,11 @@ public class Item extends BaseEntity {
     private String keyword; // 검색어
 
     /* 판매정보 */
-    @Enumerated(EnumType.STRING)
-    private ItemSellStatus status; // 상품 상태 (승인 전, 판매중, 상품 노출, 품절, 판매금지)
+    private boolean beforeApprovalStatus; // 승인 전
+    private boolean saleStatus; // 판매 중
+    private boolean productExposureStatus; // 상품 노출
+    private boolean soldOutStatus; // 품절
+    private boolean noSaleStatus; // 판매 금지
     private Long regularPrice; // 정상가
     private Long salePrice; // 판매가
     @Enumerated(EnumType.STRING)
@@ -109,6 +112,8 @@ public class Item extends BaseEntity {
             inverseJoinColumns = @JoinColumn(name = "badge_id")
     )
     private List<Badge> badges; // 뱃지 (BEST, NEW)
+    private boolean bestBadge;
+    private boolean newBadge;
     @ManyToOne
     private Category category; // 카테고리
 

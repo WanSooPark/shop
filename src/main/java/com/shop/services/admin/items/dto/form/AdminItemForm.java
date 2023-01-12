@@ -29,7 +29,6 @@ public class AdminItemForm {
     private String modelName = "modelName"; // 모델명
     private String keyword = "keyword"; // 검색어
     /* 판매정보 */
-//    private String status; // 상품 상태 (승인 전, 판매중, 상품 노출, 품절, 판매금지)
     private boolean beforeApprovalStatus; // 승인 전
     private boolean saleStatus = true; // 판매 중
     private boolean productExposureStatus = true; // 상품 노출
@@ -97,8 +96,63 @@ public class AdminItemForm {
         return AdminItemForm.builder()
                 .id(item.getId())
                 .name(item.getName())
+                .englishName(item.getEnglishName())
+                .basicDescription(item.getBasicDescription())
+                .manufacturer(item.getManufacturer())
+                .origin(item.getOrigin())
+                .brand(item.getBrand())
+                .barcode(item.getBarcode())
+                .modelName(item.getModelName())
+                .keyword(item.getKeyword())
+                .beforeApprovalStatus(item.isBeforeApprovalStatus())
+                .saleStatus(item.isSaleStatus())
+                .productExposureStatus(item.isProductExposureStatus())
+                .soldOutStatus(item.isSoldOutStatus())
+                .noSaleStatus(item.isNoSaleStatus())
+                .regularPrice(item.getRegularPrice())
+                .salePrice(item.getSalePrice())
+                .vatType(item.getVatType()
+                        .name()
+                        .toLowerCase())
+                .fees(item.getFees())
+                .point(item.getPoint())
+                .stock(item.getStock())
+                .stockNotificationQuantity(item.getStockNotificationQuantity())
+                .minimumPurchaseQuantity(item.getMinimumPurchaseQuantity())
+                .maximumPurchaseQuantity(item.getMaximumPurchaseQuantity())
+                .productionTimeType(item.getProductionTimeType()
+                        .name()
+                        .toLowerCase())
+                .productionYear(item.getProductionYear())
+                .manufacturingYear(item.getManufacturingYear())
+                .manufacturingMonth(item.getManufacturingMonth())
+                .seasonYear(item.getSeasonYear())
+                .season(item.getSeason()
+                        .name()
+                        .toLowerCase())
+                .color(item.getColor())
+                .detailDescription(item.getDetailDescription())
+                .topDescription(item.getTopDescription())
+                .bottomDescription(item.getBottomDescription())
+                .type(item.getType())
+                .productName(item.getProductName())
+                .foodType(item.getFoodType())
+                .producerAndLocation(item.getProducerAndLocation())
+                .qualityMaintenancePeriod(item.getQualityMaintenancePeriod())
+                .quantityPerUnit(item.getQuantityPerUnit())
+                .rawMaterials(item.getRawMaterials())
+                .nutrient(item.getNutrient())
+                .geneticallyModifiedFood(item.getGeneticallyModifiedFood())
+                .safetyPrecautions(item.getSafetyPrecautions())
+                .importedFoodStationery(item.getImportedFoodStationery())
+                .managerAndPhoneNumber(item.getManagerAndPhoneNumber())
+                .bestBadge(item.isBestBadge())
+                .newBadge(item.isNewBadge())
+                .categoryId(item.getCategory()
+                        .getId())
                 .build();
     }
+
     public static AdminItemForm empty() {
         return AdminItemForm.builder()
                 .id(0L)
@@ -198,7 +252,11 @@ public class AdminItemForm {
             this.item.setModelName(dto.getModelName());
             this.item.setKeyword(dto.getKeyword());
 
-//            this.item.setStatus(dto.getStatus());
+            this.item.setBeforeApprovalStatus(dto.isBeforeApprovalStatus());
+            this.item.setSaleStatus(dto.isSaleStatus());
+            this.item.setProductExposureStatus(dto.isProductExposureStatus());
+            this.item.setSoldOutStatus(dto.isSoldOutStatus());
+            this.item.setNoSaleStatus(dto.isNoSaleStatus());
             this.item.setRegularPrice(dto.getRegularPrice());
             this.item.setSalePrice(dto.getSalePrice());
             this.item.setVatType(dto.getVatType());
@@ -216,13 +274,26 @@ public class AdminItemForm {
             this.item.setSeasonYear(dto.getSeasonYear());
             this.item.setSeason(dto.getSeason());
             this.item.setColor(dto.getColor());
-            this.item.setMaximumPurchaseQuantity(dto.getMaximumPurchaseQuantity());
 
             this.item.setDetailDescription(dto.getDetailDescription());
             this.item.setTopDescription(dto.getTopDescription());
             this.item.setBottomDescription(dto.getBottomDescription());
 
-            //
+            this.item.setType(dto.getType());
+            this.item.setProductName(dto.getProductName());
+            this.item.setFoodType(dto.getFoodType());
+            this.item.setProducerAndLocation(dto.getProducerAndLocation());
+            this.item.setQualityMaintenancePeriod(dto.getQualityMaintenancePeriod());
+            this.item.setQuantityPerUnit(dto.getQuantityPerUnit());
+            this.item.setRawMaterials(dto.getRawMaterials());
+            this.item.setNutrient(dto.getNutrient());
+            this.item.setGeneticallyModifiedFood(dto.getGeneticallyModifiedFood());
+            this.item.setSafetyPrecautions(dto.getSafetyPrecautions());
+            this.item.setImportedFoodStationery(dto.getImportedFoodStationery());
+            this.item.setManagerAndPhoneNumber(dto.getManagerAndPhoneNumber());
+
+            this.item.setBestBadge(dto.isBestBadge());
+            this.item.setNewBadge(dto.isNewBadge());
             return this.item;
         }
     }
