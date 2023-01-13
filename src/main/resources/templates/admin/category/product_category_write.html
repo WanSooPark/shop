@@ -21,7 +21,7 @@
 
         <div id="product" class="content product">
             <form id="categoryForm" method="post" action="/admin/category" th:object="${category}">
-                <input type="number" name="id" th:field="*{id}">
+                <input type="hidden" name="id" th:field="*{id}">
                 <div class="write">
                     <dl>
                         <dt>상위 분류</dt>
@@ -29,6 +29,7 @@
                             <select th:name="topCategoryId">
                                 <option value="">없음</option>
                                 <option th:each="topCategory: ${topCategories}" th:value="${topCategory?.getId()}"
+                                        th:selected="${category.getTopCategoryId()} == ${topCategory.getId()}"
                                         th:text="${(topCategory.getDepth() == 2 ? 'ㄴ' : '') + topCategory?.getName()}">분류</option>
                             </select>
                         </dd>

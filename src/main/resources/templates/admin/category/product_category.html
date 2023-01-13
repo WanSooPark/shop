@@ -20,7 +20,7 @@
         </div>
         <div id="product" class="content product">
             <div class="control">
-                <div class="total">총 <strong>10</strong>개</div>
+                <div class="total">총 <strong th:text="${categoriesPage.getTotalContents()}">10</strong>개</div>
                 <div class="view">
                     <select>
                         <option>10page</option>
@@ -70,8 +70,7 @@
                     <tr th:each="category: ${categoriesPage.getContent()}">
                         <td><label class="checkbox"><input type="checkbox" name="chk"><i></i>
                             <p class="skip">선택</p></label></td>
-                        <td>1</td>
-
+                        <td th:text="${category.getId()}">1</td>
                         <td th:if="${category.getTopCategory() != null && category.getTopCategory().getTopCategory() != null}" th:text="${category.getTopCategory().getTopCategory().getName()}">top카테고리</td>
                         <td th:if="${category.getTopCategory() != null}" th:text="${category.getTopCategory().getName()}">top카테고리</td>
                         <td th:text="${category.getName()}">카테고리1</td>

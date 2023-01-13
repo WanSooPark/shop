@@ -22,10 +22,33 @@
             <i class="xi-step-backward"></i><span class="skip">이전</span>
         </a>
 
-        <th:block th:each="i: ${#numbers.sequence(1, page.getTotalPages())}">
-            <a th:href="@{${url} + '?page=' + ${i - 1}}"
-               th:classappend="${i == page.getPage() + 1} ? current">
-                <span th:text="${i}">1</span>
+        <th:block th:each="i: ${#numbers.sequence(
+        ( ((page.getTotalPages()-1)-(page.getPage()+2)) <= 0 ?
+                ( (page.getPage()-2+((page.getTotalPages()-1)-(page.getPage()+2))) < 0 ?
+                        0 :
+                        (page.getPage()-2+((page.getTotalPages()-1)-(page.getPage()+2))) ) :
+                ( ((-(page.getPage()-2)) > 0) ?
+                        ( (page.getPage()-2+(-(page.getPage()-2))) < 0 ?
+                                0 :
+                                (page.getPage()-2+(-(page.getPage()-2))) ) :
+                        (((page.getPage()-2) < 0) ?
+                                0 :
+                                (page.getPage()-2) )) )
+        , ( ((page.getTotalPages()-1)-(page.getPage()+2)) <= 0 ?
+                ( (page.getPage()-2+((page.getTotalPages()-1)-(page.getPage()+2))) < 0 ?
+                        0 :
+                        (page.getPage()+2+((page.getTotalPages()-1)-(page.getPage()+2))) ) :
+                ( ((-(page.getPage()-2)) > 0) ?
+                        ( (page.getPage()-2+(-(page.getPage()-2))) < 0 ?
+                                0 :
+                                (page.getPage()+2+(-(page.getPage()-2))) ) :
+                        (((page.getPage()-2) < 0) ?
+                                0 :
+                                (page.getPage()+2) )) )
+        )}">
+            <a th:href="@{${url} + '?page=' + ${i}}"
+               th:classappend="${i == page.getPage()} ? current">
+                <span th:text="${i + 1}">1</span>
             </a>
         </th:block>
 
