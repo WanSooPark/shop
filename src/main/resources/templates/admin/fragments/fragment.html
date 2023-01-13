@@ -35,15 +35,15 @@
                                 0 :
                                 (page.getPage()-2) )) )
         , ( ((page.getTotalPages()-1)-(page.getPage()+2)) <= 0 ?
-                ( (page.getPage()-2+((page.getTotalPages()-1)-(page.getPage()+2))) < 0 ?
-                        0 :
+                ( (page.getPage()-2+((page.getTotalPages()-1)-(page.getPage()+2))) > (page.getTotalPages()-1) ?
+                        (page.getTotalPages()-1) :
                         (page.getPage()+2+((page.getTotalPages()-1)-(page.getPage()+2))) ) :
                 ( ((-(page.getPage()-2)) > 0) ?
-                        ( (page.getPage()-2+(-(page.getPage()-2))) < 0 ?
-                                0 :
+                        ( (page.getPage()-2+(-(page.getPage()-2))) > (page.getTotalPages()-1) ?
+                                (page.getTotalPages()-1) :
                                 (page.getPage()+2+(-(page.getPage()-2))) ) :
-                        (((page.getPage()-2) < 0) ?
-                                0 :
+                        (((page.getPage()-2) > (page.getTotalPages()-1)) ?
+                                (page.getTotalPages()-1) :
                                 (page.getPage()+2) )) )
         )}">
             <a th:href="@{${url} + '?page=' + ${i}}"
