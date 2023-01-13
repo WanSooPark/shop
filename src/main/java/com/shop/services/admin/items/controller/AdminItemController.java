@@ -32,6 +32,9 @@ public class AdminItemController {
     private final AdminItemService adminItemService;
     private final AdminCategoryService adminCategoryService;
 
+    /**
+     * 상품 메뉴 View
+     */
     @GetMapping
     public String itemListView(@Valid AdminItemSearchDto.Request searchDto, @PageableDefault(size = 5) Pageable pageable, Model model) {
         AdminItemSearchDto.Response response = adminItemService.search(searchDto, pageable);
@@ -39,6 +42,9 @@ public class AdminItemController {
         return "admin/item/product_product";
     }
 
+    /**
+     * 상품 Form View
+     */
     @GetMapping("/form")
     public String itemListView(@RequestParam(required = false) Long id, Model model) {
         boolean isNew = true;
@@ -62,6 +68,9 @@ public class AdminItemController {
         return "admin/item/product_product_write";
     }
 
+    /**
+     * 상품 등록/수정
+     */
     @PostMapping
     public String newItem(@Valid AdminItemForm dto, RedirectAttributes attributes) {
         try {

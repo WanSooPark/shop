@@ -3,7 +3,6 @@ package com.shop.services.admin.categories.service;
 import com.shop.commons.entity.BasePage;
 import com.shop.models.categories.domain.Category;
 import com.shop.models.categories.service.CategoryService;
-import com.shop.services.admin.categories.dto.AdminCategoryAddDto;
 import com.shop.services.admin.categories.dto.AdminCategoryResponse;
 import com.shop.services.admin.categories.dto.AdminCategorySearchDto;
 import com.shop.services.admin.categories.dto.form.AdminCategoryForm;
@@ -25,6 +24,9 @@ public class AdminCategoryService {
 
     private final CategoryService categoryService;
 
+    /**
+     * 검색
+     */
     public AdminCategorySearchDto.Response search(AdminCategorySearchDto.Request searchDto, Pageable pageable) {
         Page<Category> categoryPage = categoryService.searchForAdmin(searchDto.getSearch(), pageable);
         Page<AdminCategoryResponse> adminCategoryPage = categoryPage.map(AdminCategoryResponse::of);
@@ -33,10 +35,17 @@ public class AdminCategoryService {
                 .build();
     }
 
+    /**
+     * 카테고리 조회
+     */
     public AdminCategoryResponse getCategory(Long id) {
         Category category = categoryService.findById(id);
         return AdminCategoryResponse.of(category);
     }
+
+    /**
+     * 카테고리 Form 조회
+     */
     public AdminCategoryForm getCategoryForm(Long id) {
         Category category = categoryService.findById(id);
         return AdminCategoryForm.of(category);
@@ -113,6 +122,9 @@ public class AdminCategoryService {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * 마지막 레벨3 카테고리 조회
+     */
     public List<AdminCategoryResponse> findLastDepthCategories() {
         List<Category> categories = categoryService.findByDepthLessThanEqual(3);
 

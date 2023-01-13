@@ -28,6 +28,9 @@ public class AdminCategoryController {
 
     private final AdminCategoryService adminCategoryService;
 
+    /**
+     * 분류 메뉴 View
+     */
     @GetMapping
     public String categoryList(@Valid AdminCategorySearchDto.Request searchDto, @PageableDefault(size = 5) Pageable pageable, Model model) {
         AdminCategorySearchDto.Response response = adminCategoryService.search(searchDto, pageable);
@@ -35,6 +38,9 @@ public class AdminCategoryController {
         return "admin/category/product_category";
     }
 
+    /**
+     * 분류 Form View
+     */
     @GetMapping("/form")
     public String categoryForm(@RequestParam(required = false) Long id, Model model) {
         boolean isNew = true;
@@ -56,6 +62,9 @@ public class AdminCategoryController {
         return "admin/category/product_category_write";
     }
 
+    /**
+     * 분류 등록/수정
+     */
     @PostMapping
     public String newCategory(@Valid AdminCategoryForm dto, RedirectAttributes attributes) {
         try {

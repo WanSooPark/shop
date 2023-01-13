@@ -16,10 +16,10 @@ import com.shop.models.items.service.ItemOptionBuilderService;
 import com.shop.models.items.service.ItemOptionService;
 import com.shop.models.items.service.ItemService;
 import com.shop.services.admin.items.dto.AdminItemResponse;
-import com.shop.services.admin.items.dto.search.AdminItemSearchDto;
-import com.shop.services.admin.items.dto.form.ItemOptionForm;
-import com.shop.services.admin.items.dto.form.ItemOptionBuilderForm;
 import com.shop.services.admin.items.dto.form.AdminItemForm;
+import com.shop.services.admin.items.dto.form.ItemOptionBuilderForm;
+import com.shop.services.admin.items.dto.form.ItemOptionForm;
+import com.shop.services.admin.items.dto.search.AdminItemSearchDto;
 import com.shop.services.admin.items.dto.search.AdminItemSearchResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -181,11 +181,17 @@ public class AdminItemService {
                 .build();
     }
 
+    /**
+     * 상품 조회
+     */
     public AdminItemResponse getItem(Long id) {
         Item item = itemService.findById(id);
         return AdminItemResponse.of(item);
     }
 
+    /**
+     * 상품 Form 조회
+     */
     public AdminItemForm getItemForm(Long id) {
         Item item = itemService.findById(id);
         return AdminItemForm.of(item);
