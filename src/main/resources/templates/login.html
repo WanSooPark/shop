@@ -15,16 +15,16 @@
 <div layout:fragment="content">
     <div id="container">
         <div id="login">
-            <form id="loginForm" name="loginForm" method="post" onsubmit="return checkAll();" th:action="@{/login}">>
+            <form id="loginForm" name="loginForm" method="post" th:action="@{/login}">>
                 <div class="wrap">
                     <div id="heading">로그인</div>
                     <div class="form">
                         <ul>
                             <li>
-                                <input id="userEmail" name="email" placeholder="이메일을 입력해주세요" type="text">
+                                <input id="username" name="username" placeholder="이메일을 입력해주세요" type="email">
                             </li>
                             <li>
-                                <input id="userPassword" name="password" placeholder="비밀번호" type="password">
+                                <input id="password" name="password" placeholder="비밀번호" type="password">
                             </li>
                         </ul>
                     </div>
@@ -41,17 +41,16 @@
                     </div>
                     <br>
                     <!--로그인에러-->
-                    <div class="alert alert-danger" role="alert" th:if="${param.error}" th:text="${loginFailMsg}"></div>
+                    <div class="alert alert-danger" role="alert" th:if="${errors != null}" th:text="${error.message}"></div>
 
                     <div class="button">
-                        <a class="btn btn_01" href="#" onclick="login();">로그인</a>
-                        <!--                          <button type="submit" class="btn btn_01" >로그인</button>-->
+                        <input type="submit" class="btn btn_01" value="로그인"/>
                         <a class="btn btn_02" href="#">비회원주문조회</a>
                     </div>
                     <div class="register">
-                        <a href="/members/new">올따옴이 처음이신가요? 회원가입하기</a>
+                        <a th:href="@{/sign/up}">올따옴이 처음이신가요? 회원가입하기</a>
                     </div>
-                    <div class="social">
+                    <div class="social" style="display: none;">
                         <a href="#"><img src="../img/icon_naver.png">
                             <p class="skip">네이버 로그인</p></a>
                         <a href="#"><img src="../img/icon_kakao.png">

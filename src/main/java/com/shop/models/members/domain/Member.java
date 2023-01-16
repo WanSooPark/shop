@@ -31,7 +31,7 @@ public class Member extends BaseEntity {
 
     private String email;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Address address;
 
     private String level;
