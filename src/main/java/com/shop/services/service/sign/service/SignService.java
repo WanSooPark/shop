@@ -17,6 +17,8 @@ public class SignService {
     private final PasswordEncoder passwordEncoder;
 
     public Member signUp(SignUpForm signUpForm) {
-        return null;
+        Member member = signUpForm.toEntity(passwordEncoder);
+        member = memberService.signUp(member);
+        return member;
     }
 }

@@ -2,7 +2,6 @@ package com.shop.models.members.domain;
 
 import com.shop.commons.entity.BaseEntity;
 import com.shop.commons.utils.Sha256;
-import com.shop.models.addresses.domain.Address;
 import com.shop.services.service.members.dto.MemberFormDto;
 import lombok.*;
 
@@ -31,8 +30,7 @@ public class Member extends BaseEntity {
 
     private String email;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    private Address address;
+    private String address;
 
     private String level;
 
@@ -45,15 +43,5 @@ public class Member extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     private Role role;
-
-    public static Member createMember(MemberFormDto memberFormDto) throws NoSuchAlgorithmException {
-        Member member = new Member();
-        member.setName(memberFormDto.getName());
-        member.setEmail(memberFormDto.getEmail());
-        String password = Sha256.encrypt(memberFormDto.getPassword());
-        member.setPassword(password);
-        member.setRole(Role.USER);
-        return member;
-    }
 
 }

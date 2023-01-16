@@ -21,17 +21,19 @@
                     <div class="form">
                         <ul>
                             <li>
-                                <input id="username" name="username" placeholder="이메일을 입력해주세요" type="email">
+                                <input id="username" name="username" value="rn00n@naver.com" placeholder="이메일을 입력해주세요" type="text">
                             </li>
                             <li>
-                                <input id="password" name="password" placeholder="비밀번호" type="password">
+                                <input id="password" name="password" placeholder="비밀번호" value="Inf0rm@tion" type="password">
                             </li>
                         </ul>
                     </div>
                     <p class="error" th:if="${loginErrorMsg}" th:text="${loginErrorMsg}"></p>
                     <div class="tool">
                         <div class="save">
-                            <label class="checkbox"><input type="checkbox"><i></i>
+                            <label class="checkbox">
+                                <input type="checkbox" id="rememberMe" name="remember-me">
+                                <i></i>
                                 <p>아이디 저장</p>
                             </label>
                         </div>

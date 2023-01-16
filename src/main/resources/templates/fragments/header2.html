@@ -1,6 +1,8 @@
 <!DOCTYPE html>
-<html layout:decorate="~{layouts/layout1}"
+<html lang="ko"
+      layout:decorate="~{layouts/layout1}"
       xmlns:layout="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       xmlns:th="http://www.thymeleaf.org">
 
 <div th:fragment="header">
@@ -12,19 +14,23 @@
                 </div>
                 <div class="free"><strong>49,000원 이상 무료배송</strong> (그 외 금액은 배송비 5,000원)</div>
                 <div class="tool">
-                    <span th:if="${session.role == 'ADMIN'}">
-                        <a href="/admin/item/new">상품 등록</a>
-                        <a href="/admin/items">상품 관리</a>
-                    </span>
-                    <span th:if="${not #strings.isEmpty(session.userId)}">
-<!--                        <a href="/cart">장바구니</a>-->
-                        <!--                        <a href="/orders">구매이력</a>-->
-                        <a href="/members/logout">로그아웃</a>
-                    </span>
+                    <th:block sec:authorize="isAuthenticated()">
+                        <span>
+                            <a href="#">장바구니</a>
+                        </span>
+                        <span>
+                            <a href="#">구매이력</a>
+                        </span>
+                        <span>
+                            <a th:href="@{/logout}">로그아웃</a>
+                        </span>
+                    </th:block>
+                    <th:block sec:authorize="isAnonymous()">
+                        <span>
+                            <a th:href="@{/login}">로그인</a>
+                        </span>
+                    </th:block>
 
-                    <span th:if="${#strings.isEmpty(session.userId)}">
-                        <a href="/members/login">로그인</a>
-                    </span>
                 </div>
             </div>
 

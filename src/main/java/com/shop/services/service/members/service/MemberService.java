@@ -13,7 +13,19 @@ public class MemberService {
 
     private final MemberRepository repository;
 
-    public Member saveMember(Member member) {
+    /**
+     * 회원가입
+     * 서비스 - 사용자 가입
+     */
+    public Member signUp(Member member) {
+        return repository.save(member);
+    }
+
+    /**
+     * 회원추가
+     * 어드민 - 관리자 추가
+     */
+    public Member add(Member member) {
         validateDuplicateMember(member);
         return repository.save(member);
     }
@@ -28,5 +40,4 @@ public class MemberService {
     public Member findByEmail(String email) {
         return repository.findByEmail(email);
     }
-
 }

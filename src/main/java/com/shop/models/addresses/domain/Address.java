@@ -19,7 +19,7 @@ public class Address {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String postCode; // 우편변호
+    private String postcode; // 우편번호
 
     private String road; // 도로명
 

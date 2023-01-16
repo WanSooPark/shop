@@ -67,7 +67,7 @@ public class SecurityConfig {
                 .authorizeRequests()
                 .mvcMatchers("/css/**", "/js/**", "/img/**")
                 .permitAll()
-                .mvcMatchers("/", "/login", "/login/**", "/members/login")
+                .mvcMatchers("/", "/login", "/login/**", "/sign/up")
                 .permitAll()
                 .anyRequest()
                 .authenticated()

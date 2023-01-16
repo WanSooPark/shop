@@ -5,6 +5,7 @@ import com.shop.services.service.sign.dto.SignUpForm;
 import com.shop.services.service.sign.service.SignService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +21,9 @@ public class SignController {
     private final SignService signService;
 
     @GetMapping("/up")
-    public String signUpView() {
+    public String signUpView(Model model) {
+        SignUpForm signUpForm = new SignUpForm();
+        model.addAttribute("signUpForm", signUpForm);
         return "sign/sign_up";
     }
 
@@ -28,7 +31,7 @@ public class SignController {
     public String signUp(@Valid SignUpForm signUpForm, RedirectAttributes redirectAttributes) {
         Member member = signService.signUp(signUpForm);
 
-        redirectAttributes.addAttribute("username", member.getUsername());
+        redirectAttributes.addFlashAttribute("username", member.getUsername());
         return "redirect:/login";
     }
 
