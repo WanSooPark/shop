@@ -1,0 +1,74 @@
+	<?php include("header.html");?>
+    <main id="container">
+        <div id="tool">
+            <div class="info">
+                <div class="title">관리자페이지</div>
+            </div>
+            <div class="logout">
+                <a href="#">로그아웃</a>
+            </div>
+        </div>
+        <div id="contain">
+            <div id="h1">
+                <strong>리뷰관리</strong>
+                <span>상품 관리 > 리뷰관리</span>
+            </div>
+
+            <div id="product" class="content product">
+                <div class="write">
+                    <dl>
+                        <dt>상품명</dt>
+                        <dd>
+                            <input type="text">
+                        </dd>
+					</dl>
+					<dl>
+                        <dt>이름</dt>
+                        <dd>
+                            <input type="text">
+                        </dd>
+                    </dl>
+					<dl>
+                        <dt>평점</dt>
+                        <dd>
+                            <img src="https://vastyle.co.kr/shop/img/s_star5.png">
+                        </dd>
+                    </dl>              
+
+					<dl>
+                        <dt>제목</dt>
+                        <dd>
+                            <input type="text">
+                        </dd>
+                    </dl>     
+
+					<dl>
+                        <dt>내용</dt>
+                        <dd>
+                            <textarea></textarea>
+                        </dd>
+                    </dl>     
+                    
+                    <dl>
+                        <dt>승인 여부</dt>
+                        <dd>
+                            <label class="radiobox"><input type="radio" name="popupView" checked><i></i><span>승인</span></label>
+                            <label class="radiobox"><input type="radio" name="popupView"><i></i><span>비승인</span></label>
+                        </dd>
+                    </dl>
+
+                </div>
+                <div class="button">
+                    <ul class="fl">
+                        <li><a href="product_review.html" class="btn btn_03">목록</a></li>
+                        <li><a href="javascript:;" class="btn btn_01">취소</a></li>
+                    </ul>
+                    <ul class="fr">
+                        <li><a href="javascript:;" class="btn btn_02">저장</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+	</main>
+</body>
+</html>

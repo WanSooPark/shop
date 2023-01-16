@@ -74,11 +74,10 @@ public class AdminCategoryController {
             } else {
                 response = adminCategoryService.update(dto);
             }
-        } catch (
-                BusinessException businessException) {
+        } catch (BusinessException businessException) {
             attributes.addAttribute("message", businessException.getMessage());
             attributes.addAttribute("exception", businessException);
-            return "admin/item/product_category_write";
+            return "admin/category/product_category_write";
         }
         return "redirect:/admin/category";
     }

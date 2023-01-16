@@ -1,0 +1,147 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0, user-scalable=yes">
+<title>동아ST 관리자</title>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script type="text/javascript" src="../../../../src/main/resources/static/admin/js/common.js"></script>
+<script type="text/javascript" src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+<link rel="stylesheet" type="text/css" href="../resources/css/common.css">
+<link rel="stylesheet" type="text/css" href="../resources/css/admin.css">
+<link rel="stylesheet" type="text/css" href="https://unpkg.com/swiper@7/swiper-bundle.min.css"/>
+</head>
+<body id="wrap">
+	<?php include("header.html");?>
+    <main id="container">
+        <div id="tool">
+            <div class="info">
+                <div class="title">관리자페이지</div>
+            </div>
+            <div class="logout">
+                <a href="#">로그아웃</a>
+            </div>
+        </div>
+        <div id="contain">
+            <div id="h1">
+                <strong>추천검색어 관리</strong>
+                <span>컨텐츠 관리 > 추천검색어 관리</span>
+            </div>
+            <div id="content" class="content quick">
+                <div class="table">
+                    <table>
+                        <colgroup>
+                            <col style="width:100px">
+                            <col>
+                            <col>
+                            <col>
+                            <col style="width:100px">
+                            <col style="width:100px">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th>노출<br>순서</th>
+                                <th>검색어</th>
+                                <th>링크</th>
+                                <th>첨부파일</th>
+                                <th>노출여부</th>
+                                <th>새창열기</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input type="text" value="1"></td>
+                                <td><input type="text" placeholder="검색어를 입력해주세요." value="집중호우"></td>
+                                <td><input type="text" value="www.test.com"></td>
+                                <td><input type="file"></td>
+                                <td><label class="checkbox"><input type="checkbox" checked><i></i><p class="skip">노출여부</p></label></td>
+                                <td><label class="checkbox"><input type="checkbox" checked><i></i><p class="skip">새창열기</p></label></td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" value="2"></td>
+                                <td><input type="text" placeholder="검색어를 입력해주세요." value="윤석열 퇴근"></td>
+                                <td><input type="text" value="www.test.com"></td>
+                                <td><input type="file"></td>
+                                <td><label class="checkbox"><input type="checkbox" checked><i></i><p class="skip">노출여부</p></label></td>
+                                <td><label class="checkbox"><input type="checkbox" checked><i></i><p class="skip">새창열기</p></label></td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" value="3"></td>
+                                <td><input type="text" placeholder="검색어를 입력해주세요." value="반지하주택"></td>
+                                <td><input type="text" value="www.test.com"></td>
+                                <td><input type="file"></td>
+                                <td><label class="checkbox"><input type="checkbox" checked><i></i><p class="skip">노출여부</p></label></td>
+                                <td><label class="checkbox"><input type="checkbox" checked><i></i><p class="skip">새창열기</p></label></td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" value="4"></td>
+                                <td><input type="text" placeholder="검색어를 입력해주세요." value="힌남노"></td>
+                                <td><input type="text" value="www.test.com"></td>
+                                <td><input type="file"></td>
+                                <td><label class="checkbox"><input type="checkbox" checked><i></i><p class="skip">노출여부</p></label></td>
+                                <td><label class="checkbox"><input type="checkbox" checked><i></i><p class="skip">새창열기</p></label></td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" value="5"></td>
+                                <td><input type="text" placeholder="검색어를 입력해주세요." value="영빈확 똘똘한 한채"></td>
+                                <td><input type="text" value="www.test.com"></td>
+                                <td><input type="file"></td>
+                                <td><label class="checkbox"><input type="checkbox" checked><i></i><p class="skip">노출여부</p></label></td>
+                                <td><label class="checkbox"><input type="checkbox" checked><i></i><p class="skip">새창열기</p></label></td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" value="6"></td>
+                                <td><input type="text" placeholder="검색어를 입력해주세요." value="집중호우"></td>
+                                <td><input type="text" value="www.test.com"></td>
+                                <td><input type="file"></td>
+                                <td><label class="checkbox"><input type="checkbox" checked><i></i><p class="skip">노출여부</p></label></td>
+                                <td><label class="checkbox"><input type="checkbox" checked><i></i><p class="skip">새창열기</p></label></td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" value="7"></td>
+                                <td><input type="text" placeholder="검색어를 입력해주세요." value="윤석열 퇴근"></td>
+                                <td><input type="text" value="www.test.com"></td>
+                                <td><input type="file"></td>
+                                <td><label class="checkbox"><input type="checkbox" checked><i></i><p class="skip">노출여부</p></label></td>
+                                <td><label class="checkbox"><input type="checkbox" checked><i></i><p class="skip">새창열기</p></label></td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" value="8"></td>
+                                <td><input type="text" placeholder="검색어를 입력해주세요." value="반지하주택"></td>
+                                <td><input type="text" value="www.test.com"></td>
+                                <td><input type="file"></td>
+                                <td><label class="checkbox"><input type="checkbox" checked><i></i><p class="skip">노출여부</p></label></td>
+                                <td><label class="checkbox"><input type="checkbox" checked><i></i><p class="skip">새창열기</p></label></td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" value="9"></td>
+                                <td><input type="text" placeholder="검색어를 입력해주세요." value="힌남노"></td>
+                                <td><input type="text" value="www.test.com"></td>
+                                <td><input type="file"></td>
+                                <td><label class="checkbox"><input type="checkbox" checked><i></i><p class="skip">노출여부</p></label></td>
+                                <td><label class="checkbox"><input type="checkbox" checked><i></i><p class="skip">새창열기</p></label></td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" value="10"></td>
+                                <td><input type="text" placeholder="검색어를 입력해주세요."></td>
+                                <td><input type="text" value="www.test.com"></td>
+                                <td><input type="file"></td>
+                                <td><label class="checkbox"><input type="checkbox"><i></i><p class="skip">노출여부</p></label></td>
+                                <td><label class="checkbox"><input type="checkbox"><i></i><p class="skip">새창열기</p></label></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="button">
+                    <ul class="fc">
+                        <li><a href="content_keyword.html" class="btn btn_05">취소</a></li>
+                        <li><a href="content_keyword.html" class="btn btn_02">저장</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+	</main>
+</body>
+</html>

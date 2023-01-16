@@ -26,6 +26,7 @@ public class AdminCategoryForm {
     }
     public static AdminCategoryForm empty() {
         return AdminCategoryForm.builder()
+                .id(0L)
                 .build();
     }
 

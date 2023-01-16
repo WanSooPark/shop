@@ -1,0 +1,92 @@
+	<?php include("header.html");?>
+    <main id="container">
+        <div id="tool">
+            <div class="info">
+                <div class="title">관리자페이지</div>
+            </div>
+            <div class="logout">
+                <a href="#">로그아웃</a>
+            </div>
+        </div>
+        <div id="contain">
+            <div id="h1">
+                <strong>팝업 관리</strong>
+                <span>컨텐츠 관리 > 팝업 관리</span>
+            </div>
+            <div id="content" class="content popup">
+                <div class="write">
+                    <dl>
+                        <dt>팝업명</dt>
+                        <dd><input type="text"></dt>
+                    </dl>
+                    <dl>
+                        <dt>노출 여부 선택</dt>
+                        <dd>
+                            <label class="radiobox"><input type="radio" name="popupView" checked><i></i><span>노출</span></label>
+                            <label class="radiobox"><input type="radio" name="popupView"><i></i><span>노출안함</span></label>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt>새창  여부 선택</dt>
+                        <dd>
+                            <label class="radiobox"><input type="radio" name="popupBlank" checked><i></i><span>노출</span></label>
+                            <label class="radiobox"><input type="radio" name="popupBlank"><i></i><span>현재창</span></label>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt>팝업 이미지 및 링크</dt>
+                        <dd>
+                            <div class="popupInfo">
+                                <div class="popup_img"><img src="https://picsum.photos/536/354"></div>
+                                <div class="popup_btn">
+                                    <label class="popup_file file"><input type="file"><span>파일선택</span></label>
+                                    <div class="popup_info">
+                                        <span class="txt">img_popup_01.jpg</span>
+                                        <span class="gui">(JPG, PNG)</span>
+                                    </div>
+                                </div>
+                                <div class="popup_url">페이지 URL : <input type="text" value="example/pageurl/directory"></div>
+                            </div>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt>팝업 노출 시작일</dt>
+                        <dd>
+                            <div class="period">
+                                <input type="text" class="datepicker">
+                                <select>
+                                    <option>12:00</option>
+                                </select>
+                            </div>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt>팝업 노출 종료일</dt>
+                        <dd>
+                            <div class="period">
+                                <input type="text" class="datepicker">
+                                <select>
+                                    <option>00:00</option>
+                                </select>
+                            </div>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt>팝업 등록일</dt>
+                        <dd>YYYY.MM.DD  HH.MM.SS</dt>
+                    </dl>
+                </div>
+                <div class="button">
+                    <ul class="fl">
+                        <li><a href="content_popup.html" class="btn btn_03">목록</a></li>
+                        <li><a href="javascript:;" class="btn btn_01">삭제</a></li>
+                    </ul>
+                    <ul class="fr">
+                        <li><a href="javascript:;" class="btn btn_02">저장</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+	</main>
+</body>
+</html>

@@ -2,6 +2,7 @@ package com.shop.models.members.domain;
 
 import com.shop.commons.entity.BaseEntity;
 import com.shop.commons.utils.Sha256;
+import com.shop.models.addresses.domain.Address;
 import com.shop.services.service.members.dto.MemberFormDto;
 import lombok.*;
 
@@ -20,14 +21,27 @@ public class Member extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
-
-    @Column(unique = true)
-    private String email;
+    private String username;
 
     private String password;
 
-    private String address;
+    private String nickname;
+
+    private String name;
+
+    private String email;
+
+    @OneToOne
+    private Address address;
+
+    private String level;
+
+    private String tel;
+
+    private String administrativeNotes; // 관리자 메모
+
+    @Enumerated(EnumType.STRING)
+    private MemberStatus status;
 
     @Enumerated(EnumType.STRING)
     private Role role;
@@ -36,7 +50,6 @@ public class Member extends BaseEntity {
         Member member = new Member();
         member.setName(memberFormDto.getName());
         member.setEmail(memberFormDto.getEmail());
-        member.setAddress(memberFormDto.getAddress());
         String password = Sha256.encrypt(memberFormDto.getPassword());
         member.setPassword(password);
         member.setRole(Role.USER);

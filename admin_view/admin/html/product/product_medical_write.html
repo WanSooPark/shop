@@ -1,0 +1,99 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0, user-scalable=yes">
+<title>동아ST 관리자</title>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script type="text/javascript" src="../../../../src/main/resources/static/admin/js/common.js"></script>
+<script type="text/javascript" src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+<link rel="stylesheet" type="text/css" href="../resources/css/common.css">
+<link rel="stylesheet" type="text/css" href="../resources/css/admin.css">
+<link rel="stylesheet" type="text/css" href="https://unpkg.com/swiper@7/swiper-bundle.min.css"/>
+</head>
+<body id="wrap">
+	<?php include("header.html");?>
+    <main id="container">
+        <div id="tool">
+            <div class="info">
+                <div class="title">관리자페이지</div>
+            </div>
+            <div class="logout">
+                <a href="#">로그아웃</a>
+            </div>
+        </div>
+        <div id="contain">
+            <div id="h1">
+                <strong>의료기기</strong>
+                <span>제품 관리 > 의료기기</span>
+            </div>
+            <div id="product" class="content medical">
+                <div class="write">
+                    <dl>
+                        <dt>제조사</dt>
+                        <dd>
+                            <select>
+                                <option>선택</option>
+                            </select>
+                        </dd>
+                        <dt>분류</dt>
+                        <dd>
+                            <select>
+                                <option>선택</option>
+                            </select>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt>제품명</dt>
+                        <dd><input type="text"></dd>
+                    </dl>
+                    <dl>
+                        <dt>제품 이미지</dt>
+                        <dd><input type="file"></dd>
+                    </dl>
+                    <dl>
+                        <dt>제조사 이미지 1</dt>
+                        <dd><input type="file"></dd>
+                    </dl>
+                    <dl>
+                        <dt>제조사 이미지 2</dt>
+                        <dd><input type="file"></dd>
+                    </dl>
+                    <dl>
+                        <dt>사용 여부</dt>
+                        <dd>
+                            <label class="radiobox"><input type="radio" name="popupView" checked><i></i><span>노출</span></label>
+                            <label class="radiobox"><input type="radio" name="popupView"><i></i><span>비노출</span></label>
+                        </dd>
+                    </dl>
+                </div>
+                <div class="write">
+                    <dl>
+                        <dt>용도/목적</dt>
+                        <dd><input type="text"></dd>
+                    </dl>
+                    <dl>
+                        <dt>용량</dt>
+                        <dd><input type="text"></dd>
+                    </dl>
+                    <dl>
+                        <dt>포장단위</dt>
+                        <dd><input type="text"></dd>
+                    </dl>
+                </div>
+                <div class="button">
+                    <ul class="fl">
+                        <li><a href="product_medical.html" class="btn btn_03">목록</a></li>
+                        <li><a href="javascript:;" class="btn btn_01">취소</a></li>
+                    </ul>
+                    <ul class="fr">
+                        <li><a href="javascript:;" class="btn btn_02">저장</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+	</main>
+</body>
+</html>

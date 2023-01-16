@@ -5,8 +5,8 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum Role {
-    USER("일반 사용자"), ADMIN("어드민 계정");
+public enum MemberStatus {
+    NORMAL("정상"), ABNORMAL("비정상");
 
     private final String description;
 }

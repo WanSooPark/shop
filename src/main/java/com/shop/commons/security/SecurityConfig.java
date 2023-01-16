@@ -1,11 +1,13 @@
 package com.shop.commons.security;
 
-import com.shop.services.service.members.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -15,41 +17,63 @@ import org.springframework.security.web.SecurityFilterChain;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private final MemberService memberService;
+    private final UserDetailsService userDetailsService;
 
+    @Order(Ordered.HIGHEST_PRECEDENCE)
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-//        http.formLogin()
-//                .loginPage("/members/login")
-//                .defaultSuccessUrl("/")
-//                .usernameParameter("email")
-//                .failureUrl("/members/login/error")
-//                .and()
-//                .logout()
-//                .logoutRequestMatcher(new AntPathRequestMatcher("/members/logout"))
-//                .logoutSuccessUrl("/")
-
+    public SecurityFilterChain adminFilterChain(HttpSecurity http) throws Exception {
         http.formLogin()
-                .disable();
-
-        http.csrf().disable();
-//                .csrfTokenRepository(sessionCsrfRepository());
-
-        http.authorizeRequests(request -> {
-            request.antMatchers("/admin/**")
-                    .permitAll()
-                    .anyRequest().permitAll();
-        })
-//                .mvcMatchers("/css/**", "/js/**", "/img/**")
-//                .permitAll()
-//                .mvcMatchers("/", "/members/**", "/item/**", "/images/**")
-//                .permitAll()
-//                .mvcMatchers("/admin/**")
-//                .permitAll()
+                .loginPage("/admin/login")
+                .defaultSuccessUrl("/admin")
+                .usernameParameter("email")
+                .failureUrl("/admin/login/error")
+                .and()
+                .logout()
+                .logoutSuccessUrl("/")
+//                .logoutRequestMatcher(new AntPathRequestMatcher("/members/logout"))
         ;
 
-        http.exceptionHandling()
-                .authenticationEntryPoint(new CustomAuthenticationEntryPoint());
+        http.csrf()
+                .disable();
+
+        http.antMatcher("/admin/**")
+                .authorizeRequests()
+                .mvcMatchers("/css/**", "/js/**", "/img/**", "/admin/css/**", "/admin/js/**", "/admin/img/**")
+                .permitAll()
+                .mvcMatchers("/admin", "/admin/login", "/admin/item", "/admin/item/**", "/admin/category", "/admin/category/**")
+                .permitAll()
+                .anyRequest()
+                .authenticated()
+        ;
+
+        return http.build();
+    }
+
+    @Bean
+    public SecurityFilterChain serviceFilterChain(HttpSecurity http) throws Exception {
+        http.formLogin()
+                .loginPage("/login")
+                .defaultSuccessUrl("/")
+                .usernameParameter("email")
+                .failureUrl("/login/error")
+                .and()
+                .logout()
+                .logoutSuccessUrl("/")
+//                .logoutRequestMatcher(new AntPathRequestMatcher("/members/logout"))
+        ;
+
+        http.csrf()
+                .disable();
+
+        http.antMatcher("/**")
+                .authorizeRequests()
+                .mvcMatchers("/css/**", "/js/**", "/img/**")
+                .permitAll()
+                .mvcMatchers("/", "/login", "/login/**", "/members/login")
+                .permitAll()
+                .anyRequest()
+                .authenticated()
+        ;
 
         return http.build();
     }

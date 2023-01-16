@@ -59,36 +59,4 @@ public class MemberController {
         return "member/memberLoginForm";
     }
 
-    @PostMapping("/login")
-    @ResponseBody
-    public ResponseEntity<Object> loginProcess(@Valid LoginInfoReq loginInfoReq, Errors errors, HttpSession session) {
-        if (errors.hasErrors()) {
-            ResponseEntity.status(HttpStatus.CONFLICT)
-                    .body("입력값이 올바르지 않습니다.");
-        }
-
-        try {
-            Member member = memberService.loginProcess(loginInfoReq, session);
-            return ResponseEntity.ok()
-                    .build();
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.CONFLICT)
-                    .body(e.getMessage());
-        }
-    }
-
-    @GetMapping(value = "/login/error")
-    public String loginError(Model model) {
-        model.addAttribute("loginErrorMsg", "아이디 또는 비밀번호를 확인해주세요");
-        return "member/memberLoginForm";
-    }
-
-    @GetMapping("/logout")
-    public String logout(HttpServletRequest request) {
-        HttpSession session = request.getSession(false);
-        if (session != null) {
-            session.invalidate();
-        }
-        return "redirect:/";
-    }
 }
