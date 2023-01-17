@@ -69,29 +69,13 @@
                 <div class="menu">
                     <ul class="dp1">
                         <li class="dl1">
-                            <a class="da1" href="#">히트상품</a>
+                            <a class="da1" href="#">가공식품</a>
                         </li>
                         <li class="dl1">
-                            <a class="da1" href="#">추천상품</a>
+                            <a class="da1" href="#">농수축산물</a>
                         </li>
                         <li class="dl1">
-                            <a class="da1" href="#">최신상품</a>
-                        </li>
-                        <li class="dl1">
-                            <a class="da1" href="#">인기상품</a>
-                        </li>
-                        <li class="dl1">
-                            <a class="da1" href="#">할인상품</a>
-                        </li>
-                        <li class="dl1">
-                            <a class="da1" href="#">1차메뉴명 <i></i></a>
-                            <ul class="dp2">
-                                <li class="dl2"><a class="da2" href="#">1차메뉴명-1</a></li>
-                                <li class="dl2"><a class="da2" href="#">1차메뉴명-1</a></li>
-                                <li class="dl2"><a class="da2" href="#">1차메뉴명-1</a></li>
-                                <li class="dl2"><a class="da2" href="#">1차메뉴명-1</a></li>
-                                <li class="dl2"><a class="da2" href="#">1차메뉴명-1</a></li>
-                            </ul>
+                            <a class="da1" href="#">배달용품</a>
                         </li>
                     </ul>
                 </div>
@@ -106,76 +90,64 @@
                 <div class="wrap">
                     <div class="menu">
                         <ul class="dp1">
-                            <li class="dl1">
-                                <a class="da1" href="#">히트상품</a>
-                            </li>
-                            <li class="dl1">
-                                <a class="da1" href="#">추천상품</a>
-                            </li>
-                            <li class="dl1">
-                                <a class="da1" href="#">최신상품</a>
-                            </li>
-                            <li class="dl1">
-                                <a class="da1" href="#">인기상품</a>
-                            </li>
-                            <li class="dl1">
-                                <a class="da1" href="#">할인상품</a>
-                            </li>
-                            <li class="dl1">
-                                <a class="da1" href="#">1차메뉴명 <i></i></a>
-                                <ul class="dp2">
-                                    <li class="dl2"><a class="da2" href="#">1차메뉴명-1</a></li>
-                                    <li class="dl2"><a class="da2" href="#">1차메뉴명-1</a></li>
-                                    <li class="dl2"><a class="da2" href="#">1차메뉴명-1</a></li>
-                                    <li class="dl2"><a class="da2" href="#">1차메뉴명-1</a></li>
-                                    <li class="dl2"><a class="da2" href="#">1차메뉴명-1</a></li>
-                                </ul>
-                            </li>
+                            <th:block th:each="category: ${categories}">
+                                <li class="dl1">
+                                    <a class="da1" href="#" th:text="${category.name}">1차분류
+                                        <i th:if="${category.getSubCategories() != null}"></i>
+                                    </a>
+                                    <ul class="dp2" th:if="${category.getSubCategories() != null}">
+                                        <th:block th:each="subCategory: ${category.getSubCategories()}">
+                                            <li class="dl2">
+                                                <a class="da2" href="#" th:text="${subCategory.name}">2차분류</a>
+                                            </li>
+                                        </th:block>
+                                    </ul>
+                                </li>
+                            </th:block>
                         </ul>
                     </div>
                 </div>
             </div>
-            <script type="text/javascript">
-                //<![CDATA[
-                $(function () {
-                    $('#header .head-navi .dl1').bind('mouseenter keyup', function () {
-                        $(this).addClass('active').siblings().removeClass('active');
-                    }).bind("mouseleave focusout", function () {
-                        $(this).removeClass('active');
-                    });
-                    $('#header .head-navi .menu .dl1').bind('mouseenter keyup', function () {
-                        $('#header').addClass('active');
-                    });
-                    $('#header').on("mouseleave", function () {
-                        $('#header').removeClass('active');
-                    });
-                    $('#container').on('focusin', function () {
-                        $('#header').removeClass('active');
-                    })
-                });
-                $(function () {
-                    $("#allmenu").on("click", function () {
-                        if ($(this).hasClass("active")) {
-                            $(this).removeClass("active");
-                            $('.head-allmenu').removeClass("active");
-                            $("html, body").css({"overflow": "auto"});
-                        } else {
-                            $(this).addClass("active");
-                            $('.head-allmenu').addClass("active");
-                            $("html, body").css({"overflow": "hidden"});
-                        }
-                    })
-                    $('.allmenu').on('click', function (e) {
-                        if (!$('.allmenu .box').has(e.target).length) {
-                            $('.head-allmenu').removeClass("active");
-                            $("html, body").css({"overflow": "auto"});
-                        }
-                    });
-                });
-                //]]>
-            </script>
         </div>
     </header>
+    <script type="text/javascript">
+        //<![CDATA[
+        $(function () {
+            $('#header .head-navi .dl1').bind('mouseenter keyup', function () {
+                $(this).addClass('active').siblings().removeClass('active');
+            }).bind("mouseleave focusout", function () {
+                $(this).removeClass('active');
+            });
+            $('#header .head-navi .menu .dl1').bind('mouseenter keyup', function () {
+                $('#header').addClass('active');
+            });
+            $('#header').on("mouseleave", function () {
+                $('#header').removeClass('active');
+            });
+            $('#container').on('focusin', function () {
+                $('#header').removeClass('active');
+            })
+        });
+        $(function () {
+            $("#allmenu").on("click", function () {
+                if ($(this).hasClass("active")) {
+                    $(this).removeClass("active");
+                    $('.head-allmenu').removeClass("active");
+                    $("html, body").css({"overflow": "auto"});
+                } else {
+                    $(this).addClass("active");
+                    $('.head-allmenu').addClass("active");
+                    $("html, body").css({"overflow": "hidden"});
+                }
+            })
+            $('.allmenu').on('click', function (e) {
+                if (!$('.allmenu .box').has(e.target).length) {
+                    $('.head-allmenu').removeClass("active");
+                    $("html, body").css({"overflow": "auto"});
+                }
+            });
+        });
+        //]]>
+    </script>
 </div>
-
 </html>

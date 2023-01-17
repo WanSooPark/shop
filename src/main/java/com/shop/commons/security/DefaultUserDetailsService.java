@@ -19,7 +19,7 @@ public class DefaultUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Member member = memberService.findByEmail(username);
+        Member member = memberService.findByUsername(username);
 
         if (ObjectUtils.isEmpty(member)) {
             throw new UsernameNotFoundException(username);

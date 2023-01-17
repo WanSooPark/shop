@@ -56,6 +56,10 @@ public class CategoryService {
         return repository.findByTopCategory(topCategory);
     }
 
+    public List<Category> findByTopCategoryId(Long topCategoryId) {
+        return repository.findByTopCategoryId(topCategoryId);
+    }
+
     public List<Category> findByDepthLessThanEqual(long depth) {
         return repository.findByDepthLessThanEqual(depth); // depth 보다 작거나 같은
     }

@@ -40,4 +40,8 @@ public class MemberService {
     public Member findByEmail(String email) {
         return repository.findByEmail(email);
     }
+
+    public Member findByUsername(String username) {
+        return repository.findByUsername(username);
+    }
 }
