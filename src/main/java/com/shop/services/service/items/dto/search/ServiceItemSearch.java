@@ -8,7 +8,7 @@ public class ServiceItemSearch {
 
     @Data
     public static class Request {
-        private String categoryId;
+        private Long categoryId;
         private String search;
     }
 

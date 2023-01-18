@@ -13,27 +13,25 @@
     <section id="container">
         <div id="list">
             <div class="wrap">
-                <div id="heading">클렌징</div>
+                <div id="heading" th:text="${category.getName()}">클렌징</div>
                 <div class="flex">
                     <div class="lt-item">
                         <div class="category">
-                            <div class="tit">SKIN CARE</div>
+                            <div class="tit" th:text="${categorySizeMenu.getName()}">SKIN CARE</div>
                             <div class="con">
                                 <ul>
-                                    <li><a href="#">전체보기</a></li>
-                                    <li><a href="#">클렌징</a></li>
-                                    <li><a href="#">스킨·토너</a></li>
-                                    <li><a href="#">에센스·세럼</a></li>
-                                    <li><a href="#">로션·크림·밤</a></li>
-                                    <li><a href="#">오일·미스트</a></li>
-                                    <li><a href="#">마스크팩</a></li>
+                                    <li><a th:href="@{'/item?categoryId=' + ${categorySizeMenu.getId()}}">전체보기</a></li>
+                                    <th:block th:each="subCategory: ${categorySizeMenu.getSubCategories()}">
+                                        <li><a th:href="@{'/item?categoryId=' + ${subCategory.getId()}}"
+                                               th:text="${subCategory.getName()}">클렌징</a></li>
+                                    </th:block>
                                 </ul>
                             </div>
                         </div>
                     </div>
                     <div class="rt-item">
                         <div class="tool">
-                            <div class="total">총 <strong>27</strong>개</div>
+                            <div class="total">총 <strong th:text="${itemPage.getTotalContents()}">1</strong>개</div>
                             <div class="sort">
                                 <select>
                                     <option>추천순</option>
@@ -48,284 +46,37 @@
                         </div>
                         <div class="list">
                             <ul>
-                                <li>
-                                    <div class="inner">
-                                        <button type="button" class="zzim on"><i></i></button>
-                                        <div class="img"><a href="#"><img src="/img/raffle_image01.png"></a></div>
-                                        <div class="con">
-                                            <div class="name">[조말론] 블랙베리 100ml</div>
-                                            <div class="sale">
-                                                <span class="price">107,000</span>
-                                                <span class="percent">23%</span>
+                                <th:block th:each="item: ${itemPage.getContent()}">
+                                    <li>
+                                        <div class="inner">
+                                            <button type="button" class="zzim on"><i></i></button>
+                                            <div class="img">
+                                                <a th:href="@{'/item/' + ${item.getId()}}">
+                                                    <img src="/img/raffle_image01.png">
+                                                </a>
+                                            </div>
+                                            <div class="con">
+                                                <div class="name">
+                                                    <span th:if="${item.getBrand() != null && item.getBrand() != ''}">
+                                                        [<span th:text="${item.getBrand()}">브랜드명</span>]
+                                                    </span>
+                                                    <span th:text="${item.getName()}">상품명</span>
+                                                </div>
+                                                <div class="sale">
+                                                    <span class="price"
+                                                          th:text="${#numbers.formatInteger(item.getSalePrice(), 0, 'COMMA')}">107,000</span>
+                                                    <span class="percent">
+                                                        <span th:text="${item.getPercent()}">100</span>%
+                                                    </span>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="inner">
-                                        <button type="button" class="zzim on"><i></i></button>
-                                        <div class="img"><a href="#"><img src="/img/raffle_image02.png"></a></div>
-                                        <div class="con">
-                                            <div class="name"><a href="#">[르라보] 어나더 쿨코튼</a></div>
-                                            <div class="sale">
-                                                <span class="price">169,000</span>
-                                                <span class="percent">24%</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="inner">
-                                        <button type="button" class="zzim"><i></i></button>
-                                        <div class="img"><a href="#"><img src="/img/raffle_image03.png"></a></div>
-                                        <div class="con">
-                                            <div class="name">상품명이 노출됩니다</div>
-                                            <div class="sale">
-                                                <span class="price">34,900</span>
-                                                <span class="percent">24%</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="inner">
-                                        <button type="button" class="zzim"><i></i></button>
-                                        <div class="img"><a href="#"><img src="/img/raffle_image01.png"></a></div>
-                                        <div class="con">
-                                            <div class="name">[조말론] 블랙베리 100ml</div>
-                                            <div class="sale">
-                                                <span class="price">107,000</span>
-                                                <span class="percent">23%</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="inner">
-                                        <button type="button" class="zzim"><i></i></button>
-                                        <div class="img"><a href="#"><img src="/img/raffle_image01.png"></a></div>
-                                        <div class="con">
-                                            <div class="name">[조말론] 블랙베리 100ml</div>
-                                            <div class="sale">
-                                                <span class="price">107,000</span>
-                                                <span class="percent">23%</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="inner">
-                                        <button type="button" class="zzim"><i></i></button>
-                                        <div class="img"><a href="#"><img src="/img/raffle_image02.png"></a></div>
-                                        <div class="con">
-                                            <div class="name"><a href="#">[르라보] 어나더 쿨코튼</a></div>
-                                            <div class="sale">
-                                                <span class="price">169,000</span>
-                                                <span class="percent">24%</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="inner">
-                                        <button type="button" class="zzim"><i></i></button>
-                                        <div class="img"><a href="#"><img src="/img/raffle_image03.png"></a></div>
-                                        <div class="con">
-                                            <div class="name">상품명이 노출됩니다</div>
-                                            <div class="sale">
-                                                <span class="price">34,900</span>
-                                                <span class="percent">24%</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="inner">
-                                        <button type="button" class="zzim"><i></i></button>
-                                        <div class="img"><a href="#"><img src="/img/raffle_image01.png"></a></div>
-                                        <div class="con">
-                                            <div class="name">[조말론] 블랙베리 100ml</div>
-                                            <div class="sale">
-                                                <span class="price">107,000</span>
-                                                <span class="percent">23%</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="inner">
-                                        <button type="button" class="zzim"><i></i></button>
-                                        <div class="img"><a href="#"><img src="/img/raffle_image01.png"></a></div>
-                                        <div class="con">
-                                            <div class="name">[조말론] 블랙베리 100ml</div>
-                                            <div class="sale">
-                                                <span class="price">107,000</span>
-                                                <span class="percent">23%</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="inner">
-                                        <button type="button" class="zzim"><i></i></button>
-                                        <div class="img"><a href="#"><img src="/img/raffle_image02.png"></a></div>
-                                        <div class="con">
-                                            <div class="name"><a href="#">[르라보] 어나더 쿨코튼</a></div>
-                                            <div class="sale">
-                                                <span class="price">169,000</span>
-                                                <span class="percent">24%</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="inner">
-                                        <button type="button" class="zzim"><i></i></button>
-                                        <div class="img"><a href="#"><img src="/img/raffle_image03.png"></a></div>
-                                        <div class="con">
-                                            <div class="name">상품명이 노출됩니다</div>
-                                            <div class="sale">
-                                                <span class="price">34,900</span>
-                                                <span class="percent">24%</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="inner">
-                                        <button type="button" class="zzim"><i></i></button>
-                                        <div class="img"><a href="#"><img src="/img/raffle_image01.png"></a></div>
-                                        <div class="con">
-                                            <div class="name">[조말론] 블랙베리 100ml</div>
-                                            <div class="sale">
-                                                <span class="price">107,000</span>
-                                                <span class="percent">23%</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="inner">
-                                        <button type="button" class="zzim"><i></i></button>
-                                        <div class="img"><a href="#"><img src="/img/raffle_image01.png"></a></div>
-                                        <div class="con">
-                                            <div class="name">[조말론] 블랙베리 100ml</div>
-                                            <div class="sale">
-                                                <span class="price">107,000</span>
-                                                <span class="percent">23%</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="inner">
-                                        <button type="button" class="zzim"><i></i></button>
-                                        <div class="img"><a href="#"><img src="/img/raffle_image02.png"></a></div>
-                                        <div class="con">
-                                            <div class="name"><a href="#">[르라보] 어나더 쿨코튼</a></div>
-                                            <div class="sale">
-                                                <span class="price">169,000</span>
-                                                <span class="percent">24%</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="inner">
-                                        <button type="button" class="zzim"><i></i></button>
-                                        <div class="img"><a href="#"><img src="/img/raffle_image03.png"></a></div>
-                                        <div class="con">
-                                            <div class="name">상품명이 노출됩니다</div>
-                                            <div class="sale">
-                                                <span class="price">34,900</span>
-                                                <span class="percent">24%</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="inner">
-                                        <button type="button" class="zzim"><i></i></button>
-                                        <div class="img"><a href="#"><img src="/img/raffle_image01.png"></a></div>
-                                        <div class="con">
-                                            <div class="name">[조말론] 블랙베리 100ml</div>
-                                            <div class="sale">
-                                                <span class="price">107,000</span>
-                                                <span class="percent">23%</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="inner">
-                                        <button type="button" class="zzim"><i></i></button>
-                                        <div class="img"><a href="#"><img src="/img/raffle_image01.png"></a></div>
-                                        <div class="con">
-                                            <div class="name">[조말론] 블랙베리 100ml</div>
-                                            <div class="sale">
-                                                <span class="price">107,000</span>
-                                                <span class="percent">23%</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="inner">
-                                        <button type="button" class="zzim"><i></i></button>
-                                        <div class="img"><a href="#"><img src="/img/raffle_image02.png"></a></div>
-                                        <div class="con">
-                                            <div class="name"><a href="#">[르라보] 어나더 쿨코튼</a></div>
-                                            <div class="sale">
-                                                <span class="price">169,000</span>
-                                                <span class="percent">24%</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="inner">
-                                        <button type="button" class="zzim"><i></i></button>
-                                        <div class="img"><a href="#"><img src="/img/raffle_image03.png"></a></div>
-                                        <div class="con">
-                                            <div class="name">상품명이 노출됩니다</div>
-                                            <div class="sale">
-                                                <span class="price">34,900</span>
-                                                <span class="percent">24%</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="inner">
-                                        <button type="button" class="zzim"><i></i></button>
-                                        <div class="img"><a href="#"><img src="/img/raffle_image01.png"></a></div>
-                                        <div class="con">
-                                            <div class="name">[조말론] 블랙베리 100ml</div>
-                                            <div class="sale">
-                                                <span class="price">107,000</span>
-                                                <span class="percent">23%</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
+                                    </li>
+                                </th:block>
                             </ul>
                         </div>
-                        <div class="paging">
-                            <a href="#" class="first">&lt;&lt;</a>
-                            <a href="#" class="prev">&lt;</a>
-                            <a href="#" class="current">1</a>
-                            <a href="#">2</a>
-                            <a href="#">3</a>
-                            <a href="#">4</a>
-                            <a href="#">5</a>
-                            <a href="#">6</a>
-                            <a href="#">7</a>
-                            <a href="#">8</a>
-                            <a href="#">9</a>
-                            <a href="#">10</a>
-                            <a href="#" class="next">&gt;</a>
-                            <a href="#" class="end">&gt;&gt;</a>
-                        </div>
+                        <th:block
+                                th:replace="fragments/fragment :: pagination(${itemPage}, '/item?categoryId=' + ${categoryId})"></th:block>
                     </div>
                 </div>
             </div>

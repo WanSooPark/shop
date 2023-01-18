@@ -8,7 +8,7 @@ public class AdminItemSearchDto {
 
     @Data
     public static class Request {
-        private String categoryId;
+        private Long categoryId;
         private String searchType;
         private String search;
     }

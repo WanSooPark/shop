@@ -20,7 +20,7 @@ public class ItemService {
         return repository.save(item);
     }
 
-    public Page<Item> searchForAdmin(String searchType, String search, String categoryId, Pageable pageable) {
+    public Page<Item> searchForAdmin(String searchType, String search, Long categoryId, Pageable pageable) {
         return repository.searchForAdmin(searchType, search, categoryId, pageable);
     }
 
@@ -33,4 +33,7 @@ public class ItemService {
                 .orElseThrow(() -> new NoContentException("유효하지 않은 상품 id 입니다."));
     }
 
+    public Page<Item> search(Long categoryId, Pageable pageable) {
+        return repository.search(categoryId, pageable);
+    }
 }

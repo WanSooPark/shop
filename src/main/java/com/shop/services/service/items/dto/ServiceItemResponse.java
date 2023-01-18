@@ -24,7 +24,7 @@ public class ServiceItemResponse {
                 .basicDescription(item.getBasicDescription())
                 .regularPrice(item.getRegularPrice())
                 .salePrice(item.getSalePrice())
-                .percent(item.getRegularPrice() != 0 ? (long) (((double) item.getSalePrice() / (double) item.getRegularPrice()) * 100) : 0)
+                .percent(item.getPercent())
                 .build();
     }
 }
