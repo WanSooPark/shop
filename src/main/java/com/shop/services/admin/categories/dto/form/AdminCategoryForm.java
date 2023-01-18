@@ -1,6 +1,7 @@
 package com.shop.services.admin.categories.dto.form;
 
 import com.shop.models.categories.domain.Category;
+import com.shop.models.categories.domain.CategoryStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,15 +16,19 @@ public class AdminCategoryForm {
     private Long id;
     private String name;
     private Long topCategoryId;
+    private String status;
 
     public static AdminCategoryForm of(Category category) {
         return AdminCategoryForm.builder()
                 .id(category.getId())
                 .name(category.getName())
-                .topCategoryId(category.getTopCategory()
+                .topCategoryId(ObjectUtils.isEmpty(category.getTopCategory()) ? null : category.getTopCategory()
                         .getId())
+                .status(category.getStatus()
+                        .name())
                 .build();
     }
+
     public static AdminCategoryForm empty() {
         return AdminCategoryForm.builder()
                 .id(0L)
@@ -64,6 +69,7 @@ public class AdminCategoryForm {
                 depth = topCategory.getDepth() + 1;
             }
             this.category.setDepth(depth);
+            this.category.setStatus(CategoryStatus.getStringToEnum(dto.status));
             return this.category;
         }
     }

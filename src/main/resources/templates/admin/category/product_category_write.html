@@ -44,11 +44,12 @@
                         <dt>사용 여부</dt>
                         <dd>
                             <label class="radiobox">
-                                <input type="radio" name="popupView" checked>
+                                <input type="radio" name="status" value="EXPOSE" th:checked="${category.getStatus()} == EXPOSE" checked>
                                 <i></i>
                                 <span>노출</span>
                             </label>
-                            <label class="radiobox"><input type="radio" name="popupView">
+                            <label class="radiobox">
+                                <input type="radio" name="status" value="UNEXPOSED" th:checked="${category.getStatus()} == UNEXPOSED">
                                 <i></i>
                                 <span>비노출</span>
                             </label>
