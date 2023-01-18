@@ -1,0 +1,353 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0, user-scalable=yes">
+<title></title>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+<script type="text/javascript" src="../resources/js/common.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"/>
+<link rel="stylesheet" type="text/css" href="../resources/css/common.css">
+<link rel="stylesheet" type="text/css" href="../resources/css/layout.css">
+</head>
+<body id="wrap">
+	<header id="header">
+        <div class="head-top">
+            <div class="wrap">
+                <div class="addr">
+                    <strong>주소</strong><span>경기도 포천시 소흘읍 소흘로 73-10</span>
+                </div>
+                <div class="free"><strong>49,000원 이상 무료배송</strong> (그 외 금액은 배송비 5,000원)</div>
+                <div class="tool">
+                    <a href="./">홈</a>
+                    <a href="./">장바구니</a>
+                    <a href="./">배송조회</a>
+                    <a href="./">마이페이지</a>
+                    <a href="./">로그인</a>
+                </div>
+            </div>
+        </div>
+        <div class="head-bottom">
+            <div class="wrap">
+                <div class="logo"><a href="./"><img src="../resources/img/logo.png" alt="더가온 ALL따옴"></a></div>
+                <div class="search">
+                    <form class="form">
+                        <input type="text" placeholder="무엇이 필요하세요?">
+                        <button type="submit"><img src="../resources/img/icon_search.png"></button>
+                    </form>
+                </div>
+                <div class="link">
+                    <a href="#">
+                        <div class="ico"><img src="../resources/img/icon_mypage.png"></div>
+                        <div class="txt">마이페이지</div>
+                    </a>
+                    <a href="#">
+                        <div class="ico"><img src="../resources/img/icon_cart.png"><p class="num">2</p></div>
+                        <div class="txt">장바구니</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="head-navi">
+            <div class="wrap">
+                <div class="all">
+                    <button type="button" id="allmenu"><img src="../resources/img/icon_bars.png">전체 카테고리</button>
+                </div>
+                <div class="menu">
+                    <ul class="dp1">
+                        <li class="dl1">
+                            <a href="#" class="da1">가공식품</a>
+                        </li>
+                        <li class="dl1">
+                            <a href="#" class="da1">농수축산물</a>
+                        </li>
+                        <li class="dl1">
+                            <a href="#" class="da1">배달용품</a>
+                        </li>
+                        <li class="dl1">
+                            <a href="#" class="da1">기획전</a>
+                        </li>
+                        <li class="dl1">
+                            <a href="#" class="da1">NEW</a>
+                        </li>
+                        <li class="dl1">
+                            <a href="#" class="da1">BEST</a>
+                        </li>
+                        <li class="dl1">
+                            <a href="#" class="da1">기획전</a>
+                        </li>
+                        <li class="dl1">
+                            <a href="#" class="da1">COMMUNITY</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="quick">
+                    <a href="#">박스단위 구매</a>
+                </div>
+            </div>
+        </div>
+        <div class="head-allmenu">
+            <div class="allmenu">
+                <div class="wrap">
+                    <div class="menu">
+                        <ul class="dp1">
+                            <li class="dl1">
+                                <a href="#" class="da1">가공식품</a>
+                            </li>
+                            <li class="dl1">
+                                <a href="#" class="da1">농수축산물</a>
+                            </li>
+                            <li class="dl1">
+                                <a href="#" class="da1">배달용품</a>
+                            </li>
+                            <li class="dl1">
+                                <a href="#" class="da1">기획전</a>
+                            </li>
+                            <li class="dl1">
+                                <a href="#" class="da1">NEW</a>
+                            </li>
+                            <li class="dl1">
+                                <a href="#" class="da1">BEST</a>
+                            </li>
+                            <li class="dl1">
+                                <a href="#" class="da1">기획전</a>
+                            </li>
+                            <li class="dl1">
+                                <a href="#" class="da1">COMMUNITY</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+			<script type="text/javascript">
+			//<![CDATA[
+            $(function() {
+                $('#header .head-navi .dl1').bind('mouseenter keyup', function() {
+                    $(this).addClass('active').siblings().removeClass('active');
+                }).bind("mouseleave focusout",function(){
+                    $(this).removeClass('active');
+                });
+                $('#header .head-navi .menu .dl1').bind('mouseenter keyup', function() {
+                    $('#header').addClass('active');
+                });
+                $('#header').on("mouseleave",function(){
+                    $('#header').removeClass('active');
+                });
+                $('#container').on('focusin',function(){
+                    $('#header').removeClass('active');
+                })
+            });
+			$(function() {
+				$("#allmenu").on("click", function() {
+                    if($(this).hasClass("active")) {
+                        $(this).removeClass("active");
+                        $('.head-allmenu').removeClass("active");
+                        $("html, body").css({"overflow":"auto"});
+                    } else {
+                        $(this).addClass("active");
+                        $('.head-allmenu').addClass("active");
+                        $("html, body").css({"overflow":"hidden"});
+                    }
+				})
+				$('.allmenu').on('click', function(e){
+					if(!$('.allmenu .box').has(e.target).length){
+						$('.head-allmenu').removeClass("active");
+						$("html, body").css({"overflow":"auto"});
+					}
+				});
+			});
+			//]]>
+			</script>
+        </div>
+    </header>
+	<section id="container">
+        <div id="mypage">
+            <div id="mycoupon">
+                <div class="wrap">
+                    <div id="heading">마이쿠폰</div>
+                    <div class="coupon">
+                        <div class="tit">쿠폰인증번호 등록하기</div>
+                        <div class="inp"><input type="text"></div>
+                        <div class="act"><button type="button" class="btn btn_01">쿠폰번호인증</button></div>
+                        <div class="txt">반드시 쇼핑몰에서 발행한 쿠폰번호만 입력해주세요.(10~35자 일련번호 "-"제외)</div>
+                    </div>
+                    <div class="table tbl">
+                        <div class="title">
+                            <div class="tit">마이 쿠폰 목록</div>
+                            <div class="num">사용가능 쿠폰 : 7장</div>
+                        </div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th scope="col">번호</th>
+                                    <th scope="col">쿠폰명</th>
+                                    <th scope="col">쿠폰적용상품</th>
+                                    <th scope="col">구매금액</th>
+                                    <th scope="col">결제수단</th>
+                                    <th scope="col">쿠폰혜택</th>
+                                    <th scope="col">사용가능 기간</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td class="tal">특가팩 할인쿠폰(12월) - 신규회원</td>
+                                    <td><a href="#" class="pdview">적용상품보기</a></td>
+                                    <td>제한없음</td>
+                                    <td>제한없음</td>
+                                    <td>할인 10,000원</td>
+                                    <td>2022-12-26 17:59:17 ~<br> 2022-12-31 23:59:59</td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td class="tal">특가팩 할인쿠폰(12월) - 신규회원</td>
+                                    <td><a href="#" class="pdview">적용상품보기</a></td>
+                                    <td>제한없음</td>
+                                    <td>제한없음</td>
+                                    <td>할인 10,000원</td>
+                                    <td>2022-12-26 17:59:17 ~<br> 2022-12-31 23:59:59</td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td class="tal">특가팩 할인쿠폰(12월) - 신규회원</td>
+                                    <td><a href="#" class="pdview">적용상품보기</a></td>
+                                    <td>제한없음</td>
+                                    <td>제한없음</td>
+                                    <td>할인 10,000원</td>
+                                    <td>2022-12-26 17:59:17 ~<br> 2022-12-31 23:59:59</td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td class="tal">특가팩 할인쿠폰(12월) - 신규회원</td>
+                                    <td><a href="#" class="pdview">적용상품보기</a></td>
+                                    <td>제한없음</td>
+                                    <td>제한없음</td>
+                                    <td>할인 10,000원</td>
+                                    <td>2022-12-26 17:59:17 ~<br> 2022-12-31 23:59:59</td>
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td class="tal">특가팩 할인쿠폰(12월) - 신규회원</td>
+                                    <td><a href="#" class="pdview">적용상품보기</a></td>
+                                    <td>제한없음</td>
+                                    <td>제한없음</td>
+                                    <td>할인 10,000원</td>
+                                    <td>2022-12-26 17:59:17 ~<br> 2022-12-31 23:59:59</td>
+                                </tr>
+                                <tr>
+                                    <td>6</td>
+                                    <td class="tal">특가팩 할인쿠폰(12월) - 신규회원</td>
+                                    <td><a href="#" class="pdview">적용상품보기</a></td>
+                                    <td>제한없음</td>
+                                    <td>제한없음</td>
+                                    <td>할인 10,000원</td>
+                                    <td>2022-12-26 17:59:17 ~<br> 2022-12-31 23:59:59</td>
+                                </tr>
+                                <tr>
+                                    <td>7</td>
+                                    <td class="tal">특가팩 할인쿠폰(12월) - 신규회원</td>
+                                    <td><a href="#" class="pdview">적용상품보기</a></td>
+                                    <td>제한없음</td>
+                                    <td>제한없음</td>
+                                    <td>할인 10,000원</td>
+                                    <td>2022-12-26 17:59:17 ~<br> 2022-12-31 23:59:59</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="page">
+                        <a href="#">&lt;&lt;</a>
+                        <a href="#">&lt;</a>
+                        <a href="#" class="current">1</a>
+                        <a href="#">&gt;</a>
+                        <a href="#">&gt;&gt;</a>
+                    </div>
+                    <div class="text">
+                        <div class="tit">쿠폰 이용 안내</div>
+                        <div class="txt">
+                            <p><strong>1</strong> 쿠폰인증번호 등록하기에서 쇼핑몰에서 발행한 종이쿠폰/시리얼쿠폰/모바일쿠폰 등의 인증번호를 등록하시면 온라인쿠폰으로 발급되어 사용이 가능합니다. </p>
+                            <p><strong>2</strong> 쿠폰은 주문 시 1회에 한해 적용도어 있는 경우 해당 상품 구매 시에만 사용이 가능합니다.</p>
+                            <p><strong>3</strong> 쿠폰은 적용 가능한 상품이 따로 적용되어 있는 경우 해당 상품 구매시에만 사용이 가능합니다.</p>
+                            <p><strong>4</strong> 특정한 종이쿠폰/시리얼쿠폰/모바일쿠폰의 경우 단 1회만 사용이 가능할 수 있습니다.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer id="footer">
+        <div class="foot-link">
+            <div class="wrap">
+                <a href="#">회사소개</a>
+                <a href="#">이용약관</a>
+                <a href="#"><strong>개인정보처리방침</strong></a>
+                <a href="#">이용안내</a>
+                <a href="#">고객센터</a>
+            </div>
+        </div>
+        <div class="foot-head">
+            <div class="wrap">
+                <div class="center desc">
+                    <div class="tit">CS CENTER</div>
+                    <div class="tel">1644-1234</div>
+                    <div class="txt">평일 10:00 ~ 18:00 <br>주말, 공휴일 휴무</div>
+                </div>
+                <div class="info desc">
+                    <div class="tit">BANK INFO</div>
+                    <div class="num">123-456-78999</div>
+                    <div class="txt">기업은행 <br>예금주 : 올따옴</div>
+                </div>
+                <div class="notice desc">
+                    <div class="tit">NOTICE</div>
+                    <div class="ntc">
+                        <ul>
+                            <li><a href="#"><p>50,000원 이상 구매시 무료배송!</p></a></li>
+                            <li><a href="#"><p>주문/결제시 공지</p></a></li>
+                            <li><a href="#"><p>배송관련 공지사항입니다. 필독해주시면 감사하겠습니다.</p></a></li>
+                            <li><a href="#"><p>[이벤트] 안내입니다</p></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="return desc">
+                    <div class="tit">RETURN / EXCHANGE</div>
+                    <div class="txt">
+                        서울특별시 용산구 한강대로 <br>
+                        자세한 교환 · 반품절차 안내는 상품하단을 참고해주세요.
+                    </div>
+                    <div class="rtc">
+                        <ul>
+                            <li><a href="#"><img src="../resources/img/icon_cart_full.png"><p>장바구니</p></a></li>
+                            <li><a href="#"><img src="../resources/img/icon_delivery_full.png"><p>배송조회</p></a></li>
+                            <li><a href="#"><img src="../resources/img/icon_inquiry_full.png"><p>1:1문의</p></a></li>
+                            <li><a href="#"><img src="../resources/img/icon_order_full.png"><p>주문목록</p></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="foot-bottom">
+            <div class="wrap">
+                <div class="logo"><img src="../resources/img/fogo.png"></div>
+                <div class="contents">
+                    <div class="address">
+                        <ul>
+                            <li>법인명: 올따옴</li>
+                            <li>대표자: 윤준영</li>
+                            <li>사업자등록번호: 340-86-00708</li>
+                            <li>통신판매업신고: 제2019 경기포천 0582호</li>
+                            <li>전화: 031-8080-7770</li>
+                            <li>팩스: 031-541-0433</li>
+                            <li>주소: 경기도 포천시 소흘읍 소흘로 73-10</li>
+                        </ul>
+                    </div>
+                    <div class="cite">Copyright ⓒ 2022 (주)더가온 All rights Reserved.</div>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
+

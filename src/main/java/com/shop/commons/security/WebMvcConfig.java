@@ -28,8 +28,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .addPathPatterns(loginIncludeUri)
                 .excludePathPatterns(loginExcludeUri);
         registry.addInterceptor(serviceViewInterceptor)
-                .addPathPatterns("/", "/login", "/sign/up")
-                .excludePathPatterns("/api/**", "/admin/**");
+                .addPathPatterns("/**")
+                .excludePathPatterns("/img/**", "/admin/**", "/css/**", "/images/**", "/js/**", "/api/**", "/admin/**");
     }
 
     @Override

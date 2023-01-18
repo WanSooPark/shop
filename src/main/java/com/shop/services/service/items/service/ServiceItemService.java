@@ -16,7 +16,8 @@ public class ServiceItemService {
     private final ItemService itemService;
 
     public ServiceItemSearch.Response search(ServiceItemSearch searchDto) {
-        return null;
+        return ServiceItemSearch.Response.builder()
+                .build();
     }
 
     public ServiceItemResponse getItem(Long id) {

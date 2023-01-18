@@ -1,0 +1,449 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0, user-scalable=yes">
+<title></title>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+<script type="text/javascript" src="../resources/js/common.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"/>
+<link rel="stylesheet" type="text/css" href="../resources/css/common.css">
+<link rel="stylesheet" type="text/css" href="../resources/css/layout.css">
+</head>
+<body id="wrap">
+	<header id="header">
+        <div class="head-top">
+            <div class="wrap">
+                <div class="addr">
+                    <strong>주소</strong><span>경기도 포천시 소흘읍 소흘로 73-10</span>
+                </div>
+                <div class="free"><strong>49,000원 이상 무료배송</strong> (그 외 금액은 배송비 5,000원)</div>
+                <div class="tool">
+                    <a href="./">홈</a>
+                    <a href="./">장바구니</a>
+                    <a href="./">배송조회</a>
+                    <a href="./">마이페이지</a>
+                    <a href="./">로그인</a>
+                </div>
+            </div>
+        </div>
+        <div class="head-bottom">
+            <div class="wrap">
+                <div class="logo"><a href="./"><img src="../resources/img/logo.png" alt="더가온 ALL따옴"></a></div>
+                <div class="search">
+                    <form class="form">
+                        <input type="text" placeholder="무엇이 필요하세요?">
+                        <button type="submit"><img src="../resources/img/icon_search.png"></button>
+                    </form>
+                </div>
+                <div class="link">
+                    <a href="#">
+                        <div class="ico"><img src="../resources/img/icon_mypage.png"></div>
+                        <div class="txt">마이페이지</div>
+                    </a>
+                    <a href="#">
+                        <div class="ico"><img src="../resources/img/icon_cart.png"><p class="num">2</p></div>
+                        <div class="txt">장바구니</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="head-navi">
+            <div class="wrap">
+                <div class="all">
+                    <button type="button" id="allmenu"><img src="../resources/img/icon_bars.png">전체 카테고리</button>
+                </div>
+                <div class="menu">
+                    <ul class="dp1">
+                        <li class="dl1">
+                            <a href="#" class="da1">가공식품</a>
+                        </li>
+                        <li class="dl1">
+                            <a href="#" class="da1">농수축산물</a>
+                        </li>
+                        <li class="dl1">
+                            <a href="#" class="da1">배달용품</a>
+                        </li>
+                        <li class="dl1">
+                            <a href="#" class="da1">기획전</a>
+                        </li>
+                        <li class="dl1">
+                            <a href="#" class="da1">NEW</a>
+                        </li>
+                        <li class="dl1">
+                            <a href="#" class="da1">BEST</a>
+                        </li>
+                        <li class="dl1">
+                            <a href="#" class="da1">기획전</a>
+                        </li>
+                        <li class="dl1">
+                            <a href="#" class="da1">COMMUNITY</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="quick">
+                    <a href="#">박스단위 구매</a>
+                </div>
+            </div>
+        </div>
+        <div class="head-allmenu">
+            <div class="allmenu">
+                <div class="wrap">
+                    <div class="menu">
+                        <ul class="dp1">
+                            <li class="dl1">
+                                <a href="#" class="da1">가공식품</a>
+                            </li>
+                            <li class="dl1">
+                                <a href="#" class="da1">농수축산물</a>
+                            </li>
+                            <li class="dl1">
+                                <a href="#" class="da1">배달용품</a>
+                            </li>
+                            <li class="dl1">
+                                <a href="#" class="da1">기획전</a>
+                            </li>
+                            <li class="dl1">
+                                <a href="#" class="da1">NEW</a>
+                            </li>
+                            <li class="dl1">
+                                <a href="#" class="da1">BEST</a>
+                            </li>
+                            <li class="dl1">
+                                <a href="#" class="da1">기획전</a>
+                            </li>
+                            <li class="dl1">
+                                <a href="#" class="da1">COMMUNITY</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+			<script type="text/javascript">
+			//<![CDATA[
+            $(function() {
+                $('#header .head-navi .dl1').bind('mouseenter keyup', function() {
+                    $(this).addClass('active').siblings().removeClass('active');
+                }).bind("mouseleave focusout",function(){
+                    $(this).removeClass('active');
+                });
+                $('#header .head-navi .menu .dl1').bind('mouseenter keyup', function() {
+                    $('#header').addClass('active');
+                });
+                $('#header').on("mouseleave",function(){
+                    $('#header').removeClass('active');
+                });
+                $('#container').on('focusin',function(){
+                    $('#header').removeClass('active');
+                })
+            });
+			$(function() {
+				$("#allmenu").on("click", function() {
+                    if($(this).hasClass("active")) {
+                        $(this).removeClass("active");
+                        $('.head-allmenu').removeClass("active");
+                        $("html, body").css({"overflow":"auto"});
+                    } else {
+                        $(this).addClass("active");
+                        $('.head-allmenu').addClass("active");
+                        $("html, body").css({"overflow":"hidden"});
+                    }
+				})
+				$('.allmenu').on('click', function(e){
+					if(!$('.allmenu .box').has(e.target).length){
+						$('.head-allmenu').removeClass("active");
+						$("html, body").css({"overflow":"auto"});
+					}
+				});
+			});
+			//]]>
+			</script>
+        </div>
+    </header>
+	<section id="container">
+        <div id="mypage">
+            <div id="myinfo">
+                <div class="wrap">
+                    <div id="heading">회원 정보 수정</div>
+                    <div class="form">
+                        <div class="tit">기본 정보</div>
+                        <div class="con">
+                            <dl>
+                                <dt>아이디 <em class="req">*</em></dt>
+                                <dd>
+                                    <div class="inp">
+                                        <input type="text">
+                                        (영문소문자/숫자, 4-16자)
+                                    </div>
+                                </dd>
+                            </dl>
+                            <dl>
+                                <dt>비밀번호 <em class="req">*</em></dt>
+                                <dd>
+                                    <div class="inp">
+                                        <input type="password">
+                                        (영문 대소문자/숫자/특수문자 중 3가지 이상 조합, 8자-16자)
+                                    </div>
+                                </dd>
+                            </dl>
+                            <dl>
+                                <dt>비밀번호 확인 <em class="req">*</em></dt>
+                                <dd>
+                                    <div class="inp">
+                                        <input type="password">
+                                        (영문 대소문자/숫자/특수문자 중 3가지 이상 조합, 8자-16자)
+                                    </div>
+                                </dd>
+                            </dl>
+                            <dl>
+                                <dt>이름 <em class="req">*</em></dt>
+                                <dd>
+                                    <div class="inp">
+                                        <input type="text">
+                                    </div>
+                                </dd>
+                            </dl>
+                            <dl>
+                                <dt>주소 <em class="req">*</em></dt>
+                                <dd>
+                                    <div class="inp">
+                                        <input type="text" id="address_zip" value="04410" readonly><button type="button" class="btn btn_01" onclick="execDaumPostcode()">우편번호</button>
+                                    </div>
+                                    <div class="inp">
+                                        <input type="text" id="address_doro" value="서울 용산구 한남동 516-6"> 기본주소
+                                    </div>
+                                    <div class="inp">
+                                        <input type="text" id="address_detail" value="1층"> 나머지주소(선택입력가능)
+                                    </div>
+                                </dd>
+                            </dl>
+                            <dl>
+                                <dt>일반전화</dt>
+                                <dd>
+                                    <div class="inp">
+                                        <select>
+                                            <option>02</option>
+                                        </select>
+                                        <em>-</em>
+                                        <input type="text">
+                                        <em>-</em>
+                                        <input type="text">
+                                    </div>
+                                </dd>
+                            </dl>
+                            <dl>
+                                <dt>휴대전화 <em class="req">*</em></dt>
+                                <dd>
+                                    <div class="inp">
+                                        <select>
+                                            <option>02</option>
+                                        </select>
+                                        <em>-</em>
+                                        <input type="text">
+                                        <em>-</em>
+                                        <input type="text">
+                                        <button type="button" class="btn btn_01" >인증번호받기</button>
+                                    </div>
+                                </dd>
+                            </dl>
+                            <dl>
+                                <dt>SMS 수신여부 <em class="req">*</em></dt>
+                                <dd>
+                                    <div class="inp">
+                                        <label class="checkbox"><input type="radio" name="receive1" checked><i></i><p>수신함</p></label>
+                                        <label class="checkbox"><input type="radio" name="receive1"><i></i><p>수신안함</p></label>
+                                    </div>
+                                    <div class="txt">쇼핑몰에서 제공하는 유익한 이벤트 소식을 SMS로 받으실 수 있습니다.</div>
+                                </dd>
+                            </dl>
+                            <dl>
+                                <dt>이메일 <em class="req">*</em></dt>
+                                <dd>
+                                    <div class="inp">
+                                        <input type="text">
+                                    </div>
+                                </dd>
+                            </dl>
+                            <dl>
+                                <dt>이메일 수신여부 <em class="req">*</em></dt>
+                                <dd>
+                                    <div class="inp">
+                                        <label class="checkbox"><input type="radio" name="receive2" checked><i></i><p>수신함</p></label>
+                                        <label class="checkbox"><input type="radio" name="receive2"><i></i><p>수신안함</p></label>
+                                    </div>
+                                    <div class="txt">쇼핑몰에서 제공하는 유익한 이벤트 소식을 이메일로 받으실 수 있습니다.</div>
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                    <div class="form">
+                        <div class="tit">추가 정보</div>
+                        <div class="con">
+                            <dl>
+                                <dt>성별</dt>
+                                <dd>
+                                    <div class="inp">
+                                        <label class="checkbox"><input type="radio" name="gen" checked><i></i><p>남자</p></label>
+                                        <label class="checkbox"><input type="radio" name="gen"><i></i><p>여자</p></label>
+                                    </div>
+                                </dd>
+                            </dl>
+                            <dl>
+                                <dt>생년월일</dt>
+                                <dd>
+                                    <div class="inp">
+                                        <input type="text" value="1993" maxlength="4">
+                                        <em>년</em>
+                                        <input type="text" value="09" maxlength="2">
+                                        <em>월</em>
+                                        <input type="text" value="14" maxlength="2">
+                                        <em>일</em>
+                                        <label class="checkbox"><input type="radio" name="solar" checked><i></i><p>양력</p></label>
+                                        <label class="checkbox"><input type="radio" name="solar"><i></i><p>음력</p></label>
+                                    </div>
+                                </dd>
+                            </dl>
+                            <dl>
+                                <dt>추천인 아이디</dt>
+                                <dd>
+                                    <div class="inp">
+                                        <input type="text">
+                                    </div>
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                    <div class="agree">
+                        <div class="tit">개인정보 처리 위탁 동의(선택)</div>
+                        <div class="con">
+                            textetxetxetxet
+                        </div>
+                        <div class="agr">
+                            <span>개인정보 처리 위탁에 동의합니까?</span>
+                            <label class="checkbox">
+                                <input type="checkbox"><i></i><p>동의함</p>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="button">
+                        <a href="#" class="btn btn_03">회원정보수정</a>
+                        <a href="#" class="btn btn_04">취소</a>
+                    </div>
+                    <div class="unregister">
+                        <a href="#" class="btn btn_02">회원탈퇴</a>
+                    </div>
+                    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+                    <script>
+                    function execDaumPostcode() {
+                        new daum.Postcode({
+                            oncomplete: function(data) {
+                                var addr = ''; 
+                                var extraAddr = '';
+
+                                if (data.userSelectedType === 'R') { 
+                                    addr = data.roadAddress;
+                                } else { 
+                                    addr = data.jibunAddress;
+                                }
+                                if(data.userSelectedType === 'R'){
+                                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                                        extraAddr += data.bname;
+                                    }
+                                    if(data.buildingName !== '' && data.apartment === 'Y'){
+                                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                                    }
+                                    if(extraAddr !== ''){
+                                        extraAddr = ' (' + extraAddr + ')';
+                                    }
+                                    document.getElementById("address_detail").value = extraAddr;
+                                
+                                } else {
+                                    document.getElementById("address_detail").value = '';
+                                }
+                                document.getElementById('address_zip').value = data.zonecode;
+                                document.getElementById("address_doro").value = addr;
+                                document.getElementById("address_doro").focus();
+                            }
+                        }).open();
+                    }
+                    </script>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer id="footer">
+        <div class="foot-link">
+            <div class="wrap">
+                <a href="#">회사소개</a>
+                <a href="#">이용약관</a>
+                <a href="#"><strong>개인정보처리방침</strong></a>
+                <a href="#">이용안내</a>
+                <a href="#">고객센터</a>
+            </div>
+        </div>
+        <div class="foot-head">
+            <div class="wrap">
+                <div class="center desc">
+                    <div class="tit">CS CENTER</div>
+                    <div class="tel">1644-1234</div>
+                    <div class="txt">평일 10:00 ~ 18:00 <br>주말, 공휴일 휴무</div>
+                </div>
+                <div class="info desc">
+                    <div class="tit">BANK INFO</div>
+                    <div class="num">123-456-78999</div>
+                    <div class="txt">기업은행 <br>예금주 : 올따옴</div>
+                </div>
+                <div class="notice desc">
+                    <div class="tit">NOTICE</div>
+                    <div class="ntc">
+                        <ul>
+                            <li><a href="#"><p>50,000원 이상 구매시 무료배송!</p></a></li>
+                            <li><a href="#"><p>주문/결제시 공지</p></a></li>
+                            <li><a href="#"><p>배송관련 공지사항입니다. 필독해주시면 감사하겠습니다.</p></a></li>
+                            <li><a href="#"><p>[이벤트] 안내입니다</p></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="return desc">
+                    <div class="tit">RETURN / EXCHANGE</div>
+                    <div class="txt">
+                        서울특별시 용산구 한강대로 <br>
+                        자세한 교환 · 반품절차 안내는 상품하단을 참고해주세요.
+                    </div>
+                    <div class="rtc">
+                        <ul>
+                            <li><a href="#"><img src="../resources/img/icon_cart_full.png"><p>장바구니</p></a></li>
+                            <li><a href="#"><img src="../resources/img/icon_delivery_full.png"><p>배송조회</p></a></li>
+                            <li><a href="#"><img src="../resources/img/icon_inquiry_full.png"><p>1:1문의</p></a></li>
+                            <li><a href="#"><img src="../resources/img/icon_order_full.png"><p>주문목록</p></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="foot-bottom">
+            <div class="wrap">
+                <div class="logo"><img src="../resources/img/fogo.png"></div>
+                <div class="contents">
+                    <div class="address">
+                        <ul>
+                            <li>법인명: 올따옴</li>
+                            <li>대표자: 윤준영</li>
+                            <li>사업자등록번호: 340-86-00708</li>
+                            <li>통신판매업신고: 제2019 경기포천 0582호</li>
+                            <li>전화: 031-8080-7770</li>
+                            <li>팩스: 031-541-0433</li>
+                            <li>주소: 경기도 포천시 소흘읍 소흘로 73-10</li>
+                        </ul>
+                    </div>
+                    <div class="cite">Copyright ⓒ 2022 (주)더가온 All rights Reserved.</div>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
+
