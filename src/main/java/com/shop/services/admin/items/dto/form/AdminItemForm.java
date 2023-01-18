@@ -19,7 +19,7 @@ import java.util.List;
 public class AdminItemForm {
     private String method; // post, put
     private Long id = 0L; // 상품 코드
-    private String name = "name"; // 상품명
+    private String name; // 상품명
     private String englishName = "englishName"; // 영문 상품명
     private String basicDescription = "basicDescription"; // 상품 기본 설명
     private String manufacturer = "manufacturer"; // 제조사

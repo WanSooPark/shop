@@ -8,7 +8,7 @@ let ca_category = "";
 
 // 2. 기본정보
 let basic_code = ""; // id
-let name = "";
+let itemName = "";
 let englishName = "";
 let basicDescription = "";
 let manufacturer = "";

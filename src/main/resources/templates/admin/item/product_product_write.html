@@ -391,8 +391,8 @@
                         <tr>
                             <th scope="row"><label for="name">상품명</label></th>
                             <td colspan="2">
-                                <input type="text" th:field="*{name}" name="name" id="name" required="" class="frm_input required" size="95"
-                                       onchange="(function(){name = event.target.value;console.log(`name`,name)})()"/>
+                                <input type="text" th:field="*{name}" name="name" id="name" class="frm_input" size="95"
+                                       onchange="(function(){itemName = event.target.value;console.log(`name`,itemName)})()"/>
                             </td>
                         </tr>
                         <tr>

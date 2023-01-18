@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layouts/layout2}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<!-- 사용자 CSS 추가 -->
+<th:block layout:fragment="css">
+    <style>
+    </style>
+</th:block>
+<div layout:fragment="content">
+    <div id="container">
+        <div id="shop">
+            <div id="shop_detail" class="tab-area">
+                <div class="infobox">
+                    <div class="wrap">
+                        <div class="thumbnail">
+                            <div class="image">
+                                <div class="swiper-wrapper">
+                                    <div class="swiper-slide"><img src="/img/detail.png"></div>
+                                    <div class="swiper-slide"><img src="/img/detail.png"></div>
+                                </div>
+                            </div>
+                            <div class="thumb">
+                                <div class="swiper-wrapper">
+                                    <div class="swiper-slide"><img src="/img/detail.png"></div>
+                                    <div class="swiper-slide"><img src="/img/detail.png"></div>
+                                </div>
+                            </div>
+                            <script>
+                                $(document).ready(function () {
+                                    var thumbSwiper = new Swiper('.thumbnail .thumb', {
+                                        spaceBetween: 10,
+                                        watchSlidesProgress: true,
+                                        slideToClickedSlide: true,
+                                        loop: true,
+                                        breakpoints: {
+                                            1: {
+                                                slidesPerView: 4, // 한 화면에 보일 섬네일 개수
+                                                loopedSlides: 5 // 위 섬네일 개수와 동일한 수치 설정
+                                            },
+                                        },
+                                        touchRatio: 0.2,
+                                        slideToClickedSlide: true,
+                                    });
+                                    // main slider 실행
+                                    var mainSwiper = new Swiper('.thumbnail .image', {
+                                        effect: 'fade',
+                                        spaceBetween: 10,
+                                        allowTouchMove: false,
+                                        loop: true,
+                                        navigation: {
+                                            nextEl: '.swiper-gallery-next',
+                                            prevEl: '.swiper-gallery-prev'
+                                        },
+                                        breakpoints: {
+                                            1: {
+                                                loopedSlides: 5
+                                            }
+                                        },
+                                        thumbs: {
+                                            swiper: thumbSwiper,
+                                        }
+                                    })
+                                })
+                            </script>
+                        </div>
+                        <div class="info">
+                            <div class="tool">
+                                <a href="javascript:;" class="zzim" th:classappend="${isZzim} ? on"><i></i>
+                                    <p>찜하기</p></a>
+                                <a href="javascript:;" class="share"><i></i>
+                                    <p>공유하기</p></a>
+                            </div>
+                            <div class="cate">
+                                <span>관부가세포함</span>
+                            </div>
+                            <div class="head">
+                                <div class="name">
+                                    <span th:if="${item.getBrand() != null && item.getBrand() != ''}">[<span th:text="${item.getBrand()}">르라보</span>]</span>
+                                    <span th:text="${item.getName()}">상품명</span>
+                                </div>
+                                <div class="explain" th:text="${item.getBasicDescription()}">[LE LABO] ANTHOER 13DEDP</div>
+                                <div class="price">
+                                    <div class="sale">
+                                        <span class="percent"><span th:text="${item.getPercent()}">100</span>%</span>
+                                        <span class="origin"><span th:text="${#numbers.formatInteger(item.getRegularPrice(), 0, 'COMMA')}"></span>원</span>
+                                    </div>
+                                    <div class="cost">
+                                        <span class="won"><span th:text="${#numbers.formatInteger(item.getSalePrice(), 0, 'COMMA')}"></span><em>원</em></span>
+                                        <span class="dollar" style="display: none;">($135,58)</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="read">
+                                <dl style="display: none;">
+                                    <dt>배송비</dt>
+                                    <dd>10,000원</dd>
+                                </dl>
+                                <dl style="display: none;">
+                                    <dt>용량</dt>
+                                    <dd>200g</dd>
+                                </dl>
+                            </div>
+                            <div class="total">
+                                <div class="text">총 상품금액</div>
+                                <div class="price">
+                                    <div class="won">
+                                        <span th:text="${#numbers.formatInteger(item.getSalePrice(), 0, 'COMMA')}">174,900</span>
+                                        <em>원</em>
+                                    </div>
+                                    <div class="dollar" style="display: none;">($135,58)</div>
+                                </div>
+                            </div>
+                            <div class="safety">
+                                <button type="button">올따옴만의 <strong>정품안심배송과정</strong> <i></i></button>
+                            </div>
+                            <div class="button">
+                                <a href="javascript:;" class="btn btn_02">장바구니</a>
+                                <a href="javascript:;" class="btn btn_01">바로구매</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="contbox">
+                    <div class="wrap">
+                        <div class="tabs tab-btn">
+                            <ul>
+                                <li><a href="#detail01">정품안심배송과정</a></li>
+                                <li class="active"><a href="#detail02">상품상세</a></li>
+                                <li><a href="#detail03">REVIEW(<span th:text="${countOfReview}"></span>)</a></li>
+                                <li><a href="#detail04">Q&A(<span th:text="${countOfQNA}"></span>)</a></li>
+                            </ul>
+                        </div>
+                        <div class="process tab-box">
+                            정품안심배송과정 영역
+                        </div>
+                        <div class="product tab-box active">
+                            <div class="image">
+                                <img src="/img/detail_detail.png">
+                            </div>
+                            <div class="button">
+                                <a href="#" class="btn btn_03">예상 관부가세 계산하기 <em>복잡한 관부가세 계산, 편리하게 예상하세요.</em></a>
+                                <a href="#" class="btn btn_04"><em>개인통관고유부호</em> 발급/조회 바로가기</a>
+                            </div>
+                            <div class="more">
+                                <button type="button" class="toggle">상세정보 더보기</button>
+                            </div>
+                            <script>
+                                $(".toggle").on('click', function () {
+                                    if ($(this).hasClass("active")) {
+                                        $(this).removeClass("active");
+                                        $(".product .image").removeClass("active");
+                                    } else {
+                                        $(this).addClass("active");
+                                        $(".product .image").addClass("active");
+                                    }
+                                })
+                            </script>
+                            <div class="required">
+                                <div class="tit">필수 표기정보</div>
+                                <div class="tbl">
+                                    <table>
+                                        <tr>
+                                            <th>제품명</th>
+                                            <td>컨텐츠참조</td>
+                                        </tr>
+                                        <tr>
+                                            <th>생산자 및 소재지</th>
+                                            <td>컨텐츠참조</td>
+                                        </tr>
+                                        <tr>
+                                            <th>포장단위별 내용물의 <br>용량(중량), 수량</th>
+                                            <td>컨텐츠참조</td>
+                                        </tr>
+                                        <tr>
+                                            <th>영양성분</th>
+                                            <td>컨텐츠참조</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="review tab-box">
+                            리뷰영역
+                        </div>
+                        <div class="qna tab-box">
+                            QNA 영역
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</html>
+
