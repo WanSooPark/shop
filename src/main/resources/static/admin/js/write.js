@@ -30,34 +30,32 @@ let stock = null;
 let stockNotificationQuantity = "";
 let minimumPurchaseQuantity = "";
 let maximumPurchaseQuantity = "";
-let sales_option = [
-  {
-    option: "",
-    item: "",
-  },
-];
-let sales_selection_option = [
-  {
-    check: false,
-    option: "",
-    add_price: null,
-    available_stock: null,
-    sales_notified_available_stock: null,
-    usage_options: "",
-  },
-];
+let sales_option = {
+    option1: {
+        option: "",
+        item: "",
+    },
+    option2: {
+        option: "",
+        item: "",
+    },
+    option3: {
+        option: "",
+        item: "",
+    },
+};
 let sales_product_additional_options = [
-  {
-    additional: "",
-    item: "",
-  },
+    {
+        additional: "",
+        item: "",
+    },
 ];
 
 // 일괄 변경 옵션으로 병량님은 사용하지 않으셔도 됩니다.
-let sales_every_option_additional_price = null;
-let sales_every_option_available_stock = "";
-let sales_every_option_notified_available_stock = "";
-let sales_every_option_use = "";
+let sales_every_option_additional_price = 0;
+let sales_every_option_available_stock = 0;
+let sales_every_option_notified_available_stock = 0;
+let sales_every_option_use = "USE";
 
 // 4. 상품정보
 let product_product_classification = "";
@@ -126,14 +124,14 @@ let etc_admin_memo = "";
 
 // 1. 메인분류 노출
 const mainCategoryCheckbox = (event) => {
-  ca_checkbox = event.target.value;
-  // if (event.target.value === "best") {
-  //   document.querySelector("#bestBadge").checked = false;
-  // } else {
-  //   document.querySelector("#newBadge").checked = false;
-  // }
+    ca_checkbox = event.target.value;
+    // if (event.target.value === "best") {
+    //   document.querySelector("#bestBadge").checked = false;
+    // } else {
+    //   document.querySelector("#newBadge").checked = false;
+    // }
 
-  console.log(ca_checkbox);
+    console.log(ca_checkbox);
 };
 
 //2. 기본정보
@@ -142,58 +140,58 @@ const mainCategoryCheckbox = (event) => {
 
 // 상품상태
 const productStatus = (id) => {
-  //   console.log(id);
-  status = event.target.value;
+    //   console.log(id);
+    status = event.target.value;
 
-  // if (event.target.id == "beforeApprovalStatus") {
-  //   event.target.checked = true;
-  //   document.querySelector("#saleStatus").checked = false;
-  //   document.querySelector("#productExposureStatus").checked = false;
-  //   document.querySelector("#soldOutStatus").checked = false;
-  //   document.querySelector("#noSaleStatus").checked = false;
-  // } else if (event.target.id == "saleStatus") {
-  //   event.target.checked = true;
-  //   document.querySelector("#beforeApprovalStatus").checked = false;
-  //   document.querySelector("#productExposureStatus").checked = false;
-  //   document.querySelector("#soldOutStatus").checked = false;
-  //   document.querySelector("#noSaleStatus").checked = false;
-  // } else if (event.target.id == "productExposureStatus") {
-  //   event.target.checked = true;
-  //   document.querySelector("#beforeApprovalStatus").checked = false;
-  //   document.querySelector("#saleStatus").checked = false;
-  //   document.querySelector("#soldOutStatus").checked = false;
-  //   document.querySelector("#noSaleStatus").checked = false;
-  // } else if (event.target.id == "soldOutStatus") {
-  //   event.target.checked = true;
-  //   document.querySelector("#beforeApprovalStatus").checked = false;
-  //   document.querySelector("#saleStatus").checked = false;
-  //   document.querySelector("#productExposureStatus").checked = false;
-  //   document.querySelector("#noSaleStatus").checked = false;
-  // } else if (event.target.id == "noSaleStatus") {
-  //   event.target.checked = true;
-  //   document.querySelector("#beforeApprovalStatus").checked = false;
-  //   document.querySelector("#saleStatus").checked = false;
-  //   document.querySelector("#soldOutStatus").checked = false;
-  //   document.querySelector("#productExposureStatus").checked = false;
-  // }
+    // if (event.target.id == "beforeApprovalStatus") {
+    //   event.target.checked = true;
+    //   document.querySelector("#saleStatus").checked = false;
+    //   document.querySelector("#productExposureStatus").checked = false;
+    //   document.querySelector("#soldOutStatus").checked = false;
+    //   document.querySelector("#noSaleStatus").checked = false;
+    // } else if (event.target.id == "saleStatus") {
+    //   event.target.checked = true;
+    //   document.querySelector("#beforeApprovalStatus").checked = false;
+    //   document.querySelector("#productExposureStatus").checked = false;
+    //   document.querySelector("#soldOutStatus").checked = false;
+    //   document.querySelector("#noSaleStatus").checked = false;
+    // } else if (event.target.id == "productExposureStatus") {
+    //   event.target.checked = true;
+    //   document.querySelector("#beforeApprovalStatus").checked = false;
+    //   document.querySelector("#saleStatus").checked = false;
+    //   document.querySelector("#soldOutStatus").checked = false;
+    //   document.querySelector("#noSaleStatus").checked = false;
+    // } else if (event.target.id == "soldOutStatus") {
+    //   event.target.checked = true;
+    //   document.querySelector("#beforeApprovalStatus").checked = false;
+    //   document.querySelector("#saleStatus").checked = false;
+    //   document.querySelector("#productExposureStatus").checked = false;
+    //   document.querySelector("#noSaleStatus").checked = false;
+    // } else if (event.target.id == "noSaleStatus") {
+    //   event.target.checked = true;
+    //   document.querySelector("#beforeApprovalStatus").checked = false;
+    //   document.querySelector("#saleStatus").checked = false;
+    //   document.querySelector("#soldOutStatus").checked = false;
+    //   document.querySelector("#productExposureStatus").checked = false;
+    // }
 
-  console.log(`status`, status);
+    console.log(`status`, status);
 };
 
 // 과세 비과세
 
 const taxationType = () => {
-  sales_product_taxation_type = event.target.value;
+    sales_product_taxation_type = event.target.value;
 
-  console.log("sales_product_taxation_type", sales_product_taxation_type);
+    console.log("sales_product_taxation_type", sales_product_taxation_type);
 };
 
 // 상품정보
 
 const itemSortation = () => {
-  product_product_classification = event.target.value;
+    product_product_classification = event.target.value;
 
-  console.log("product_product_classification", product_product_classification);
+    console.log("product_product_classification", product_product_classification);
 };
 
 //상품정보 제조일 년
@@ -219,23 +217,23 @@ const itemSortation = () => {
 
 //상품선택옵션 옵션추가
 const addOptinList = () => {
-  sales_option.push({
-    option: "",
-    item: "",
-  });
+    sales_option.push({
+        option: "",
+        item: "",
+    });
 
-  console.log(sales_option);
+    console.log(sales_option);
 
-  let specific_tbody = document.getElementById("option_table");
-  let row = specific_tbody.insertRow(specific_tbody.rows.length);
-  var cell1 = row.insertCell(0);
+    let specific_tbody = document.getElementById("option_table");
+    let row = specific_tbody.insertRow(specific_tbody.rows.length);
+    var cell1 = row.insertCell(0);
 
-  var cell2 = row.insertCell(1);
+    var cell2 = row.insertCell(1);
 
-  sales_option.map((option, key) => {
-    cell1.innerHTML = ` <label for="opt${key + 1}_subject">옵션${
-      key + 1
-    }</label>
+    sales_option.map((option, key) => {
+        cell1.innerHTML = ` <label for="opt${key + 1}_subject">옵션${
+            key + 1
+        }</label>
     <input
         type="text"
         name={opt${key + 1}_subject}
@@ -246,9 +244,9 @@ const addOptinList = () => {
         />
         `;
 
-    cell2.innerHTML = `<label for="opt${key + 1}"><b>옵션${
-      key + 1
-    } 항목</b></label>
+        cell2.innerHTML = `<label for="opt${key + 1}"><b>옵션${
+            key + 1
+        } 항목</b></label>
       <input
         type="text"
         name={opt${key + 1}}
@@ -261,244 +259,145 @@ const addOptinList = () => {
       삭제
       </button>
       `;
-  });
+    });
 };
-
-// onchange="
-// `(function () {
-// sales_option[key].item = event.target.value;
-// //   console.log(`basic_brand`, sales_option);
-// })()`"
 
 const deleteOption = (key) => {
-  let specific_tbody = document.getElementById("option_table");
+    let specific_tbody = document.getElementById("option_table");
 
-  sales_option.splice(key + 1, 1);
-  specific_tbody.children.length === 2
-    ? specific_tbody.children[key].remove()
-    : specific_tbody.children[key + 1].remove();
+    sales_option.splice(key + 1, 1);
+    specific_tbody.children.length === 2
+        ? specific_tbody.children[key].remove()
+        : specific_tbody.children[key + 1].remove();
 };
-{
-  /* <tbody>
-  <tr>
-    <td class="td_chk">
-      <input type="hidden" name="opt_id[]" value="WHITE1" />
-      <label for="opt_chk_0" class="sound_only"></label>
-      <input type="checkbox" name="opt_chk[]" id="opt_chk_0" value="1" />
-    </td>
-    <td class="opt-cell">
-      WHITE <small>&gt;</small> 1
-    </td>
-    <td class="td_numsmall">
-      <label for="opt_price_0" class="sound_only"></label>
-      <input
-        type="text"
-        name="opt_price[]"
-        value="0"
-        id="opt_price_0"
-        class="frm_input"
-        size="9"
-      />
-    </td>
-    <td class="td_num">
-      <label for="opt_stock_qty_0" class="sound_only"></label>
-      <input
-        type="text"
-        name="opt_stock_qty[]"
-        value="20"
-        id="opt_stock_qty_0"
-        class="frm_input"
-        size="5"
-      />
-    </td>
-    <td class="td_num">
-      <label for="opt_noti_qty_0" class="sound_only"></label>
-      <input
-        type="text"
-        name="opt_noti_qty[]"
-        value="100"
-        id="opt_noti_qty_0"
-        class="frm_input"
-        size="5"
-      />
-    </td>
-    <td class="td_mng">
-      <label for="opt_use_0" class="sound_only"></label>
-      <select name="opt_use[]" id="opt_use_0">
-        <option value="1" selected="selected">
-          사용함
-        </option>
-        <option value="0">사용안함</option>
-      </select>
-    </td>
-  </tr>
-  <tr>
-    <td class="td_chk">
-      <input type="hidden" name="opt_id[]" value="WHITE2" />
-      <label for="opt_chk_1" class="sound_only"></label>
-      <input type="checkbox" name="opt_chk[]" id="opt_chk_1" value="1" />
-    </td>
-    <td class="opt-cell">
-      WHITE <small>&gt;</small> 2
-    </td>
-    <td class="td_numsmall">
-      <label for="opt_price_1" class="sound_only"></label>
-      <input
-        type="text"
-        name="opt_price[]"
-        value="0"
-        id="opt_price_1"
-        class="frm_input"
-        size="9"
-      />
-    </td>
-    <td class="td_num">
-      <label for="opt_stock_qty_1" class="sound_only"></label>
-      <input
-        type="text"
-        name="opt_stock_qty[]"
-        value="20"
-        id="opt_stock_qty_1"
-        class="frm_input"
-        size="5"
-      />
-    </td>
-    <td class="td_num">
-      <label for="opt_noti_qty_1" class="sound_only"></label>
-      <input
-        type="text"
-        name="opt_noti_qty[]"
-        value="100"
-        id="opt_noti_qty_1"
-        class="frm_input"
-        size="5"
-      />
-    </td>
-    <td class="td_mng">
-      <label for="opt_use_1" class="sound_only"></label>
-      <select name="opt_use[]" id="opt_use_1">
-        <option value="1" selected="selected">
-          사용함
-        </option>
-        <option value="0">사용안함</option>
-      </select>
-    </td>
-  </tr>
-</tbody>; */
-}
-
-{
-  /* <td class="td_mng">
-      <label for="opt_use_1" class="sound_only"></label>
-      <select name="opt_use[]" id="opt_use_1">
-        <option value="1" selected="selected">
-          사용함
-        </option>
-        <option value="0">사용안함</option>
-      </select>
-    </td> */
-}
 
 const createOptionList = () => {
-  sales_product_additional_options = sales_option;
-  console.log(sales_product_additional_options);
+    let specific_tbody = document.getElementById("product_option_table");
 
-  let specific_tbody = document.getElementById("product_option_table");
-  let row = specific_tbody.insertRow(specific_tbody.rows.length);
-  var cell1 = row.insertCell(0);
-  var cell2 = row.insertCell(1);
-  var cell3 = row.insertCell(2);
-  var cell4 = row.insertCell(3);
-  var cell5 = row.insertCell(4);
-  var cell6 = row.insertCell(5);
+    let result = [];
 
-  sales_selection_option.map((option, key) => {
-    cell1.innerHTML = `
-    <td class="td_chk">
-    <input type="hidden" name="opt_id[]" value="WHITE1" />
-    <label for="opt_chk_0" class="sound_only"></label>
-    <input type="checkbox" name="opt_chk[]" id="opt_chk_0" value="1" />
-  </td>
-    `;
+    sales_option.option1.item.split(",").map((op1) => {
+        if (
+            sales_option.option1.item &&
+            !sales_option.option2.item &&
+            !sales_option.option3.item
+        ) {
+            result.push(`${op1}`);
+        }
+        sales_option.option2.item.split(",").map((op2) => {
+            if (
+                sales_option.option1.item &&
+                sales_option.option2.item &&
+                !sales_option.option3.item
+            ) {
+                result.push(`${op1} > ${op2}`);
+            }
+            sales_option.option3.item.split(",").map((op3) => {
+                if (
+                    sales_option.option1.item &&
+                    sales_option.option2.item &&
+                    sales_option.option3.item
+                ) {
+                    result.push(`${op1} > ${op2} > ${op3}`);
+                }
+            });
+        });
+    });
 
-    cell2.innerHTML = `
-    <td class="opt-cell">
-    WHITE <small>&gt;</small> 1
-  </td>
-    `;
+    const parent = document.querySelector("#product_option_table");
 
-    cell3.innerHTML = `
-    <td class="td_numsmall">
-    <label for="opt_price_0" class="sound_only"></label>
-    <input
-      type="text"
-      name="opt_price[]"
-      value="0"
-      id="opt_price_0"
-      class="frm_input"
-      size="9"
-    />
-  </td>
-    `;
+    while (parent.firstChild) {
+        parent.removeChild(parent.firstChild);
+    }
 
-    cell4.innerHTML = `
-    <td class="td_num">
-      <label for="opt_stock_qty_0" class="sound_only"></label>
-      <input
-        type="text"
-        name="opt_stock_qty[]"
-        value="20"
-        id="opt_stock_qty_0"
-        class="frm_input"
-        size="5"
-      />
-    `;
+    result.map((option, key) => {
+        setOptions(specific_tbody, key, 0, option, 0, 0, 0, 'USE');
+    });
+};
 
-    cell5.innerHTML = `
-    <td class="td_num">
-    <label for="opt_noti_qty_0" class="sound_only"></label>
-    <input
-      type="text"
-      name="opt_noti_qty[]"
-      value="100"
-      id="opt_noti_qty_0"
-      class="frm_input"
-      size="5"
-    />
-  </td>
-  
-    `;
+const allCheckOption = () => {
+    const allCheckbox = document.getElementById("option_check_all").checked;
+    const checkList = document.getElementsByName("optionChecks[]");
 
-    cell6.innerHTML = `
-    <td class="td_mng">
-    <label for="opt_use_0" class="sound_only"></label>
-    <select name="opt_use[]" id="opt_use_0">
-      <option value="1" selected="selected">
-        사용함
-      </option>
-      <option value="0">사용안함</option>
-    </select>
-  </td>
-    `;
-  });
+    Object.entries(checkList).map(([index, elem], key) => {
+        checkList[key].checked = allCheckbox;
+    });
+};
+
+const chooseDelete = () => {
+    const parent = document.querySelector("#product_option_table");
+
+    const chk = document.getElementsByName("optionChecks[]");
+    let checkedOptionIndexList = Object.entries(chk).filter(([index, elem], key) => {
+            return elem.checked;
+        }
+    ).map(([index, elem], key) => {
+        return index;
+    });
+    console.log(checkedOptionIndexList)
+
+    Object.entries(parent.childNodes).map(([index, elem], key) => {
+        console.log(index, elem);
+        if (checkedOptionIndexList.includes(index)) {
+            elem.remove();
+        }
+    });
+    document.getElementById("option_check_all").checked = false;
+};
+
+const allApply = () => {
+    const price = document.getElementsByName("optionPrices[]");
+    const stock = document.getElementsByName("optionStocks[]");
+    const notice_stock = document.getElementsByName("optionStockNotificationQuantities[]");
+    const is_used = document.getElementsByName("optionStatuses[]");
+
+    const price_check = document.querySelector("#opt_com_price_chk").checked;
+    const stock_check = document.querySelector("#opt_com_stock_chk").checked;
+    const notice_stock_check = document.querySelector("#opt_com_noti_chk").checked;
+    const is_used_check = document.querySelector("#opt_com_use_chk").checked;
+
+    if (price_check)
+        Object.entries(price).map(
+            ([index, elem], key) => (
+                (elem.value = sales_every_option_additional_price)
+            )
+        );
+    if (stock_check)
+        Object.entries(stock).map(
+            ([index, elem], key) => (
+                (elem.value = sales_every_option_available_stock)
+            )
+        );
+    if (notice_stock_check)
+        Object.entries(notice_stock).map(
+            ([index, elem], key) => (
+                (elem.value = sales_every_option_notified_available_stock)
+            )
+        );
+    if (is_used_check)
+        Object.entries(is_used).map(
+            ([index, elem], key) => (
+                (elem.value = sales_every_option_use)
+            )
+        );
 };
 
 const addAddtionalOptionList = () => {
-  sales_product_additional_options.push({
-    option: "",
-    item: "",
-  });
+    sales_product_additional_options.push({
+        option: "",
+        item: "",
+    });
 
-  let specific_tbody = document.getElementById("addtional_option_table");
-  let row = specific_tbody.insertRow(specific_tbody.rows.length);
-  var cell1 = row.insertCell(0);
+    let specific_tbody = document.getElementById("addtional_option_table");
+    let row = specific_tbody.insertRow(specific_tbody.rows.length);
+    var cell1 = row.insertCell(0);
 
-  var cell2 = row.insertCell(1);
+    var cell2 = row.insertCell(1);
 
-  sales_product_additional_options.map((option, key) => {
-    cell1.innerHTML = ` <label for="opt${key + 1}_subject">추가${
-      key + 1
-    }</label>
+    sales_product_additional_options.map((option, key) => {
+        cell1.innerHTML = ` <label for="opt${key + 1}_subject">추가${
+            key + 1
+        }</label>
     <input
         type="text"
         name={opt${key + 1}_subject}
@@ -508,9 +407,9 @@ const addAddtionalOptionList = () => {
         />
         `;
 
-    cell2.innerHTML = `<label for="opt${key + 1}"><b>추가${
-      key + 1
-    } 항목</b></label>
+        cell2.innerHTML = `<label for="opt${key + 1}"><b>추가${
+            key + 1
+        } 항목</b></label>
       <input
         type="text"
         name={opt${key + 1}}
@@ -521,17 +420,17 @@ const addAddtionalOptionList = () => {
   <button onclick=deleteAddtionalOptionList(${key})>
     삭제
   </<button>`;
-  });
+    });
 };
 
 const deleteAddtionalOptionList = (key) => {
-  let specific_tbody = document.getElementById("addtional_option_table");
+    let specific_tbody = document.getElementById("addtional_option_table");
 
-  sales_product_additional_options.splice(key + 1, 1);
+    sales_product_additional_options.splice(key + 1, 1);
 
-  specific_tbody.children.length === 2
-    ? specific_tbody.children[key].remove()
-    : specific_tbody.children[key + 1].remove();
+    specific_tbody.children.length === 2
+        ? specific_tbody.children[key].remove()
+        : specific_tbody.children[key + 1].remove();
 };
 
 
@@ -541,8 +440,64 @@ let category_id = document.getElementById("categoryId");
 
 
 function selectCategoryChange(event) {
-  const categoryId = event.target.value;
+    const categoryId = event.target.value;
 
-  let category_show = document.getElementById("category_show");
+    let category_show = document.getElementById("category_show");
 }
 
+function setOptions(specific_tbody, key, id, name, price, stock, stockNotificationQuantity, status) {
+    let row = specific_tbody.insertRow(key);
+    var cell1 = row.insertCell(0);
+    var cell2 = row.insertCell(1);
+    var cell3 = row.insertCell(2);
+    var cell4 = row.insertCell(3);
+    var cell5 = row.insertCell(4);
+    var cell6 = row.insertCell(5);
+
+    cell1.innerHTML = `
+        <td class="td_chk">
+            <input type="hidden" name="optionIds[]" value="${id}"/>
+            <label for="option_check_${key}" class="sound_only"></label>
+            <input type="checkbox" name="optionChecks[]" id="option_check_all${key}"/>
+        </td>
+        `;
+
+    cell2.innerHTML = `
+        <td class="opt-cell">
+            <label for="option_name_${key}" class="sound_only"></label>
+            <input type="text" name="optionNames[]" id="option_name_${key}" class="frm_input" value="${name}"/>
+        </td>
+        `;
+
+    cell3.innerHTML = `
+        <td class="td_numsmall">
+            <label for="option_price_${key}" class="sound_only"></label>
+            <input type="text" name="optionPrices[]" id="option_price_${key}" class="frm_input" value="${price}"/>
+        </td>
+        `;
+
+    cell4.innerHTML = `
+        <td class="td_num">
+            <label for="option_stock_${key}" class="sound_only"></label>
+            <input type="text" name="optionStocks[]" id="option_stock_${key}" class="frm_input" value="${stock}"/>
+        </td>
+        `;
+
+    cell5.innerHTML = `
+        <td class="td_num">
+            <label for="option_stock_notification_quantitiy_${key}" class="sound_only"></label>
+            <input type="text" name="optionStockNotificationQuantities[]" id="option_stock_notification_quantitiy_${key}" class="frm_input" value="${stockNotificationQuantity}"/>
+        </td>
+        `;
+
+    const isUse = status !== 'UNUSED';
+    cell6.innerHTML = `
+        <td class="td_mng">
+            <label for="option_status_${key}" class="sound_only"></label>
+            <select name="optionStatuses[]" id="option_status_${key}">
+                <option value="USE" ` + (isUse ? 'selected="selected"' : '') + `>사용함</option>
+                <option value="UNUSED" ` + (!isUse ? 'selected="selected"' : '') + `>사용안함</option>
+            </select>
+        </td>
+        `;
+}

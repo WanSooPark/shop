@@ -20,9 +20,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/admin/item")
@@ -72,7 +74,8 @@ public class AdminItemController {
      * 상품 등록/수정
      */
     @PostMapping
-    public String newItem(@Valid AdminItemForm dto, RedirectAttributes attributes) {
+    public String newItem(HttpServletRequest request, @Valid AdminItemForm dto, RedirectAttributes attributes) {
+        Map<String, String[]> parameterMap = request.getParameterMap();
         try {
             AdminItemResponse response;
             if (dto.getId() == 0) {

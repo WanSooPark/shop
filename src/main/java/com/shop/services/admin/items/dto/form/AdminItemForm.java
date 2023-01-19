@@ -7,10 +7,13 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.Lob;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 @Builder
@@ -47,6 +50,13 @@ public class AdminItemForm {
     private Long maximumPurchaseQuantity = 0L; // 최대 구매 가능 수량
     private List<ItemOptionBuilderForm> optionBuilders; // 옵션 빌더
     private List<ItemOptionForm> options; // 옵션
+    private Long[] optionIds = {0L, 0L, 0L};
+    private String[] optionNames = {"옵션명1", "옵션명2", "옵션명3"};
+    private Long[] optionPrices = {1L, 11L, 111L};
+    private Long[] optionStocks = {2L, 22L, 222L};
+    private Long[] optionStockNotificationQuantities = {3L, 33L, 333L};
+    private String[] optionStatuses = {"USE", "UNUSED", "UNUSED"};
+
     /* 상품정보 */
     private String productionTimeType = "CARRY_OVER"; // ProductProductionTimeType 상품 생산 시기 구분 NORMAL("정상"), CARRY_OVER("이월");
     private Integer productionYear = 2023; // 생산년도
@@ -84,15 +94,30 @@ public class AdminItemForm {
     private boolean newBadge = true;
     private Long categoryId; // 카테고리 객체
 
-    /* enum 바인딩 */
-//    public ItemSellStatus getStatus() {
-//        return ItemSellStatus.getStringToEnum(this.status);
-//    }
-
     /**
      * Entity -> FormDto
      */
     public static AdminItemForm of(Item item) {
+        List<ItemOption> options = item.getOptions();
+        List<ItemOptionForm> itemOptionForms = options.stream()
+                .map(ItemOptionForm::of)
+                .collect(Collectors.toList());
+        List<Long> optionIds = new ArrayList<>();
+        List<String> optionNames = new ArrayList<>();
+        List<Long> optionPrices = new ArrayList<>();
+        List<Long> optionStocks = new ArrayList<>();
+        List<Long> optionStockNotificationQuantities = new ArrayList<>();
+        List<String> optionStatuses = new ArrayList<>();
+
+        itemOptionForms.forEach(option -> {
+            optionIds.add(option.getId());
+            optionNames.add(option.getName());
+            optionPrices.add(option.getPrice());
+            optionStocks.add(option.getStock());
+            optionStockNotificationQuantities.add(option.getStockNotificationQuantity());
+            optionStatuses.add(option.getStatus());
+        });
+
         return AdminItemForm.builder()
                 .id(item.getId())
                 .name(item.getName())
@@ -148,8 +173,14 @@ public class AdminItemForm {
                 .managerAndPhoneNumber(item.getManagerAndPhoneNumber())
                 .bestBadge(item.isBestBadge())
                 .newBadge(item.isNewBadge())
-                .categoryId(item.getCategory()
+                .categoryId(ObjectUtils.isEmpty(item.getCategory()) ? null : item.getCategory()
                         .getId())
+                .optionIds(optionIds.toArray(Long[]::new))
+                .optionNames(optionNames.toArray(String[]::new))
+                .optionPrices(optionPrices.toArray(Long[]::new))
+                .optionStocks(optionStocks.toArray(Long[]::new))
+                .optionStockNotificationQuantities(optionStockNotificationQuantities.toArray(Long[]::new))
+                .optionStatuses(optionStatuses.toArray(String[]::new))
                 .build();
     }
 
@@ -169,6 +200,22 @@ public class AdminItemForm {
 
     public Season getSeason() {
         return Season.getStringToEnum(this.season);
+    }
+
+    public List<ItemOptionForm> getOptions() {
+        this.options = new ArrayList<>();
+        for (int i = 0; i < this.optionIds.length; i++) {
+            ItemOptionForm option = new ItemOptionForm();
+            option.setId(this.optionIds[i]);
+            option.setName(this.optionNames[i]);
+            option.setPrice(this.optionPrices[i]);
+            option.setStock(this.optionStocks[i]);
+            option.setStockNotificationQuantity(this.optionStockNotificationQuantities[i]);
+            option.setStatus(this.optionStatuses[i]);
+            this.options.add(option);
+        }
+
+        return this.options;
     }
 
     /* 엔티티 빌더 */
