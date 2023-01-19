@@ -612,39 +612,42 @@
                                         <tbody id="option_table">
                                         <tr>
                                             <td>
-                                                <label for="opt1_subject">옵션1</label>
-                                                <input type="text" name="opt1_subject" id="opt1_subject" class="frm_input" size="15"
+                                                <input type="hidden" th:field="*{optionBuilderId1}"/>
+                                                <label for="optionBuilderName1">옵션1</label>
+                                                <input type="text" th:field="*{optionBuilderName1}" name="optionBuilderName1" id="optionBuilderName1" class="frm_input" size="15"
                                                        onchange="(function(){sales_option.option1.option = event.target.value;})()"/>
                                             </td>
                                             <td>
-                                                <label for="opt1"><b>옵션1 항목</b></label>
-                                                <input type="text" name="opt1" value="" id="opt1" class="frm_input" size="50"
+                                                <label for="optionBuilderValue1"><b>옵션1 항목</b></label>
+                                                <input type="text" th:field="*{optionBuilderValue1}" name="optionBuilderValue1" value="" id="optionBuilderValue1" class="frm_input" size="50"
                                                        onchange="(function(){sales_option.option1.item = event.target.value;})()"
                                                 />
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
-                                                <label for="opt2_subject">옵션2</label>
-                                                <input type="text" name="opt2_subject" id="opt2_subject" class="frm_input" size="15"
+                                                <input type="hidden" th:field="*{optionBuilderId2}"/>
+                                                <label for="optionBuilderName2">옵션2</label>
+                                                <input type="text" th:field="*{optionBuilderName2}" name="optionBuilderName2" id="optionBuilderName2" class="frm_input" size="15"
                                                        onchange="(function(){sales_option.option2.option = event.target.value;})()"/>
                                             </td>
                                             <td>
-                                                <label for="opt2"><b>옵션2 항목</b></label>
-                                                <input type="text" name="opt2" value="" id="opt2" class="frm_input" size="50"
+                                                <label for="optionBuilderValue2"><b>옵션2 항목</b></label>
+                                                <input type="text" th:field="*{optionBuilderValue2}" name="optionBuilderValue2" value="" id="optionBuilderValue2" class="frm_input" size="50"
                                                        onchange="(function(){sales_option.option2.item = event.target.value;})()"/>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
-                                                <label for="opt3_subject">옵션3</label>
-                                                <input type="text" name="opt3_subject" id="opt3_subject" class="frm_input" size="15"
+                                                <input type="hidden" th:field="*{optionBuilderId3}"/>
+                                                <label for="optionBuilderName3">옵션3</label>
+                                                <input type="text" th:field="*{optionBuilderName3}" name="optionBuilderName3" id="optionBuilderName3" class="frm_input" size="15"
                                                        onchange="(function(){sales_option.option3.option = event.target.value;})()"/>
                                             </td>
 
                                             <td>
-                                                <label for="opt3"><b>옵션3 항목</b></label>
-                                                <input type="text" name="opt3" id="opt3" class="frm_input" size="50"
+                                                <label for="optionBuilderValue3"><b>옵션3 항목</b></label>
+                                                <input type="text" th:field="*{optionBuilderValue3}" name="optionBuilderValue3" id="optionBuilderValue3" class="frm_input" size="50"
                                                        onchange="(function(){sales_option.option3.item = event.target.value;})()"/>
                                             </td>
                                         </tr>

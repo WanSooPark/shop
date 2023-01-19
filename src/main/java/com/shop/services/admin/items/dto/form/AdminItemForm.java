@@ -21,6 +21,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class AdminItemForm {
     private String method; // post, put
+    @Builder.Default
     private Long id = 0L; // 상품 코드
     private String name; // 상품명
     private String englishName = "englishName"; // 영문 상품명
@@ -38,7 +39,9 @@ public class AdminItemForm {
     private boolean soldOutStatus; // 품절
     private boolean noSaleStatus; // 판매 금지
 
+    @Builder.Default
     private Long regularPrice = 0L; // 정상가
+    @Builder.Default
     private Long salePrice = 0L; // 판매가
     private String vatType = "UNUSED"; // 상품과세 유형 (과세, 비과세)
     private Long fees = 0L; // 수수료
@@ -48,16 +51,36 @@ public class AdminItemForm {
     private Long stockNotificationQuantity = 0L; // 통보 재고 수량
     private Long minimumPurchaseQuantity = 0L; // 최소 구매 수량
     private Long maximumPurchaseQuantity = 0L; // 최대 구매 가능 수량
+
     private List<ItemOptionBuilderForm> optionBuilders; // 옵션 빌더
+    @Builder.Default
+    private Long optionBuilderId1 = 0L;
+    @Builder.Default
+    private String optionBuilderName1 = "";
+    @Builder.Default
+    private String optionBuilderValue1 = "";
+    @Builder.Default
+    private Long optionBuilderId2 = 0L;
+    @Builder.Default
+    private String optionBuilderName2 = "";
+    @Builder.Default
+    private String optionBuilderValue2 = "";
+    @Builder.Default
+    private Long optionBuilderId3 = 0L;
+    @Builder.Default
+    private String optionBuilderName3 = "";
+    @Builder.Default
+    private String optionBuilderValue3 = "";
     private List<ItemOptionForm> options; // 옵션
-    private Long[] optionIds = {0L, 0L, 0L};
-    private String[] optionNames = {"옵션명1", "옵션명2", "옵션명3"};
-    private Long[] optionPrices = {1L, 11L, 111L};
-    private Long[] optionStocks = {2L, 22L, 222L};
-    private Long[] optionStockNotificationQuantities = {3L, 33L, 333L};
-    private String[] optionStatuses = {"USE", "UNUSED", "UNUSED"};
+    private Long[] optionIds;
+    private String[] optionNames;
+    private Long[] optionPrices;
+    private Long[] optionStocks;
+    private Long[] optionStockNotificationQuantities;
+    private String[] optionStatuses;
 
     /* 상품정보 */
+    @Builder.Default
     private String productionTimeType = "CARRY_OVER"; // ProductProductionTimeType 상품 생산 시기 구분 NORMAL("정상"), CARRY_OVER("이월");
     private Integer productionYear = 2023; // 생산년도
     private Integer manufacturingYear = 2023; // 제조일 년도
@@ -76,17 +99,29 @@ public class AdminItemForm {
     @Lob
     private String bottomDescription; // 상품 하단 내용
     /* 상품정보고시 */
+    @Builder.Default
     private String type = "food"; // 상품 타입
+    @Builder.Default
     private String productName = "상세설명참조"; // 제품명
+    @Builder.Default
     private String foodType = "상세설명참조"; // 식품의 유형
+    @Builder.Default
     private String producerAndLocation = "상세설명참조"; // 생산자 및 소재지
+    @Builder.Default
     private String qualityMaintenancePeriod = "상세설명참조"; // 제조연월일, 소비기한 또는 품질유지기한
+    @Builder.Default
     private String quantityPerUnit = "상세설명참조"; // 포장단위별 내용물의 용량(중량), 수량
+    @Builder.Default
     private String rawMaterials = "상세설명참조"; // 원재료명 및 함량
+    @Builder.Default
     private String nutrient = "상세설명참조"; // 영양성분
+    @Builder.Default
     private String geneticallyModifiedFood = "상세설명참조"; // 유전자변형식품에 해당하는 경우의 표시
+    @Builder.Default
     private String safetyPrecautions = "상세설명참조"; // 소비자안전을 위한 주의사항
+    @Builder.Default
     private String importedFoodStationery = "상세설명참조"; // 수입식품 문구
+    @Builder.Default
     private String managerAndPhoneNumber = "상세설명참조"; // 소비자상담관련 전화번호
     /* 분류 */
     private List<String> badges; // 뱃지 (BEST, NEW)
@@ -117,6 +152,36 @@ public class AdminItemForm {
             optionStockNotificationQuantities.add(option.getStockNotificationQuantity());
             optionStatuses.add(option.getStatus());
         });
+
+        List<ItemOptionBuilder> optionBuilders = item.getOptionBuilders();
+        List<ItemOptionBuilderForm> itemOptionBuilderForms = optionBuilders.stream()
+                .map(ItemOptionBuilderForm::of)
+                .collect(Collectors.toList());
+
+        Long optionBuilderId1 = 0L;
+        String optionBuilderName1 = "";
+        String optionBuilderValue1 = "";
+        Long optionBuilderId2 = 0L;
+        String optionBuilderName2 = "";
+        String optionBuilderValue2 = "";
+        Long optionBuilderId3 = 0L;
+        String optionBuilderName3 = "";
+        String optionBuilderValue3 = "";
+        if (itemOptionBuilderForms.size() == 3) {
+            ItemOptionBuilderForm itemOptionBuilderForm1 = itemOptionBuilderForms.get(0);
+            ItemOptionBuilderForm itemOptionBuilderForm2 = itemOptionBuilderForms.get(1);
+            ItemOptionBuilderForm itemOptionBuilderForm3 = itemOptionBuilderForms.get(2);
+
+            optionBuilderId1 = itemOptionBuilderForm1.getId();
+            optionBuilderName1 = itemOptionBuilderForm1.getName();
+            optionBuilderValue1 = itemOptionBuilderForm1.getValue();
+            optionBuilderId2 = itemOptionBuilderForm2.getId();
+            optionBuilderName2 = itemOptionBuilderForm2.getName();
+            optionBuilderValue2 = itemOptionBuilderForm2.getValue();
+            optionBuilderId3 = itemOptionBuilderForm3.getId();
+            optionBuilderName3 = itemOptionBuilderForm3.getName();
+            optionBuilderValue3 = itemOptionBuilderForm3.getValue();
+        }
 
         return AdminItemForm.builder()
                 .id(item.getId())
@@ -175,6 +240,17 @@ public class AdminItemForm {
                 .newBadge(item.isNewBadge())
                 .categoryId(ObjectUtils.isEmpty(item.getCategory()) ? null : item.getCategory()
                         .getId())
+
+                .optionBuilderId1(optionBuilderId1)
+                .optionBuilderName1(optionBuilderName1)
+                .optionBuilderValue1(optionBuilderValue1)
+                .optionBuilderId2(optionBuilderId2)
+                .optionBuilderName2(optionBuilderName2)
+                .optionBuilderValue2(optionBuilderValue2)
+                .optionBuilderId3(optionBuilderId3)
+                .optionBuilderName3(optionBuilderName3)
+                .optionBuilderValue3(optionBuilderValue3)
+
                 .optionIds(optionIds.toArray(Long[]::new))
                 .optionNames(optionNames.toArray(String[]::new))
                 .optionPrices(optionPrices.toArray(Long[]::new))
@@ -216,6 +292,30 @@ public class AdminItemForm {
         }
 
         return this.options;
+    }
+
+    public List<ItemOptionBuilderForm> getOptionBuilders() {
+        this.optionBuilders = new ArrayList<>();
+
+        ItemOptionBuilderForm optionBuilder1 = new ItemOptionBuilderForm();
+        optionBuilder1.setId(this.optionBuilderId1);
+        optionBuilder1.setName(this.optionBuilderName1);
+        optionBuilder1.setValue(this.optionBuilderValue1);
+        this.optionBuilders.add(optionBuilder1);
+
+        ItemOptionBuilderForm optionBuilder2 = new ItemOptionBuilderForm();
+        optionBuilder2.setId(this.optionBuilderId2);
+        optionBuilder2.setName(this.optionBuilderName2);
+        optionBuilder2.setValue(this.optionBuilderValue2);
+        this.optionBuilders.add(optionBuilder2);
+
+        ItemOptionBuilderForm optionBuilder3 = new ItemOptionBuilderForm();
+        optionBuilder3.setId(this.optionBuilderId3);
+        optionBuilder3.setName(this.optionBuilderName3);
+        optionBuilder3.setValue(this.optionBuilderValue3);
+        this.optionBuilders.add(optionBuilder3);
+
+        return this.optionBuilders;
     }
 
     /* 엔티티 빌더 */

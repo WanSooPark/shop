@@ -1,12 +1,27 @@
 package com.shop.services.admin.items.dto.form;
 
 import com.shop.models.items.domain.ItemOptionBuilder;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class ItemOptionBuilderForm {
+    private Long id; // 옵션 빌더 명
     private String name; // 옵션 빌더 명
     private String value; // 옵션 항목 값
+
+    public static ItemOptionBuilderForm of(ItemOptionBuilder optionBuilder) {
+        return ItemOptionBuilderForm.builder()
+                .id(optionBuilder.getId())
+                .name(optionBuilder.getName())
+                .value(optionBuilder.getValue())
+                .build();
+    }
 
     public ItemOptionBuilderBuilder entityBuilder() {
         return new DefaultItemOptionBuilderBuilder(this);
