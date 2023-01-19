@@ -136,7 +136,7 @@ public class Item extends BaseEntity {
     }
 
     public Long getPercent() {
-        return (this.regularPrice != 0 ? (long) (((double) this.salePrice / (double) this.regularPrice) * 100) : 0);
+        return (this.regularPrice != 0 ? 100 - (long) (((double) this.salePrice / (double) this.regularPrice) * 100) : 0);
     }
 
 }
