@@ -37,12 +37,13 @@ public class AppStartRunner implements ApplicationRunner {
             Member testMember = getMember("rn00n@naver.com", "테스트계정", "1q2w3e4r!", "주소");
 
             Category category1 = getCategory("가공식품", null);
-            Category category1_1 = getCategory("가공식품-1", category1);
-            Category category1_1_1 = getCategory("가공식품-1-1", category1_1);
             Category category2 = getCategory("농수축산물", null);
+            Category category3 = getCategory("배달용품", null);
+            Category category1_1 = getCategory("가공식품-1", category1);
+            Category category1_2 = getCategory("가공식품-2", category1);
+            Category category1_1_1 = getCategory("가공식품-1-1", category1_1);
             Category category2_1 = getCategory("농수축산물-1", category2);
             Category category2_1_1 = getCategory("농수축산물-1-1", category2_1);
-            Category category3 = getCategory("배달용품", null);
             Category category3_1 = getCategory("배달용품-1", category3);
             Category category3_1_1 = getCategory("배달용품-1-1", category3_1);
         }

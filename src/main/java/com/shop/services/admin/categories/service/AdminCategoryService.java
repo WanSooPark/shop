@@ -108,9 +108,9 @@ public class AdminCategoryService {
             sortCategories.add(category);
             List<Category> subCategories = categoryService.findByTopCategory(category);
             if (!ObjectUtils.isEmpty(subCategories)) {
-                sortCategories.addAll(subCategories);
 
                 subCategories.forEach(subCategory -> {
+                    sortCategories.add(subCategory);
                     List<Category> lastCategories = categoryService.findByTopCategory(subCategory);
                     sortCategories.addAll(lastCategories);
                 });

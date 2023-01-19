@@ -24,7 +24,8 @@ public class SecurityConfig {
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web.ignoring()
-                .antMatchers("/img/**", "/admin/**", "/css/**", "/images/**", "/js/**");
+                .antMatchers("/img/**", "/admin/**", "/css/**", "/images/**", "/js/**",
+                        "/favicon.ico", "/resources/**", "/error");
     }
 
     @Order(Ordered.HIGHEST_PRECEDENCE)

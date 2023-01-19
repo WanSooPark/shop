@@ -32,6 +32,7 @@ public class AdminCategoryForm {
     public static AdminCategoryForm empty() {
         return AdminCategoryForm.builder()
                 .id(0L)
+                .status(CategoryStatus.EXPOSE.name())
                 .build();
     }
 
