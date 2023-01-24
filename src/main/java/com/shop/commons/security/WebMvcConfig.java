@@ -1,5 +1,6 @@
 package com.shop.commons.security;
 
+import com.shop.commons.interceptor.AdminViewInterceptor;
 import com.shop.commons.interceptor.ServiceViewInterceptor;
 import com.shop.commons.security.intercept.LoginIntercepter;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +17,7 @@ import java.util.List;
 public class WebMvcConfig implements WebMvcConfigurer {
 
     private final ServiceViewInterceptor serviceViewInterceptor;
+    private final AdminViewInterceptor adminViewInterceptor;
     private final List<String> loginIncludeUri = List.of("/cart/**");
     private final List<String> loginExcludeUri = List.of("/members/**");
     @Value("${uploadPath}")
@@ -29,7 +31,10 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .excludePathPatterns(loginExcludeUri);
         registry.addInterceptor(serviceViewInterceptor)
                 .addPathPatterns("/**")
-                .excludePathPatterns("/img/**", "/admin/**", "/css/**", "/images/**", "/js/**", "/api/**", "/admin/**");
+                .excludePathPatterns("/img/**", "/css/**", "/images/**", "/js/**", "/api/**", "/admin/**");
+        registry.addInterceptor(adminViewInterceptor)
+                .addPathPatterns("/admin/**")
+                .excludePathPatterns("/admin/img/**", "/admin/css/**", "/images/**", "/admin/js/**", "/api/admin/**");
     }
 
     @Override

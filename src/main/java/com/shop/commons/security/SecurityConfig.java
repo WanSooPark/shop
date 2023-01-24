@@ -48,7 +48,34 @@ public class SecurityConfig {
                 .authorizeRequests()
                 .mvcMatchers("/css/**", "/js/**", "/img/**", "/admin/css/**", "/admin/js/**", "/admin/img/**")
                 .permitAll()
-                .mvcMatchers("/admin", "/admin/login", "/admin/item", "/admin/item/**", "/admin/category", "/admin/category/**")
+                .mvcMatchers("/admin", "/admin/login", "/admin/item", "/admin/item/**", "/admin/category", "/admin/category/**", "/admin/topic", "/admin/topic/**")
+                .permitAll()
+                .anyRequest()
+                .authenticated()
+        ;
+
+        return http.build();
+    }
+
+    @Order(Ordered.HIGHEST_PRECEDENCE)
+    @Bean
+    public SecurityFilterChain adminApiFilterChain(HttpSecurity http) throws Exception {
+        http.formLogin()
+                .loginPage("/admin/login")
+                .defaultSuccessUrl("/admin")
+                .failureUrl("/admin/login/error")
+                .and()
+                .logout()
+                .logoutSuccessUrl("/")
+//                .logoutRequestMatcher(new AntPathRequestMatcher("/members/logout"))
+        ;
+
+        http.csrf()
+                .disable();
+
+        http.antMatcher("/api/admin/**")
+                .authorizeRequests()
+                .mvcMatchers("/api/admin/**")
                 .permitAll()
                 .anyRequest()
                 .authenticated()

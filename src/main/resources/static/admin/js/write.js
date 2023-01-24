@@ -334,7 +334,6 @@ const chooseDelete = () => {
     ).map(([index, elem], key) => {
         return index;
     });
-    console.log(checkedOptionIndexList)
 
     Object.entries(parent.childNodes).map(([index, elem], key) => {
         console.log(index, elem);

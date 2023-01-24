@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin/fragments/header :: adminHead">
+<body id="wrap">
+<th:block th:replace="admin/fragments/header :: adminHeader()"></th:block>
+
+<main id="container">
+    <div id="tool">
+        <div class="info">
+            <div class="title">관리자페이지</div>
+        </div>
+        <div class="logout">
+            <a href="#">로그아웃</a>
+        </div>
+    </div>
+    <div id="contain">
+        <div id="h1">
+            <strong>기획전관리</strong>
+            <span>SHOP 관리 > 기획전관리 > 기획전FROM</span>
+        </div>
+        <div id="product" class="content product">
+            <form id="topicForm" method="post" action="/admin/topic" th:object="${topic}">
+                <div class="write">
+                    <dl>
+                        <dt>코드</dt>
+                        <dd>
+                            <input type="text" name="code" th:field="*{code}"/>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt>이름</dt>
+                        <dd>
+                            <input type="text" name="name" th:field="*{name}"/>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt>사용 여부</dt>
+                        <dd>
+                            <label class="radiobox">
+                                <input type="radio" name="status" value="ACTIVATE"
+                                       th:checked="${topic.getStatus()} == ACTIVATE" checked>
+                                <i></i>
+                                <span>활성화</span>
+                            </label>
+                            <label class="radiobox">
+                                <input type="radio" name="status" value="DEACTIVATE"
+                                       th:checked="${topic.getStatus()} == DEACTIVATE">
+                                <i></i>
+                                <span>비활성화</span>
+                            </label>
+                        </dd>
+                    </dl>
+                </div>
+            </form>
+            <div class="button">
+                <ul class="fl">
+                    <li><a href="javascript:window.history.back();" class="btn btn_03">목록</a></li>
+                    <li><a href="javascript:window.history.back();" class="btn btn_01">취소</a></li>
+                </ul>
+                <ul class="fr">
+                    <li>
+                        <button class="btn btn_02" onclick="submit()">저장</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</main>
+<script type="application/javascript" th:inline="javascript">
+    /* <![CDATA[ */
+    const isNew = /*[[${isNew}]]*/ null;
+
+    function submit() {
+        let method = 'POST';
+        let action = /*[[@{/admin/item}]]*/;
+        if (!isNew) {
+            method = 'PUT';
+            action = /*[[@{/admin/item/1}]]*/;
+        }
+        let topicForm = $('#topicForm');
+        topicForm.submit();
+    }
+    /* ]]> */
+</script>
+</body>
+</html>

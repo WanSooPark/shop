@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin/fragments/header :: adminHead">
+<body id="wrap">
+<th:block th:replace="admin/fragments/header :: adminHeader()"></th:block>
+
+<main id="container">
+    <div id="tool">
+        <div class="info">
+            <div class="title">관리자페이지</div>
+        </div>
+        <div class="logout">
+            <a href="#">로그아웃</a>
+        </div>
+    </div>
+    <div id="contain">
+        <div id="h1">
+            <strong><strong th:text="${topicName}"></strong> 기획전관리</strong>
+            <span>SHOP 관리 > <span th:text="${topicName}"></span>관리</span>
+        </div>
+        <div id="product" class="content product">
+            <div class="control">
+                <div class="total">총 <strong th:text="${topicItemPage.getTotalContents()}">10</strong>개</div>
+                <div class="view">
+                    <select>
+                        <option>10page</option>
+                    </select>
+                    <select>
+                        <option>전체</option>
+                    </select>
+                    <select>
+                        <option>전체</option>
+                    </select>
+                </div>
+            </div>
+            <div class="button">
+                <ul class="fl">
+                    <li><a href="javascript:;" class="btn btn_05">선택 삭제</a></li>
+                </ul>
+                <ul class="fr">
+                    <li><a th:href="@{'/admin/topic/' + ${topicCode} + '/form'}" class="btn btn_02">추가</a></li>
+                </ul>
+            </div>
+            <div class="table">
+                <table id="table_1">
+                    <colgroup>
+                        <col style="width:60px">
+                        <col style="width:60px">
+                        <col style="width:100px">
+                        <col style="width:100px">
+                        <col style="width:100px">
+                        <col style="width:100px">
+                        <col style="width:100px">
+                        <col style="width:100px">
+                        <col style="width:100px">
+                    </colgroup>
+                    <thead>
+                    <tr style="cursor: move;">
+                        <th>
+                            <label class="checkbox">
+                                <input type="checkbox" id="cbx_chkAll"><i></i>
+                                <p class="skip">선택</p>
+                            </label>
+                        </th>
+                        <th scope="col" id="th_id">번호</th>
+                        <th scope="col" id="th_ord">순서</th>
+                        <th scope="col" id="th_category">분류</th>
+                        <th scope="col" id="th_title">기획전명</th>
+                        <th scope="col" id="th_image">기획전이미지</th>
+                        <th scope="col" id="th_item_name">상품정보</th>
+                        <th scope="col" id="th_status">상태</th>
+                        <th scope="col" id="th_mng" style="width:100px !important">관리</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <th:block th:each="topicItem: ${topicItemPage.getContent()}">
+                        <tr id="18" class="bg0 bgr1 tr1" style="cursor: move;">
+                            <td align="center">
+                                <input type="checkbox" name="chk[]" value="18" id="chk_18">
+                            </td>
+                            <td headers="th_id" class="td_num" th:text="${topicItem.getId()}">20</td>
+                            <td class="td_num" th:text="${topicItem.getOrd()}">1</td>
+                            <td class="td_num" style="width: 100px" th:text="${topicItem.getCategoryName()}">
+                                분류명
+                            </td>
+                            <td headers="th_dvc" th:text="${topicItem.getTitle()}">기획전명</td>
+                            <td class="td_num">
+                                <img src="https://demo2022.iwinv.net/thegaon2/resources/img/dummy_product1.png"
+                                     width="100"
+                                     alt="">
+                            </td>
+                            <td headers="th_loc">
+                                <div style="display: flex;align-items: center">
+                                    <div style="float:left;padding-left:15px;display: flex; align-items: center; white-space: nowrap;">
+                                        <img src="https://demo2022.iwinv.net/thegaon2/resources/img/dummy_product1.png"
+                                             width="100" height="100" alt="" title="">
+                                        <span>[ <span th:text="${topicItem.getId()}">1669356272</span> ]</span>
+                                    </div>
+                                    <div style="float:left;padding-right:15px;margin-left: 20px;">
+                                        <p th:text="${topicItem.getItemName()}">상품명 </p>
+                                        <p>
+                                            <span th:text="${#numbers.formatInteger(topicItem.getItemSalePrice(), 0, 'COMMA')}">349,000</span>
+                                            <span th:text="${#numbers.formatInteger(topicItem.getItemRegularPrice(), 0, 'COMMA')}"
+                                                  style="text-decoration: line-through">349000</span>
+                                        </p>
+                                        <p th:text="${topicItem.getItemDescription()}">상품명</p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td headers="th_odr" class="td_num">
+                                <span th:if="${topicItem.getStatus()} == ACTIVATE">활성화</span>
+                                <span th:if="${topicItem.getStatus()} == DEACTIVATE">비활성화</span>
+                            </td>
+                            <td>
+                                <div class="link">
+                                    <a th:href="@{'/admin/topic/' + ${topicCode} + '/form?id=' + ${topicItem.getId()}}"
+                                       class="btn btn_01">
+                                        <img src="https://cdn1.iconfinder.com/data/icons/100-basic-for-user-interface/32/27-pen-256.png">
+                                        <p class="skip">편집</p>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    </th:block>
+                    </tbody>
+                </table>
+            </div>
+            <div class="button">
+                <ul class="fl">
+                    <li><a href="javascript:;" class="btn btn_05">선택 삭제</a></li>
+                </ul>
+                <ul class="fr">
+                    <li><a th:href="@{'/admin/topic/' + ${topicCode} + '/form'}" class="btn btn_02">추가</a></li>
+                </ul>
+            </div>
+        </div>
+        <th:block
+                th:replace="admin/fragments/fragment :: pagination(${topicItemPage}, '/admin/topic/' + ${topicCode})"></th:block>
+    </div>
+</main>
+</body>
+</html>

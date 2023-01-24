@@ -1,4 +1,4 @@
-package com.shop.services.admin.items.dto.search;
+package com.shop.services.admin.topics.dto.search;
 
 import com.shop.commons.entity.BasePage;
 import lombok.AllArgsConstructor;
@@ -6,22 +6,18 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-public class AdminItemSearchDto {
+public class AdminTopicItemSearchDto {
 
     @Data
-    @Builder
-    @NoArgsConstructor
-    @AllArgsConstructor
     public static class Request {
-        private Long categoryId;
-        private String searchType;
         private String search;
     }
 
     @Data
     @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
     public static class Response {
-        private BasePage<AdminItemSearchResponse> itemPage;
+        private BasePage<AdminTopicItemSearchResponse> topicItemPage;
     }
-
 }

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin/fragments/header :: adminHead">
+<body id="wrap">
+<th:block th:replace="admin/fragments/header :: adminHeader()"></th:block>
+<script src="/admin/js/topic-item.js" type="application/javascript" th:inline="javascript"></script>
+<style>
+    .button_disabled {
+        pointer-events: none;
+        color: #8C8C8C;
+    }
+</style>
+<main id="container">
+    <div id="tool">
+        <div class="info">
+            <div class="title">관리자페이지</div>
+        </div>
+        <div class="logout">
+            <a href="#">로그아웃</a>
+        </div>
+    </div>
+    <div id="contain">
+        <div id="h1">
+            <strong><strong th:text="${topicName}"></strong> 기획전 관리</strong>
+            <span>SHOP 관리 > <span th:text="${topicName}"></span>관리 > <span th:text="${topicName}"></span>FORM</span>
+        </div>
+        <div id="product" class="content product">
+            <form id="topicItemForm" th:method="post" th:action="@{'/admin/topic/' + ${topicCode}}"
+                  th:object="${topicItem}">
+                <input type="hidden" name="id" th:field="*{id}"/>
+                <div class="write">
+                    <dl>
+                        <dt>기획전 명</dt>
+                        <dd>
+                            <input type="text" name="code" th:field="*{title}"/>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt>부제목</dt>
+                        <dd>
+                            <input type="text" name="name" th:field="*{subTitle}"/>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt>대표이미지</dt>
+                        <dd>
+                            <!--                            <input type="text" name="name" th:field="*{name}"/>-->
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt>시작일시</dt>
+                        <dd>
+                            <input type="datetime-local" id="startDateTime" name="startDateTime"
+                                   pattern="yyyy-MM-dd HH:mm:ss" th:field="*{startDateTime}"/>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt>종료일시</dt>
+                        <dd>
+                            <input type="datetime-local" id="endDateTime" name="endDateTime"
+                                   pattern="yyyy-MM-dd HH:mm:ss" th:field="*{endDateTime}"/>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt>출력 순서</dt>
+                        <dd>
+                            <input type="number" name="name" th:field="*{ord}"/>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt>추가된 상품</dt>
+                        <dd>
+                            <div class="table">
+                                <table id="table_1">
+                                    <colgroup>
+                                        <col style="width:40px">
+                                        <col style="width:100px">
+                                        <col style="width:100px">
+                                        <col style="width:100px">
+                                        <col style="width:100px">
+                                        <col style="width:100px">
+                                    </colgroup>
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">
+                                            <input type="checkbox" id="item_check_all" onclick="allCheckItem()"/>
+                                        </th>
+                                        <th scope="col">상품코드</th>
+                                        <th scope="col">상품명</th>
+                                        <th scope="col">정상가</th>
+                                        <th scope="col">판매가</th>
+                                        <th scope="col">재고</th>
+                                        <th scope="col">
+                                            <button class="btn" type="button" onclick="removeCheckItem()">선택 삭제</button>
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="item_table_body"></tbody>
+                                </table>
+                            </div>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt>사용 여부</dt>
+                        <dd>
+                            <label class="radiobox">
+                                <input type="radio" name="status" value="ACTIVATE"
+                                       th:checked="${topicItem.getStatus()} == ACTIVATE" checked>
+                                <i></i>
+                                <span>활성화</span>
+                            </label>
+                            <label class="radiobox">
+                                <input type="radio" name="status" value="DEACTIVATE"
+                                       th:checked="${topicItem.getStatus()} == DEACTIVATE">
+                                <i></i>
+                                <span>비활성화</span>
+                            </label>
+                        </dd>
+                    </dl>
+                </div>
+            </form>
+            <div class="button">
+                <ul class="fl">
+                    <li><a href="javascript:window.history.back();" class="btn btn_03">목록</a></li>
+                    <li><a href="javascript:window.history.back();" class="btn btn_01">취소</a></li>
+                </ul>
+                <ul class="fr">
+                    <li>
+                        <button class="btn btn_02" onclick="submit()">저장</button>
+                    </li>
+                </ul>
+            </div>
+            <div class="button">
+                <ul class="fl">
+                    <input type="text" name="search" id="items_search_input"
+                           style="padding: 0 12px; width: 100%; height: 40px; font-size: 14px; border: 1px solid #eee; border-radius: 4px;">
+                </ul>
+                <ul class="fl">
+                    <button onclick="itemsSearch()" class="btn">검색</button>
+                </ul>
+                <ul class="fc">
+                </ul>
+                <ul class="fr">
+                    <li>
+                        <button class="btn btn_02" onclick="addCheckItems()">선택 상품 추가</button>
+                    </li>
+                </ul>
+            </div>
+            <div class="table">
+                <table>
+                    <colgroup>
+                        <col style="width:60px">
+                        <col style="width:60px">
+                        <col style="width:100px">
+                        <col style="width:100px">
+                        <col style="width:100px">
+                        <col style="width:100px">
+                        <col style="width:100px">
+                    </colgroup>
+                    <thead>
+                    <tr>
+                        <th scope="col">
+                            <input type="checkbox" name="itemCheckAll2" value="1" id="item_check_all_2"
+                                   onclick="allCheckItem2()">
+                        </th>
+                        <th scope="col">상품코드</th>
+                        <th scope="col" id="th_img">이미지</th>
+                        <th scope="col" id="th_pc_title">상품명</th>
+                        <th scope="col" id="th_camt">정상가</th>
+                        <th scope="col" id="th_amt">판매가</th>
+                        <th scope="col" id="th_qty">재고</th>
+                    </tr>
+                    </thead>
+                    <tbody id="item_table_body_2"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>
+<script type="application/javascript" th:inline="javascript">
+    /* <![CDATA[ */
+    const isNew = /*[[${isNew}]]*/ null;
+
+    function submit() {
+        let method = 'POST';
+        let action = /*[[@{/admin/item}]]*/;
+        if (!isNew) {
+            method = 'PUT';
+            action = /*[[@{/admin/item/1}]]*/;
+        }
+        let topicItemForm = $('#topicItemForm');
+        topicItemForm.submit();
+    }
+
+    /* ]]> */
+</script>
+<script type="application/javascript" th:inline="javascript">
+    /* <![CDATA[ */
+    const itemIds = /*[[${topicItem.getItemIds()}]]*/[];
+    const itemNames = /*[[${topicItem.getItemNames()}]]*/[];
+    const itemRegularPrices = /*[[${topicItem.getItemRegularPrices()}]]*/[];
+    const itemSalePrices = /*[[${topicItem.getItemSalePrices()}]]*/[];
+    const itemStocks = /*[[${topicItem.getItemStocks()}]]*/[];
+
+    const itemData = [];
+    let size = itemIds === null ? 0 : itemIds.length;
+    for (let i = 0; i < size; i++) {
+        itemData.push({
+            id: itemIds[i],
+            name: itemNames[i],
+            regularPrice: itemRegularPrices[i],
+            salePrice: itemSalePrices[i],
+            stock: itemStocks[i]
+        });
+    }
+
+    let item_table_body = document.getElementById("item_table_body");
+
+    const parent = document.querySelector("#item_table_body");
+
+    while (parent.firstChild) {
+        parent.removeChild(parent.firstChild);
+    }
+
+    itemData.map((data, key) => {
+        setItems(item_table_body, key, data.id, data.name, data.regularPrice, data.salePrice, data.stock);
+    });
+    /* ]]> */
+</script>
+</body>
+</html>

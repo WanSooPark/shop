@@ -34,6 +34,7 @@ public class QDSLItemRepositoryImpl extends CustomQuerydslRepositorySupport impl
                 .where(
                         this.search(item, searchType, search)
                         , this.equals(item.category.id, categoryId)
+                        , this.containsIgnoreCase(item.name, search)
                 );
 
         JPQLQuery<Item> jpqlQuery = getQuerydsl().applyPagination(pageable, query);

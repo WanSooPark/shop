@@ -74,8 +74,7 @@ public class AdminItemController {
      * 상품 등록/수정
      */
     @PostMapping
-    public String newItem(HttpServletRequest request, @Valid AdminItemForm dto, RedirectAttributes attributes) {
-        Map<String, String[]> parameterMap = request.getParameterMap();
+    public String newItem(@Valid AdminItemForm dto, RedirectAttributes attributes) {
         try {
             AdminItemResponse response;
             if (dto.getId() == 0) {

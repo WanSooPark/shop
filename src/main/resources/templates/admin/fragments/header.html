@@ -58,18 +58,14 @@
                 </li>
 
                 <li class="dl1">
-                    <a href="./product_product.html" class="da1"><span>SHOP 관리</span></a>
-                    <button class="openMenu"><i class="xi-caret-down-min"></i></button>
+<!--                    <a href="./product_product.html" class="da1"><span>SHOP 관리</span></a>-->
+                    <label for="openMenu" class="da1"><span>SHOP 관리</span></label>
+                    <button id="openMenu" class="openMenu"><i class="xi-caret-down-min"></i></button>
                     <ul class="dp2">
-                        <li class="dl2"><a href="./product_ex.html" class="da2">기획전관리</a></li>
-                        <li class="dl2"><a href="./product_ti.html" class="da2">타임특가</a></li>
-                        <li class="dl2"><a href="./product_re.html" class="da2">추천상품</a></li>
-                        <li class="dl2"><a href="./product_new.html" class="da2">신상품</a></li>
-                        <li class="dl2"><a href="./product_best.html" class="da2">베스트</a></li>
-                        <li class="dl2"><a href="./product_hot.html" class="da2">핫세일</a></li>
-                        <li class="dl2"><a href="./product_brand.html" class="da2">브랜드상품</a></li>
-                        <li class="dl2"><a href="./product_md.html" class="da2">MD추천기획</a></li>
-                        <li class="dl2"><a href="./product_theme.html" class="da2">테마별 인기상품</a></li>
+                        <li class="dl2"><a th:href="@{/admin/topic}" class="da2">기획전관리</a></li>
+                        <th:block th:each="topicMenu: ${topicMenus}">
+                            <li class="dl2"><a th:href="@{'/admin/topic/' + ${topicMenu.getCode()}}" class="da2" th:text="${topicMenu.getName()}">타임특가</a></li>
+                        </th:block>
                     </ul>
                 </li>
 
