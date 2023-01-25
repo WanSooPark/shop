@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layouts/layout2}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+
+<!-- 사용자 CSS 추가 -->
+<th:block layout:fragment="css">
+    <style>
+    </style>
+</th:block>
+
+<div layout:fragment="content">
+    <section id="container">
+        <div id="list">
+            <div class="wrap">
+                <div id="heading" th:text="${category.getName()}">클렌징</div>
+                <div class="flex">
+                    <div class="lt-item">
+                        <div class="category">
+                            <div class="tit" th:text="${categorySizeMenu.getName()}">SKIN CARE</div>
+                            <div class="con">
+                                <ul>
+                                    <li><a th:href="@{'/category/' + ${categorySizeMenu.getId()} + '/item'}">전체보기</a></li>
+                                    <th:block th:each="subCategory: ${categorySizeMenu.getSubCategories()}">
+                                        <li><a th:href="@{'/category/' + ${subCategory.getId()} + '/item'}"
+                                               th:text="${subCategory.getName()}">클렌징</a></li>
+                                    </th:block>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="rt-item">
+                        <div class="tool">
+                            <div class="total">총 <strong th:text="${itemPage.getTotalContents()}">1</strong>개</div>
+                            <div class="sort">
+                                <select>
+                                    <option>추천순</option>
+                                    <option>신상품순</option>
+                                    <option>상품명순</option>
+                                    <option>높은가격순</option>
+                                    <option>낮은가격순</option>
+                                    <option>판매량높은순</option>
+                                    <option>후기갯수많은순</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="list">
+                            <ul>
+                                <th:block th:each="item: ${itemPage.getContent()}">
+                                    <li>
+                                        <div class="inner">
+                                            <button type="button" class="zzim on"><i></i></button>
+                                            <div class="img">
+                                                <a th:href="@{'/item/' + ${item.getId()}}">
+                                                    <img src="/img/raffle_image01.png">
+                                                </a>
+                                            </div>
+                                            <div class="con">
+                                                <div class="name">
+                                                    <span th:if="${item.getBrand() != null && item.getBrand() != ''}">
+                                                        [<span th:text="${item.getBrand()}">브랜드명</span>]
+                                                    </span>
+                                                    <span th:text="${item.getName()}">상품명</span>
+                                                </div>
+                                                <div class="sale">
+                                                    <span class="price"
+                                                          th:text="${#numbers.formatInteger(item.getSalePrice(), 0, 'COMMA')}">107,000</span>
+                                                    <span class="percent">
+                                                        <span th:text="${item.getPercent()}">100</span>%
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </th:block>
+                            </ul>
+                        </div>
+                        <th:block th:replace="fragments/fragment :: pagination(${itemPage}, '/category/' + ${categoryId} + '/item')"></th:block>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+</html>

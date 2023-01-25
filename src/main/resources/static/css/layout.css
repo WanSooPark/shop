@@ -275,7 +275,7 @@
         margin-left: 6px;
         width: 11px;
         height: 7px;
-        background: url("../img/icon_menu_down.png") no-repeat 50% 50% / contain
+        background: url("/img/icon_menu_down.png") no-repeat 50% 50% / contain
     }
 
     #header .head-navi .menu .dp1 .dl1.active .dp2 {
@@ -382,7 +382,7 @@
         margin-left: 6px;
         width: 11px;
         height: 7px;
-        background: url("../img/icon_menu_down.png") no-repeat 50% 50% / contain
+        background: url("/img/icon_menu_down.png") no-repeat 50% 50% / contain
     }
 
     #header .head-allmenu .allmenu .dp1 .dl1.active .dp2 {
@@ -680,7 +680,7 @@
         transform: translate(-50%, -50%);
         width: 22px;
         height: 22px;
-        background: url("../img/icon_swiper_prev.png") no-repeat 50% 50% / contain
+        background: url("/img/icon_swiper_prev.png") no-repeat 50% 50% / contain
     }
 
     #main .swiper-next:before {
@@ -691,7 +691,7 @@
         transform: translate(-50%, -50%);
         width: 22px;
         height: 22px;
-        background: url("../img/icon_swiper_next.png") no-repeat 50% 50% / contain
+        background: url("/img/icon_swiper_next.png") no-repeat 50% 50% / contain
     }
 
     #main .visual {
@@ -1036,11 +1036,11 @@
         display: block;
         width: 25px;
         height: 25px;
-        background: url("../img/icon_zzim.png") no-repeat 50% 50% / contain;
+        background: url("/img/icon_zzim.png") no-repeat 50% 50% / contain;
     }
 
     #main .daysale .list li .zzim.on i {
-        background: url("../img/icon_zzim_on.png") no-repeat 50% 50% / contain
+        background: url("/img/icon_zzim_on.png") no-repeat 50% 50% / contain
     }
 
     #main .daysale .swiper-prev,
@@ -1216,11 +1216,11 @@
         display: block;
         width: 25px;
         height: 25px;
-        background: url("../img/icon_zzim.png") no-repeat 50% 50% / contain;
+        background: url("/img/icon_zzim.png") no-repeat 50% 50% / contain;
     }
 
     #main .exhibition .list .zzim.on i {
-        background: url("../img/icon_zzim_on.png") no-repeat 50% 50% / contain
+        background: url("/img/icon_zzim_on.png") no-repeat 50% 50% / contain
     }
 
     #main .exhibition .list .swiper-prev {
@@ -1566,11 +1566,11 @@
         display: block;
         width: 25px;
         height: 25px;
-        background: url("../img/icon_zzim.png") no-repeat 50% 50% / contain;
+        background: url("/img/icon_zzim.png") no-repeat 50% 50% / contain;
     }
 
     #main .recommand .list .zzim.on i {
-        background: url("../img/icon_zzim_on.png") no-repeat 50% 50% / contain
+        background: url("/img/icon_zzim_on.png") no-repeat 50% 50% / contain
     }
 
     #main .recommand .list .swiper-slide-active {
@@ -1775,11 +1775,11 @@
         display: block;
         width: 25px;
         height: 25px;
-        background: url("../img/icon_zzim.png") no-repeat 50% 50% / contain;
+        background: url("/img/icon_zzim.png") no-repeat 50% 50% / contain;
     }
 
     #main .newitem .list .zzim.on i {
-        background: url("../img/icon_zzim_on.png") no-repeat 50% 50% / contain
+        background: url("/img/icon_zzim_on.png") no-repeat 50% 50% / contain
     }
 
     #main .brandpick {
@@ -2376,11 +2376,11 @@
         display: block;
         width: 25px;
         height: 25px;
-        background: url("../img/icon_zzim.png") no-repeat 50% 50% / contain;
+        background: url("/img/icon_zzim.png") no-repeat 50% 50% / contain;
     }
 
     #main .hotbrand .list .cont li .zzim.on i {
-        background: url("../img/icon_zzim_on.png") no-repeat 50% 50% / contain
+        background: url("/img/icon_zzim_on.png") no-repeat 50% 50% / contain
     }
 
     #main .event {
@@ -2543,11 +2543,11 @@
     }
 
     #main .timesale .title .ctl .swiper-prev:hover:before {
-        background: url("../img/icon_swiper_prev_hover.png") no-repeat 50% 50% / contain
+        background: url("/img/icon_swiper_prev_hover.png") no-repeat 50% 50% / contain
     }
 
     #main .timesale .title .ctl .swiper-next:hover:before {
-        background: url("../img/icon_swiper_next_hover.png") no-repeat 50% 50% / contain
+        background: url("/img/icon_swiper_next_hover.png") no-repeat 50% 50% / contain
     }
 
     #main .timesale .list {
@@ -2749,12 +2749,12 @@
 
     #shop_detail .infobox .tool a.zzim i {
         border-color: #e5e5e5;
-        background: #ffffff url("../img/icon_zzim.png") no-repeat 50% 50%
+        background: #ffffff url("/img/icon_zzim.png") no-repeat 50% 50%
     }
 
     #shop_detail .infobox .tool a.share i {
         border-color: #d2e8de;
-        background: #d2e8de url("../img/icon_share.png") no-repeat 50% 50%
+        background: #d2e8de url("/img/icon_share.png") no-repeat 50% 50%
     }
 
     #shop_detail .infobox .tool a p {
@@ -2919,7 +2919,7 @@
         margin-left: 10px;
         width: 20px;
         height: 20px;
-        background: url("../img/icon_safety_arrow.png") no-repeat 50% 50% / contain
+        background: url("/img/icon_safety_arrow.png") no-repeat 50% 50% / contain
     }
 
     #shop_detail .infobox .button {
@@ -3162,7 +3162,7 @@
         top: 50%;
         left: 0;
         transform: translateY(-50%);
-        background: url("../img/icon_cart_arrow.png") no-repeat 50% 50% / contain;
+        background: url("/img/icon_cart_arrow.png") no-repeat 50% 50% / contain;
         width: 20px;
         height: 20px
     }
@@ -3278,7 +3278,7 @@
         transform: translate(-50%, -50%);
         width: 14px;
         height: 11px;
-        background: url("../img/icon_checked.png") no-repeat 50% 50% / contain
+        background: url("/img/icon_checked.png") no-repeat 50% 50% / contain
     }
 
     #shop_cart .cartbox .cart .list .prod {
@@ -3745,7 +3745,7 @@
         transform: translate(-50%, -50%);
         width: 14px;
         height: 11px;
-        background: url("../img/icon_checked.png") no-repeat 50% 50% / contain
+        background: url("/img/icon_checked.png") no-repeat 50% 50% / contain
     }
 
     #shop_cart .orderbox .order .desc .con {
@@ -3791,7 +3791,7 @@
         flex: 1;
         height: 46px;
         border: 1px solid #e5e5e5;
-        background: url(../img/icon_dropdown.png) no-repeat right 12px center / 10px auto;
+        background: url(/img/icon_dropdown.png) no-repeat right 12px center / 10px auto;
     }
 
     #shop_cart .orderbox .order .desc .con dd input + button {
@@ -3868,7 +3868,7 @@
         transform: translate(-50%, -50%);
         width: 14px;
         height: 11px;
-        background: url("../img/icon_checked.png") no-repeat 50% 50% / contain
+        background: url("/img/icon_checked.png") no-repeat 50% 50% / contain
     }
 
     #shop_cart .orderbox .order .desc .con dd .addr {
@@ -4118,7 +4118,7 @@
         transform: translate(-50%, -50%);
         width: 14px;
         height: 11px;
-        background: url("../img/icon_checked.png") no-repeat 50% 50% / contain
+        background: url("/img/icon_checked.png") no-repeat 50% 50% / contain
     }
 
     #shop_cart .orderbox .payment .desc .tit {
@@ -4342,7 +4342,7 @@
         transform: translate(-50%, -50%);
         width: 10px;
         height: 13px;
-        background: url("../img/icon_checked_w.png") no-repeat 50% 50% / contain;
+        background: url("/img/icon_checked_w.png") no-repeat 50% 50% / contain;
     }
 
     #login .tool .find {
@@ -4643,14 +4643,14 @@
         display: block;
         width: 34px;
         height: 28px;
-        background: url("../img/icon_pass_view_on.png") no-repeat 50% 50% / contain;
+        background: url("/img/icon_pass_view_on.png") no-repeat 50% 50% / contain;
     }
 
     #change .input li .view.on {
     }
 
     #change .input li .view.on i {
-        background: url("../img/icon_pass_view.png") no-repeat 50% 50% / contain;
+        background: url("/img/icon_pass_view.png") no-repeat 50% 50% / contain;
     }
 
     #change .button {
@@ -4942,7 +4942,7 @@
         min-width: 120px;
         height: 40px;
         border: 0;
-        background: url("../img/icon_dropdown.png") no-repeat right center / auto;
+        background: url("/img/icon_dropdown.png") no-repeat right center / auto;
         font-size: 16px;
     }
 
@@ -5027,11 +5027,11 @@
         display: block;
         width: 22px;
         height: 22px;
-        background: url("../img/icon_zzim.png") no-repeat 50% 50% / contain;
+        background: url("/img/icon_zzim.png") no-repeat 50% 50% / contain;
     }
 
     #list .list li .zzim.on i {
-        background: url("../img/icon_zzim_on.png") no-repeat 50% 50% / contain
+        background: url("/img/icon_zzim_on.png") no-repeat 50% 50% / contain
     }
 
     #list .paging {
@@ -5267,7 +5267,7 @@
         height: 44px;
         border: 1px solid #e5e5e5;
         font-size: 15px;
-        background: url(../img/icon_dropdown.png) no-repeat right 12px center / 10px auto;
+        background: url(/img/icon_dropdown.png) no-repeat right 12px center / 10px auto;
     }
 
     #review .search input {
@@ -5654,7 +5654,7 @@
         height: 44px;
         border: 1px solid #e5e5e5;
         font-size: 15px;
-        background: url(../img/icon_dropdown.png) no-repeat right 12px center / 10px auto;
+        background: url(/img/icon_dropdown.png) no-repeat right 12px center / 10px auto;
     }
 
     #notice .search input {
@@ -5823,7 +5823,7 @@
         transform: translateY(-50%);
         width: 19px;
         height: 27px;
-        background: url("../img/icon_link.png") no-repeat 50% 50% / contain;
+        background: url("/img/icon_link.png") no-repeat 50% 50% / contain;
     }
 
     #sign .agree .more a {
@@ -5852,7 +5852,7 @@
         margin-right: 12px;
         width: 27px;
         height: 27px;
-        background: url("../img/icon_checked_circle.png") no-repeat 50% 50% / contain;
+        background: url("/img/icon_checked_circle.png") no-repeat 50% 50% / contain;
     }
 
     #sign .agree .checkbox input ~ span p {
@@ -5869,7 +5869,7 @@
     }
 
     #sign .agree .checkbox input:checked ~ span i {
-        background: url("../img/icon_checked_circle_on.png") no-repeat 50% 50% / contain;
+        background: url("/img/icon_checked_circle_on.png") no-repeat 50% 50% / contain;
     }
 
     #sign .agree .checkbox input:checked ~ span p {
@@ -6055,7 +6055,7 @@
         border-radius: 10px;
         border: 1px solid #dcdcdc;
         font-size: 17px;
-        background: url("../img/icon_dropdown.png") no-repeat right 20px center / auto 6px;
+        background: url("/img/icon_dropdown.png") no-repeat right 20px center / auto 6px;
     }
 
     #sign .form .desc .inp input:last-child,
@@ -6325,7 +6325,7 @@
         padding: 16px 10px;
         font-size: 16px;
         font-weight: 400;
-        background: url("../img/icon_link.png") no-repeat right 10px center / auto 19px;
+        background: url("/img/icon_link.png") no-repeat right 10px center / auto 19px;
     }
 
     #myshop .myshop .myside dl + dl {
@@ -6447,7 +6447,7 @@
         height: 38px;
         padding: 0 36px 0 12px;
         font-size: 14px;
-        background: url(../img/icon_dropdown.png) no-repeat right 12px center / 10px auto;
+        background: url(/img/icon_dropdown.png) no-repeat right 12px center / 10px auto;
     }
 
     #myorder .tab-box .option .desc button {
@@ -6689,7 +6689,7 @@
         min-width: 120px;
         height: 40px;
         border: 1px solid #e0e0e0;
-        background: url(../img/icon_dropdown.png) no-repeat right 12px center / 10px auto;
+        background: url(/img/icon_dropdown.png) no-repeat right 12px center / 10px auto;
     }
 
     #myaddress .write .form dd .inp input + button {
@@ -6758,7 +6758,7 @@
         transform: translate(-50%, -50%);
         width: 14px;
         height: 11px;
-        background: url("../img/icon_checked.png") no-repeat 50% 50% / contain
+        background: url("/img/icon_checked.png") no-repeat 50% 50% / contain
     }
 
     /**/
@@ -6838,7 +6838,7 @@
         min-width: 120px;
         height: 40px;
         border: 1px solid #e0e0e0;
-        background: url(../img/icon_dropdown.png) no-repeat right 12px center / 10px auto;
+        background: url(/img/icon_dropdown.png) no-repeat right 12px center / 10px auto;
     }
 
     #myinfo .form dd .inp input + button {
@@ -6999,7 +6999,7 @@
         transform: translate(-50%, -50%);
         width: 14px;
         height: 11px;
-        background: url("../img/icon_checked.png") no-repeat 50% 50% / contain
+        background: url("/img/icon_checked.png") no-repeat 50% 50% / contain
     }
 
     #myinfo .button {
@@ -7080,7 +7080,7 @@
         height: 38px;
         padding: 0 36px 0 12px;
         font-size: 14px;
-        background: url(../img/icon_dropdown.png) no-repeat right 12px center / 10px auto;
+        background: url(/img/icon_dropdown.png) no-repeat right 12px center / 10px auto;
     }
 
     #myboard .option button {
@@ -7107,7 +7107,7 @@
         min-width: 130px;
         height: 40px;
         border: 1px solid #e0e0e0;
-        background: url(../img/icon_dropdown.png) no-repeat right 12px center / 10px auto;
+        background: url(/img/icon_dropdown.png) no-repeat right 12px center / 10px auto;
     }
 
     #myboard .search input {
@@ -8004,7 +8004,7 @@
         margin-left: 6px;
         width: 11px;
         height: 7px;
-        background: url("../img/icon_menu_down.png") no-repeat 50% 50% / contain
+        background: url("/img/icon_menu_down.png") no-repeat 50% 50% / contain
     }
 
     #header .head-navi .menu .dp1 .dl1.active .dp2 {
@@ -8111,7 +8111,7 @@
         margin-left: 6px;
         width: 11px;
         height: 7px;
-        background: url("../img/icon_menu_down.png") no-repeat 50% 50% / contain
+        background: url("/img/icon_menu_down.png") no-repeat 50% 50% / contain
     }
 
     #header .head-allmenu .allmenu .dp1 .dl1.active .dp2 {
@@ -8409,7 +8409,7 @@
         transform: translate(-50%, -50%);
         width: 22px;
         height: 22px;
-        background: url("../img/icon_swiper_prev.png") no-repeat 50% 50% / contain
+        background: url("/img/icon_swiper_prev.png") no-repeat 50% 50% / contain
     }
 
     #main .swiper-next:before {
@@ -8420,7 +8420,7 @@
         transform: translate(-50%, -50%);
         width: 22px;
         height: 22px;
-        background: url("../img/icon_swiper_next.png") no-repeat 50% 50% / contain
+        background: url("/img/icon_swiper_next.png") no-repeat 50% 50% / contain
     }
 
     #main .visual {
@@ -8765,11 +8765,11 @@
         display: block;
         width: 25px;
         height: 25px;
-        background: url("../img/icon_zzim.png") no-repeat 50% 50% / contain;
+        background: url("/img/icon_zzim.png") no-repeat 50% 50% / contain;
     }
 
     #main .daysale .list li .zzim.on i {
-        background: url("../img/icon_zzim_on.png") no-repeat 50% 50% / contain
+        background: url("/img/icon_zzim_on.png") no-repeat 50% 50% / contain
     }
 
     #main .daysale .swiper-prev,
@@ -8945,11 +8945,11 @@
         display: block;
         width: 25px;
         height: 25px;
-        background: url("../img/icon_zzim.png") no-repeat 50% 50% / contain;
+        background: url("/img/icon_zzim.png") no-repeat 50% 50% / contain;
     }
 
     #main .exhibition .list .zzim.on i {
-        background: url("../img/icon_zzim_on.png") no-repeat 50% 50% / contain
+        background: url("/img/icon_zzim_on.png") no-repeat 50% 50% / contain
     }
 
     #main .exhibition .list .swiper-prev {
@@ -9295,11 +9295,11 @@
         display: block;
         width: 25px;
         height: 25px;
-        background: url("../img/icon_zzim.png") no-repeat 50% 50% / contain;
+        background: url("/img/icon_zzim.png") no-repeat 50% 50% / contain;
     }
 
     #main .recommand .list .zzim.on i {
-        background: url("../img/icon_zzim_on.png") no-repeat 50% 50% / contain
+        background: url("/img/icon_zzim_on.png") no-repeat 50% 50% / contain
     }
 
     #main .recommand .list .swiper-slide-active {
@@ -9504,11 +9504,11 @@
         display: block;
         width: 25px;
         height: 25px;
-        background: url("../img/icon_zzim.png") no-repeat 50% 50% / contain;
+        background: url("/img/icon_zzim.png") no-repeat 50% 50% / contain;
     }
 
     #main .newitem .list .zzim.on i {
-        background: url("../img/icon_zzim_on.png") no-repeat 50% 50% / contain
+        background: url("/img/icon_zzim_on.png") no-repeat 50% 50% / contain
     }
 
     #main .brandpick {
@@ -10105,11 +10105,11 @@
         display: block;
         width: 25px;
         height: 25px;
-        background: url("../img/icon_zzim.png") no-repeat 50% 50% / contain;
+        background: url("/img/icon_zzim.png") no-repeat 50% 50% / contain;
     }
 
     #main .hotbrand .list .cont li .zzim.on i {
-        background: url("../img/icon_zzim_on.png") no-repeat 50% 50% / contain
+        background: url("/img/icon_zzim_on.png") no-repeat 50% 50% / contain
     }
 
     #main .event {
@@ -10272,11 +10272,11 @@
     }
 
     #main .timesale .title .ctl .swiper-prev:hover:before {
-        background: url("../img/icon_swiper_prev_hover.png") no-repeat 50% 50% / contain
+        background: url("/img/icon_swiper_prev_hover.png") no-repeat 50% 50% / contain
     }
 
     #main .timesale .title .ctl .swiper-next:hover:before {
-        background: url("../img/icon_swiper_next_hover.png") no-repeat 50% 50% / contain
+        background: url("/img/icon_swiper_next_hover.png") no-repeat 50% 50% / contain
     }
 
     #main .timesale .list {
@@ -10478,12 +10478,12 @@
 
     #shop_detail .infobox .tool a.zzim i {
         border-color: #e5e5e5;
-        background: #ffffff url("../img/icon_zzim.png") no-repeat 50% 50%
+        background: #ffffff url("/img/icon_zzim.png") no-repeat 50% 50%
     }
 
     #shop_detail .infobox .tool a.share i {
         border-color: #d2e8de;
-        background: #d2e8de url("../img/icon_share.png") no-repeat 50% 50%
+        background: #d2e8de url("/img/icon_share.png") no-repeat 50% 50%
     }
 
     #shop_detail .infobox .tool a p {
@@ -10648,7 +10648,7 @@
         margin-left: 10px;
         width: 20px;
         height: 20px;
-        background: url("../img/icon_safety_arrow.png") no-repeat 50% 50% / contain
+        background: url("/img/icon_safety_arrow.png") no-repeat 50% 50% / contain
     }
 
     #shop_detail .infobox .button {
@@ -10891,7 +10891,7 @@
         top: 50%;
         left: 0;
         transform: translateY(-50%);
-        background: url("../img/icon_cart_arrow.png") no-repeat 50% 50% / contain;
+        background: url("/img/icon_cart_arrow.png") no-repeat 50% 50% / contain;
         width: 20px;
         height: 20px
     }
@@ -11007,7 +11007,7 @@
         transform: translate(-50%, -50%);
         width: 14px;
         height: 11px;
-        background: url("../img/icon_checked.png") no-repeat 50% 50% / contain
+        background: url("/img/icon_checked.png") no-repeat 50% 50% / contain
     }
 
     #shop_cart .cartbox .cart .list .prod {
@@ -11474,7 +11474,7 @@
         transform: translate(-50%, -50%);
         width: 14px;
         height: 11px;
-        background: url("../img/icon_checked.png") no-repeat 50% 50% / contain
+        background: url("/img/icon_checked.png") no-repeat 50% 50% / contain
     }
 
     #shop_cart .orderbox .order .desc .con {
@@ -11520,7 +11520,7 @@
         flex: 1;
         height: 46px;
         border: 1px solid #e5e5e5;
-        background: url(../img/icon_dropdown.png) no-repeat right 12px center / 10px auto;
+        background: url(/img/icon_dropdown.png) no-repeat right 12px center / 10px auto;
     }
 
     #shop_cart .orderbox .order .desc .con dd input + button {
@@ -11597,7 +11597,7 @@
         transform: translate(-50%, -50%);
         width: 14px;
         height: 11px;
-        background: url("../img/icon_checked.png") no-repeat 50% 50% / contain
+        background: url("/img/icon_checked.png") no-repeat 50% 50% / contain
     }
 
     #shop_cart .orderbox .order .desc .con dd .addr {
@@ -11847,7 +11847,7 @@
         transform: translate(-50%, -50%);
         width: 14px;
         height: 11px;
-        background: url("../img/icon_checked.png") no-repeat 50% 50% / contain
+        background: url("/img/icon_checked.png") no-repeat 50% 50% / contain
     }
 
     #shop_cart .orderbox .payment .desc .tit {
@@ -12071,7 +12071,7 @@
         transform: translate(-50%, -50%);
         width: 10px;
         height: 13px;
-        background: url("../img/icon_checked_w.png") no-repeat 50% 50% / contain;
+        background: url("/img/icon_checked_w.png") no-repeat 50% 50% / contain;
     }
 
     #login .tool .find {
@@ -12372,14 +12372,14 @@
         display: block;
         width: 34px;
         height: 28px;
-        background: url("../img/icon_pass_view_on.png") no-repeat 50% 50% / contain;
+        background: url("/img/icon_pass_view_on.png") no-repeat 50% 50% / contain;
     }
 
     #change .input li .view.on {
     }
 
     #change .input li .view.on i {
-        background: url("../img/icon_pass_view.png") no-repeat 50% 50% / contain;
+        background: url("/img/icon_pass_view.png") no-repeat 50% 50% / contain;
     }
 
     #change .button {
@@ -12671,7 +12671,7 @@
         min-width: 120px;
         height: 40px;
         border: 0;
-        background: url("../img/icon_dropdown.png") no-repeat right center / auto;
+        background: url("/img/icon_dropdown.png") no-repeat right center / auto;
         font-size: 16px;
     }
 
@@ -12756,11 +12756,11 @@
         display: block;
         width: 22px;
         height: 22px;
-        background: url("../img/icon_zzim.png") no-repeat 50% 50% / contain;
+        background: url("/img/icon_zzim.png") no-repeat 50% 50% / contain;
     }
 
     #list .list li .zzim.on i {
-        background: url("../img/icon_zzim_on.png") no-repeat 50% 50% / contain
+        background: url("/img/icon_zzim_on.png") no-repeat 50% 50% / contain
     }
 
     #list .paging {
@@ -12996,7 +12996,7 @@
         height: 44px;
         border: 1px solid #e5e5e5;
         font-size: 15px;
-        background: url(../img/icon_dropdown.png) no-repeat right 12px center / 10px auto;
+        background: url(/img/icon_dropdown.png) no-repeat right 12px center / 10px auto;
     }
 
     #review .search input {
@@ -13383,7 +13383,7 @@
         height: 44px;
         border: 1px solid #e5e5e5;
         font-size: 15px;
-        background: url(../img/icon_dropdown.png) no-repeat right 12px center / 10px auto;
+        background: url(/img/icon_dropdown.png) no-repeat right 12px center / 10px auto;
     }
 
     #notice .search input {
@@ -13552,7 +13552,7 @@
         transform: translateY(-50%);
         width: 19px;
         height: 27px;
-        background: url("../img/icon_link.png") no-repeat 50% 50% / contain;
+        background: url("/img/icon_link.png") no-repeat 50% 50% / contain;
     }
 
     #sign .agree .more a {
@@ -13581,7 +13581,7 @@
         margin-right: 12px;
         width: 27px;
         height: 27px;
-        background: url("../img/icon_checked_circle.png") no-repeat 50% 50% / contain;
+        background: url("/img/icon_checked_circle.png") no-repeat 50% 50% / contain;
     }
 
     #sign .agree .checkbox input ~ span p {
@@ -13598,7 +13598,7 @@
     }
 
     #sign .agree .checkbox input:checked ~ span i {
-        background: url("../img/icon_checked_circle_on.png") no-repeat 50% 50% / contain;
+        background: url("/img/icon_checked_circle_on.png") no-repeat 50% 50% / contain;
     }
 
     #sign .agree .checkbox input:checked ~ span p {
@@ -13784,7 +13784,7 @@
         border-radius: 10px;
         border: 1px solid #dcdcdc;
         font-size: 17px;
-        background: url("../img/icon_dropdown.png") no-repeat right 20px center / auto 6px;
+        background: url("/img/icon_dropdown.png") no-repeat right 20px center / auto 6px;
     }
 
     #sign .form .desc .inp input:last-child,
@@ -14054,7 +14054,7 @@
         padding: 16px 10px;
         font-size: 16px;
         font-weight: 400;
-        background: url("../img/icon_link.png") no-repeat right 10px center / auto 19px;
+        background: url("/img/icon_link.png") no-repeat right 10px center / auto 19px;
     }
 
     #myshop .myshop .myside dl + dl {
@@ -14176,7 +14176,7 @@
         height: 38px;
         padding: 0 36px 0 12px;
         font-size: 14px;
-        background: url(../img/icon_dropdown.png) no-repeat right 12px center / 10px auto;
+        background: url(/img/icon_dropdown.png) no-repeat right 12px center / 10px auto;
     }
 
     #myorder .tab-box .option .desc button {
@@ -14418,7 +14418,7 @@
         min-width: 120px;
         height: 40px;
         border: 1px solid #e0e0e0;
-        background: url(../img/icon_dropdown.png) no-repeat right 12px center / 10px auto;
+        background: url(/img/icon_dropdown.png) no-repeat right 12px center / 10px auto;
     }
 
     #myaddress .write .form dd .inp input + button {
@@ -14487,7 +14487,7 @@
         transform: translate(-50%, -50%);
         width: 14px;
         height: 11px;
-        background: url("../img/icon_checked.png") no-repeat 50% 50% / contain
+        background: url("/img/icon_checked.png") no-repeat 50% 50% / contain
     }
 
     /**/
@@ -14567,7 +14567,7 @@
         min-width: 120px;
         height: 40px;
         border: 1px solid #e0e0e0;
-        background: url(../img/icon_dropdown.png) no-repeat right 12px center / 10px auto;
+        background: url(/img/icon_dropdown.png) no-repeat right 12px center / 10px auto;
     }
 
     #myinfo .form dd .inp input + button {
@@ -14728,7 +14728,7 @@
         transform: translate(-50%, -50%);
         width: 14px;
         height: 11px;
-        background: url("../img/icon_checked.png") no-repeat 50% 50% / contain
+        background: url("/img/icon_checked.png") no-repeat 50% 50% / contain
     }
 
     #myinfo .button {
@@ -14809,7 +14809,7 @@
         height: 38px;
         padding: 0 36px 0 12px;
         font-size: 14px;
-        background: url(../img/icon_dropdown.png) no-repeat right 12px center / 10px auto;
+        background: url(/img/icon_dropdown.png) no-repeat right 12px center / 10px auto;
     }
 
     #myboard .option button {
@@ -14836,7 +14836,7 @@
         min-width: 130px;
         height: 40px;
         border: 1px solid #e0e0e0;
-        background: url(../img/icon_dropdown.png) no-repeat right 12px center / 10px auto;
+        background: url(/img/icon_dropdown.png) no-repeat right 12px center / 10px auto;
     }
 
     #myboard .search input {

@@ -69,13 +69,13 @@
                 <div class="menu">
                     <ul class="dp1">
                         <li class="dl1">
-                            <a class="da1" th:href="@{'/item?categoryId=1'}">가공식품</a>
+                            <a class="da1" th:href="@{'/category/1/item'}">가공식품</a>
                         </li>
                         <li class="dl1">
-                            <a class="da1" th:href="@{'/item?categoryId=2'}">농수축산물</a>
+                            <a class="da1" th:href="@{'/category/2/item'}">농수축산물</a>
                         </li>
                         <li class="dl1">
-                            <a class="da1" th:href="@{'/item?categoryId=3'}">배달용품</a>
+                            <a class="da1" th:href="@{'/category/3/item'}">배달용품</a>
                         </li>
                     </ul>
                 </div>
@@ -92,13 +92,16 @@
                         <ul class="dp1">
                             <th:block th:each="category: ${categories}">
                                 <li class="dl1">
-                                    <a class="da1" th:href="@{'/item?categoryId=' + ${category.getId()}}" th:text="${category.name}">1차분류
+                                    <a class="da1" th:href="@{'/category/' + ${category.getId()} + '/item'}"
+                                       th:text="${category.name}">1차분류
                                         <i th:if="${category.getSubCategories() != null}"></i>
                                     </a>
                                     <ul class="dp2" th:if="${category.getSubCategories() != null}">
                                         <th:block th:each="subCategory: ${category.getSubCategories()}">
                                             <li class="dl2">
-                                                <a class="da2" th:href="@{'/item?categoryId=' + ${subCategory.getId()}}" th:text="${subCategory.name}">2차분류</a>
+                                                <a class="da2"
+                                                   th:href="@{'/category/' + ${subCategory.getId()} + '/item'}"
+                                                   th:text="${subCategory.name}">2차분류</a>
                                             </li>
                                         </th:block>
                                     </ul>

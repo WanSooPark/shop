@@ -35,8 +35,8 @@ public class ItemService {
                 .orElseThrow(() -> new NoContentException("유효하지 않은 상품 id 입니다."));
     }
 
-    public Page<Item> search(Long categoryId, Pageable pageable) {
-        return repository.search(categoryId, pageable);
+    public Page<Item> searchByCategory(Long categoryId, String search, Pageable pageable) {
+        return repository.search(categoryId, search, pageable);
     }
 
     public List<Item> findByIdIn(List<Long> itemIds) {

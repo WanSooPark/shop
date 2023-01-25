@@ -4,11 +4,12 @@ import com.shop.commons.entity.BasePage;
 import lombok.Builder;
 import lombok.Data;
 
-public class ServiceItemSearch {
+public class ServiceItemSearchDto {
 
     @Data
     public static class Request {
         private Long categoryId;
+        private Long topicCode;
         private String search;
     }
 
@@ -17,4 +18,5 @@ public class ServiceItemSearch {
     public static class Response {
         private BasePage<ServiceItemSearchResponse> itemPage;
     }
+
 }

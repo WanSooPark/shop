@@ -105,7 +105,7 @@ public class SecurityConfig {
                 .permitAll()
                 .mvcMatchers("/", "/login", "/login/**", "/sign/up")
                 .permitAll()
-                .mvcMatchers(HttpMethod.GET, "/item", "/item/**")
+                .mvcMatchers(HttpMethod.GET, "/item", "/item/**", "/category/**", "/topic/**")
                 .permitAll()
                 .mvcMatchers(HttpMethod.GET, "/items", "/items/**", "/categories", "/categories/**")
                 .permitAll()

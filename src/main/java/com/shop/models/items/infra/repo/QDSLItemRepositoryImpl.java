@@ -43,9 +43,8 @@ public class QDSLItemRepositoryImpl extends CustomQuerydslRepositorySupport impl
     }
 
     @Override
-    public Page<Item> search(Long categoryId, Pageable pageable) {
+    public Page<Item> search(Long categoryId, String search, Pageable pageable) {
         QItem item = QItem.item;
-
 
         Category category = findCategoryById(categoryId);
         Set<Long> categoryIds = subCategories(category); // 하위 카테고리 id 조회
@@ -54,6 +53,7 @@ public class QDSLItemRepositoryImpl extends CustomQuerydslRepositorySupport impl
         query
                 .where(
                         this.in(item.category.id, categoryIds)
+                        , this.containsIgnoreCase(item.name, search)
                 );
 
         JPQLQuery<Item> jpqlQuery = getQuerydsl().applyPagination(pageable, query);

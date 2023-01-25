@@ -5,7 +5,7 @@ import com.shop.services.service.categories.dto.ServiceCategoryResponse;
 import com.shop.services.service.categories.service.ServiceCategoryService;
 import com.shop.services.service.items.dto.ServiceItemResponse;
 import com.shop.services.service.items.dto.category.ServiceCategorySideMenuResponse;
-import com.shop.services.service.items.dto.search.ServiceItemSearch;
+import com.shop.services.service.items.dto.search.ServiceItemSearchDto;
 import com.shop.services.service.items.service.ServiceItemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -28,15 +28,16 @@ public class ItemController {
     private final ServiceCategoryService serviceCategoryService;
 
     @GetMapping
-    public String itemListView(@Valid ServiceItemSearch.Request searchDto, @PageableDefault Pageable pageable, Model model) {
-        ServiceItemSearch.Response response = serviceItemService.search(searchDto, pageable);
+    @Deprecated
+    public String itemListView(@Valid ServiceItemSearchDto.Request searchDto, @PageableDefault Pageable pageable, Model model) {
+        ServiceItemSearchDto.Response response = serviceItemService.searchByCategory(searchDto, pageable);
         ServiceCategoryResponse serviceCategoryResponse = serviceCategoryService.getCategory(searchDto.getCategoryId());
         ServiceCategorySideMenuResponse serviceCategorySideMenuResponse = serviceCategoryService.getSideMenu(searchDto.getCategoryId());
 
         model.addAttribute("itemPage", response.getItemPage());
         model.addAttribute("category", serviceCategoryResponse);
         model.addAttribute("categorySizeMenu", serviceCategorySideMenuResponse);
-        return "item/item_list";
+        return "item/category/item_list";
     }
 
     @GetMapping("/{id}")
