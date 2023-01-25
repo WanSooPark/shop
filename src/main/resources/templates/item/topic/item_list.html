@@ -80,7 +80,7 @@
                             </ul>
                         </div>
                         <th:block
-                                th:replace="fragments/fragment :: pagination(${itemPage}, '/topic/' + ${topic.getCode()} + '/item?topicItemId=' + ${topicItemId})"></th:block>
+                                th:replace="fragments/fragment :: pagination(${itemPage}, '/topic/' + ${topic.getCode()} + '/item?search=' + ${topicItemId > 0 ? '?topicItemId=' + topicItemId : ''})"></th:block>
                     </div>
                 </div>
             </div>

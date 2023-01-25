@@ -40,7 +40,11 @@ public class TopicItemController {
             model.addAttribute("topic", serviceCategoryResponse);
             model.addAttribute("topicSideMenu", serviceCategorySideMenuResponse);
 
-            model.addAttribute("topicItemId", dto.getTopicItemId());
+            Long topicItemId = dto.getTopicItemId();
+            if (ObjectUtils.isEmpty(topicItemId)) {
+                topicItemId = 0L;
+            }
+            model.addAttribute("topicItemId", topicItemId);
         } catch (BusinessException businessException) {
             throw new MvcException(businessException);
         }
