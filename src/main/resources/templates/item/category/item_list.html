@@ -17,11 +17,11 @@
                 <div class="flex">
                     <div class="lt-item">
                         <div class="category">
-                            <div class="tit" th:text="${categorySizeMenu.getName()}">SKIN CARE</div>
+                            <div class="tit" th:text="${categorySideMenu.getName()}">SKIN CARE</div>
                             <div class="con">
                                 <ul>
-                                    <li><a th:href="@{'/category/' + ${categorySizeMenu.getId()} + '/item'}">전체보기</a></li>
-                                    <th:block th:each="subCategory: ${categorySizeMenu.getSubCategories()}">
+                                    <li><a th:href="@{'/category/' + ${categorySideMenu.getId()} + '/item'}">전체보기</a></li>
+                                    <th:block th:each="subCategory: ${categorySideMenu.getSubCategories()}">
                                         <li><a th:href="@{'/category/' + ${subCategory.getId()} + '/item'}"
                                                th:text="${subCategory.getName()}">클렌징</a></li>
                                     </th:block>

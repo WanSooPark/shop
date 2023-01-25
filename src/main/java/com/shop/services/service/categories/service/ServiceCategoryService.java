@@ -3,7 +3,7 @@ package com.shop.services.service.categories.service;
 import com.shop.models.categories.domain.Category;
 import com.shop.models.categories.service.CategoryService;
 import com.shop.services.service.categories.dto.ServiceCategoryResponse;
-import com.shop.services.service.items.dto.category.ServiceCategorySideMenuResponse;
+import com.shop.services.service.categories.dto.ServiceCategorySideMenuResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

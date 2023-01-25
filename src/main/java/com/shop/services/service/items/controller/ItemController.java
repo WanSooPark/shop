@@ -4,7 +4,7 @@ import com.shop.commons.errors.exceptions.NoContentException;
 import com.shop.services.service.categories.dto.ServiceCategoryResponse;
 import com.shop.services.service.categories.service.ServiceCategoryService;
 import com.shop.services.service.items.dto.ServiceItemResponse;
-import com.shop.services.service.items.dto.category.ServiceCategorySideMenuResponse;
+import com.shop.services.service.categories.dto.ServiceCategorySideMenuResponse;
 import com.shop.services.service.items.dto.search.ServiceItemSearchDto;
 import com.shop.services.service.items.service.ServiceItemService;
 import lombok.RequiredArgsConstructor;
@@ -36,7 +36,7 @@ public class ItemController {
 
         model.addAttribute("itemPage", response.getItemPage());
         model.addAttribute("category", serviceCategoryResponse);
-        model.addAttribute("categorySizeMenu", serviceCategorySideMenuResponse);
+        model.addAttribute("categorySideMenu", serviceCategorySideMenuResponse);
         return "item/category/item_list";
     }
 

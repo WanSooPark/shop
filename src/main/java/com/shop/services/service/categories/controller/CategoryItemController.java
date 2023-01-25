@@ -4,9 +4,7 @@ import com.shop.services.service.categories.dto.ServiceCategoryResponse;
 import com.shop.services.service.categories.dto.search.ServiceCategoryItemSearchDto;
 import com.shop.services.service.categories.service.ServiceCategoryItemService;
 import com.shop.services.service.categories.service.ServiceCategoryService;
-import com.shop.services.service.items.dto.category.ServiceCategorySideMenuResponse;
-import com.shop.services.service.items.dto.search.ServiceItemSearchDto;
-import com.shop.services.service.items.service.ServiceItemService;
+import com.shop.services.service.categories.dto.ServiceCategorySideMenuResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -35,7 +33,7 @@ public class CategoryItemController {
 
         model.addAttribute("itemPage", response.getItemPage());
         model.addAttribute("category", serviceCategoryResponse);
-        model.addAttribute("categorySizeMenu", serviceCategorySideMenuResponse);
+        model.addAttribute("categorySideMenu", serviceCategorySideMenuResponse);
         return "item/category/item_list";
     }
 

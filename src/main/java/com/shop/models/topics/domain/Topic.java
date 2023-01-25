@@ -1,11 +1,12 @@
 package com.shop.models.topics.domain;
 
 import com.shop.commons.entity.BaseEntity;
-import com.shop.models.items.domain.Item;
 import lombok.*;
 
-import javax.persistence.*;
-import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.Id;
 
 @Getter
 @Setter
@@ -26,5 +27,9 @@ public class Topic extends BaseEntity {
     public void update(String name, TopicStatus status) {
         this.name = name;
         this.status = status;
+    }
+
+    public boolean isActivate() {
+        return this.status.equals(TopicStatus.ACTIVATE);
     }
 }

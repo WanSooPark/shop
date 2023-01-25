@@ -25,7 +25,7 @@ public class SecurityConfig {
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web.ignoring()
                 .antMatchers("/img/**", "/admin/**", "/css/**", "/images/**", "/js/**",
-                        "/favicon.ico", "/resources/**", "/error");
+                        "/favicon.ico", "/resources/**", "/error", "/admin/error");
     }
 
     @Order(Ordered.HIGHEST_PRECEDENCE)

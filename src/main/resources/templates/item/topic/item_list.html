@@ -13,17 +13,21 @@
     <section id="container">
         <div id="list">
             <div class="wrap">
-                <div id="heading" th:text="${category.getName()}">클렌징</div>
+                <div id="heading" th:text="${topic.getName()}">기획전명</div>
                 <div class="flex">
                     <div class="lt-item">
                         <div class="category">
-                            <div class="tit" th:text="${categorySizeMenu.getName()}">SKIN CARE</div>
+                            <div class="tit" th:text="${topicSideMenu.getName()}">SKIN CARE</div>
                             <div class="con">
                                 <ul>
-                                    <li><a th:href="@{'/item?categoryId=' + ${categorySizeMenu.getId()}}">전체보기</a></li>
-                                    <th:block th:each="subCategory: ${categorySizeMenu.getSubCategories()}">
-                                        <li><a th:href="@{'/item?categoryId=' + ${subCategory.getId()}}"
-                                               th:text="${subCategory.getName()}">클렌징</a></li>
+                                    <li><a th:href="@{'/topic/' + ${topicSideMenu.getCode()} + '/item'}">전체보기</a></li>
+                                    <th:block th:each="topicItem: ${topicSideMenu.getTopicItemMenus()}">
+                                        <li>
+                                            <a th:href="@{'/topic/' + ${topicSideMenu.getCode()} + '/item?topicItemId=' + ${topicItem.getId()}}"
+                                               th:text="${topicItem.getTitle()}">
+                                                기획전 제목
+                                            </a>
+                                        </li>
                                     </th:block>
                                 </ul>
                             </div>
@@ -76,7 +80,7 @@
                             </ul>
                         </div>
                         <th:block
-                                th:replace="fragments/fragment :: pagination(${itemPage}, '/item?categoryId=' + ${categoryId})"></th:block>
+                                th:replace="fragments/fragment :: pagination(${itemPage}, '/topic/' + ${topic.getCode()} + '/item?topicItemId=' + ${topicItemId})"></th:block>
                     </div>
                 </div>
             </div>

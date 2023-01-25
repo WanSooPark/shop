@@ -11,6 +11,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -34,4 +36,9 @@ public class TopicItemService {
     public TopicItem update(TopicItem topicItem) {
         return repository.save(topicItem);
     }
+
+    public List<TopicItem> findByTopicAndStatus(Topic topic, TopicItemStatus status) {
+        return repository.findByTopicAndStatusOrderByOrd(topic, status);
+    }
+
 }

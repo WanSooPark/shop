@@ -21,7 +21,6 @@ public class ServiceViewInterceptor implements HandlerInterceptor {
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-        System.out.println(request.getRequestURI());
         // 뷰 렌더링 전, 핸들러 처리 이후
         if (!ObjectUtils.isEmpty(modelAndView)) {
             addCategories(modelAndView);

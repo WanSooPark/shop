@@ -1,4 +1,4 @@
-package com.shop.services.service.items.dto.category;
+package com.shop.services.service.categories.dto;
 
 import com.shop.models.categories.domain.Category;
 import lombok.Builder;
