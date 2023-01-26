@@ -6,6 +6,9 @@ import com.shop.models.categories.service.CategoryService;
 import com.shop.models.members.domain.Member;
 import com.shop.models.members.domain.MemberStatus;
 import com.shop.models.members.domain.Role;
+import com.shop.models.topics.domain.Topic;
+import com.shop.models.topics.domain.TopicStatus;
+import com.shop.models.topics.service.TopicService;
 import com.shop.services.service.members.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,6 +28,7 @@ public class AppStartRunner implements ApplicationRunner {
 
     private final MemberService memberService;
     private final CategoryService categoryService;
+    private final TopicService topicService;
 
     private final PasswordEncoder passwordEncoder;
 
@@ -46,7 +50,24 @@ public class AppStartRunner implements ApplicationRunner {
             Category category2_1_1 = getCategory("농수축산물-1-1", category2_1);
             Category category3_1 = getCategory("배달용품-1", category3);
             Category category3_1_1 = getCategory("배달용품-1-1", category3_1);
+
+            Long topicCount = topicService.countAll();
+            Topic topicNew = getTopic("NEW", "신상품", topicCount);
+            Topic topicDaySale = getTopic("DAY_SALE", "하루특가", topicCount);
         }
+    }
+
+    private Topic getTopic(String code, String name, Long topicCount) {
+        Topic topic = topicService.findByCode(code);
+        if (ObjectUtils.isEmpty(topic)) {
+            topic = new Topic();
+            topic.setCode(code);
+            topic.setName(name);
+            topic.setOrd(++topicCount);
+            topic.setStatus(TopicStatus.ACTIVATE);
+            topic = topicService.save(topic);
+        }
+        return topic;
     }
 
     private Member getMember(String username, String name, String password, String address) {

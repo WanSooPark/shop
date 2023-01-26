@@ -13,7 +13,8 @@
     <div id="container">
         <!--main start -->
         <div id="main">
-            <div class="visual">
+            <!-- 배너 -->
+            <div class="visual" style="display: none;">
                 <div class="wrap">
                     <div class="swiper-container">
                         <div class="swiper-wrapper">
@@ -69,29 +70,31 @@
                     </script>
                 </div>
             </div>
+            <!-- 카테고리 -->
             <div class="category">
                 <div class="wrap">
                     <div class="list">
                         <ul>
                             <li class="active">
-                                <a href="#"><img src="/img/icon_category01.png"> 가공식품</a>
+                                <a th:href="@{/category/1/item}"><img src="/img/icon_category01.png"> 가공식품</a>
                             </li>
                             <li>
-                                <a href="#"><img src="/img/icon_category02.png"> 농수 출산물</a>
+                                <a th:href="@{/category/2/item}"><img src="/img/icon_category02.png"> 농수출산물</a>
                             </li>
                             <li>
-                                <a href="#"><img src="/img/icon_category03.png"> 배달용품</a>
+                                <a th:href="@{/category/3/item}"><img src="/img/icon_category03.png"> 배달용품</a>
                             </li>
-                            <li>
-                                <a href="#"><img src="/img/icon_category04.png"> 기획전</a>
-                            </li>
-                            <li>
-                                <a href="#"><img src="/img/icon_category05.png"> 건강/뷰티</a>
-                            </li>
+                            <!--                            <li>-->
+                            <!--                                <a href=""><img src="/img/icon_category04.png"> 기획전</a>-->
+                            <!--                            </li>-->
+                            <!--                            <li>-->
+                            <!--                                <a href="#"><img src="/img/icon_category05.png"> 건강/뷰티</a>-->
+                            <!--                            </li>-->
                         </ul>
                     </div>
                 </div>
             </div>
+            <!-- 하루특가 -->
             <div class="daysale">
                 <div class="wrap">
                     <div class="title">딱 24시간만 할인행사</div>
@@ -100,8 +103,8 @@
                     </div>
                     <script>
                         // Set the date we're counting down to
-                        //var countDownDate = new Date("Jan 5, 2024 15:37:25").getTime();
-                        var countDownDate = new Date("Jan 25, 2023 00:00:00").getTime();
+                        // var countDownDate = new Date("Jan 5, 2024 15:37:25").getTime();
+                        var countDownDate = new Date("2023-01-26 23:59:59").getTime();
 
                         // Update the count down every 1 second
                         var x = setInterval(function () {
@@ -131,7 +134,6 @@
                             var seconds_2 = (seconds % 10);
 
                             document.getElementById("clock").innerHTML =
-
                                 "<div class='desc'>" +
                                 "<p>" + hours_1 + "</p>" +
                                 "<p>" + hours_2 + "</p>" +
@@ -253,6 +255,7 @@
                     </div>
                 </div>
             </div>
+            <!-- 기획전 상품 -->
             <div class="exhibition">
                 <div class="wrap">
                     <div class="title">
@@ -345,7 +348,8 @@
                     </div>
                 </div>
             </div>
-            <div class="giftset">
+            <!-- 설날 이벤트 -->
+            <div class="giftset" style="display: none;">
                 <div class="wrap">
                     <div class="flex">
                         <div class="img">
@@ -407,6 +411,7 @@
                     </div>
                 </div>
             </div>
+            <!-- 추천상품 -->
             <div class="recommand">
                 <div class="wrap">
                     <div class="title">
@@ -522,7 +527,8 @@
                     </div>
                 </div>
             </div>
-            <div class="banner">
+            <!-- 광고 -->
+            <div class="banner" style="display: none;">
                 <a href="#">
                     <div class="img">
                         <img src="/img/dummy_banner.png">
@@ -534,6 +540,7 @@
                     </div>
                 </a>
             </div>
+            <!-- 신상품 -->
             <div class="newitem">
                 <div class="wrap">
                     <div class="title">
@@ -698,7 +705,8 @@
                     </div>
                 </div>
             </div>
-            <div class="brandpick tab-area">
+            <!-- 브랜드픽 -->
+            <div class="brandpick  tab-area" style="display: none;">
                 <div class="wrap">
                     <div class="title">
                         <div class="tit">식품 Brand PICK</div>
@@ -819,7 +827,8 @@
                     </div>
                 </div>
             </div>
-            <div class="review">
+            <!-- 리뷰 추천 -->
+            <div class="review" style="display: none;">
                 <div class="wrap">
                     <div class="title">
                         <div class="tit">BEST REVIEW</div>
@@ -969,7 +978,8 @@
                     </div>
                 </div>
             </div>
-            <div class="benefit">
+            <!-- 베네핏? -->
+            <div class="benefit" style="display: none;">
                 <div class="wrap">
                     <div class="box">
                         <div class="img"><img src="/img/dummy_benefit.png"></div>
@@ -977,7 +987,8 @@
                     </div>
                 </div>
             </div>
-            <div class="hotbrand">
+            <!-- 지금 가장 핫한 브랜드 -->
+            <div class="hotbrand" style="display: none;">
                 <div class="wrap">
                     <div class="title">
                         <div class="tit">지금 가장 핫한 브랜드</div>
@@ -1047,6 +1058,7 @@
                     </div>
                 </div>
             </div>
+            <!-- 이벤트 프로모션 -->
             <div class="event">
                 <div class="wrap">
                     <div class="title">
@@ -1085,6 +1097,7 @@
                     </div>
                 </div>
             </div>
+            <!-- MD 추천기획전 -->
             <div class="exhibition">
                 <div class="wrap">
                     <div class="title">
@@ -1233,7 +1246,7 @@
                     </div>
                 </div>
             </div>
-
+            <!-- 타임특가 -->
             <div class="timesale">
                 <div class="wrap">
                     <div class="title">
@@ -1327,8 +1340,8 @@
                     </div>
                 </div>
             </div>
-
-            <div class="instagram">
+            <!-- 인스타그램 -->
+            <div class="instagram" style="display: none;">
                 <div class="wrap">
                     <div class="title">
                         <div class="tit">올따옴 instagram</div>

@@ -24,6 +24,8 @@ public class Topic extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private TopicStatus status;
 
+    private Long ord;
+
     public void update(String name, TopicStatus status) {
         this.name = name;
         this.status = status;
