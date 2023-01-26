@@ -308,7 +308,11 @@
                                             <i></i>
                                             <p>NEW</p>
                                         </label>
-                                        <span class="frm_info va_help">미선택시 하위 카테고리 부분으로 자동 노출</span>
+                                        <label class="ca_checkbox" style="margin-right: 20px">
+                                            <input type="checkbox" name="recBadge" value="new" onclick="mainCategoryCheckbox(event)" id="recBadge" th:field="*{recBadge}"/>
+                                            <i></i>
+                                            <p>REC</p>
+                                        </label>
                                     </div>
                                 </td>
                             </tr>

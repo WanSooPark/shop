@@ -127,6 +127,7 @@ public class AdminItemForm {
     private List<String> badges; // 뱃지 (BEST, NEW)
     private boolean bestBadge;
     private boolean newBadge = true;
+    private boolean recBadge = true;
     private Long categoryId; // 카테고리 객체
 
     /**
@@ -441,6 +442,7 @@ public class AdminItemForm {
 
             this.item.setBestBadge(dto.isBestBadge());
             this.item.setNewBadge(dto.isNewBadge());
+            this.item.setNewBadge(dto.isRecBadge());
             return this.item;
         }
     }

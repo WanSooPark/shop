@@ -112,8 +112,9 @@ public class Item extends BaseEntity {
             inverseJoinColumns = @JoinColumn(name = "badge_id")
     )
     private List<Badge> badges; // 뱃지 (BEST, NEW)
-    private boolean bestBadge;
-    private boolean newBadge;
+    private boolean bestBadge; // 베스트
+    private boolean newBadge; // 새제품
+    private boolean recBadge; // recommendation 추천
     @ManyToOne
     private Category category; // 카테고리
 
