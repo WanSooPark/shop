@@ -41,4 +41,8 @@ public class TopicItemService {
         return repository.findByTopicAndStatusOrderByOrd(topic, status);
     }
 
+    public List<TopicItem> findByTopicCodeAndStatus(String topicCode, TopicItemStatus status) {
+        return repository.findByTopicCodeAndStatusOrderByOrd(topicCode, status);
+    }
+
 }

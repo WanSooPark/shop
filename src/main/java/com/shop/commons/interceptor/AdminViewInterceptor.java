@@ -1,8 +1,7 @@
 package com.shop.commons.interceptor;
 
-import com.shop.commons.interceptor.dto.InterceptorTopicItemResponse;
+import com.shop.commons.interceptor.dto.InterceptorTopicResponse;
 import com.shop.commons.interceptor.service.AdminInterceptorTopicItemService;
-import com.shop.models.topics.domain.Topic;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
@@ -28,7 +27,7 @@ public class AdminViewInterceptor implements HandlerInterceptor {
     }
 
     private void addTopicMenus(ModelAndView modelAndView) {
-        List<InterceptorTopicItemResponse> topicMenus = adminInterceptorTopicItemService.getActivateTopicMenus();
+        List<InterceptorTopicResponse> topicMenus = adminInterceptorTopicItemService.getActivateTopicMenus();
         if (!ObjectUtils.isEmpty(topicMenus)) {
             modelAndView.addObject("topicMenus", topicMenus);
         }

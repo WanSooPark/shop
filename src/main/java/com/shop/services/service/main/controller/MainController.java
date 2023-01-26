@@ -27,4 +27,13 @@ public class MainController {
         return "main";
     }
 
+    @GetMapping("/index")
+    public String main2(ServiceItemSearchDto serviceItemSearch, @PageableDefault Pageable pageable, Model model) {
+        List<MainNewBadgeItemResponse> newItems = mainService.findNewItems();
+        model.addAttribute("newItems", serviceItemSearch);
+        model.addAttribute("maxPage", 5);
+
+        return "index";
+    }
+
 }

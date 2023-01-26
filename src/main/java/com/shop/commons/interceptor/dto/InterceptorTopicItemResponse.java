@@ -1,23 +1,19 @@
 package com.shop.commons.interceptor.dto;
 
-import com.shop.models.topics.domain.Topic;
-import lombok.AllArgsConstructor;
+import com.shop.models.topics.domain.TopicItem;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
 public class InterceptorTopicItemResponse {
-    private String code;
-    private String name;
+    private Long id;
+    private String title;
 
-    public static InterceptorTopicItemResponse of(Topic topic) {
+    public static InterceptorTopicItemResponse of(TopicItem topicItem) {
         return InterceptorTopicItemResponse.builder()
-                .code(topic.getCode())
-                .name(topic.getName())
+                .id(topicItem.getId())
+                .title(topicItem.getTitle())
                 .build();
     }
 }

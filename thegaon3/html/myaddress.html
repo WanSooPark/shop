@@ -7,11 +7,11 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
-<script type="text/javascript" src="/js/common.js"></script>
+<script type="text/javascript" src="../resources/js/common.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"/>
-<link rel="stylesheet" type="text/css" href="/css/common.css">
-<link rel="stylesheet" type="text/css" href="/css/layout.css">
+<link rel="stylesheet" type="text/css" href="../resources/css/common.css">
+<link rel="stylesheet" type="text/css" href="../resources/css/layout.css">
 </head>
 <body id="wrap">
 	<header id="header">
@@ -32,20 +32,20 @@
         </div>
         <div class="head-bottom">
             <div class="wrap">
-                <div class="logo"><a href="./"><img src="/img/logo.png" alt="더가온 ALL따옴"></a></div>
+                <div class="logo"><a href="./"><img src="../resources/img/logo.png" alt="더가온 ALL따옴"></a></div>
                 <div class="search">
                     <form class="form">
                         <input type="text" placeholder="무엇이 필요하세요?">
-                        <button type="submit"><img src="/img/icon_search.png"></button>
+                        <button type="submit"><img src="../resources/img/icon_search.png"></button>
                     </form>
                 </div>
                 <div class="link">
                     <a href="#">
-                        <div class="ico"><img src="/img/icon_mypage.png"></div>
+                        <div class="ico"><img src="../resources/img/icon_mypage.png"></div>
                         <div class="txt">마이페이지</div>
                     </a>
                     <a href="#">
-                        <div class="ico"><img src="/img/icon_cart.png"><p class="num">2</p></div>
+                        <div class="ico"><img src="../resources/img/icon_cart.png"><p class="num">2</p></div>
                         <div class="txt">장바구니</div>
                     </a>
                 </div>
@@ -54,7 +54,7 @@
         <div class="head-navi">
             <div class="wrap">
                 <div class="all">
-                    <button type="button" id="allmenu"><img src="/img/icon_bars.png">전체 카테고리</button>
+                    <button type="button" id="allmenu"><img src="../resources/img/icon_bars.png">전체 카테고리</button>
                 </div>
                 <div class="menu">
                     <ul class="dp1">
@@ -171,7 +171,7 @@
                         배송 주소록 관리
                         <div class="txt">자주 쓰는 배송지를 등록 관리하실 수 있습니다.</div>
                     </div>
-                    <div class="table tbl">
+                    <div class="table tbl pc-only">
                         <table>
                             <thead>
                                 <tr>
@@ -188,8 +188,52 @@
                                 <tr>
                                     <td class="empty" colspan="7">등록된 주소가 없습니다.</td>
                                 </tr>
+                                <tr>
+                                    <td>주소록고정</td>
+                                    <td>우리집</td>
+                                    <td>홍길동</td>
+                                    <td>010-1234-5678</td>
+                                    <td>010-1234-5678</td>
+                                    <td>서울특별시</td>
+                                    <td><a href="#">수정</a></td>
+                                </tr>
                             </tbody>
                         </table>
+                    </div>
+                    <div class="list mo-only">
+                        <ul>
+                            <li>
+                                <dl>
+                                    <dt>주소록 고정</dt>
+                                    <dd>주소록고정</dd>
+                                </dl>
+                                <dl>
+                                    <dt>배송지명</dt>
+                                    <dd>우리집</dd>
+                                </dl>
+                                <dl>
+                                    <dt>수령인</dt>
+                                    <dd>홍길동</dd>
+                                </dl>
+                                <dl>
+                                    <dt>일반전화</dt>
+                                    <dd>010-1234-5678</dd>
+                                </dl>
+                                <dl>
+                                    <dt>휴대전화</dt>
+                                    <dd>010-1234-5678</dd>
+                                </dl>
+                                <dl>
+                                    <dt>주소</dt>
+                                    <dd>서울특별시</dd>
+                                </dl>
+                                <dl>
+                                    <dt>수정</dt>
+                                    <dd><a href="#">수정</a></dd>
+                                </dl>
+                            </li>
+                            <li class="empty">등록된 주소가 없습니다.</li>
+                        </ul>
                     </div>
                     <div class="button">
                         <a href="./myaddress_write.html" class="btn btn_03">배송지 등록</a>
@@ -247,10 +291,10 @@
                     </div>
                     <div class="rtc">
                         <ul>
-                            <li><a href="#"><img src="/img/icon_cart_full.png"><p>장바구니</p></a></li>
-                            <li><a href="#"><img src="/img/icon_delivery_full.png"><p>배송조회</p></a></li>
-                            <li><a href="#"><img src="/img/icon_inquiry_full.png"><p>1:1문의</p></a></li>
-                            <li><a href="#"><img src="/img/icon_order_full.png"><p>주문목록</p></a></li>
+                            <li><a href="#"><img src="../resources/img/icon_cart_full.png"><p>장바구니</p></a></li>
+                            <li><a href="#"><img src="../resources/img/icon_delivery_full.png"><p>배송조회</p></a></li>
+                            <li><a href="#"><img src="../resources/img/icon_inquiry_full.png"><p>1:1문의</p></a></li>
+                            <li><a href="#"><img src="../resources/img/icon_order_full.png"><p>주문목록</p></a></li>
                         </ul>
                     </div>
                 </div>
@@ -258,7 +302,7 @@
         </div>
         <div class="foot-bottom">
             <div class="wrap">
-                <div class="logo"><img src="/img/fogo.png"></div>
+                <div class="logo"><img src="../resources/img/fogo.png"></div>
                 <div class="contents">
                     <div class="address">
                         <ul>

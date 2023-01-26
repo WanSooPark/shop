@@ -1,0 +1,1249 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layouts/layout2}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+
+<!-- 사용자 CSS 추가 -->
+<th:block layout:fragment="css">
+    <style>
+    </style>
+</th:block>
+
+<div layout:fragment="content">
+    <div id="container">
+        <!--main start -->
+        <div id="main">
+            <div class="visual">
+                <div class="wrap">
+                    <div class="swiper-container">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide box">
+                                <div class="con">
+                                    <div class="tit">우리 동네 <br><strong>창고형 배달 마켓 올따옴</strong></div>
+                                    <div class="txt">좋은 가격, 좋은 상품 <br>ALL 따옴</div>
+                                    <div class="act"><a href="#">자세히보기</a></div>
+                                </div>
+                                <div class="img"><img src="../../../../thegaon3/resources/img/visual_bg.png"></div>
+                            </div>
+                            <div class="swiper-slide box">
+                                <div class="con">
+                                    <div class="tit">우리 동네 <br><strong>창고형 배달 마켓 올따옴</strong></div>
+                                    <div class="txt">좋은 가격, 좋은 상품 <br>ALL 따옴</div>
+                                    <div class="act"><a href="#">자세히보기</a></div>
+                                </div>
+                                <div class="img"><img src="../../../../thegaon3/resources/img/visual_bg.png"></div>
+                            </div>
+                            <div class="swiper-slide box">
+                                <div class="con">
+                                    <div class="tit">우리 동네 <br><strong>창고형 배달 마켓 올따옴</strong></div>
+                                    <div class="txt">좋은 가격, 좋은 상품 <br>ALL 따옴</div>
+                                    <div class="act"><a href="#">자세히보기</a></div>
+                                </div>
+                                <div class="img"><img src="../../../../thegaon3/resources/img/visual_bg.png"></div>
+                            </div>
+                        </div>
+                        <button class="swiper-prev"></button>
+                        <button class="swiper-next"></button>
+                    </div>
+                    <script>
+                        //<![CDATA[
+                        var swiper = new Swiper('.visual .swiper-container', {
+                            loop: true,
+                            slidesPerView: 1,
+                            pagination: false,
+                            navigation: {
+                                nextEl: '.visual .swiper-next',
+                                prevEl: '.visual .swiper-prev',
+                            },
+                            spaceBetween: 50,
+                        });
+                        //]]>
+                    </script>
+                </div>
+            </div>
+            <div class="category">
+                <div class="wrap">
+                    <div class="list">
+                        <ul>
+                            <li class="active"><a href="#"><img src="../../../../thegaon3/resources/img/icon_category01.png"> 가공식품</a></li>
+                            <li><a href="#"><img src="../../../../thegaon3/resources/img/icon_category02.png"> 농수 출산물</a></li>
+                            <li><a href="#"><img src="../../../../thegaon3/resources/img/icon_category03.png"> 배달용품</a></li>
+                            <li><a href="#"><img src="../../../../thegaon3/resources/img/icon_category04.png"> 기획전</a></li>
+                            <li><a href="#"><img src="../../../../thegaon3/resources/img/icon_category05.png"> 건강/뷰티</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="daysale">
+                <div class="wrap">
+                    <div class="title">딱 24시간만 할인행사</div>
+                    <div class="time">
+                        <span id="clock"></span>
+                    </div>
+                    <script>
+                        // Set the date we're counting down to
+                        //var countDownDate = new Date("Jan 5, 2024 15:37:25").getTime();
+                        var countDownDate = new Date("Jan 25, 2023 00:00:00").getTime();
+
+                        // Update the count down every 1 second
+                        var x = setInterval(function() {
+
+                            // Get today's date and time
+                            var now = new Date().getTime();
+
+                            // Find the distance between now and the count down date
+                            var distance = countDownDate - now;
+
+                            // Time calculations for days, hours, minutes and seconds
+                            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                            var days_1 = ((days % 100) - (days % 10)) / 10;
+                            var days_2 = (days % 10);
+
+                            var hours_1 = ((hours % 100) - (hours % 10)) / 10;
+                            var hours_2 = (hours % 10);
+
+                            var minutes_1 = ((minutes % 100) - (minutes % 10)) / 10;
+                            var minutes_2 = (minutes % 10);
+
+                            var seconds_1 = ((seconds % 100) - (seconds % 10)) / 10;
+                            var seconds_2 = (seconds % 10);
+
+                            document.getElementById("clock").innerHTML =
+
+                                "<div class='desc'>" +
+                                "<p>" + hours_1 + "</p>" +
+                                "<p>" + hours_2 + "</p>" +
+                                "<div class='unit'>HRS</div></div>" +
+                                "<em> : </em>" +
+                                "<div class='desc'>" +
+                                "<p>" + minutes_1 + "</p>" +
+                                "<p>" + minutes_2 + "</p>" +
+                                "<div class='unit'>MINS</div></div>" +
+                                "<em> : </em> " +
+                                "<div class='desc'>" +
+                                "<p>" + seconds_1 + "</p>" +
+                                "<p>" + seconds_2 + "</p>" +
+                                "<div class='unit'>SECS</div></div>" ;
+
+                            if (distance < 0) {
+                                clearInterval(x);
+                                document.getElementById("clock").innerHTML = "EXPIRED";
+                            }
+                        }, 1000);
+                    </script>
+                    <div class="list slider">
+                        <ul class="swiper-wrapper">
+                            <li class="swiper-slide">
+                                <div class="inner">
+                                    <div class="img"><a href="#"><img src="../../../../thegaon3/resources/img/dummy_product1.png"></a></div>
+                                    <div class="con">
+                                        <p class="text">선물하기 딱 좋은 식용유 세트!</p>
+                                        <p class="name">해표 식용유 세트</p>
+                                        <div class="price">
+                                            <div class="per">50%</div>
+                                            <strong class="sales">19,800<em>원</em></strong>
+                                            <span class="origin">40,800원</span>
+                                        </div>
+                                    </div>
+                                    <button type="button" class="zzim"><i></i></button>
+                                </div>
+                            </li>
+                            <li class="swiper-slide">
+                                <div class="inner">
+                                    <div class="img"><a href="#"><img src="../../../../thegaon3/resources/img/dummy_product1.png"></a></div>
+                                    <div class="con">
+                                        <p class="text">선물하기 딱 좋은 식용유 세트!</p>
+                                        <p class="name">해표 식용유 세트</p>
+                                        <div class="price">
+                                            <div class="per">50%</div>
+                                            <strong class="sales">19,800<em>원</em></strong>
+                                            <span class="origin">40,800원</span>
+                                        </div>
+                                    </div>
+                                    <button type="button" class="zzim on"><i></i></button>
+                                </div>
+                            </li>
+                            <li class="swiper-slide">
+                                <div class="inner">
+                                    <div class="img"><a href="#"><img src="../../../../thegaon3/resources/img/dummy_product1.png"></a></div>
+                                    <div class="con">
+                                        <p class="text">선물하기 딱 좋은 식용유 세트!</p>
+                                        <p class="name">해표 식용유 세트</p>
+                                        <div class="price">
+                                            <div class="per">50%</div>
+                                            <strong class="sales">19,800<em>원</em></strong>
+                                            <span class="origin">40,800원</span>
+                                        </div>
+                                    </div>
+                                    <button type="button" class="zzim"><i></i></button>
+                                </div>
+                            </li>
+                            <li class="swiper-slide">
+                                <div class="inner">
+                                    <div class="img"><a href="#"><img src="../../../../thegaon3/resources/img/dummy_product1.png"></a></div>
+                                    <div class="con">
+                                        <p class="text">선물하기 딱 좋은 식용유 세트!</p>
+                                        <p class="name">해표 식용유 세트</p>
+                                        <div class="price">
+                                            <div class="per">50%</div>
+                                            <strong class="sales">19,800<em>원</em></strong>
+                                            <span class="origin">40,800원</span>
+                                        </div>
+                                    </div>
+                                    <button type="button" class="zzim"><i></i></button>
+                                </div>
+                            </li>
+                        </ul>
+                        <button class="swiper-prev"></button>
+                        <button class="swiper-next"></button>
+                        <script>
+                            //<![CDATA[
+                            var swiper = new Swiper('.daysale .slider', {
+                                loop: true,
+                                slidesPerView: 4,
+                                pagination: false,
+                                navigation: {
+                                    nextEl: '.daysale .swiper-next',
+                                    prevEl: '.daysale .swiper-prev',
+                                },
+                                spaceBetween: 28,
+                                breakpoints: {
+                                    1: {
+                                        slidesPerView: 2,  //브라우저가 768보다 클 때
+                                        spaceBetween: 12,
+                                    },
+                                    769: {
+                                        slidesPerView: 4,  //브라우저가 1024보다 클 때
+                                        spaceBetween: 28,
+                                    },
+                                },
+                            });
+                            //]]>
+                        </script>
+                    </div>
+                </div>
+            </div>
+            <div class="exhibition">
+                <div class="wrap">
+                    <div class="title">
+                        <div class="tit">기획전 상품</div>
+                        <div class="act"><a href="#">더보기 +</a></div>
+                    </div>
+                    <div class="list">
+                        <ul>
+                            <li>
+                                <div class="inner">
+                                    <div class="img"><a href="#"><img src="../../../../thegaon3/resources/img/dummy_product1.png"></a></div>
+                                    <div class="con">
+                                        <a href="#">
+                                            <div class="head">
+                                                <p class="cate">올따옴</p>
+                                                <p class="name">해표 식용유 세트</p>
+                                            </div>
+                                            <strong class="price">350,000<em>원</em> <div class="per">50%</div> </strong>
+                                            <span class="origin">28,800원</span>
+                                        </a>
+                                    </div>
+                                    <button type="button" class="zzim on"><i></i></button>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="inner">
+                                    <div class="img"><a href="#"><img src="../../../../thegaon3/resources/img/dummy_product2.png"></a></div>
+                                    <div class="con">
+                                        <a href="#">
+                                            <div class="head">
+                                                <p class="cate">올따옴</p>
+                                                <p class="name">해표 식용유 세트</p>
+                                            </div>
+                                            <strong class="price">350,000<em>원</em> <div class="per">50%</div> </strong>
+                                            <span class="origin">28,800원</span>
+                                        </a>
+                                    </div>
+                                    <button type="button" class="zzim"><i></i></button>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="inner">
+                                    <div class="img"><a href="#"><img src="../../../../thegaon3/resources/img/dummy_product3.png"></a></div>
+                                    <div class="con">
+                                        <a href="#">
+                                            <div class="head">
+                                                <p class="cate">올따옴</p>
+                                                <p class="name">해표 식용유 세트</p>
+                                            </div>
+                                            <strong class="price">350,000<em>원</em> <div class="per">50%</div> </strong>
+                                            <span class="origin">28,800원</span>
+                                        </a>
+                                    </div>
+                                    <button type="button" class="zzim"><i></i></button>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="inner">
+                                    <div class="img"><a href="#"><img src="../../../../thegaon3/resources/img/dummy_product4.png"></a></div>
+                                    <div class="con">
+                                        <a href="#">
+                                            <div class="head">
+                                                <p class="cate">올따옴</p>
+                                                <p class="name">해표 식용유 세트</p>
+                                            </div>
+                                            <strong class="price">350,000<em>원</em> <div class="per">50%</div> </strong>
+                                            <span class="origin">28,800원</span>
+                                        </a>
+                                    </div>
+                                    <button type="button" class="zzim"><i></i></button>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="giftset">
+                <div class="wrap">
+                    <div class="flex">
+                        <div class="img"><img src="../../../../thegaon3/resources/img/dummy_gift.png"></div>
+                        <div class="con">
+                            <div class="sub">미리 예약해서 저렴하게 구매하자!</div>
+                            <div class="tit">설날 이벤트 선물세트 OPEN</div>
+                            <div class="txt">설날을 특별하게 맞이하고 싶다면 설날 이벤트 선물세트에 주목해보세요 즐거운 설날과 함께 올따옴의 설날 이벤트를 오픈했습니다! 다양한 선물세트와 함께 즐거운 설날을 맞이해요! 설날을 특별하게 맞이하고 싶다면 설날이벤트 선물세트에 주목해보세요!</div>
+                        </div>
+                    </div>
+                    <div class="list">
+                        <ul>
+                            <li>
+                                <div class="inner">
+                                    <div class="img"><a href="#"><img src="../../../../thegaon3/resources/img/dummy_product1.png"></a></div>
+                                    <div class="con">
+                                        <a href="#">
+                                            <div class="name">해표 식용유 세트</div>
+                                            <div class="price">
+                                                <div class="per">50%</div>
+                                                <div class="sale">19,800<em>원</em></div>
+                                                <div class="origin">28,800원</div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="cart">
+                                        <a href="#">장바구니 담기</a>
+                                    </div>
+                                    <button type="button" class="zzim"><i></i></button>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="inner">
+                                    <div class="img"><a href="#"><img src="../../../../thegaon3/resources/img/dummy_product1.png"></a></div>
+                                    <div class="con">
+                                        <a href="#">
+                                            <div class="name">해표 식용유 세트</div>
+                                            <div class="price">
+                                                <div class="per">50%</div>
+                                                <div class="sale">19,800<em>원</em></div>
+                                                <div class="origin">28,800원</div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="cart">
+                                        <a href="#">장바구니 담기</a>
+                                    </div>
+                                    <button type="button" class="zzim"><i></i></button>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="recommand">
+                <div class="wrap">
+                    <div class="title">
+                        <div class="tit">추천상품</div>
+                        <div class="cate">
+                            <a href="javascript:;" class="on">가공식품</a>
+                            <a href="javascript:;">농수축산물</a>
+                            <a href="javascript:;">배달용품</a>
+                            <a href="javascript:;">가게용품</a>
+                        </div>
+                        <div class="act"><a href="#">더보기 +</a></div>
+                    </div>
+                    <div class="list slider">
+                        <ul class="swiper-wrapper">
+                            <li class="swiper-slide">
+                                <div class="inner">
+                                    <div class="img"><a href="#"><img src="../../../../thegaon3/resources/img/dummy_product1.png"></a></div>
+                                    <div class="con">
+                                        <p class="name">해표 식용유 세트</p>
+                                        <strong class="price">350,000<em>원</em></strong>
+                                    </div>
+                                    <button type="button" class="zzim on"><i></i></button>
+                                </div>
+                            </li>
+                            <li class="swiper-slide">
+                                <div class="inner">
+                                    <div class="img"><a href="#"><img src="../../../../thegaon3/resources/img/dummy_product1.png"></a></div>
+                                    <div class="con">
+                                        <p class="name">해표 식용유 세트</p>
+                                        <strong class="price">350,000<em>원</em></strong>
+                                    </div>
+                                    <button type="button" class="zzim"><i></i></button>
+                                </div>
+                            </li>
+                            <li class="swiper-slide">
+                                <div class="inner">
+                                    <div class="img"><a href="#"><img src="../../../../thegaon3/resources/img/dummy_product1.png"></a></div>
+                                    <div class="con">
+                                        <p class="name">해표 식용유 세트</p>
+                                        <strong class="price">350,000<em>원</em></strong>
+                                    </div>
+                                    <button type="button" class="zzim"><i></i></button>
+                                </div>
+                            </li>
+                            <li class="swiper-slide">
+                                <div class="inner">
+                                    <div class="img"><a href="#"><img src="../../../../thegaon3/resources/img/dummy_product1.png"></a></div>
+                                    <div class="con">
+                                        <p class="name">해표 식용유 세트</p>
+                                        <strong class="price">350,000<em>원</em></strong>
+                                    </div>
+                                    <button type="button" class="zzim"><i></i></button>
+                                </div>
+                            </li>
+                            <li class="swiper-slide">
+                                <div class="inner">
+                                    <div class="img"><a href="#"><img src="../../../../thegaon3/resources/img/dummy_product1.png"></a></div>
+                                    <div class="con">
+                                        <p class="name">해표 식용유 세트</p>
+                                        <strong class="price">350,000<em>원</em></strong>
+                                    </div>
+                                    <button type="button" class="zzim"><i></i></button>
+                                </div>
+                            </li>
+                            <li class="swiper-slide">
+                                <div class="inner">
+                                    <div class="img"><a href="#"><img src="../../../../thegaon3/resources/img/dummy_product1.png"></a></div>
+                                    <div class="con">
+                                        <p class="name">해표 식용유 세트</p>
+                                        <strong class="price">350,000<em>원</em></strong>
+                                    </div>
+                                    <button type="button" class="zzim"><i></i></button>
+                                </div>
+                            </li>
+                        </ul>
+                        <button class="swiper-prev"></button>
+                        <button class="swiper-next"></button>
+                        <script>
+                            //<![CDATA[
+                            var swiper = new Swiper('.recommand .slider', {
+                                loop: true,
+                                slidesPerView: 3,
+                                centeredSlides: true,
+                                pagination: false,
+                                navigation: {
+                                    nextEl: '.recommand .swiper-next',
+                                    prevEl: '.recommand .swiper-prev',
+                                },
+                                spaceBetween: 22,
+                                breakpoints: {
+                                    1: {
+                                        slidesPerView: 1,  //브라우저가 768보다 클 때
+                                        centeredSlides: false,
+                                        spaceBetween: 12,
+                                    },
+                                    769: {
+                                        slidesPerView: 3,
+                                    }
+                                },
+                            });
+                            //]]>
+                        </script>
+                    </div>
+                </div>
+            </div>
+            <div class="banner">
+                <a href="#">
+                    <div class="img"><img src="../../../../thegaon3/resources/img/dummy_banner.png"></div>
+                    <div class="con">
+                        <div class="head">국내산 100%</div>
+                        <div class="name">천연벌꿀 특가 상품</div>
+                        <div class="text">~ 80%</div>
+                    </div>
+                </a>
+            </div>
+            <div class="newitem">
+                <div class="wrap">
+                    <div class="title">
+                        <div class="tit">신상품</div>
+                        <div class="act"><a href="#">더보기 +</a></div>
+                    </div>
+                    <div class="list">
+                        <ul>
+                            <li>
+                                <div class="inner">
+                                    <div class="img"><a href="#"><img src="../../../../thegaon3/resources/img/dummy_product1.png"></a></div>
+                                    <div class="con">
+                                        <a href="#">
+                                            <div class="head">
+                                                <p class="cate">올따옴</p>
+                                                <p class="name">해표 식용유 세트</p>
+                                            </div>
+                                            <strong class="price">350,000<em>원</em> <div class="per">50%</div></strong>
+                                        </a>
+                                    </div>
+                                    <button type="button" class="zzim on"><i></i></button>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="inner">
+                                    <div class="img"><a href="#"><img src="../../../../thegaon3/resources/img/dummy_product1.png"></a></div>
+                                    <div class="con">
+                                        <a href="#">
+                                            <div class="head">
+                                                <p class="cate">올따옴</p>
+                                                <p class="name">해표 식용유 세트</p>
+                                            </div>
+                                            <strong class="price">350,000<em>원</em> <div class="per">50%</div></strong>
+                                        </a>
+                                    </div>
+                                    <button type="button" class="zzim"><i></i></button>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="inner">
+                                    <div class="img"><a href="#"><img src="../../../../thegaon3/resources/img/dummy_product1.png"></a></div>
+                                    <div class="con">
+                                        <a href="#">
+                                            <div class="head">
+                                                <p class="cate">올따옴</p>
+                                                <p class="name">해표 식용유 세트</p>
+                                            </div>
+                                            <strong class="price">350,000<em>원</em> <div class="per">50%</div></strong>
+                                        </a>
+                                    </div>
+                                    <button type="button" class="zzim"><i></i></button>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="inner">
+                                    <div class="img"><a href="#"><img src="../../../../thegaon3/resources/img/dummy_product1.png"></a></div>
+                                    <div class="con">
+                                        <a href="#">
+                                            <div class="head">
+                                                <p class="cate">올따옴</p>
+                                                <p class="name">해표 식용유 세트</p>
+                                            </div>
+                                            <strong class="price">350,000<em>원</em> <div class="per">50%</div></strong>
+                                        </a>
+                                    </div>
+                                    <button type="button" class="zzim"><i></i></button>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="inner">
+                                    <div class="img"><a href="#"><img src="../../../../thegaon3/resources/img/dummy_product1.png"></a></div>
+                                    <div class="con">
+                                        <a href="#">
+                                            <div class="head">
+                                                <p class="cate">올따옴</p>
+                                                <p class="name">해표 식용유 세트</p>
+                                            </div>
+                                            <strong class="price">350,000<em>원</em> <div class="per">50%</div></strong>
+                                        </a>
+                                    </div>
+                                    <button type="button" class="zzim"><i></i></button>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="inner">
+                                    <div class="img"><a href="#"><img src="../../../../thegaon3/resources/img/dummy_product1.png"></a></div>
+                                    <div class="con">
+                                        <a href="#">
+                                            <div class="head">
+                                                <p class="cate">올따옴</p>
+                                                <p class="name">해표 식용유 세트</p>
+                                            </div>
+                                            <strong class="price">350,000<em>원</em> <div class="per">50%</div></strong>
+                                        </a>
+                                    </div>
+                                    <button type="button" class="zzim"><i></i></button>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="inner">
+                                    <div class="img"><a href="#"><img src="../../../../thegaon3/resources/img/dummy_product1.png"></a></div>
+                                    <div class="con">
+                                        <a href="#">
+                                            <div class="head">
+                                                <p class="cate">올따옴</p>
+                                                <p class="name">해표 식용유 세트</p>
+                                            </div>
+                                            <strong class="price">350,000<em>원</em> <div class="per">50%</div></strong>
+                                        </a>
+                                    </div>
+                                    <button type="button" class="zzim"><i></i></button>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="inner">
+                                    <div class="img"><a href="#"><img src="../../../../thegaon3/resources/img/dummy_product1.png"></a></div>
+                                    <div class="con">
+                                        <a href="#">
+                                            <div class="head">
+                                                <p class="cate">올따옴</p>
+                                                <p class="name">해표 식용유 세트</p>
+                                            </div>
+                                            <strong class="price">350,000<em>원</em> <div class="per">50%</div></strong>
+                                        </a>
+                                    </div>
+                                    <button type="button" class="zzim"><i></i></button>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="brandpick tab-area">
+                <div class="wrap">
+                    <div class="title">
+                        <div class="tit">식품 Brand PICK</div>
+                        <div class="act"><a href="#">더보기 +</a></div>
+                    </div>
+                    <div class="tabs tab-btn">
+                        <ul>
+                            <li class="active">
+                                <a href="javascript:;"><img src="../../../../thegaon3/resources/img/icon_brand_nongsim.png"><p class="skip">농심</p></a>
+                            </li>
+                            <li>
+                                <a href="javascript:;"><img src="../../../../thegaon3/resources/img/icon_brand_samyang.png"><p class="skip">삼양</p></a>
+                            </li>
+                            <li>
+                                <a href="javascript:;"><img src="../../../../thegaon3/resources/img/icon_brand_ottugi.png"><p class="skip">오뚜기</p></a>
+                            </li>
+                            <li>
+                                <a href="javascript:;"><img src="../../../../thegaon3/resources/img/icon_brand_nongsim.png"><p class="skip">농심</p></a>
+                            </li>
+                            <li>
+                                <a href="javascript:;"><img src="../../../../thegaon3/resources/img/icon_brand_samyang.png"><p class="skip">삼양</p></a>
+                            </li>
+                            <li>
+                                <a href="javascript:;"><img src="../../../../thegaon3/resources/img/icon_brand_ottugi.png"><p class="skip">오뚜기</p></a>
+                            </li>
+                            <li>
+                                <a href="javascript:;"><img src="../../../../thegaon3/resources/img/icon_brand_nongsim.png"><p class="skip">농심</p></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="content">
+                        <div class="tab-box active">
+                            <div class="image"><img src="../../../../thegaon3/resources/img/icon_brand_nongsim_img.png"></div>
+                            <div class="cont">
+                                <div class="brand">농심<br>BRAND PICK!</div>
+                                <div class="list">
+                                    <ul>
+                                        <li>
+                                            <a href="#">
+                                                <div class="img"><img src="../../../../thegaon3/resources/img/dummy_product1.png"></div>
+                                                <div class="con">
+                                                    <div class="name">해표 식용유모음전 세트</div>
+                                                    <div class="price">19,800<em>원</em></div>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <div class="img"><img src="../../../../thegaon3/resources/img/dummy_product1.png"></div>
+                                                <div class="con">
+                                                    <div class="name">해표 식용유모음전 세트</div>
+                                                    <div class="price">19,800<em>원</em></div>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <div class="img"><img src="../../../../thegaon3/resources/img/dummy_product1.png"></div>
+                                                <div class="con">
+                                                    <div class="name">해표 식용유모음전 세트</div>
+                                                    <div class="price">19,800<em>원</em></div>
+                                                </div>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-box">
+                            <div class="image"><img src="../resources/img/icon_brand_samyang_img.png"></div>
+                            <div class="cont">
+                                <div class="brand">삼양<br>BRAND PICK!</div>
+                                <div class="list">
+                                    <ul>
+                                        <li>
+                                            <a href="#">
+                                                <div class="img"><img src="../../../../thegaon3/resources/img/dummy_product1.png"></div>
+                                                <div class="con">
+                                                    <div class="name">해표 식용유모음전 세트</div>
+                                                    <div class="price">19,800<em>원</em></div>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <div class="img"><img src="../../../../thegaon3/resources/img/dummy_product1.png"></div>
+                                                <div class="con">
+                                                    <div class="name">해표 식용유모음전 세트</div>
+                                                    <div class="price">19,800<em>원</em></div>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <div class="img"><img src="../../../../thegaon3/resources/img/dummy_product1.png"></div>
+                                                <div class="con">
+                                                    <div class="name">해표 식용유모음전 세트</div>
+                                                    <div class="price">19,800<em>원</em></div>
+                                                </div>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-box">3</div>
+                        <div class="tab-box">4</div>
+                        <div class="tab-box">5</div>
+                        <div class="tab-box">6</div>
+                        <div class="tab-box">7</div>
+                    </div>
+                </div>
+            </div>
+            <div class="review">
+                <div class="wrap">
+                    <div class="title">
+                        <div class="tit">BEST REVIEW</div>
+                    </div>
+                    <div class="list slider">
+                        <ul class="swiper-wrapper">
+                            <li class="swiper-slide">
+                                <a href="#">
+                                    <div class="img"><img src="../../../../thegaon3/resources/img/dummy_best1.png"></div>
+                                    <div class="con">
+                                        <p class="view"><img src="../../../../thegaon3/resources/img/icon_review45.png"></p>
+                                        <p class="name">신속한 배달, 고품질</p>
+                                        <p class="text">너무 신선하고, 만족스러운 가격에 구입했습니다. 최고의 아이템 입니다. 이번에 집들이 선물로 구매했는데 선물 받으신 분들이 엄청 맘에 들어하셨어요.</p>
+                                        <p class="info">
+                                            <span class="writer">김연아</span>
+                                            <span class="date">2022-11-09</span>
+                                        </p>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="swiper-slide">
+                                <a href="#">
+                                    <div class="img"><img src="../../../../thegaon3/resources/img/dummy_best1.png"></div>
+                                    <div class="con">
+                                        <p class="view"><img src="../../../../thegaon3/resources/img/icon_review45.png"></p>
+                                        <p class="name">신속한 배달, 고품질</p>
+                                        <p class="text">너무 신선하고, 만족스러운 가격에 구입했습니다. 최고의 아이템 입니다. 이번에 집들이 선물로 구매했는데 선물 받으신 분들이 엄청 맘에 들어하셨어요.</p>
+                                        <p class="info">
+                                            <span class="writer">김연아</span>
+                                            <span class="date">2022-11-09</span>
+                                        </p>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="swiper-slide">
+                                <a href="#">
+                                    <div class="img"><img src="../../../../thegaon3/resources/img/dummy_best1.png"></div>
+                                    <div class="con">
+                                        <p class="view"><img src="../../../../thegaon3/resources/img/icon_review45.png"></p>
+                                        <p class="name">신속한 배달, 고품질</p>
+                                        <p class="text">너무 신선하고, 만족스러운 가격에 구입했습니다. 최고의 아이템 입니다. 이번에 집들이 선물로 구매했는데 선물 받으신 분들이 엄청 맘에 들어하셨어요.</p>
+                                        <p class="info">
+                                            <span class="writer">김연아</span>
+                                            <span class="date">2022-11-09</span>
+                                        </p>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="swiper-slide">
+                                <a href="#">
+                                    <div class="img"><img src="../../../../thegaon3/resources/img/dummy_best1.png"></div>
+                                    <div class="con">
+                                        <p class="view"><img src="../../../../thegaon3/resources/img/icon_review45.png"></p>
+                                        <p class="name">신속한 배달, 고품질</p>
+                                        <p class="text">너무 신선하고, 만족스러운 가격에 구입했습니다. 최고의 아이템 입니다. 이번에 집들이 선물로 구매했는데 선물 받으신 분들이 엄청 맘에 들어하셨어요.</p>
+                                        <p class="info">
+                                            <span class="writer">김연아</span>
+                                            <span class="date">2022-11-09</span>
+                                        </p>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="swiper-slide">
+                                <a href="#">
+                                    <div class="img"><img src="../../../../thegaon3/resources/img/dummy_best1.png"></div>
+                                    <div class="con">
+                                        <p class="view"><img src="../../../../thegaon3/resources/img/icon_review45.png"></p>
+                                        <p class="name">신속한 배달, 고품질</p>
+                                        <p class="text">너무 신선하고, 만족스러운 가격에 구입했습니다. 최고의 아이템 입니다. 이번에 집들이 선물로 구매했는데 선물 받으신 분들이 엄청 맘에 들어하셨어요.</p>
+                                        <p class="info">
+                                            <span class="writer">김연아</span>
+                                            <span class="date">2022-11-09</span>
+                                        </p>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="swiper-slide">
+                                <a href="#">
+                                    <div class="img"><img src="../../../../thegaon3/resources/img/dummy_best1.png"></div>
+                                    <div class="con">
+                                        <p class="view"><img src="../../../../thegaon3/resources/img/icon_review45.png"></p>
+                                        <p class="name">신속한 배달, 고품질</p>
+                                        <p class="text">너무 신선하고, 만족스러운 가격에 구입했습니다. 최고의 아이템 입니다. 이번에 집들이 선물로 구매했는데 선물 받으신 분들이 엄청 맘에 들어하셨어요.</p>
+                                        <p class="info">
+                                            <span class="writer">김연아</span>
+                                            <span class="date">2022-11-09</span>
+                                        </p>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="swiper-slide">
+                                <a href="#">
+                                    <div class="img"><img src="../../../../thegaon3/resources/img/dummy_best1.png"></div>
+                                    <div class="con">
+                                        <p class="view"><img src="../../../../thegaon3/resources/img/icon_review45.png"></p>
+                                        <p class="name">신속한 배달, 고품질</p>
+                                        <p class="text">너무 신선하고, 만족스러운 가격에 구입했습니다. 최고의 아이템 입니다. 이번에 집들이 선물로 구매했는데 선물 받으신 분들이 엄청 맘에 들어하셨어요.</p>
+                                        <p class="info">
+                                            <span class="writer">김연아</span>
+                                            <span class="date">2022-11-09</span>
+                                        </p>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="swiper-control">
+                            <button class="swiper-prev"></button>
+                            <div class="swiper-pagination"></div>
+                            <button class="swiper-next"></button>
+                        </div>
+                        <script>
+                            //<![CDATA[
+                            var swiper = new Swiper('.review .slider', {
+                                loop: true,
+                                slidesPerView: 2,
+                                pagination: {
+                                    el: ".swiper-pagination",
+                                    type : 'bullets',
+                                    renderBullet: function (index, className) {
+                                        return '<span class="' + className + '">' + (index + 1) + "</span>";
+                                    },
+                                },
+                                navigation: {
+                                    nextEl: '.review .swiper-next',
+                                    prevEl: '.review .swiper-prev',
+                                },
+                                spaceBetween: 25,
+                                breakpoints: {
+                                    1: {
+                                        slidesPerView: 1,  //브라우저가 768보다 클 때
+                                        spaceBetween: 12,
+                                    },
+                                    769: {
+                                        slidesPerView: 2,
+                                    }
+                                },
+                            });
+                            //]]>
+                        </script>
+                    </div>
+                </div>
+            </div>
+            <div class="benefit">
+                <div class="wrap">
+                    <div class="box">
+                        <div class="img"><img src="../../../../thegaon3/resources/img/dummy_benefit.png"></div>
+                        <div class="act"><a href="#">지금 바로 혜택 받기</a></div>
+                    </div>
+                </div>
+            </div>
+            <div class="hotbrand">
+                <div class="wrap">
+                    <div class="title">
+                        <div class="tit">지금 가장 핫한 브랜드</div>
+                        <div class="act"><a href="#">더보기 +</a></div>
+                    </div>
+                    <div class="list">
+                        <div class="desc">
+                            <div class="head"><img src="../../../../thegaon3/resources/img/icon_brand_nongsim.png"></div>
+                            <div class="percent">~38%</div>
+                            <div class="cont">
+                                <ul>
+                                    <li>
+                                        <div class="inner">
+                                            <div class="img"><a href="#"><img src="../../../../thegaon3/resources/img/dummy_best1.png"></a></div>
+                                            <button type="button" class="zzim"><i></i></button>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="inner">
+                                            <div class="img"><a href="#"><img src="../../../../thegaon3/resources/img/dummy_best1.png"></a></div>
+                                            <button type="button" class="zzim"><i></i></button>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="desc">
+                            <div class="head"><img src="../../../../thegaon3/resources/img/icon_brand_samyang.png"></div>
+                            <div class="percent">~38%</div>
+                            <div class="cont">
+                                <ul>
+                                    <li>
+                                        <div class="inner">
+                                            <div class="img"><a href="#"><img src="../../../../thegaon3/resources/img/dummy_best1.png"></a></div>
+                                            <button type="button" class="zzim"><i></i></button>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="inner">
+                                            <div class="img"><a href="#"><img src="../../../../thegaon3/resources/img/dummy_best1.png"></a></div>
+                                            <button type="button" class="zzim"><i></i></button>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="desc">
+                            <div class="head"><img src="../../../../thegaon3/resources/img/icon_brand_ottugi.png"></div>
+                            <div class="percent">~38%</div>
+                            <div class="cont">
+                                <ul>
+                                    <li>
+                                        <div class="inner">
+                                            <div class="img"><a href="#"><img src="../../../../thegaon3/resources/img/dummy_best1.png"></a></div>
+                                            <button type="button" class="zzim"><i></i></button>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="inner">
+                                            <div class="img"><a href="#"><img src="../../../../thegaon3/resources/img/dummy_best1.png"></a></div>
+                                            <button type="button" class="zzim"><i></i></button>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="event">
+                <div class="wrap">
+                    <div class="title">
+                        <div class="tit">이벤트 프로모션</div>
+                    </div>
+                    <div class="list">
+                        <ul>
+                            <li>
+                                <a href="#">
+                                    <div class="img"><img src="../../../../thegaon3/resources/img/dummy_event.png"></div>
+                                    <div class="con">
+                                        <p class="cate">HOT ITEM</p>
+                                        <p class="name">1+1 EVENT</p>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <div class="img"><img src="../../../../thegaon3/resources/img/dummy_event.png"></div>
+                                    <div class="con">
+                                        <p class="cate">HOT ITEM</p>
+                                        <p class="name">1+1 EVENT</p>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <div class="img"><img src="../../../../thegaon3/resources/img/dummy_event.png"></div>
+                                    <div class="con">
+                                        <p class="cate">HOT ITEM</p>
+                                        <p class="name">1+1 EVENT</p>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="exhibition">
+                <div class="wrap">
+                    <div class="title">
+                        <div class="tit">MD 추천 기획전</div>
+                        <div class="act"><a href="#">더보기 +</a></div>
+                    </div>
+                    <div class="list">
+                        <ul>
+                            <li>
+                                <div class="inner">
+                                    <div class="img"><a href="#"><img src="../../../../thegaon3/resources/img/dummy_product1.png"></a></div>
+                                    <div class="con">
+                                        <a href="#">
+                                            <div class="head">
+                                                <p class="cate">올따옴</p>
+                                                <p class="name">해표 식용유 세트</p>
+                                            </div>
+                                            <strong class="price">350,000<em>원</em> <div class="per">50%</div></strong>
+                                        </a>
+                                    </div>
+                                    <button type="button" class="zzim on"><i></i></button>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="inner">
+                                    <div class="img"><a href="#"><img src="../../../../thegaon3/resources/img/dummy_product1.png"></a></div>
+                                    <div class="con">
+                                        <a href="#">
+                                            <div class="head">
+                                                <p class="cate">올따옴</p>
+                                                <p class="name">해표 식용유 세트</p>
+                                            </div>
+                                            <strong class="price">350,000<em>원</em> <div class="per">50%</div></strong>
+                                        </a>
+                                    </div>
+                                    <button type="button" class="zzim"><i></i></button>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="inner">
+                                    <div class="img"><a href="#"><img src="../../../../thegaon3/resources/img/dummy_product1.png"></a></div>
+                                    <div class="con">
+                                        <a href="#">
+                                            <div class="head">
+                                                <p class="cate">올따옴</p>
+                                                <p class="name">해표 식용유 세트</p>
+                                            </div>
+                                            <strong class="price">350,000<em>원</em> <div class="per">50%</div></strong>
+                                        </a>
+                                    </div>
+                                    <button type="button" class="zzim"><i></i></button>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="inner">
+                                    <div class="img"><a href="#"><img src="../../../../thegaon3/resources/img/dummy_product1.png"></a></div>
+                                    <div class="con">
+                                        <a href="#">
+                                            <div class="head">
+                                                <p class="cate">올따옴</p>
+                                                <p class="name">해표 식용유 세트</p>
+                                            </div>
+                                            <strong class="price">350,000<em>원</em> <div class="per">50%</div></strong>
+                                        </a>
+                                    </div>
+                                    <button type="button" class="zzim"><i></i></button>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="inner">
+                                    <div class="img"><a href="#"><img src="../../../../thegaon3/resources/img/dummy_product1.png"></a></div>
+                                    <div class="con">
+                                        <a href="#">
+                                            <div class="head">
+                                                <p class="cate">올따옴</p>
+                                                <p class="name">해표 식용유 세트</p>
+                                            </div>
+                                            <strong class="price">350,000<em>원</em> <div class="per">50%</div></strong>
+                                        </a>
+                                    </div>
+                                    <button type="button" class="zzim"><i></i></button>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="inner">
+                                    <div class="img"><a href="#"><img src="../../../../thegaon3/resources/img/dummy_product1.png"></a></div>
+                                    <div class="con">
+                                        <a href="#">
+                                            <div class="head">
+                                                <p class="cate">올따옴</p>
+                                                <p class="name">해표 식용유 세트</p>
+                                            </div>
+                                            <strong class="price">350,000<em>원</em> <div class="per">50%</div></strong>
+                                        </a>
+                                    </div>
+                                    <button type="button" class="zzim"><i></i></button>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="inner">
+                                    <div class="img"><a href="#"><img src="../../../../thegaon3/resources/img/dummy_product1.png"></a></div>
+                                    <div class="con">
+                                        <a href="#">
+                                            <div class="head">
+                                                <p class="cate">올따옴</p>
+                                                <p class="name">해표 식용유 세트</p>
+                                            </div>
+                                            <strong class="price">350,000<em>원</em> <div class="per">50%</div></strong>
+                                        </a>
+                                    </div>
+                                    <button type="button" class="zzim"><i></i></button>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="inner">
+                                    <div class="img"><a href="#"><img src="../../../../thegaon3/resources/img/dummy_product1.png"></a></div>
+                                    <div class="con">
+                                        <a href="#">
+                                            <div class="head">
+                                                <p class="cate">올따옴</p>
+                                                <p class="name">해표 식용유 세트</p>
+                                            </div>
+                                            <strong class="price">350,000<em>원</em> <div class="per">50%</div></strong>
+                                        </a>
+                                    </div>
+                                    <button type="button" class="zzim"><i></i></button>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timesale">
+                <div class="wrap">
+                    <div class="title">
+                        <div class="tit">올따옴 타임특가</div>
+                        <div class="txt">단 하루뿐인 세일</div>
+                        <div class="ctl">
+                            <button class="swiper-prev"></button>
+                            <button class="swiper-next"></button>
+                        </div>
+                    </div>
+                    <div class="list slider">
+                        <ul class="swiper-wrapper">
+                            <li class="swiper-slide">
+                                <a href="#">
+                                    <div class="img"><img src="../../../../thegaon3/resources/img/dummy_product1.png"></div>
+                                    <div class="con">
+                                        <p class="name">베베숲 <br>카밍 75 물티슈 캡형 70매</p>
+                                        <strong class="price"><em class="per">50%</em> 99,000원</strong>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="swiper-slide">
+                                <a href="#">
+                                    <div class="img"><img src="../../../../thegaon3/resources/img/dummy_product1.png"></div>
+                                    <div class="con">
+                                        <p class="name">코쿤펫 <br>구내염 캣잎향</p>
+                                        <strong class="price"><em class="per">50%</em> 99,000원</strong>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="swiper-slide">
+                                <a href="#">
+                                    <div class="img"><img src="../../../../thegaon3/resources/img/dummy_product1.png"></div>
+                                    <div class="con">
+                                        <p class="name">페레로 로쉐 <br>선물세트 38g</p>
+                                        <strong class="price"><em class="per">50%</em> 99,000원</strong>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="swiper-slide">
+                                <a href="#">
+                                    <div class="img"><img src="../../../../thegaon3/resources/img/dummy_product1.png"></div>
+                                    <div class="con">
+                                        <p class="name">베베숲 <br>카밍 75 물티슈 캡형 70매</p>
+                                        <strong class="price"><em class="per">50%</em> 99,000원</strong>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="swiper-slide">
+                                <a href="#">
+                                    <div class="img"><img src="../../../../thegaon3/resources/img/dummy_product1.png"></div>
+                                    <div class="con">
+                                        <p class="name">코쿤펫 <br>구내염 캣잎향</p>
+                                        <strong class="price"><em class="per">50%</em> 99,000원</strong>
+                                    </div>
+                                </a>
+                            </li>
+                            <li class="swiper-slide">
+                                <a href="#">
+                                    <div class="img"><img src="../../../../thegaon3/resources/img/dummy_product1.png"></div>
+                                    <div class="con">
+                                        <p class="name">페레로 로쉐 <br>선물세트 38g</p>
+                                        <strong class="price"><em class="per">50%</em> 99,000원</strong>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                        <script>
+                            //<![CDATA[
+                            var swiper = new Swiper('.timesale .slider', {
+                                loop: true,
+                                slidesPerView: 3,
+                                pagination: false,
+                                navigation: {
+                                    nextEl: '.timesale .swiper-next',
+                                    prevEl: '.timesale .swiper-prev',
+                                },
+                                spaceBetween: 60,
+                                breakpoints: {
+                                    1: {
+                                        slidesPerView: 1,  //브라우저가 768보다 클 때
+                                        spaceBetween: 12,
+                                    },
+                                    769: {
+                                        slidesPerView: 3,
+                                    }
+                                },
+                            });
+                            //]]>
+                        </script>
+                    </div>
+                </div>
+            </div>
+
+            <div class="instagram">
+                <div class="wrap">
+                    <div class="title">
+                        <div class="tit">올따옴 instagram</div>
+                        <div class="txt">@올따옴</div>
+                    </div>
+                    <div class="list">
+                        <ul>
+                            <li>
+                                <a href="#">
+                                    <div class="img"><img src="../resources/img/dummy_insta.png"></div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <div class="img"><img src="../resources/img/dummy_insta.png"></div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <div class="img"><img src="../resources/img/dummy_insta.png"></div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <div class="img"><img src="../resources/img/dummy_insta.png"></div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <div class="img"><img src="../resources/img/dummy_insta.png"></div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--main end -->
+    </div>
+</div>
+</html>
+
