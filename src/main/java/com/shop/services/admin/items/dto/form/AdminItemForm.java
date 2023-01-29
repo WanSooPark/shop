@@ -281,15 +281,17 @@ public class AdminItemForm {
 
     public List<ItemOptionForm> getOptions() {
         this.options = new ArrayList<>();
-        for (int i = 0; i < this.optionIds.length; i++) {
-            ItemOptionForm option = new ItemOptionForm();
-            option.setId(this.optionIds[i]);
-            option.setName(this.optionNames[i]);
-            option.setPrice(this.optionPrices[i]);
-            option.setStock(this.optionStocks[i]);
-            option.setStockNotificationQuantity(this.optionStockNotificationQuantities[i]);
-            option.setStatus(this.optionStatuses[i]);
-            this.options.add(option);
+        if (!ObjectUtils.isEmpty(this.optionIds)) {
+            for (int i = 0; i < this.optionIds.length; i++) {
+                ItemOptionForm option = new ItemOptionForm();
+                option.setId(this.optionIds[i]);
+                option.setName(this.optionNames[i]);
+                option.setPrice(this.optionPrices[i]);
+                option.setStock(this.optionStocks[i]);
+                option.setStockNotificationQuantity(this.optionStockNotificationQuantities[i]);
+                option.setStatus(this.optionStatuses[i]);
+                this.options.add(option);
+            }
         }
 
         return this.options;
