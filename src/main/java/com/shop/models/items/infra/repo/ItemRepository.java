@@ -9,4 +9,6 @@ public interface ItemRepository extends JpaRepository<Item, Long>, QDSLItemRepos
     List<Item> findByIdIn(List<Long> itemIds);
 
     List<Item> findByRecBadge(boolean recBadge);
+
+    List<Item> findByNewBadge(boolean newBadge);
 }

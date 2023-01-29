@@ -23,7 +23,7 @@ public class MainController {
 
     @GetMapping("/")
     public String main(@CurrentAccount Member member, ServiceItemSearchDto serviceItemSearch, @PageableDefault Pageable pageable, Model model) {
-        MainTopicResponse todaySaleTopic = mainService.findTodaySaleTopicItems(member); // 하루특가
+        MainTopicResponse todaySaleTopic = mainService.findTopicItemsByTopicCode("TODAY_SALE", member); // 하루특가
         model.addAttribute("todaySaleTopic", todaySaleTopic);
 
         MainTopicResponse showMainTopic = mainService.findShowMainTopicItems(member);
@@ -31,6 +31,9 @@ public class MainController {
 
         List<MainCategoryResponse> recItemsCategories = mainService.recItemsCategories(member);
         model.addAttribute("recItemsCategories", recItemsCategories);
+
+        MainTopicResponse newTopic = mainService.findTopicItemsByTopicCode("NEW", member); // 신상품
+        model.addAttribute("newTopic", newTopic);
 
         return "main";
     }

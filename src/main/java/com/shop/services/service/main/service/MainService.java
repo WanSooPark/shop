@@ -29,8 +29,8 @@ public class MainService {
     private final TopicService topicService;
     private final TopicItemService topicItemService;
 
-    public MainTopicResponse findTodaySaleTopicItems(Member member) {
-        Topic topic = topicService.findByCode("TODAY_SALE"); // 하드코딩
+    public MainTopicResponse findTopicItemsByTopicCode(String topicCode, Member member) {
+        Topic topic = topicService.findByCode(topicCode); // 하드코딩
 
         List<TopicItem> topicItems = topicItemService.findEffectiveByTopicCodeAndStatusOrderByOrd(topic, TopicItemStatus.ACTIVATE);
         topic.setTopicItems(topicItems);

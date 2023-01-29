@@ -46,4 +46,8 @@ public class ItemService {
     public List<Item> findByRecBadge(boolean recBadge) {
         return repository.findByRecBadge(recBadge);
     }
+
+    public List<Item> findByNewBadge(boolean newBadge) {
+        return repository.findByNewBadge(newBadge);
+    }
 }
