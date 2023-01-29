@@ -827,33 +827,19 @@
                     </div>
                     <div class="list">
                         <ul>
-                            <li>
-                                <a href="#">
-                                    <div class="img"><img src="/img/dummy_event.png"></div>
-                                    <div class="con">
-                                        <p class="cate">HOT ITEM</p>
-                                        <p class="name">1+1 EVENT</p>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <div class="img"><img src="/img/dummy_event.png"></div>
-                                    <div class="con">
-                                        <p class="cate">HOT ITEM</p>
-                                        <p class="name">1+1 EVENT</p>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <div class="img"><img src="/img/dummy_event.png"></div>
-                                    <div class="con">
-                                        <p class="cate">HOT ITEM</p>
-                                        <p class="name">1+1 EVENT</p>
-                                    </div>
-                                </a>
-                            </li>
+                            <th:block th:each="item: ${hotItemItemsCategory.getItems()}">
+                                <li>
+                                    <a th:href="@{'/item/' + ${item.getId()}}">
+                                        <div class="img">
+                                            <img src="/img/dummy_event.png">
+                                        </div>
+                                        <div class="con">
+                                            <p class="cate" th:text="${item.getCategoryName()}">HOT ITEM</p>
+                                            <p class="name" th:text="${item.getName()}">1+1 EVENT</p>
+                                        </div>
+                                    </a>
+                                </li>
+                            </th:block>
                         </ul>
                     </div>
                 </div>

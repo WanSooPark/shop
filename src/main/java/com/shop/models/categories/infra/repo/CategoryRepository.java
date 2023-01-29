@@ -15,4 +15,6 @@ public interface CategoryRepository extends JpaRepository<Category, Long>, QDSLC
     Category findByNameAndTopCategory(String name, Category topCategory);
 
     List<Category> findByTopCategoryId(Long topCategoryId);
+
+    Category findByName(String name);
 }

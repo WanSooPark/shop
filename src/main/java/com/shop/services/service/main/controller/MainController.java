@@ -35,6 +35,9 @@ public class MainController {
         MainTopicResponse newTopic = mainService.findTopicItemsByTopicCode("NEW", member); // 신상품
         model.addAttribute("newTopic", newTopic);
 
+        MainCategoryResponse hotItemItemsCategory = mainService.hotItemItemsCategory(member);
+        model.addAttribute("hotItemItemsCategory", hotItemItemsCategory);
+
         return "main";
     }
 

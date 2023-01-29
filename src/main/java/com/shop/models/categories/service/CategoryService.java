@@ -67,4 +67,8 @@ public class CategoryService {
     public Category findByNameAndTopCategory(String name, Category topCategory) {
         return repository.findByNameAndTopCategory(name, topCategory);
     }
+
+    public Category findByName(String name) {
+        return repository.findByName(name);
+    }
 }

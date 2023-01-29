@@ -43,6 +43,7 @@ public class AppStartRunner implements ApplicationRunner {
             Category category1 = getCategory("가공식품", null);
             Category category2 = getCategory("농수축산물", null);
             Category category3 = getCategory("배달용품", null);
+            Category category4 = getCategory("HOT ITEM", null);
             Category category1_1 = getCategory("가공식품-1", category1);
             Category category1_2 = getCategory("가공식품-2", category1);
             Category category1_1_1 = getCategory("가공식품-1-1", category1_1);

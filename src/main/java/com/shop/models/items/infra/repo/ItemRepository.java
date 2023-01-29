@@ -1,5 +1,6 @@
 package com.shop.models.items.infra.repo;
 
+import com.shop.models.categories.domain.Category;
 import com.shop.models.items.domain.Item;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -11,4 +12,6 @@ public interface ItemRepository extends JpaRepository<Item, Long>, QDSLItemRepos
     List<Item> findByRecBadge(boolean recBadge);
 
     List<Item> findByNewBadge(boolean newBadge);
+
+    List<Item> findByCategory(Category category);
 }

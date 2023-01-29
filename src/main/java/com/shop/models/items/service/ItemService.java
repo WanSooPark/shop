@@ -1,6 +1,7 @@
 package com.shop.models.items.service;
 
 import com.shop.commons.errors.exceptions.NoContentException;
+import com.shop.models.categories.domain.Category;
 import com.shop.models.items.domain.Item;
 import com.shop.models.items.infra.repo.ItemRepository;
 import lombok.RequiredArgsConstructor;
@@ -49,5 +50,9 @@ public class ItemService {
 
     public List<Item> findByNewBadge(boolean newBadge) {
         return repository.findByNewBadge(newBadge);
+    }
+
+    public List<Item> findByCategory(Category category) {
+        return repository.findByCategory(category);
     }
 }

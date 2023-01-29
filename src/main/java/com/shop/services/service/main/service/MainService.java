@@ -1,6 +1,7 @@
 package com.shop.services.service.main.service;
 
 import com.shop.models.categories.domain.Category;
+import com.shop.models.categories.service.CategoryService;
 import com.shop.models.items.domain.Item;
 import com.shop.models.items.service.ItemService;
 import com.shop.models.members.domain.Member;
@@ -26,6 +27,7 @@ import java.util.stream.Collectors;
 public class MainService {
 
     private final ItemService itemService;
+    private final CategoryService categoryService;
     private final TopicService topicService;
     private final TopicItemService topicItemService;
 
@@ -84,5 +86,14 @@ public class MainService {
         return categories.stream()
                 .map(MainCategoryResponse::of)
                 .collect(Collectors.toList());
+    }
+
+    public MainCategoryResponse hotItemItemsCategory(Member member) {
+//        Category category = categoryService.findById(4L);
+        Category category = categoryService.findByName("HOT ITEM");
+
+        List<Item> items = itemService.findByCategory(category);
+        category.setItems(items);
+        return MainCategoryResponse.of(category);
     }
 }
