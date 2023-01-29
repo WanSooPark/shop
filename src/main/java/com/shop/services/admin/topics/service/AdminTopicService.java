@@ -15,6 +15,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
+import java.util.List;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -41,7 +43,14 @@ public class AdminTopicService {
         if (ObjectUtils.isEmpty(topic)) {
             topic = form.toEntity();
         } else {
-            topic.update(form.getName(), form.getTopicStatus());
+            boolean showMain = form.isShowMain();
+            List<Topic> showMainTopics = topicService.findByShowMain(showMain);
+            if (!ObjectUtils.isEmpty(showMainTopics)) {
+                showMainTopics.forEach(showMainTopic -> {
+                    showMainTopic.setShowMain(false);
+                });
+            }
+            topic.update(form.getName(), form.getTopicStatus(), showMain);
         }
         topic = topicService.save(topic);
         return AdminTopicResponse.of(topic);

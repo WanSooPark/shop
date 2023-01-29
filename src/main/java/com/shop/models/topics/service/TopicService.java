@@ -41,4 +41,8 @@ public class TopicService {
     public Long count() {
         return repository.count();
     }
+
+    public List<Topic> findByShowMain(boolean showMain) {
+        return repository.findByShowMain(showMain);
+    }
 }

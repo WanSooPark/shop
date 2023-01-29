@@ -12,4 +12,6 @@ public interface TopicRepository extends JpaRepository<Topic, String>, QDSLTopic
     boolean existsByCodeAndStatus(String code, TopicStatus activate);
 
     List<Topic> findByStatus(TopicStatus status);
+
+    List<Topic> findByShowMain(boolean showMain);
 }

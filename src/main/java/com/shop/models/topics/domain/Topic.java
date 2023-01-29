@@ -24,12 +24,15 @@ public class Topic extends BaseEntity {
 
     private Long ord;
 
+    private boolean showMain;
+
     @Transient
     private List<TopicItem> topicItems;
 
-    public void update(String name, TopicStatus status) {
+    public void update(String name, TopicStatus status, boolean showMain) {
         this.name = name;
         this.status = status;
+        this.showMain = showMain;
     }
 
     public boolean isActivate() {

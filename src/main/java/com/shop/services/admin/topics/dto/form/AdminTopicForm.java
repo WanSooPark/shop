@@ -16,6 +16,7 @@ public class AdminTopicForm {
     private String code;
     private String name;
     private String status;
+    private boolean showMain;
 
     public static AdminTopicForm of(Topic topic) {
         return AdminTopicForm.builder()
@@ -23,6 +24,7 @@ public class AdminTopicForm {
                 .name(topic.getName())
                 .status(topic.getStatus()
                         .name())
+                .showMain(topic.isShowMain())
                 .build();
     }
 
@@ -42,6 +44,7 @@ public class AdminTopicForm {
         topic.setCode(this.code);
         topic.setName(this.name);
         topic.setStatus(getTopicStatus());
+        topic.setShowMain(this.showMain);
         return topic;
     }
 }
