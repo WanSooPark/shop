@@ -3,6 +3,7 @@ package com.shop.services.service.main.controller;
 import com.shop.commons.security.CurrentAccount;
 import com.shop.models.members.domain.Member;
 import com.shop.services.service.items.dto.search.ServiceItemSearchDto;
+import com.shop.services.service.main.dto.banner.MainBannerResponse;
 import com.shop.services.service.main.dto.cateogry.MainCategoryResponse;
 import com.shop.services.service.main.dto.topic.MainTopicResponse;
 import com.shop.services.service.main.service.MainService;
@@ -23,6 +24,9 @@ public class MainController {
 
     @GetMapping("/")
     public String main(@CurrentAccount Member member, ServiceItemSearchDto serviceItemSearch, @PageableDefault Pageable pageable, Model model) {
+        List<MainBannerResponse> banners = mainService.findBanners();
+        model.addAttribute("banners", banners);
+
         MainTopicResponse todaySaleTopic = mainService.findTopicItemsByTopicCode("TODAY_SALE", member); // 하루특가
         model.addAttribute("todaySaleTopic", todaySaleTopic);
 

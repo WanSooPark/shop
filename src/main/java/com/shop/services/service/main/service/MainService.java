@@ -1,5 +1,8 @@
 package com.shop.services.service.main.service;
 
+import com.shop.models.banners.domain.Banner;
+import com.shop.models.banners.domain.BannerStatus;
+import com.shop.models.banners.service.BannerService;
 import com.shop.models.categories.domain.Category;
 import com.shop.models.categories.service.CategoryService;
 import com.shop.models.items.domain.Item;
@@ -10,6 +13,7 @@ import com.shop.models.topics.domain.TopicItem;
 import com.shop.models.topics.domain.TopicItemStatus;
 import com.shop.models.topics.service.TopicItemService;
 import com.shop.models.topics.service.TopicService;
+import com.shop.services.service.main.dto.banner.MainBannerResponse;
 import com.shop.services.service.main.dto.cateogry.MainCategoryResponse;
 import com.shop.services.service.main.dto.topic.MainTopicResponse;
 import lombok.RequiredArgsConstructor;
@@ -30,6 +34,7 @@ public class MainService {
     private final CategoryService categoryService;
     private final TopicService topicService;
     private final TopicItemService topicItemService;
+    private final BannerService bannerService;
 
     public MainTopicResponse findTopicItemsByTopicCode(String topicCode, Member member) {
         Topic topic = topicService.findByCode(topicCode); // 하드코딩
@@ -95,5 +100,12 @@ public class MainService {
         List<Item> items = itemService.findByCategory(category);
         category.setItems(items);
         return MainCategoryResponse.of(category);
+    }
+
+    public List<MainBannerResponse> findBanners() {
+        List<Banner> banners = bannerService.findByStatus(BannerStatus.USE);
+        return banners.stream()
+                .map(MainBannerResponse::of)
+                .collect(Collectors.toList());
     }
 }

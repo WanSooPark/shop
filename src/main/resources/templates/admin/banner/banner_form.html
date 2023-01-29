@@ -15,41 +15,56 @@
     </div>
     <div id="contain">
         <div id="h1">
-            <strong>분류관리</strong>
-            <span>상품 관리 > 분류관리</span>
+            <strong>배너관리</strong>
+            <span>컨텐츠 관리 > 배너관리 FORM</span>
         </div>
 
         <div id="product" class="content product">
-            <form id="categoryForm" method="post" action="/admin/category" th:object="${category}">
+            <form id="bannerForm" method="post" action="/admin/banner" th:object="${banner}">
                 <input type="hidden" name="id" th:field="*{id}">
                 <div class="write">
                     <dl>
-                        <dt>상위 분류</dt>
+                        <dt>영역1</dt>
                         <dd>
-                            <select th:name="topCategoryId">
-                                <option value="">없음</option>
-                                <option th:each="topCategory: ${topCategories}" th:value="${topCategory?.getId()}"
-                                        th:selected="${category.getTopCategoryId()} == ${topCategory.getId()}"
-                                        th:text="${(topCategory.getDepth() == 2 ? 'ㄴ' : '') + topCategory?.getName()}">분류</option>
-                            </select>
+                            <input type="text" name="text1" th:field="*{text1}"/>
                         </dd>
                     </dl>
                     <dl>
-                        <dt>분류</dt>
+                        <dt>영역2</dt>
                         <dd>
-                            <input type="text" name="name" th:field="*{name}"/>
+                            <input type="text" name="text2" th:field="*{text2}"/>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt>영역3</dt>
+                        <dd>
+                            <input type="text" name="text3" th:field="*{text3}"/>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt>영역4</dt>
+                        <dd>
+                            <input type="text" name="text4" th:field="*{text4}"/>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt>배너 이미지</dt>
+                        <dd>
+                            <input type="text" name="imageUrl" th:field="*{imageUrl}"/>
                         </dd>
                     </dl>
                     <dl>
                         <dt>사용 여부</dt>
                         <dd>
                             <label class="radiobox">
-                                <input type="radio" name="status" value="EXPOSE" th:checked="${category.getStatus()} == EXPOSE" checked>
+                                <input type="radio" name="status" value="USE" th:checked="${banner.getStatus()} == USE"
+                                       checked>
                                 <i></i>
                                 <span>노출</span>
                             </label>
                             <label class="radiobox">
-                                <input type="radio" name="status" value="UNEXPOSED" th:checked="${category.getStatus()} == UNEXPOSED">
+                                <input type="radio" name="status" value="UNUSED"
+                                       th:checked="${banner.getStatus()} == UNUSED">
                                 <i></i>
                                 <span>비노출</span>
                             </label>
@@ -82,10 +97,10 @@
                 method = 'PUT';
                 action = /*[[@{/admin/item/1}]]*/;
             }
-            let categoryForm = $('#categoryForm');
-            // categoryForm.attr('method', method);
-            // categoryForm.attr('action', action);
-            categoryForm.submit();
+            let bannerForm = $('#bannerForm');
+            // bannerForm.attr('method', method);
+            // bannerForm.attr('action', action);
+            bannerForm.submit();
         }
 
         /* ]]> */

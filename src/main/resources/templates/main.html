@@ -14,42 +14,30 @@
         <!--main start -->
         <div id="main">
             <!-- 배너 -->
-            <div class="visual" style="display: none;">
+            <div class="visual">
                 <div class="wrap">
                     <div class="swiper-container">
                         <div class="swiper-wrapper">
-                            <div class="swiper-slide box">
-                                <div class="con">
-                                    <div class="tit">우리 동네1 <br><strong>창고형 배달 마켓 올따옴</strong></div>
-                                    <div class="txt">좋은 가격, 좋은 상품 <br>ALL 따옴</div>
-                                    <div class="act"><a href="#">자세히보기</a></div>
-                                </div>
-                                <div class="img">
-                                    <img src="/img/visual_bg.png">
-                                </div>
-                            </div>
-                            <div class="swiper-slide box">
-                                <div class="con">
-                                    <div class="tit">우리 동네2 <br><strong>창고형 배달 마켓 올따옴</strong></div>
-                                    <div class="txt">좋은 가격, 좋은 상품 <br>ALL 따옴</div>
-                                    <div class="act"><a href="#">자세히보기</a></div>
-                                </div>
-                                <div class="img">
-                                    <img src="/img/visual_bg.png">
-                                </div>
-                            </div>
-                            <div class="swiper-slide box">
-                                <div class="con">
-                                    <div class="tit">우리 동네3 <br><strong>창고형 배달 마켓 올따옴</strong></div>
-                                    <div class="txt">좋은 가격, 좋은 상품 <br>ALL 따옴</div>
-                                    <div class="act">
-                                        <a href="#">자세히보기</a>
+                            <th:block th:each="banner: ${banners}">
+                                <div class="swiper-slide box">
+                                    <div class="con">
+                                        <div class="tit">
+                                            <span th:text="${banner.getText1()}">우리 동네1</span><br>
+                                            <strong th:text="${banner.getText2()}">창고형 배달 마켓 올따옴</strong>
+                                        </div>
+                                        <div class="txt">
+                                            <span th:text="${banner.getText3()}">좋은 가격, 좋은 상품 </span><br>
+                                            <span th:text="${banner.getText4()}">ALL 따옴</span>
+                                        </div>
+                                        <div class="act">
+                                            <a href="#">자세히보기</a>
+                                        </div>
+                                    </div>
+                                    <div class="img">
+                                        <img th:src="@{${banner.getImageUrl()}}">
                                     </div>
                                 </div>
-                                <div class="img">
-                                    <img src="/img/visual_bg.png">
-                                </div>
-                            </div>
+                            </th:block>
                         </div>
                         <button class="swiper-prev"></button>
                         <button class="swiper-next"></button>
@@ -879,7 +867,8 @@
                                                     </strong>
                                                 </a>
                                             </div>
-                                            <button type="button" class="zzim" th:classappend="${item.isZzim()} ? on"><i></i></button>
+                                            <button type="button" class="zzim" th:classappend="${item.isZzim()} ? on">
+                                                <i></i></button>
                                         </div>
                                     </li>
                                 </th:block>
