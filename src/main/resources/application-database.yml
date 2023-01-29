@@ -4,7 +4,7 @@ spring:
       enabled: false
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://49.247.38.159:3306/shop?serverTimezone=UTC
+    url: jdbc:mysql://49.247.38.159:3306/shop?serverTimezone=UTC%2b9&characterEncoding=UTF-8
     username: root
     password: icandoit1!db
   jpa:

@@ -38,7 +38,7 @@ public class TopicService {
         return repository.findByStatus(status);
     }
 
-    public Long countAll() {
+    public Long count() {
         return repository.count();
     }
 }

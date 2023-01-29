@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -45,4 +46,11 @@ public class TopicItemService {
         return repository.findByTopicCodeAndStatusOrderByOrd(topicCode, status);
     }
 
+    /**
+     * 현재 유효한 기획상품 조회
+     */
+    public List<TopicItem> findEffectiveByTopicCodeAndStatusOrderByOrd(Topic topic, TopicItemStatus activate) {
+        LocalDateTime now = LocalDateTime.now();
+        return repository.findByTopicAndStartDateTimeBeforeAndEndDateTimeAfterAndStatusOrderByOrd(topic, now, now, activate);
+    }
 }

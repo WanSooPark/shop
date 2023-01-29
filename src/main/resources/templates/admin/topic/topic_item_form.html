@@ -51,15 +51,39 @@
                     <dl>
                         <dt>시작일시</dt>
                         <dd>
-                            <input type="datetime-local" id="startDateTime" name="startDateTime"
-                                   pattern="yyyy-MM-dd HH:mm:ss" th:field="*{startDateTime}"/>
+                            <input type="hidden" id="startDateTime" name="startDateTime" th:field="*{startDateTime}"/>
+                            <select id="startYear" style="height: 37px;" onchange="changeStartYear(event)">년
+                            </select>년
+                            <select id="startMonth" style="height: 37px;" onchange="changeStartMonth(event)">월
+                            </select>월
+                            <select id="startDay" style="height: 37px;" onchange="changeStartDay(event)">일
+                            </select>일
+                            <label> </label>
+                            <select id="startHour" style="width: min-content; height: 37px;" onchange="setEndDateTime(event)">시
+                            </select>시
+                            <select id="startMinute" style="height: 37px;" onchange="setEndDateTime(event)">분
+                            </select>분
+                            <select id="startSecond" style="height: 37px;" onchange="setEndDateTime(event)">초
+                            </select>초
                         </dd>
                     </dl>
                     <dl>
                         <dt>종료일시</dt>
                         <dd>
-                            <input type="datetime-local" id="endDateTime" name="endDateTime"
-                                   pattern="yyyy-MM-dd HH:mm:ss" th:field="*{endDateTime}"/>
+                            <input type="hidden" id="endDateTime" name="endDateTime" th:field="*{endDateTime}"/>
+                            <select id="endYear" style="width: 100px; height: 37px;" onchange="changeEndYear(event)">년
+                            </select>년
+                            <select id="endMonth" style="width: min-content;height: 37px;" onchange="changeEndMonth(event)">월
+                            </select>월
+                            <select id="endDay" style="width: min-content;height: 37px;" onchange="changeEndDay(event)">일
+                            </select>일
+                            <label> </label>
+                            <select id="endHour" style="width: min-content; height: 37px;" onchange="setEndDateTime(event)">시
+                            </select>시
+                            <select id="endMinute" style="height: 37px;" onchange="setEndDateTime(event)">분
+                            </select>분
+                            <select id="endSecond" style="height: 37px;" onchange="setEndDateTime(event)">초
+                            </select>초
                         </dd>
                     </dl>
                     <dl>
@@ -226,6 +250,178 @@
     itemData.map((data, key) => {
         setItems(item_table_body, key, data.id, data.name, data.regularPrice, data.salePrice, data.stock);
     });
+    /* ]]> */
+</script>
+<script type="application/javascript" th:inline="javascript">
+    /* <![CDATA[ */
+    const defaultStartDateTime = [[${topicItem.startDateTime}]];
+    const defaultEndDateTime = [[${topicItem.endDateTime}]];
+    console.log(defaultStartDateTime);
+    console.log(defaultEndDateTime);
+    let defaultStartYear = defaultStartDateTime.substring(0, 4);
+    let defaultStartMonth = defaultStartDateTime.substring(5, 7);
+    let defaultStartDay = defaultStartDateTime.substring(8, 10);
+    let defaultStartHour = defaultStartDateTime.substring(11, 13);
+    let defaultStartMinute = defaultStartDateTime.substring(14, 16);
+    let defaultStartSecond = defaultStartDateTime.substring(17, 19);
+    let defaultEndYear = defaultEndDateTime.substring(0, 4);
+    let defaultEndMonth = defaultEndDateTime.substring(5, 7);
+    let defaultEndDay = defaultEndDateTime.substring(8, 10);
+    let defaultEndHour = defaultEndDateTime.substring(11, 13);
+    let defaultEndMinute = defaultEndDateTime.substring(14, 16);
+    let defaultEndSecond = defaultEndDateTime.substring(17, 19);
+
+    let startDateTime = document.getElementById("startDateTime");
+    let endDateTime = document.getElementById("endDateTime");
+
+    let startYear = document.getElementById("startYear");
+    let startMonth = document.getElementById("startMonth");
+    let startDay = document.getElementById("startDay");
+    let startHour = document.getElementById("startHour");
+    let startMinute = document.getElementById("startMinute");
+    let startSecond = document.getElementById("startSecond");
+
+    let endYear = document.getElementById("endYear");
+    let endMonth = document.getElementById("endMonth");
+    let endDay = document.getElementById("endDay");
+    let endHour = document.getElementById("endHour");
+    let endMinute = document.getElementById("endMinute");
+    let endSecond = document.getElementById("endSecond");
+
+    setYearSelectOptions(startYear);
+    setYearSelectOptions(endYear);
+    setMonthSelectOptions(startMonth);
+    setMonthSelectOptions(endMonth);
+    setDaySelectOptions(startDay);
+    setDaySelectOptions(endDay);
+
+    setHourSelectOptions(startHour);
+    setHourSelectOptions(endHour);
+    setMinuteSelectOptions(startMinute);
+    setMinuteSelectOptions(endMinute);
+    setSecondSelectOptions(startSecond);
+    setSecondSelectOptions(endSecond);
+
+    setDateTime();
+
+    function changeStartYear(event) {
+        setDaySelectOptions(startDay);
+        setStartDateTime();
+    }
+    function changeEndYear(event) {
+        setDaySelectOptions(endDay);
+        setEndDateTime();
+    }
+    function changeStartMonth(event) {
+        setDaySelectOptions(startDay);
+        setStartDateTime();
+    }
+    function changeEndMonth(event) {
+        setDaySelectOptions(endDay);
+        setEndDateTime();
+    }
+    function changeStartDay(event) {
+        setStartDateTime();
+    }
+    function changeEndDay(event) {
+        setEndDateTime();
+    }
+    // dateTime 설정
+    function setStartDateTime() {
+        let date = startYear.value + '-' + startMonth.value + '-' + startDay.value;
+        let time = startHour.value + ':' + startMinute.value + ':' + startSecond.value;
+        startDateTime.value = date + ' ' + time;
+    }
+    function setEndDateTime() {
+        let date = endYear.value + '-' + endMonth.value + '-' + endDay.value;
+        let time = endHour.value + ':' + endMinute.value + ':' + endSecond.value;
+        endDateTime.value = date + ' ' + time;
+    }
+    // 년도 설정
+    function setYearSelectOptions(yearSelect, isEnd) {
+        let year = new Date().getFullYear();
+        if (isEnd) {
+            year = Number(defaultEndYear);
+        } else {
+            year = Number(defaultStartYear);
+        }
+        yearSelect.innerHTML = '';
+        for (let i = 0; i < 3; i++) {
+            yearSelect.innerHTML += `
+                                    <option value="${year + i}">${year + i}</option>
+                                    `;
+        }
+    }
+    // 월 설정
+    function setMonthSelectOptions(monthSelect) {
+        monthSelect.innerHTML = '';
+        for (let i = 1; i <= 12; i++) {
+            monthSelect.innerHTML += `
+                                <option value="${mapNumberNtoNN(i)}">${mapNumberNtoNN(i)}</option>
+                                `;
+        }
+    }
+    // 일 설정
+    function setDaySelectOptions(daySelect) {
+        daySelect.innerHTML = '';
+        let lastDate = new Date(startYear.value, startMonth.value, 0).getDate();
+        for (let i = 1; i <= lastDate; i++) {
+            daySelect.innerHTML += `
+                                <option value="${mapNumberNtoNN(i)}">${mapNumberNtoNN(i)}</option>
+                                `;
+        }
+    }
+    // 시간
+    function setHourSelectOptions(hourSelect) {
+        hourSelect.innerHTML = '';
+        for (let i = 0; i <= 23; i++) {
+            hourSelect.innerHTML += `
+                                <option value="${mapNumberNtoNN(i)}">${mapNumberNtoNN(i)}</option>
+                                `;
+        }
+    }
+    // 분
+    function setMinuteSelectOptions(minuteSelect) {
+        minuteSelect.innerHTML = '';
+        for (let i = 0; i < 60; i++) {
+            minuteSelect.innerHTML += `
+                                <option value="${mapNumberNtoNN(i)}">${mapNumberNtoNN(i)}</option>
+                                `;
+        }
+    }
+    // 초
+    function setSecondSelectOptions(secondSelect) {
+        secondSelect.innerHTML = '';
+        for (let i = 0; i < 60; i++) {
+            secondSelect.innerHTML += `
+                                <option value="${mapNumberNtoNN(i)}">${mapNumberNtoNN(i)}</option>
+                                `;
+        }
+    }
+    // 1 의 자리수 0 추가
+    function mapNumberNtoNN(number) {
+        let prefix = '';
+        if (number < 10) {
+            prefix = '0';
+        }
+        return prefix + number;
+    }
+    // 시작 값 설정
+    function setDateTime() {
+        startYear.value = defaultStartYear;
+        startMonth.value = defaultStartMonth;
+        startDay.value = defaultStartDay;
+        endHour.value = defaultStartHour;
+        endMinute.value = defaultStartMinute;
+        endSecond.value = defaultStartSecond;
+
+        endYear.value = defaultEndYear;
+        endMonth.value = defaultEndMonth;
+        endDay.value = defaultEndDay;
+        endHour.value = defaultEndHour;
+        endMinute.value = defaultEndMinute;
+        endSecond.value = defaultEndSecond;
+    }
     /* ]]> */
 </script>
 </body>

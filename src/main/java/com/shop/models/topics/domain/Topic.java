@@ -3,10 +3,8 @@ package com.shop.models.topics.domain;
 import com.shop.commons.entity.BaseEntity;
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Setter
@@ -25,6 +23,9 @@ public class Topic extends BaseEntity {
     private TopicStatus status;
 
     private Long ord;
+
+    @Transient
+    private List<TopicItem> topicItems;
 
     public void update(String name, TopicStatus status) {
         this.name = name;

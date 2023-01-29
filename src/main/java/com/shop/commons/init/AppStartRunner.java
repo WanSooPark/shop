@@ -51,9 +51,9 @@ public class AppStartRunner implements ApplicationRunner {
             Category category3_1 = getCategory("배달용품-1", category3);
             Category category3_1_1 = getCategory("배달용품-1-1", category3_1);
 
-            Long topicCount = topicService.countAll();
-            Topic topicNew = getTopic("NEW", "신상품", topicCount);
-            Topic topicDaySale = getTopic("DAY_SALE", "하루특가", topicCount);
+            Long topicCount = topicService.count();
+            Topic topicNew = getTopic("NEW", "신상품", ++topicCount);
+            Topic topicDaySale = getTopic("TODAY_SALE", "하루특가", ++topicCount);
         }
     }
 
@@ -63,7 +63,7 @@ public class AppStartRunner implements ApplicationRunner {
             topic = new Topic();
             topic.setCode(code);
             topic.setName(name);
-            topic.setOrd(++topicCount);
+            topic.setOrd(topicCount);
             topic.setStatus(TopicStatus.ACTIVATE);
             topic = topicService.save(topic);
         }

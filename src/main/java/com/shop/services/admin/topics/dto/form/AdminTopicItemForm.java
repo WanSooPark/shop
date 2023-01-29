@@ -85,7 +85,7 @@ public class AdminTopicItemForm {
                 .items(new ArrayList<>())
                 .startDateTime(LocalDateTime.now()
                         .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
-                .endDateTime(LocalDateTime.now()
+                .endDateTime(LocalDateTime.now().plusDays(1L)
                         .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
                 .build();
     }
@@ -152,7 +152,7 @@ public class AdminTopicItemForm {
 
         @Override
         public TopicItem build() {
-            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
             this.topicItem.setId(dto.getId());
             this.topicItem.setTitle(dto.getTitle());

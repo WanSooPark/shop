@@ -35,7 +35,7 @@ public class TopicItem {
     @ManyToOne
     private Topic topic;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "topic_item_x_item",
             joinColumns = @JoinColumn(name = "topic_item_id"),
