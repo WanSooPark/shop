@@ -55,6 +55,8 @@ public class AppStartRunner implements ApplicationRunner {
             Long topicCount = topicService.count();
             Topic topicNew = getTopic("NEW", "신상품", ++topicCount);
             Topic topicDaySale = getTopic("TODAY_SALE", "하루특가", ++topicCount);
+            Topic topicMDRec = getTopic("MD_REC", "MD 추천 기획전", ++topicCount);
+            Topic topicTimeSale = getTopic("TIME_SALE", "타임특가", ++topicCount);
         }
     }
 

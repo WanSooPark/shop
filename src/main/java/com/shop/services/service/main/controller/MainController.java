@@ -38,6 +38,12 @@ public class MainController {
         MainCategoryResponse hotItemItemsCategory = mainService.hotItemItemsCategory(member);
         model.addAttribute("hotItemItemsCategory", hotItemItemsCategory);
 
+        MainTopicResponse mdRecTopic = mainService.findTopicItemsByTopicCode("MD_REC", member); // MD 추천 기획전
+        model.addAttribute("mdRecTopic", mdRecTopic);
+
+        MainTopicResponse timeSaleTopic = mainService.findTopicItemsByTopicCode("TIME_SALE", member); // 타임특가
+        model.addAttribute("timeSaleTopic", timeSaleTopic);
+
         return "main";
     }
 
