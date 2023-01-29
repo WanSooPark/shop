@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface ItemRepository extends JpaRepository<Item, Long>, QDSLItemRepository {
     List<Item> findByIdIn(List<Long> itemIds);
+
+    List<Item> findByRecBadge(boolean recBadge);
 }

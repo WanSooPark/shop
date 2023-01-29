@@ -42,4 +42,8 @@ public class ItemService {
     public List<Item> findByIdIn(List<Long> itemIds) {
         return repository.findByIdIn(itemIds);
     }
+
+    public List<Item> findByRecBadge(boolean recBadge) {
+        return repository.findByRecBadge(recBadge);
+    }
 }

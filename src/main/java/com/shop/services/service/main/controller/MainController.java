@@ -3,6 +3,7 @@ package com.shop.services.service.main.controller;
 import com.shop.commons.security.CurrentAccount;
 import com.shop.models.members.domain.Member;
 import com.shop.services.service.items.dto.search.ServiceItemSearchDto;
+import com.shop.services.service.main.dto.cateogry.MainCategoryResponse;
 import com.shop.services.service.main.dto.topic.MainTopicResponse;
 import com.shop.services.service.main.service.MainService;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +12,8 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -25,6 +28,9 @@ public class MainController {
 
         MainTopicResponse showMainTopic = mainService.findShowMainTopicItems(member);
         model.addAttribute("showMainTopic", showMainTopic);
+
+        List<MainCategoryResponse> recItemsCategories = mainService.recItemsCategories(member);
+        model.addAttribute("recItemsCategories", recItemsCategories);
 
         return "main";
     }

@@ -13,6 +13,7 @@ import org.springframework.util.ObjectUtils;
 @AllArgsConstructor
 public class MainItemResponse {
     private Long id;
+    private Long categoryId;
     private String categoryName;
     private String name;
     private String basicDescription;
@@ -24,6 +25,7 @@ public class MainItemResponse {
     public static MainItemResponse of(Item item) {
         return MainItemResponse.builder()
                 .id(item.getId())
+                .categoryId(ObjectUtils.isEmpty(item.getCategory()) ? 0 : item.getCategory().getId())
                 .categoryName(ObjectUtils.isEmpty(item.getCategory()) ? "" : item.getCategory()
                         .getName())
                 .name(item.getName())

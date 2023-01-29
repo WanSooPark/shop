@@ -1,8 +1,11 @@
 package com.shop.models.categories.domain;
 
+import com.shop.models.items.domain.Item;
 import lombok.*;
+import org.springframework.util.ObjectUtils;
 
 import javax.persistence.*;
+import java.util.LinkedList;
 import java.util.List;
 
 @Entity
@@ -28,4 +31,13 @@ public class Category {
     @Enumerated(EnumType.STRING)
     private CategoryStatus status;
 
+    @Transient
+    private List<Item> items;
+
+    public List<Item> getItems() {
+        if (ObjectUtils.isEmpty(this.items)) {
+            this.items = new LinkedList<>();
+        }
+        return this.items;
+    }
 }

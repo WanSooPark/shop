@@ -184,7 +184,8 @@
                                                     </span>
                                                 </div>
                                             </div>
-                                            <button type="button" class="zzim" th:classappend="${item.isZzim()} ? on"><i></i></button>
+                                            <button type="button" class="zzim" th:classappend="${item.isZzim()} ? on">
+                                                <i></i></button>
                                         </div>
                                     </li>
                                 </th:block>
@@ -227,7 +228,8 @@
                         <div class="tit">기획전 상품
                             (<span th:text="${showMainTopic.getName()}"></span>)
                         </div>
-                        <div class="act"><a th:href="@{'/topic/' + ${showMainTopic.getCode()} + '/item'}">더보기 +</a></div>
+                        <div class="act"><a th:href="@{'/topic/' + ${showMainTopic.getCode()} + '/item'}">더보기 +</a>
+                        </div>
                     </div>
                     <div class="list">
                         <ul>
@@ -257,7 +259,8 @@
                                                     </span>
                                                 </a>
                                             </div>
-                                            <button type="button" class="zzim on" th:classappend="${item.isZzim()} ? on"><i></i></button>
+                                            <button type="button" class="zzim on"
+                                                    th:classappend="${item.isZzim()} ? on"><i></i></button>
                                         </div>
                                     </li>
                                 </th:block>
@@ -330,90 +333,49 @@
                 </div>
             </div>
             <!-- 추천상품 -->
-            <div class="recommand" style="display: none;">
+            <div class="recommand" th:if="${recItemsCategories != null}">
                 <div class="wrap">
                     <div class="title">
                         <div class="tit">추천상품</div>
                         <div class="cate">
-                            <a href="javascript:;" class="on">가공식품</a>
-                            <a href="javascript:;">농수축산물</a>
-                            <a href="javascript:;">배달용품</a>
-                            <a href="javascript:;">가게용품</a>
+                            <th:block th:each="category: ${recItemsCategories}">
+                                <button onclick="changeRecCategory(event)"
+                                        name="recCategoryName"
+                                        th:id="'rec_category_' + ${category.getId()}"
+                                        th:classappend="${recItemsCategories.get(0).equals(category)} ? on"
+                                        th:text="${category.getName()}" th:value="${category.getId()}">분류
+                                </button>
+                            </th:block>
                         </div>
-                        <div class="act"><a href="#">더보기 +</a></div>
+                        <div class="act">
+                            <!-- TODO 위 버튼에 선택된 값을 링크로 연결해야함 -->
+                            <a th:href="@{'/category/' + ${recItemsCategories.get(0).getId()} + '/item'}" id="recCategoryListButton">더보기 +</a>
+                        </div>
                     </div>
                     <div class="list slider">
                         <ul class="swiper-wrapper">
-                            <li class="swiper-slide">
-                                <div class="inner">
-                                    <div class="img">
-                                        <a href="#"><img src="/img/dummy_product1.png"></a>
-                                    </div>
-                                    <div class="con">
-                                        <p class="name">해표 식용유 세트</p>
-                                        <strong class="price">350,000<em>원</em></strong>
-                                    </div>
-                                    <button type="button" class="zzim on"><i></i></button>
-                                </div>
-                            </li>
-                            <li class="swiper-slide">
-                                <div class="inner">
-                                    <div class="img">
-                                        <a href="#"><img src="/img/dummy_product1.png"></a>
-                                    </div>
-                                    <div class="con">
-                                        <p class="name">해표 식용유 세트</p>
-                                        <strong class="price">350,000<em>원</em></strong>
-                                    </div>
-                                    <button type="button" class="zzim"><i></i></button>
-                                </div>
-                            </li>
-                            <li class="swiper-slide">
-                                <div class="inner">
-                                    <div class="img">
-                                        <a href="#"><img src="/img/dummy_product1.png"></a>
-                                    </div>
-                                    <div class="con">
-                                        <p class="name">해표 식용유 세트</p>
-                                        <strong class="price">350,000<em>원</em></strong>
-                                    </div>
-                                    <button type="button" class="zzim"><i></i></button>
-                                </div>
-                            </li>
-                            <li class="swiper-slide">
-                                <div class="inner">
-                                    <div class="img"><a href="#"><img src="/img/dummy_product1.png"></a></div>
-                                    <div class="con">
-                                        <p class="name">해표 식용유 세트</p>
-                                        <strong class="price">350,000<em>원</em></strong>
-                                    </div>
-                                    <button type="button" class="zzim"><i></i></button>
-                                </div>
-                            </li>
-                            <li class="swiper-slide">
-                                <div class="inner">
-                                    <div class="img">
-                                        <a href="#"><img src="/img/dummy_product1.png"></a>
-                                    </div>
-                                    <div class="con">
-                                        <p class="name">해표 식용유 세트</p>
-                                        <strong class="price">350,000<em>원</em></strong>
-                                    </div>
-                                    <button type="button" class="zzim"><i></i></button>
-                                </div>
-                            </li>
-                            <li class="swiper-slide">
-                                <div class="inner">
-                                    <div class="img">
-                                        <a href="#"><img src="/img/dummy_product1.png"></a>
-                                    </div>
-                                    <div class="con">
-                                        <p class="name">해표 식용유 세트</p>
-                                        <strong class="price">350,000<em>원</em></strong>
-                                    </div>
-                                    <button type="button" class="zzim"><i></i></button>
-                                </div>
-                            </li>
+                            <th:block th:each="category: ${recItemsCategories}">
+                                <th:block th:each="item: ${category.getItems()}">
+                                    <li class="swiper-slide" th:id="'item_li_' + ${item.getId()} + '_' + ${item.getCategoryId()}" name="recItemLiName">
+                                            <div class="inner">
+                                                <div class="img">
+                                                    <a th:href="@{'/category/' + ${item.getId()} + '/item'}">
+                                                        <img src="/img/dummy_product1.png">
+                                                    </a>
+                                                </div>
+                                                <div class="con">
+                                                    <p class="name" th:text="${item.getName()}">해표 식용유 세트</p>
+                                                    <strong class="price">
+                                                        <strong th:text="${#numbers.formatInteger(item.getSalePrice(), 0, 'COMMA')}">350,000</strong>
+                                                        <em>원</em>
+                                                    </strong>
+                                                </div>
+                                                <button type="button" class="zzim" th:classappend="${item.isZzim()} ? on">
+                                                    <i></i></button>
+                                            </div>
+                                        </li>
+                                </th:block>
+                            </th:block>
                         </ul>
                         <button class="swiper-prev"></button>
                         <button class="swiper-next"></button>
@@ -1298,6 +1260,32 @@
             </div>
         </div>
         <!--main end -->
+
+        <script>
+            function changeRecCategory(event) {
+                let recItemLiName = document.getElementsByName("recItemLiName");
+                recItemLiName.forEach(recItemLi => {
+                    const categoryId = String(recItemLi.id).substring(10, 11);
+                    if (categoryId === event.target.value) {
+                        recItemLi.style.display = '';
+                    } else {
+                        recItemLi.style.display = 'none';
+                    }
+                });
+                let recCategoryName = document.getElementsByName("recCategoryName");
+                recCategoryName.forEach(recCategory => {
+                    const categoryId = String(recCategory.id).substring(13, 14);
+                    if (categoryId === event.target.value) {
+                        recCategory.classList.add('on');
+                    } else {
+                        recCategory.classList.remove('on');
+                    }
+                });
+
+                let recCategoryListButton = document.getElementById('recCategoryListButton');
+                recCategoryListButton.href = '/category/' + event.target.value + '/item';
+            }
+        </script>
     </div>
 </div>
 </html>
