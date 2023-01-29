@@ -221,94 +221,47 @@
                 </div>
             </div>
             <!-- 기획전 상품 -->
-            <div class="exhibition">
+            <div class="exhibition" style="display: none;">
                 <div class="wrap">
                     <div class="title">
-                        <div class="tit">기획전 상품</div>
-                        <div class="act"><a href="#">더보기 +</a></div>
+                        <div class="tit">기획전 상품
+                            (<span th:text="${showMainTopic.getName()}"></span>)
+                        </div>
+                        <div class="act"><a th:href="@{'/topic/' + ${showMainTopic.getCode()} + '/item'}">더보기 +</a></div>
                     </div>
                     <div class="list">
                         <ul>
-                            <li>
-                                <div class="inner">
-                                    <div class="img">
-                                        <a href="#"><img src="/img/dummy_product1.png"></a>
-                                    </div>
-                                    <div class="con">
-                                        <a href="#">
-                                            <div class="head">
-                                                <p class="cate">올따옴</p>
-                                                <p class="name">해표 식용유 세트</p>
+                            <th:block th:each="topicItem: ${showMainTopic.getTopicItems()}">
+                                <th:block th:each="item: ${topicItem.getItems()}">
+                                    <li>
+                                        <div class="inner">
+                                            <div class="img">
+                                                <a th:href="@{'/item/' + ${item.getId()}}"><img
+                                                        src="/img/dummy_product1.png"></a>
                                             </div>
-                                            <strong class="price">350,000<em>원</em>
-                                                <div class="per">50%</div>
-                                            </strong>
-                                            <span class="origin">28,800원</span>
-                                        </a>
-                                    </div>
-                                    <button type="button" class="zzim on"><i></i></button>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="inner">
-                                    <div class="img">
-                                        <a href="#"><img src="/img/dummy_product2.png"></a>
-                                    </div>
-                                    <div class="con">
-                                        <a href="#">
-                                            <div class="head">
-                                                <p class="cate">올따옴</p>
-                                                <p class="name">해표 식용유 세트</p>
+                                            <div class="con">
+                                                <a href="#">
+                                                    <div class="head">
+                                                        <p class="cate" th:text="${item.getCategoryName()}">올따옴</p>
+                                                        <p class="name" th:text="${item.getName()}">해표 식용유 세트</p>
+                                                    </div>
+                                                    <strong class="price">
+                                                        <strong th:text="${#numbers.formatInteger(item.getSalePrice(), 0, 'COMMA')}">19,800</strong>
+                                                        <em>원</em>
+                                                        <div class="per">
+                                                            <span th:text="${item.getPercent()}">50</span>%
+                                                        </div>
+                                                    </strong>
+                                                    <span class="origin">
+                                                        <span th:text="${#numbers.formatInteger(item.getRegularPrice(), 0, 'COMMA')}">19,800</span>원
+                                                    </span>
+                                                </a>
                                             </div>
-                                            <strong class="price">350,000<em>원</em>
-                                                <div class="per">50%</div>
-                                            </strong>
-                                            <span class="origin">28,800원</span>
-                                        </a>
-                                    </div>
-                                    <button type="button" class="zzim"><i></i></button>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="inner">
-                                    <div class="img">
-                                        <a href="#"><img src="/img/dummy_product3.png"></a>
-                                    </div>
-                                    <div class="con">
-                                        <a href="#">
-                                            <div class="head">
-                                                <p class="cate">올따옴</p>
-                                                <p class="name">해표 식용유 세트</p>
-                                            </div>
-                                            <strong class="price">350,000<em>원</em>
-                                                <div class="per">50%</div>
-                                            </strong>
-                                            <span class="origin">28,800원</span>
-                                        </a>
-                                    </div>
-                                    <button type="button" class="zzim"><i></i></button>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="inner">
-                                    <div class="img">
-                                        <a href="#"><img src="/img/dummy_product4.png"></a>
-                                    </div>
-                                    <div class="con">
-                                        <a href="#">
-                                            <div class="head">
-                                                <p class="cate">올따옴</p>
-                                                <p class="name">해표 식용유 세트</p>
-                                            </div>
-                                            <strong class="price">350,000<em>원</em>
-                                                <div class="per">50%</div>
-                                            </strong>
-                                            <span class="origin">28,800원</span>
-                                        </a>
-                                    </div>
-                                    <button type="button" class="zzim"><i></i></button>
-                                </div>
-                            </li>
+                                            <button type="button" class="zzim on" th:classappend="${item.isZzim()} ? on"><i></i></button>
+                                        </div>
+                                    </li>
+                                </th:block>
+                            </th:block>
                         </ul>
                     </div>
                 </div>

@@ -23,6 +23,9 @@ public class MainController {
         MainTopicResponse todaySaleTopic = mainService.findTodaySaleTopicItems(member); // 하루특가
         model.addAttribute("todaySaleTopic", todaySaleTopic);
 
+        MainTopicResponse showMainTopic = mainService.findShowMainTopicItems(member);
+        model.addAttribute("showMainTopic", showMainTopic);
+
         return "main";
     }
 

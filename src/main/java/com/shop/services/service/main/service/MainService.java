@@ -11,6 +11,7 @@ import com.shop.services.service.main.dto.topic.MainTopicResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.ObjectUtils;
 
 import java.util.List;
 
@@ -33,4 +34,18 @@ public class MainService {
         return MainTopicResponse.of(topic);
     }
 
+    public MainTopicResponse findShowMainTopicItems(Member member) {
+        List<Topic> showMainTopics = topicService.findByShowMain(true);
+        if (ObjectUtils.isEmpty(showMainTopics)) {
+            return null;
+        }
+
+        Topic topic = showMainTopics.get(0);
+
+        List<TopicItem> topicItems = topicItemService.findEffectiveByTopicCodeAndStatusOrderByOrd(topic, TopicItemStatus.ACTIVATE);
+        topic.setTopicItems(topicItems);
+
+        // TODO 찜 추가
+        return MainTopicResponse.of(topic);
+    }
 }

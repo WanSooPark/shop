@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.util.ObjectUtils;
 
 @Data
 @Builder
@@ -12,6 +13,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class MainItemResponse {
     private Long id;
+    private String categoryName;
     private String name;
     private String basicDescription;
     private Long regularPrice; // 정상가
@@ -22,6 +24,8 @@ public class MainItemResponse {
     public static MainItemResponse of(Item item) {
         return MainItemResponse.builder()
                 .id(item.getId())
+                .categoryName(ObjectUtils.isEmpty(item.getCategory()) ? "" : item.getCategory()
+                        .getName())
                 .name(item.getName())
                 .basicDescription(item.getBasicDescription())
                 .regularPrice(item.getRegularPrice())
