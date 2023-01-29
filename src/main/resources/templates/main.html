@@ -860,12 +860,12 @@
                                     <li>
                                         <div class="inner">
                                             <div class="img">
-                                                <a th:href="@{'/item' + ${item.getId()}}">
+                                                <a th:href="@{'/item/' + ${item.getId()}}">
                                                     <img src="/img/dummy_product1.png">
                                                 </a>
                                             </div>
                                             <div class="con">
-                                                <a th:href="@{'/item' + ${item.getId()}}">
+                                                <a th:href="@{'/item/' + ${item.getId()}}">
                                                     <div class="head">
                                                         <p class="cate" th:text="${item.getCategoryName()}">올따옴</p>
                                                         <p class="name" th:text="${item.getName()}">해표 식용유 세트</p>
@@ -904,7 +904,7 @@
                             <th:block th:each="topicItem: ${timeSaleTopic.getTopicItems()}">
                                 <th:block th:each="item: ${topicItem.getItems()}">
                                     <li class="swiper-slide">
-                                        <a th:href="@{'/item' + ${item.getId()}}">
+                                        <a th:href="@{'/item/' + ${item.getId()}}">
                                             <div class="img">
                                                 <img src="/img/dummy_product1.png">
                                             </div>
