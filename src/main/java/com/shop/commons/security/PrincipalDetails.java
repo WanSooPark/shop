@@ -19,8 +19,8 @@ public class PrincipalDetails extends User {
         this.member = member;
     }
 
-    public static PrincipalDetails of(Member account) {
-        return new PrincipalDetails(account, Collections.singleton(new SimpleGrantedAuthority(account.getRole()
+    public static PrincipalDetails of(Member member) {
+        return new PrincipalDetails(member, Collections.singleton(new SimpleGrantedAuthority(member.getRole()
                 .name())));
     }
 

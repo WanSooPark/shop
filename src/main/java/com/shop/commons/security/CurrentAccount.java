@@ -8,10 +8,10 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Security Context Holder 에 등록된 인증정보중 Account(계정) 가 있으면 리턴
+ * Security Context Holder 에 등록된 인증정보중 Member(계정) 가 있으면 리턴
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.PARAMETER)
-@AuthenticationPrincipal(expression = "#this == 'anonymousUser' ? null : account")
+@AuthenticationPrincipal(expression = "#this == 'anonymousUser' ? null : member")
 public @interface CurrentAccount {
 }
