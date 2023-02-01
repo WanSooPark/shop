@@ -15,7 +15,6 @@ public class SignUpForm {
     private String name;
     private String email;
     private String password;
-    private String address;
     //    private String username; // email
     //    private String nickname;
     //    private String tel;
@@ -26,11 +25,10 @@ public class SignUpForm {
         member.setEmail(this.email);
         member.setUsername(this.email);
         member.setPassword(passwordEncoder.encode(this.password));
-        member.setAddress(this.address);
+//        member.setAddress(this.address);
 
         member.setNickname("");
         member.setAdministrativeNotes("");
-        member.setTel("");
         member.setStatus(MemberStatus.NORMAL);
         member.setRole(Role.USER);
         return member;

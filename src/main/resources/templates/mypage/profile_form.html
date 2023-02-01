@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layouts/layout2}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+
+<!-- 사용자 CSS 추가 -->
+<th:block layout:fragment="css">
+    <style>
+    </style>
+</th:block>
+
+<div layout:fragment="content">
+    <div id="container">
+        <div id="mypage">
+            <div id="myinfo">
+                <div class="wrap">
+                    <form name="profileForm" th:action="@{/profile}" th:method="post" th:object="${profile}">
+                        <div id="heading">회원 정보 수정</div>
+                        <div class="form">
+                            <div class="tit">기본 정보</div>
+                            <div class="con">
+                                <dl>
+                                    <dt>아이디 <em class="req">*</em></dt>
+                                    <dd>
+                                        <div class="inp">
+                                            <input type="text" th:field="*{username}" readonly>
+                                            <!--                                            (영문소문자/숫자, 4-16자)-->
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt>비밀번호 <em class="req">*</em></dt>
+                                    <dd>
+                                        <div class="inp">
+                                            <input type="password" name="password">
+                                            (영문 대소문자/숫자/특수문자 중 3가지 이상 조합, 8자-16자)
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt>비밀번호 확인 <em class="req">*</em></dt>
+                                    <dd>
+                                        <div class="inp">
+                                            <input type="password" name="passwordConfirm">
+                                            (영문 대소문자/숫자/특수문자 중 3가지 이상 조합, 8자-16자)
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt>이름 <em class="req">*</em></dt>
+                                    <dd>
+                                        <div class="inp">
+                                            <input type="text" th:field="*{name}">
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt>주소 <em class="req">*</em></dt>
+                                    <dd>
+                                        <div class="inp">
+                                            <input type="text" id="address_zip" th:field="*{postcode}" readonly>
+                                            <button type="button" class="btn btn_01" onclick="execDaumPostcode()">우편번호
+                                            </button>
+                                        </div>
+                                        <div class="inp">
+                                            <input type="text" id="address_doro" th:field="*{road}" readonly> 도로명 기본주소
+                                        </div>
+                                        <div class="inp">
+                                            <input type="text" id="address_detail" value="1층" th:field="*{detail}">
+                                            나머지주소(선택입력가능)
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt>일반전화</dt>
+                                    <dd>
+                                        <div class="inp">
+                                            <select name="regionNumber">
+                                                <option value="02" th:selected="${profile.getRegionNumber()} == '02'">
+                                                    02
+                                                </option>
+                                                <option value="031" th:selected="${profile.getRegionNumber()} == '031'">
+                                                    031
+                                                </option>
+                                                <option value="032" th:selected="${profile.getRegionNumber()} == '032'">
+                                                    032
+                                                </option>
+                                                <option value="033" th:selected="${profile.getRegionNumber()} == '033'">
+                                                    033
+                                                </option>
+                                                <option value="041" th:selected="${profile.getRegionNumber()} == '041'">
+                                                    041
+                                                </option>
+                                                <option value="042" th:selected="${profile.getRegionNumber()} == '042'">
+                                                    042
+                                                </option>
+                                                <option value="043" th:selected="${profile.getRegionNumber()} == '043'">
+                                                    043
+                                                </option>
+                                                <option value="044[c]"
+                                                        th:selected="${profile.getRegionNumber()} == '044[c]'">044[c]
+                                                </option>
+                                                <option value="051" th:selected="${profile.getRegionNumber()} == '051'">
+                                                    051
+                                                </option>
+                                                <option value="052(2)"
+                                                        th:selected="${profile.getRegionNumber()} == '052(2)'">052(2)
+                                                </option>
+                                                <option value="053" th:selected="${profile.getRegionNumber()} == '053'">
+                                                    053
+                                                </option>
+                                                <option value="054" th:selected="${profile.getRegionNumber()} == '054'">
+                                                    054
+                                                </option>
+                                                <option value="055" th:selected="${profile.getRegionNumber()} == '055'">
+                                                    055
+                                                </option>
+                                                <option value="061" th:selected="${profile.getRegionNumber()} == '061'">
+                                                    061
+                                                </option>
+                                                <option value="062" th:selected="${profile.getRegionNumber()} == '062'">
+                                                    062
+                                                </option>
+                                                <option value="063" th:selected="${profile.getRegionNumber()} == '063'">
+                                                    063
+                                                </option>
+                                                <option value="064(7)"
+                                                        th:selected="${profile.getRegionNumber()} == '064(7)'">064(7)
+                                                </option>
+                                            </select>
+                                            <em>-</em>
+                                            <input type="text" th:field="*{generalPhoneNumber1}">
+                                            <em>-</em>
+                                            <input type="text" th:field="*{generalPhoneNumber2}">
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt>휴대전화 <em class="req">*</em></dt>
+                                    <dd>
+                                        <div class="inp">
+                                            <input type="text" id="cell_phone_number1"
+                                                   th:value="${profile.getCellPhoneNumber() == null || profile.getCellPhoneNumber() == ''} ? '' : ${profile.getCellPhoneNumber().substring(0, 3)}"
+                                                   onchange="setCellPhoneNumber()">
+                                            <em>-</em>
+                                            <input type="text" id="cell_phone_number2"
+                                                   th:value="${profile.getCellPhoneNumber() == null || profile.getCellPhoneNumber() == ''} ? '' : ${profile.getCellPhoneNumber().substring(3, 7)}"
+                                                   onchange="setCellPhoneNumber()">
+                                            <em>-</em>
+                                            <input type="text" id="cell_phone_number3"
+                                                   th:value="${profile.getCellPhoneNumber() == null || profile.getCellPhoneNumber() == ''} ? '' : ${profile.getCellPhoneNumber().substring(7, 11)}"
+                                                   onchange="setCellPhoneNumber()">
+                                            <input type="hidden" id="cell_phone_number" th:field="*{cellPhoneNumber}"
+                                                   readonly>
+                                            <button type="button" class="btn btn_01">인증번호받기</button>
+                                            <script>
+                                                function setCellPhoneNumber() {
+                                                    let cellPhoneNumber = document.getElementById('cell_phone_number');
+                                                    let cellPhoneNumber1 = document.getElementById('cell_phone_number1');
+                                                    let cellPhoneNumber2 = document.getElementById('cell_phone_number2');
+                                                    let cellPhoneNumber3 = document.getElementById('cell_phone_number3');
+                                                    cellPhoneNumber.value = cellPhoneNumber1.value + cellPhoneNumber2.value + cellPhoneNumber3.value;
+                                                }
+                                            </script>
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt>SMS 수신여부 <em class="req">*</em></dt>
+                                    <dd>
+                                        <div class="inp">
+                                            <label class="checkbox">
+                                                <input type="radio" name="availableReceiveSms"
+                                                       th:checked="${profile.isAvailableReceiveSms()}"><i></i>
+                                                <p>수신함</p>
+                                            </label>
+                                            <label class="checkbox">
+                                                <input type="radio" name="availableReceiveSms"
+                                                       th:checked="${!profile.isAvailableReceiveSms()}"><i></i>
+                                                <p>수신안함</p>
+                                            </label>
+                                        </div>
+                                        <div class="txt">쇼핑몰에서 제공하는 유익한 이벤트 소식을 SMS로 받으실 수 있습니다.</div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt>이메일 <em class="req">*</em></dt>
+                                    <dd>
+                                        <div class="inp">
+                                            <input type="text" th:field="*{email}" readonly>
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt>이메일 수신여부 <em class="req">*</em></dt>
+                                    <dd>
+                                        <div class="inp">
+                                            <label class="checkbox">
+                                                <input type="radio" name="availableReceiveEmail"
+                                                       th:checked="${profile.isAvailableReceiveEmail()}"><i></i>
+                                                <p>수신함</p>
+                                            </label>
+                                            <label class="checkbox">
+                                                <input type="radio" name="availableReceiveEmail"
+                                                       th:checked="${!profile.isAvailableReceiveEmail()}"><i></i>
+                                                <p>수신안함</p>
+                                            </label>
+                                        </div>
+                                        <div class="txt">쇼핑몰에서 제공하는 유익한 이벤트 소식을 이메일로 받으실 수 있습니다.</div>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </div>
+                        <div class="form">
+                            <div class="tit">추가 정보</div>
+                            <div class="con">
+                                <dl>
+                                    <dt>성별</dt>
+                                    <dd>
+                                        <div class="inp">
+                                            <label class="checkbox">
+                                                <input type="radio" name="gender" value="MALE"
+                                                       th:checked="${profile.getGender()} == MALE"><i></i>
+                                                <p>남자</p></label>
+                                            <label class="checkbox">
+                                                <input type="radio" name="gender" value="WOMAN"
+                                                       th:checked="${profile.getGender()} == WOMAN"><i></i>
+                                                <p>여자</p>
+                                            </label>
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt>생년월일</dt>
+                                    <dd>
+                                        <div class="inp">
+                                            <input type="text" maxlength="4" id="birthday_year"
+                                                   th:value="${profile.getBirthday() == null || profile.getBirthday() == ''} ? '' : ${profile.getBirthday().substring(0, 4)}"
+                                                   onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"
+                                                   onchange="setBirthDay()">
+                                            <em>년</em>
+                                            <input type="text" maxlength="2" id="birthday_month"
+                                                   th:value="${profile.getBirthday() == null || profile.getBirthday() == ''} ? '' : ${profile.getBirthday().substring(4, 6)}"
+                                                   onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"
+                                                   onchange="changeBirthMonth()">
+                                            <em>월</em>
+                                            <input type="text" maxlength="2" id="birthday_day"
+                                                   th:value="${profile.getBirthday() == null || profile.getBirthday() == ''} ? '' : ${profile.getBirthday().substring(6, 8)}"
+                                                   onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"
+                                                   onchange="changeBirthDay()">
+                                            <em>일</em>
+                                            <label class="checkbox">
+                                                <input type="radio" name="birthCalendar" value="SOLAR_CALENDAR"
+                                                       th:checked="${profile.getBirthCalendar()} == SOLAR_CALENDAR"><i></i>
+                                                <p>양력</p>
+                                            </label>
+                                            <label class="checkbox">
+                                                <input type="radio" name="birthCalendar" value="LUNAR_CALENDAR"
+                                                       th:checked="${profile.getBirthCalendar()} == LUNAR_CALENDAR"><i></i>
+                                                <p>음력</p>
+                                            </label>
+                                            <input type="hidden" th:field="*{birthday}" id="birthday" maxlength="4"
+                                                   readonly>
+                                            <script>
+                                                let birthday = document.getElementById('birthday');
+                                                let birthday_year = document.getElementById('birthday_year');
+                                                let birthday_month = document.getElementById('birthday_month');
+                                                let birthday_day = document.getElementById('birthday_day');
+
+                                                function changeBirthMonth() {
+                                                    if (Number(birthday_month.value) < 1 || Number(birthday_month.value) > 12) {
+                                                        birthday_month.value = '';
+                                                        return false;
+                                                    }
+                                                    setBirthDay();
+                                                }
+
+                                                function changeBirthDay() {
+                                                    if (Number(birthday_day.value) < 1 || Number(birthday_day.value) > 31) {
+                                                        birthday_day.value = '';
+                                                        return false;
+                                                    }
+                                                    if (birthday_year.value !== '') {
+                                                        if (birthday_month.value !== '') {
+                                                            if (birthday_day.value !== '') {
+                                                                let curDate = new date(birthday_year.value, birthday_month.value);
+
+                                                            }
+                                                        }
+                                                    }
+
+                                                    setBirthDay();
+                                                }
+
+                                                function setBirthDay() {
+                                                    let monthPrefix = '';
+                                                    if (Number(birthday_month.value) < 10) {
+                                                        monthPrefix = '0';
+                                                    }
+                                                    let dayPrefix = '';
+                                                    if (Number(birthday_day.value) < 10) {
+                                                        dayPrefix = '0';
+                                                    }
+                                                    console.log(birthday_year.value + monthPrefix + Number(birthday_month.value) + dayPrefix + Number(birthday_day.value));
+                                                    birthday.value = birthday_year.value + monthPrefix + Number(birthday_month.value) + dayPrefix + Number(birthday_day.value);
+                                                }
+
+                                                function onlyNumber() {
+                                                    event.returnValue = this.value.replace(/[^0-9]/g, '');
+                                                }
+                                            </script>
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt>추천인 아이디</dt>
+                                    <dd>
+                                        <div class="inp">
+                                            <input type="text" th:field="*{recommenderUsername}">
+                                        </div>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </div>
+                        <div class="agree">
+                            <div class="tit">개인정보 처리 위탁 동의(선택)</div>
+                            <div class="con">
+                                textetxetxetxet
+                            </div>
+                            <div class="agr">
+                                <span>개인정보 처리 위탁에 동의합니까?</span>
+                                <label class="checkbox">
+                                    <input type="checkbox" name="agreePrivacyTerms"
+                                           th:checked="${profile.isAgreePrivacyTerms()}"><i></i>
+                                    <p>동의함</p>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="button">
+                            <a onclick="aTagSubmit()" class="btn btn_03">회원정보수정</a>
+                            <a href="#" class="btn btn_04">취소</a>
+                        </div>
+                    </form>
+                    <script>
+                        function aTagSubmit() {
+                            let profileForm = document.forms['profileForm'];
+                            if (profileForm.password.value !== profileForm.passwordConfirm.value) {
+                                return false;
+                            }
+
+                            profileForm.submit();
+                        }
+                    </script>
+                    <div class="unregister">
+                        <a href="#" class="btn btn_02">회원탈퇴</a>
+                    </div>
+                    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+                    <script>
+                        function execDaumPostcode() {
+                            new daum.Postcode({
+                                oncomplete: function (data) {
+                                    var addr = '';
+                                    var extraAddr = '';
+
+                                    if (data.userSelectedType === 'R') {
+                                        addr = data.roadAddress;
+                                    } else {
+                                        addr = data.jibunAddress;
+                                    }
+                                    if (data.userSelectedType === 'R') {
+                                        if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
+                                            extraAddr += data.bname;
+                                        }
+                                        if (data.buildingName !== '' && data.apartment === 'Y') {
+                                            extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                                        }
+                                        if (extraAddr !== '') {
+                                            extraAddr = ' (' + extraAddr + ')';
+                                        }
+                                        document.getElementById("address_detail").value = extraAddr;
+
+                                    } else {
+                                        document.getElementById("address_detail").value = '';
+                                    }
+                                    document.getElementById('address_zip').value = data.zonecode;
+                                    document.getElementById("address_doro").value = addr;
+                                    document.getElementById("address_doro").focus();
+                                }
+                            }).open();
+                        }
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

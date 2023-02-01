@@ -44,4 +44,8 @@ public class MemberService {
     public Member findByUsername(String username) {
         return repository.findByUsername(username);
     }
+
+    public Member update(Member member) {
+        return repository.save(member);
+    }
 }

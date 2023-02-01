@@ -46,9 +46,9 @@
                         <button type="submit"><img src="/img/icon_search.png"></button>
                     </form>
                 </div>
-                <span th:if="${not #strings.isEmpty(session.userId)}">
+                <span sec:authorize="isAuthenticated()">
                     <div class="link">
-                        <a href="#">
+                        <a th:href="@{/mypage}">
                             <div class="ico"><img src="/img/icon_mypage.png"></div>
                             <div class="txt">마이페이지</div>
                         </a>

@@ -81,11 +81,10 @@ public class AppStartRunner implements ApplicationRunner {
             member.setEmail(username);
             member.setUsername(username);
             member.setPassword(passwordEncoder.encode(password));
-            member.setAddress(address);
+//            member.setAddress(address);
 
             member.setNickname("nickname " + name);
             member.setAdministrativeNotes("");
-            member.setTel("");
             member.setStatus(MemberStatus.NORMAL);
             member.setRole(Role.USER);
             member = memberService.add(member);

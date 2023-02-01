@@ -19,6 +19,8 @@ public class Address {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private Long memberId;
+
     private String postcode; // 우편번호
 
     private String road; // 도로명
@@ -32,5 +34,9 @@ public class Address {
     private String memo; // 요청사항
 
     private String receiver; // 수취인
+
+    public String toString() {
+        return this.postcode + "_" + this.road + "_" + this.detail;
+    }
 
 }

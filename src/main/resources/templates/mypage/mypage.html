@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layouts/layout2}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+
+<!-- 사용자 CSS 추가 -->
+<th:block layout:fragment="css">
+    <style>
+    </style>
+</th:block>
+
+<div layout:fragment="content">
+	<div id="container">
+        <div id="mypage">
+            <div id="myshop">
+                <div class="wrap">
+                    <div id="heading">마이쇼핑</div>
+                    <div class="myinfo">
+                        <div class="desc info">
+                            <div class="my"><strong>김산하</strong>님은 <br><span>스타터</span>등급 입니다.</div>
+                            <div class="be">
+                                <span class="tit"><span>10,000원</span>추가 구매시 다음달 프렌즈 등급이 될 수 있습니다!</span>
+                                <a href="#">멤버쉽 등급별 혜택 보기</a>
+                            </div>
+                        </div>
+                        <div class="desc used">
+                            <dl>
+                                <dt>사용가능한 적립금 ></dt>
+                                <dd>0원</dd>
+                            </dl>
+                            <dl>
+                                <dt>사용가능한 쿠폰 ></dt>
+                                <dd>7</dd>
+                            </dl>
+                        </div>
+                    </div>
+                    <div class="myorder">
+                        <div class="tit">나의 주문 처리 현황 <em>(최근 <span>3개월</span>기준)</em></div>
+                        <div class="con">
+                            <dl class="dsc">
+                                <dt>입금전</dt>
+                                <dd>0</dd>
+                            </dl>
+                            <dl class="dsc">
+                                <dt>배송준비중</dt>
+                                <dd>0</dd>
+                            </dl>
+                            <dl class="dsc">
+                                <dt>배송중</dt>
+                                <dd>0</dd>
+                            </dl>
+                            <dl class="dsc">
+                                <dt>배송완료</dt>
+                                <dd>0</dd>
+                            </dl>
+                            <div class="dsc">
+                                <p>취소 : <strong>0</strong></p>
+                                <p>교환 : <strong>0</strong></p>
+                                <p>반품 : <strong>0</strong></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="myshop">
+                        <div class="myshopbtn mo-only"><button type="button" class="mysideOpen"></button></div>
+                        <script>
+                        $(".mysideOpen").on('click',function(){
+                            $(".mysideOpen").toggleClass("active");
+                            $(".myshop").toggleClass("active");
+                        })
+                        </script>
+                        <div class="myside">
+                            <dl>
+                                <dt>나의 쇼핑 정보</dt>
+                                <dd>
+                                    <ul>
+                                        <li><a href="#">주문/배송현황</a></li>
+                                        <li><a href="#">취소/교환/반품 내역</a></li>
+                                        <li><a href="#">배송 주소록 관리</a></li>
+                                    </ul>
+                                </dd>
+                            </dl>
+                            <dl>
+                                <dt>나의 쇼핑 활동</dt>
+                                <dd>
+                                    <ul>
+                                        <li><a th:href="@{/profile/form}">회원정보 수정</a></li>
+                                        <li><a href="#">게시물 관리</a></li>
+                                        <li><a href="#">문의내역</a></li>
+                                        <li><a href="#">관심상품</a></li>
+                                        <li><a href="#">로그아웃</a></li>
+                                    </ul>
+                                </dd>
+                            </dl>
+                        </div>
+                        <div class="mycurrent">
+                            <div class="tit">최근 주문 상품</div>
+                            <div class="tbl">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">주문일자<br>(주문번호)</th>
+                                            <th scope="col">이미지</th>
+                                            <th scope="col">상품정보</th>
+                                            <th scope="col">수량</th>
+                                            <th scope="col">상품구매금액</th>
+                                            <th scope="col">주문처리상태</th>
+                                            <th scope="col">취소/교환/반품</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="empty" colspan="7">주문내역이 없습니다.</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</html>
+
