@@ -17,7 +17,10 @@
                     <div id="heading">마이쇼핑</div>
                     <div class="myinfo">
                         <div class="desc info">
-                            <div class="my"><strong>김산하</strong>님은 <br><span>스타터</span>등급 입니다.</div>
+                            <div class="my">
+                                <strong th:text="${profile.getName()}">김산하</strong>님은 <br>
+                                <span>스타터</span>등급 입니다.
+                            </div>
                             <div class="be">
                                 <span class="tit"><span>10,000원</span>추가 구매시 다음달 프렌즈 등급이 될 수 있습니다!</span>
                                 <a href="#">멤버쉽 등급별 혜택 보기</a>
@@ -87,7 +90,7 @@
                                         <li><a href="#">게시물 관리</a></li>
                                         <li><a href="#">문의내역</a></li>
                                         <li><a href="#">관심상품</a></li>
-                                        <li><a href="#">로그아웃</a></li>
+                                        <li><a th:href="@{/logout}">로그아웃</a></li>
                                     </ul>
                                 </dd>
                             </dl>

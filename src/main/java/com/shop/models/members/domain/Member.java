@@ -6,6 +6,8 @@ import lombok.*;
 import org.springframework.util.ObjectUtils;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Getter
 @Setter
@@ -64,6 +66,8 @@ public class Member extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    private LocalDateTime leftDateTime;
+
     public void updateAddress(Address address) {
         if (!ObjectUtils.isEmpty(this.address)) {
             if (this.address.toString()
@@ -74,4 +78,13 @@ public class Member extends BaseEntity {
         this.address = address;
         this.address.setMemberId(this.id);
     }
+
+    public void withdraw() {
+        LocalDateTime now = LocalDateTime.now();
+        this.username = "WITHDRAW_" + now.format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss")) + "_" + this.username;
+        this.status = MemberStatus.WITHDRAW;
+        this.leftDateTime = now;
+        // TODO 지워야할 개인정보 추가 처리
+    }
+
 }

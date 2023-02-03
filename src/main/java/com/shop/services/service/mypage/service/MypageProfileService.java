@@ -42,4 +42,9 @@ public class MypageProfileService {
         member = memberService.update(member);
         return MypageProfileResponse.of(member);
     }
+
+    public void withdraw(Member member) {
+        memberService.withdraw(member);
+    }
+
 }

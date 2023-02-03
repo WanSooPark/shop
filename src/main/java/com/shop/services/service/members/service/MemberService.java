@@ -48,4 +48,9 @@ public class MemberService {
     public Member update(Member member) {
         return repository.save(member);
     }
+
+    public void withdraw(Member member) {
+        member.withdraw();
+        repository.save(member);
+    }
 }

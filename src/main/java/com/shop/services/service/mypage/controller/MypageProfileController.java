@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 @Controller
@@ -42,5 +43,14 @@ public class MypageProfileController {
         return "redirect:/mypage";
     }
 
+    /**
+     * 회원 탈퇴
+     */
+    @PostMapping("/withdraw")
+    public String withdraw(@CurrentAccount Member member, HttpSession httpSession) {
+        mypageProfileService.withdraw(member);
+        httpSession.removeAttribute("sessionId");
+        return "redirect:/logout";
+    }
+
 }
-// 신고하기 외에 사용자 차
