@@ -19,4 +19,8 @@ public class CartItemService {
     public List<CartItem> findByMember(Member member) {
         return repository.findByMember(member);
     }
+
+    public CartItem add(CartItem cartItem) {
+        return repository.save(cartItem);
+    }
 }

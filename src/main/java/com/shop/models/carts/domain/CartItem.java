@@ -6,7 +6,6 @@ import com.shop.models.members.domain.Member;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Getter
 @Setter
@@ -26,9 +25,9 @@ public class CartItem extends BaseEntity {
     @ManyToOne
     private Item item;
 
-    @OneToOne
-    public CartItemOption cartItemOption;
-
     private Long count;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private CartItemOption cartItemOption;
 
 }

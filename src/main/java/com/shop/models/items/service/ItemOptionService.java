@@ -1,5 +1,6 @@
 package com.shop.models.items.service;
 
+import com.shop.commons.errors.exceptions.NoContentException;
 import com.shop.models.items.domain.ItemOption;
 import com.shop.models.items.infra.repo.ItemOptionRepository;
 import lombok.RequiredArgsConstructor;
@@ -23,4 +24,7 @@ public class ItemOptionService {
         repository.deleteAll(options);
     }
 
+    public ItemOption findById(Long id) {
+        return repository.findById(id).orElseThrow(() -> new NoContentException("유효하지 않은 옵션 id 입니다."));
+    }
 }

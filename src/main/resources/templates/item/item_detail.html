@@ -115,9 +115,27 @@
                                 <button type="button">올따옴만의 <strong>정품안심배송과정</strong> <i></i></button>
                             </div>
                             <div class="button">
-                                <a href="javascript:;" class="btn btn_02">장바구니</a>
+                                <a href="javascript:;"  class="btn btn_02">장바구니</a>
                                 <a href="javascript:;" class="btn btn_01">바로구매</a>
                             </div>
+                            <script type="application/javascript" th:inline="javascript">
+                                /* <![CDATA[ */
+                                const itemId = [[${item.getId()}]];
+                                function addCartItem() {
+                                    fetch('/api/cart-items')
+                                        .then(data => data.text())
+                                        .then(text => {
+                                            const response = JSON.parse(text);
+                                            let itemPage = response.itemPage;
+                                            const items = itemPage.content;
+                                            setItems(items);
+                                        })
+                                        .catch(function (errors) {
+                                            console.log(errors)
+                                        });
+                                }
+                                /* ]]> */
+                            </script>
                         </div>
                     </div>
                 </div>
