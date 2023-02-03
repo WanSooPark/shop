@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layouts/layout2}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+
+<!-- 사용자 CSS 추가 -->
+<th:block layout:fragment="css">
+    <style>
+    </style>
+</th:block>
+
+<div layout:fragment="content">
+    <div id="container">
+        <div id="shop">
+            <div id="shop_cart">
+                <div class="wrap">
+                    <div id="heading">장바구니</div>
+                    <div class="step">
+                        <ul>
+                            <li class="active">장바구니</li>
+                            <li>주문서 작성</li>
+                            <li>주문완료</li>
+                        </ul>
+                    </div>
+                    <div class="cartbox">
+                        <div class="cart">
+                            <div class="tool">
+                                <button type="button">선택상품 삭제하기</button>
+                                <button type="button">전체상품 삭제하기</button>
+                            </div>
+                            <div class="list">
+                                <table>
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">
+                                            <label class="checkbox">
+                                                <input type="checkbox" name="allCartItemCheck"><i></i>
+                                                <p class="skip">전체 상품 선택</p>
+                                            </label>
+                                        </th>
+                                        <th scope="col">주문상품</th>
+                                        <th scope="col">가격</th>
+                                        <th scope="col">수량</th>
+                                        <th scope="col">총금액</th>
+                                        <th scope="col">적립금</th>
+                                        <th scope="col"><p class="skip">장바구니 제거</p></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <th:block th:each="cartItem: ${cart.getCartItems()}">
+                                        <tr>
+                                            <td>
+                                                <label class="checkbox">
+                                                    <input type="checkbox" name="cartItemCheck"><i></i>
+                                                    <p class="skip">전체 상품 선택</p>
+                                                </label>
+                                            </td>
+                                            <td>
+                                                <div class="prod">
+                                                    <div class="img">
+                                                        <img src="/img/detail.png"></div>
+                                                    <div class="con">
+                                                        <div class="tit">
+                                                            <span th:if="${cartItem.getBrand() == null || cartItem.getBrand() == ''}">
+                                                                [<span th:text="${cartItem.getBrand()}">르라보</span>]
+                                                            </span>
+                                                            <span th:text="${cartItem.getName()}">어나더 13EDP 50ml</span>
+                                                        </div>
+                                                        <div class="opt">
+                                                            <span th:if="${cartItem.getOption() != null}">
+                                                                <span th:text="${cartItem.getOption().getName()}">용량 : 50ml </span>
+                                                                <a href="javascript:;">옵션변경</a>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <span th:text="${#numbers.formatInteger(cartItem.getPrice(), 0, 'COMMA')}">349,000</span>원
+                                                <!-- <br><em>($135,58)</em>-->
+                                            </td>
+                                            <td>
+                                                <div class="amount">
+                                                    <div class="inp">
+                                                        <input type="text" th:value="${cartItem.getCount()}">
+                                                    </div>
+                                                    <div class="ctl">
+                                                        <button type="button">
+                                                            <img src="/img/icon_amount_up.png">
+                                                        </button>
+                                                        <button type="button">
+                                                            <img src="/img/icon_amount_down.png">
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div class="change" style="display: none;">
+                                                    <a href="#">수량변경</a>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <strong>
+                                                    <strong th:text="${#numbers.formatInteger(cartItem.getPrice()*cartItem.getCount(), 0, 'COMMA')}">349,000</strong>원
+                                                </strong>
+                                                <!-- <br><em>($135,58)</em>-->
+                                            </td>
+                                            <td>
+                                                <span th:text="${cartItem.getEarnedPoints()}">0</span>원
+                                            </td>
+                                            <td>
+                                                <a href="javascript:;">
+                                                    <img src="/img/icon_trash.png">
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </th:block>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="control">
+                                <button type="button">계속 쇼핑하기</button>
+                                <button type="button">전체상품 주문하기</button>
+                            </div>
+                            <div class="caution">
+                                <dl>
+                                    <dt>
+                                        <img src="/img/icon_caution.png"> 안내사항
+                                    </dt>
+                                    <dd>
+                                        <p>- 상품 쿠폰 및 적립금 사용은 [주문서 작성/결제]에서 적용됩니다.</p>
+                                        <p>- 장바구니는 회원에 한해 직접 삭제할 때까지 보관됩니다.</p>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </div>
+                        <div class="payment">
+                            <div class="box">
+                                <div class="info">
+                                    <dl>
+                                        <dt>주문금액</dt>
+                                        <dd>174,900원</dd>
+                                    </dl>
+                                    <dl>
+                                        <dt>배송비</dt>
+                                        <dd>+ 10,000원</dd>
+                                    </dl>
+                                </div>
+                                <div class="total">
+                                    <div class="text">총 상품금액</div>
+                                    <div class="price">
+                                        <div class="won">174,900<em>원</em></div>
+                                        <div class="dollar">($135,58)</div>
+                                    </div>
+                                </div>
+                                <div class="button">
+                                    <a href="javascript:;" class="btn btn_01">선택상품 주문하기</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</html>

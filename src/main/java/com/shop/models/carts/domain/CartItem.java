@@ -2,9 +2,11 @@ package com.shop.models.carts.domain;
 
 import com.shop.commons.entity.BaseEntity;
 import com.shop.models.items.domain.Item;
+import com.shop.models.members.domain.Member;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Setter
@@ -19,10 +21,13 @@ public class CartItem extends BaseEntity {
     private Long id;
 
     @ManyToOne
-    private Cart cart;
+    private Member member;
 
     @ManyToOne
     private Item item;
+
+    @OneToOne
+    public CartItemOption cartItemOption;
 
     private Long count;
 

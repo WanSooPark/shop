@@ -1,7 +1,6 @@
 package com.shop.models.carts.domain;
 
-import com.shop.commons.entity.BaseEntity;
-import com.shop.models.members.domain.Member;
+import com.shop.models.items.domain.ItemOption;
 import lombok.*;
 
 import javax.persistence.*;
@@ -12,13 +11,13 @@ import javax.persistence.*;
 @EqualsAndHashCode(of = "id", callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
-public class Cart extends BaseEntity {
+public class CartItemOption {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
-    private Member member;
+    @ManyToOne
+    private ItemOption itemOption;
 
 }
