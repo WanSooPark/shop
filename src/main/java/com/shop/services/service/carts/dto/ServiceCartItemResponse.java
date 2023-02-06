@@ -26,7 +26,7 @@ public class ServiceCartItemResponse {
         CartItemOption cartItemOption = cartItem.getCartItemOption();
 
         long itemPrice = item.getSalePrice();
-        long optionPrice = ObjectUtils.isEmpty(cartItemOption) ? 0 : cartItemOption.getItemOption()
+        long optionPrice = ObjectUtils.isEmpty(cartItemOption) || ObjectUtils.isEmpty(cartItemOption.getItemOption()) ? 0 : cartItemOption.getItemOption()
                 .getPrice();
         long price = itemPrice + optionPrice;
 

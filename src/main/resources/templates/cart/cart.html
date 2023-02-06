@@ -61,7 +61,7 @@
                                                         <img src="/img/detail.png"></div>
                                                     <div class="con">
                                                         <div class="tit">
-                                                            <span th:if="${cartItem.getBrand() == null || cartItem.getBrand() == ''}">
+                                                            <span th:if="${cartItem.getBrand() != null && cartItem.getBrand() != ''}">
                                                                 [<span th:text="${cartItem.getBrand()}">르라보</span>]
                                                             </span>
                                                             <span th:text="${cartItem.getName()}">어나더 13EDP 50ml</span>
@@ -69,6 +69,10 @@
                                                         <div class="opt">
                                                             <span th:if="${cartItem.getOption() != null}">
                                                                 <span th:text="${cartItem.getOption().getName()}">용량 : 50ml </span>
+                                                                <a href="javascript:;">옵션변경</a>
+                                                            </span>
+                                                            <span th:if="${cartItem.getOption() == null}">
+                                                                <span>- </span>
                                                                 <a href="javascript:;">옵션변경</a>
                                                             </span>
                                                         </div>

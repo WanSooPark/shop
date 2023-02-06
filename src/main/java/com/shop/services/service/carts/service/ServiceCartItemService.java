@@ -34,7 +34,9 @@ public class ServiceCartItemService {
         ItemOption itemOption = null;
         try {
             item = itemService.findById(itemId);
-            itemOption = itemOptionService.findById(itemOptionId);
+            if (!ObjectUtils.isEmpty(itemOptionId)) {
+                itemOption = itemOptionService.findById(itemOptionId);
+            }
         } catch (NoContentException noContentException) {
             return ServiceCartItemDto.Response.builder()
                     .message(noContentException.getMessage())
@@ -42,17 +44,17 @@ public class ServiceCartItemService {
                     .build();
         }
 
-        CartItemOption cartItemOption = null;
-        if (ObjectUtils.isEmpty(itemOption)) {
-            cartItemOption = new CartItemOption();
-            cartItemOption.setItemOption(itemOption);
-        }
-
         CartItem cartItem = new CartItem();
         cartItem.setItem(item);
         cartItem.setCount(count);
         cartItem.setMember(member);
-        cartItem.setCartItemOption(cartItemOption);
+
+        CartItemOption cartItemOption = null;
+        if (!ObjectUtils.isEmpty(itemOption)) {
+            cartItemOption = new CartItemOption();
+            cartItemOption.setItemOption(itemOption);
+            cartItem.setCartItemOption(cartItemOption);
+        }
 
         cartItem = cartItemService.add(cartItem);
 

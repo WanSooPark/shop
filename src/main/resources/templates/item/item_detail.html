@@ -76,17 +76,22 @@
                             </div>
                             <div class="head">
                                 <div class="name">
-                                    <span th:if="${item.getBrand() != null && item.getBrand() != ''}">[<span th:text="${item.getBrand()}">르라보</span>]</span>
+                                    <span th:if="${item.getBrand() != null && item.getBrand() != ''}">
+                                        [<span th:text="${item.getBrand()}">르라보</span>]
+                                    </span>
                                     <span th:text="${item.getName()}">상품명</span>
                                 </div>
-                                <div class="explain" th:text="${item.getBasicDescription()}">[LE LABO] ANTHOER 13DEDP</div>
+                                <div class="explain" th:text="${item.getBasicDescription()}">[LE LABO] ANTHOER 13DEDP
+                                </div>
                                 <div class="price">
                                     <div class="sale">
                                         <span class="percent"><span th:text="${item.getPercent()}">100</span>%</span>
-                                        <span class="origin"><span th:text="${#numbers.formatInteger(item.getRegularPrice(), 0, 'COMMA')}"></span>원</span>
+                                        <span class="origin"><span
+                                                th:text="${#numbers.formatInteger(item.getRegularPrice(), 0, 'COMMA')}"></span>원</span>
                                     </div>
                                     <div class="cost">
-                                        <span class="won"><span th:text="${#numbers.formatInteger(item.getSalePrice(), 0, 'COMMA')}"></span><em>원</em></span>
+                                        <span class="won"><span
+                                                th:text="${#numbers.formatInteger(item.getSalePrice(), 0, 'COMMA')}"></span><em>원</em></span>
                                         <span class="dollar" style="display: none;">($135,58)</span>
                                     </div>
                                 </div>
@@ -115,25 +120,39 @@
                                 <button type="button">올따옴만의 <strong>정품안심배송과정</strong> <i></i></button>
                             </div>
                             <div class="button">
-                                <a href="javascript:;"  class="btn btn_02">장바구니</a>
+                                <a href="javascript: addCartItem();" class="btn btn_02">장바구니</a>
                                 <a href="javascript:;" class="btn btn_01">바로구매</a>
                             </div>
                             <script type="application/javascript" th:inline="javascript">
                                 /* <![CDATA[ */
                                 const itemId = [[${item.getId()}]];
+
                                 function addCartItem() {
-                                    fetch('/api/cart-items')
-                                        .then(data => data.text())
+                                    const itemOptionId = null;
+                                    const count = 1;
+                                    const body = JSON.stringify({
+                                        itemId: itemId,
+                                        itemOptionId: itemOptionId,
+                                        count: count
+                                    });
+
+                                    fetch('/api/cart-items', {
+                                        headers: {
+                                            'Content-Type': 'application/json'
+                                        },
+                                        method: 'POST',
+                                        body: body
+                                    })
+                                        .then(response => response.text())
                                         .then(text => {
                                             const response = JSON.parse(text);
-                                            let itemPage = response.itemPage;
-                                            const items = itemPage.content;
-                                            setItems(items);
+                                            alert(response.message);
                                         })
                                         .catch(function (errors) {
                                             console.log(errors)
                                         });
                                 }
+
                                 /* ]]> */
                             </script>
                         </div>
