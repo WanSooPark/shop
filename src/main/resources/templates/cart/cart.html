@@ -29,12 +29,13 @@
                                 <button type="button">전체상품 삭제하기</button>
                             </div>
                             <div class="list">
-                                <table>
+                                <table id="cart_table">
                                     <thead>
                                     <tr>
                                         <th scope="col">
                                             <label class="checkbox">
-                                                <input type="checkbox" name="allCartItemCheck"><i></i>
+                                                <input type="checkbox" name="allCartItemCheck" id="all_check_box"
+                                                       onclick="allCheck()"><i></i>
                                                 <p class="skip">전체 상품 선택</p>
                                             </label>
                                         </th>
@@ -51,8 +52,8 @@
                                         <tr>
                                             <td>
                                                 <label class="checkbox">
-                                                    <input type="checkbox" name="cartItemCheck"><i></i>
-                                                    <p class="skip">전체 상품 선택</p>
+                                                    <input type="checkbox" name="cartItemCheck" th:id="check_ + ${cartItem.getId()}" onchange="onChangeCheckBox()"><i></i>
+                                                    <p class="skip">상품 선택</p>
                                                 </label>
                                             </td>
                                             <td>
@@ -86,7 +87,7 @@
                                             <td>
                                                 <div class="amount">
                                                     <div class="inp">
-                                                        <input type="text" th:value="${cartItem.getCount()}">
+                                                        <input type="text" th:value="${cartItem.getCount()}" th:id="item_count_ + ${cartItem.getId()}">
                                                     </div>
                                                     <div class="ctl">
                                                         <button type="button">
@@ -121,8 +122,8 @@
                                 </table>
                             </div>
                             <div class="control">
-                                <button type="button">계속 쇼핑하기</button>
-                                <button type="button">전체상품 주문하기</button>
+                                <button type="button" onclick="continueShopping()">계속 쇼핑하기</button>
+                                <button type="button" onclick="allItemOrder()">전체상품 주문하기</button>
                             </div>
                             <div class="caution">
                                 <dl>
@@ -141,29 +142,151 @@
                                 <div class="info">
                                     <dl>
                                         <dt>주문금액</dt>
-                                        <dd>174,900원</dd>
+                                        <dd>
+                                            <span id="total_price">174,900</span>원
+                                        </dd>
                                     </dl>
                                     <dl>
                                         <dt>배송비</dt>
-                                        <dd>+ 10,000원</dd>
+                                        <dd>
+                                            + <span id="delivery_cost">10,000</span>원
+                                        </dd>
                                     </dl>
                                 </div>
                                 <div class="total">
                                     <div class="text">총 상품금액</div>
                                     <div class="price">
-                                        <div class="won">174,900<em>원</em></div>
-                                        <div class="dollar">($135,58)</div>
+                                        <div class="won">
+                                            <span id="total_amount">174,900</span><em>원</em>
+                                        </div>
+                                        <div class="dollar" style="display: none;">($135,58)</div>
                                     </div>
                                 </div>
                                 <div class="button">
-                                    <a href="javascript:;" class="btn btn_01">선택상품 주문하기</a>
+                                    <a href="javascript: checkItemOrder();" class="btn btn_01">선택상품 주문하기</a>
                                 </div>
                             </div>
                         </div>
+                        <form id="order_form" method="post" action="/order/form"></form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <script type="application/javascript" th:inline="javascript">
+        /* <![CDATA[ */
+        const cart = [[${cart}]];
+        const cartItems = [[${cart.cartItems}]];
+
+        const deliveryCost = document.getElementById("delivery_cost");
+        const totalPrice = document.getElementById("total_price");
+        const totalAmount = document.getElementById("total_amount");
+        deliveryCost.innerHTML = 0;
+        totalPrice.innerHTML = 0;
+        totalAmount.innerHTML = 0;
+        const selectItem = [];
+
+        let allCheckBox = document.getElementById("all_check_box");
+        function onChangeCheckBox() {
+            let deliveryCostValue = 0;
+            let totalPriceValue = 0;
+
+            const checkBoxList = document.getElementsByName("cartItemCheck");
+            let checkedFilter = Object.entries(checkBoxList).filter(([index, elem], key) => {
+                    return elem.checked;
+                }
+            );
+            let checkedIndexList = checkedFilter.map(([index, elem], key) => {
+                return index;
+            });
+            let checkedIdList = checkedFilter.map(([index, elem], key) => {
+                return elem.id.replace("check_", "");
+            });
+
+            // 전체 체크박스 전이
+            if (checkedIndexList.length === cartItems.length) {
+                allCheckBox.checked = true;
+            } else {
+                allCheckBox.checked = false;
+            }
+
+            for (let i = 0; i < cartItems.length; i++) {
+                if (checkedIndexList.includes(String(i))) {
+                    totalPriceValue += cartItems[i].price;
+                }
+            }
+
+            deliveryCost.innerHTML = deliveryCostValue.toLocaleString('ko-KR');
+            totalPrice.innerHTML = totalPriceValue.toLocaleString('ko-KR');
+            totalAmount.innerHTML = (totalPriceValue + deliveryCostValue).toLocaleString('ko-KR');
+        }
+
+        // All 체크박스 동작
+        const allCheck = () => {
+            let allCheckBoxChecked = allCheckBox.checked;
+            const checkBoxList = document.getElementsByName("cartItemCheck");
+            Object.entries(checkBoxList).map(([index, elem], key) => {
+                checkBoxList[key].checked = allCheckBoxChecked;
+            });
+
+            onChangeCheckBox();
+        }
+
+        const orderForm = document.getElementById("order_form");
+        function allItemOrder() {
+            const checkBoxList = document.getElementsByName("cartItemCheck");
+            let checkedIdList = Object.entries(checkBoxList).map(([index, elem], key) => {
+                return elem.id.replace("check_", "");
+            });
+            checkedIdList.forEach(id => {
+                const idInput = document.createElement('input');
+                idInput.setAttribute("type", "hidden");
+                idInput.setAttribute("name", "itemIds");
+                idInput.setAttribute("value", id);
+
+                const itemCountField = document.getElementById("item_count_" + id);
+                const countInput = document.createElement('input');
+                countInput.setAttribute("type", "hidden");
+                countInput.setAttribute("name", "itemCounts");
+                countInput.setAttribute("value", itemCountField.value);
+
+                orderForm.appendChild(idInput);
+                orderForm.appendChild(countInput);
+            });
+
+            orderForm.submit();
+        }
+        function checkItemOrder() {
+            const checkBoxList = document.getElementsByName("cartItemCheck");
+            let checkedFilter = Object.entries(checkBoxList).filter(([index, elem], key) => {
+                    return elem.checked;
+                }
+            );
+            let checkedIdList = checkedFilter.map(([index, elem], key) => {
+                return elem.id.replace("check_", "");
+            });
+            checkedIdList.forEach(id => {
+                const idInput = document.createElement('input');
+                idInput.setAttribute("type", "hidden");
+                idInput.setAttribute("name", "itemIds");
+                idInput.setAttribute("value", id);
+
+                const itemCountField = document.getElementById("item_count_" + id);
+                const countInput = document.createElement('input');
+                countInput.setAttribute("type", "hidden");
+                countInput.setAttribute("name", "itemCounts");
+                countInput.setAttribute("value", itemCountField.value);
+
+                orderForm.appendChild(idInput);
+                orderForm.appendChild(countInput);
+            });
+
+            orderForm.submit();
+        }
+        function continueShopping() {
+
+        }
+        /* ]]> */
+    </script>
 </div>
 </html>
