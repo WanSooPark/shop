@@ -1,13 +1,10 @@
 package com.shop.models.orders.domain;
 
-import com.shop.commons.entity.BaseEntity;
 import com.shop.models.items.domain.Item;
 import lombok.*;
+import org.springframework.util.ObjectUtils;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Getter
 @Setter
@@ -15,7 +12,7 @@ import javax.persistence.ManyToOne;
 @EqualsAndHashCode(of = "id", callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
-public class OrderItem extends BaseEntity {
+public class OrderItem {
 
     @Id
     @GeneratedValue
@@ -27,8 +24,22 @@ public class OrderItem extends BaseEntity {
     @ManyToOne
     private Order order;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    private OrderItemOption option;
+
+    private String name;
+
     private Long price; // 주문가격
 
     private Long count; // 수량
+
+    public Long getAmount() {
+        long optionPrice = 0;
+        if (!ObjectUtils.isEmpty(this.option)) {
+            optionPrice = this.option.getPrice();
+        }
+
+        return (this.price + optionPrice) * this.count;
+    }
 
 }

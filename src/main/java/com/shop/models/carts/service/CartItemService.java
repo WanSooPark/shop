@@ -1,5 +1,6 @@
 package com.shop.models.carts.service;
 
+import com.shop.commons.errors.exceptions.NoContentException;
 import com.shop.models.carts.domain.CartItem;
 import com.shop.models.carts.infra.repo.CartItemRepository;
 import com.shop.models.members.domain.Member;
@@ -22,5 +23,9 @@ public class CartItemService {
 
     public CartItem add(CartItem cartItem) {
         return repository.save(cartItem);
+    }
+
+    public CartItem findById(Long id) {
+        return repository.findById(id).orElseThrow(() -> new NoContentException("유효하지 않은 장바구나 상품 id 입니다."));
     }
 }

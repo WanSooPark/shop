@@ -1,0 +1,20 @@
+danal:
+  cpid: 9010006839
+  service:
+    card-payment:
+      pwd: fc9bedaa7787e4db61beefce2c18b38e78f2f911f5fc37de5f751c8e460f8595
+    virtual-account:
+      pwd: 4c906b87e4af49990dc857338099ecc26d6672a17dbacfbcfc97c4d3f9525adb
+    wire-transfer:
+      pwd: 94d8883d96be796751b7c46ab0184065b544e366fc4910eb227839fd1c92f8ab
+
+#1. 결제서비스 신청정보
+#업체명   (주)더가온
+#CPID   9010006839
+#신청결제서비스   다날페이카드, 다날페이가상계좌, 다날페이계좌이체
+#기타
+#- 결제서비스별 연동 패스워드
+#서비스   PWD
+#다날페이 카드   fc9bedaa7787e4db61beefce2c18b38e78f2f911f5fc37de5f751c8e460f8595
+#다날페이 가상계좌   4c906b87e4af49990dc857338099ecc26d6672a17dbacfbcfc97c4d3f9525adb
+#다날페이 계좌이체   94d8883d96be796751b7c46ab0184065b544e366fc4910eb227839fd1c92f8ab

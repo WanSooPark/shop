@@ -241,13 +241,13 @@
             checkedIdList.forEach(id => {
                 const idInput = document.createElement('input');
                 idInput.setAttribute("type", "hidden");
-                idInput.setAttribute("name", "itemIds");
+                idInput.setAttribute("name", "cartItemIds");
                 idInput.setAttribute("value", id);
 
                 const itemCountField = document.getElementById("item_count_" + id);
                 const countInput = document.createElement('input');
                 countInput.setAttribute("type", "hidden");
-                countInput.setAttribute("name", "itemCounts");
+                countInput.setAttribute("name", "cartItemCounts");
                 countInput.setAttribute("value", itemCountField.value);
 
                 orderForm.appendChild(idInput);
@@ -268,13 +268,13 @@
             checkedIdList.forEach(id => {
                 const idInput = document.createElement('input');
                 idInput.setAttribute("type", "hidden");
-                idInput.setAttribute("name", "itemIds");
+                idInput.setAttribute("name", "cartItemIds");
                 idInput.setAttribute("value", id);
 
                 const itemCountField = document.getElementById("item_count_" + id);
                 const countInput = document.createElement('input');
                 countInput.setAttribute("type", "hidden");
-                countInput.setAttribute("name", "itemCounts");
+                countInput.setAttribute("name", "cartItemCounts");
                 countInput.setAttribute("value", itemCountField.value);
 
                 orderForm.appendChild(idInput);

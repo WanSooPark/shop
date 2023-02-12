@@ -24,6 +24,7 @@
                     </div>
                     <div class="orderbox">
                         <div class="order">
+                            <!-- 주문 상품 정보 -->
                             <div class="list">
                                 <table>
                                     <thead>
@@ -36,31 +37,59 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td>
-                                            <div class="prod">
-                                                <div class="img"><img
-                                                        src="/img/detail.png"></div>
-                                                <div class="con">
-                                                    <div class="tit">[르라보] 어나더 13EDP 50ml</div>
-                                                    <div class="opt"><span>용량 : 50ml</span></div>
+                                    <th:block th:each="item: ${items}">
+                                        <tr>
+                                            <td>
+                                                <div class="prod">
+                                                    <div class="img">
+                                                        <img src="/img/detail.png">
+                                                    </div>
+                                                    <div class="con">
+                                                        <div class="tit">
+                                                            <span th:if="${item.getBrand() != null && item.getBrand() != ''}">
+                                                                [<span th:text="${item.getBrand()}">르라보</span>]
+                                                            </span>
+                                                            <span th:text="${item.getName()}">어나더 13EDP 50ml</span>
+                                                        </div>
+                                                        <div class="opt">
+                                                            <span th:if="${item.getOption() != null}">
+                                                                <span th:text="${item.getOption().getName()}">용량 : 50ml </span>
+                                                                <a href="javascript:;">옵션변경</a>
+                                                            </span>
+                                                            <span th:if="${item.getOption() == null}">
+                                                                <span>- </span>
+                                                                <a href="javascript:;">옵션변경</a>
+                                                            </span>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                        <td>174,900원 <br> <em>($135,58)</em></td>
-                                        <td>1</td>
-                                        <td>
-                                            <strong>174,900원</strong><br><em>($135,58)</em>
-                                        </td>
-                                        <td>0원</td>
-                                    </tr>
+                                            </td>
+                                            <td>
+                                                <span th:text="${#numbers.formatInteger(item.getPrice(), 0, 'COMMA')}">349,000</span>원
+                                                <!-- <br><em>($135,58)</em>-->
+                                            </td>
+                                            <td>
+                                                <span th:text="${item.getCount()}"></span>
+                                            </td>
+                                            <td>
+                                                <strong>
+                                                    <strong th:text="${#numbers.formatInteger(item.getPrice()*item.getCount(), 0, 'COMMA')}">349,000</strong>원
+                                                </strong>
+                                            </td>
+                                            <td>
+                                                <span th:text="${item.getEarnedPoints()}">0</span>원
+                                            </td>
+                                        </tr>
+                                    </th:block>
                                     </tbody>
                                 </table>
                             </div>
+                            <!-- 장바구니 가기 -->
                             <div class="control">
                                 <button type="button">장바구니 가기</button>
                                 <p class="guide">※ 상품의 옵션 및 수량 변경은 상품상세 또는 장바구니에서 가능합니다.</p>
                             </div>
+                            <!-- 개인통관고유부호 -->
                             <div class="desc" style="display:none;">
                                 <div class="tit">개인통관고유부호</div>
                                 <div class="con">
@@ -89,6 +118,7 @@
                                     </dl>
                                 </div>
                             </div>
+                            <!-- 할인/혜택 사용 -->
                             <div class="desc">
                                 <div class="tit">할인/혜택 사용</div>
                                 <div class="txt">
@@ -126,6 +156,7 @@
                                     </dl>
                                 </div>
                             </div>
+                            <!-- 주문자 입력 -->
                             <div class="desc">
                                 <div class="tit">주문자 입력</div>
                                 <div class="con">
@@ -133,7 +164,7 @@
                                         <dt>주문하시는 분</dt>
                                         <dd>
                                             <div class="inp">
-                                                <input type="text" value="홍길동">
+                                                <input type="text" id="orderer_name" th:value="${orderer.getName()}">
                                             </div>
                                             <div class="guide">*반드시 고유통관부호와 일치하는 실명 및 여권이름을 기재하셔야 합니다.</div>
                                         </dd>
@@ -142,13 +173,84 @@
                                         <dt>전화번호</dt>
                                         <dd>
                                             <div class="inp">
-                                                <select>
-                                                    <option>02</option>
+                                                <select name="regionNumber" id="orderer_region_number">
+                                                    <option value="02"
+                                                            th:selected="${orderer.getRegionNumber()} == '02'">
+                                                        02
+                                                    </option>
+                                                    <option value="031"
+                                                            th:selected="${orderer.getRegionNumber()} == '031'">
+                                                        031
+                                                    </option>
+                                                    <option value="032"
+                                                            th:selected="${orderer.getRegionNumber()} == '032'">
+                                                        032
+                                                    </option>
+                                                    <option value="033"
+                                                            th:selected="${orderer.getRegionNumber()} == '033'">
+                                                        033
+                                                    </option>
+                                                    <option value="041"
+                                                            th:selected="${orderer.getRegionNumber()} == '041'">
+                                                        041
+                                                    </option>
+                                                    <option value="042"
+                                                            th:selected="${orderer.getRegionNumber()} == '042'">
+                                                        042
+                                                    </option>
+                                                    <option value="043"
+                                                            th:selected="${orderer.getRegionNumber()} == '043'">
+                                                        043
+                                                    </option>
+                                                    <option value="044[c]"
+                                                            th:selected="${orderer.getRegionNumber()} == '044[c]'">
+                                                        044[c]
+                                                    </option>
+                                                    <option value="051"
+                                                            th:selected="${orderer.getRegionNumber()} == '051'">
+                                                        051
+                                                    </option>
+                                                    <option value="052(2)"
+                                                            th:selected="${orderer.getRegionNumber()} == '052(2)'">
+                                                        052(2)
+                                                    </option>
+                                                    <option value="053"
+                                                            th:selected="${orderer.getRegionNumber()} == '053'">
+                                                        053
+                                                    </option>
+                                                    <option value="054"
+                                                            th:selected="${orderer.getRegionNumber()} == '054'">
+                                                        054
+                                                    </option>
+                                                    <option value="055"
+                                                            th:selected="${orderer.getRegionNumber()} == '055'">
+                                                        055
+                                                    </option>
+                                                    <option value="061"
+                                                            th:selected="${orderer.getRegionNumber()} == '061'">
+                                                        061
+                                                    </option>
+                                                    <option value="062"
+                                                            th:selected="${orderer.getRegionNumber()} == '062'">
+                                                        062
+                                                    </option>
+                                                    <option value="063"
+                                                            th:selected="${orderer.getRegionNumber()} == '063'">
+                                                        063
+                                                    </option>
+                                                    <option value="064(7)"
+                                                            th:selected="${orderer.getRegionNumber()} == '064(7)'">
+                                                        064(7)
+                                                    </option>
                                                 </select>
                                                 <em>-</em>
-                                                <input type="text">
+                                                <input type="text" id="orderer_general_phone_number_1"
+                                                       th:value="${orderer.getGeneralPhoneNumber1()}" maxlength="4"
+                                                       onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"/>
                                                 <em>-</em>
-                                                <input type="text">
+                                                <input type="text" id="orderer_general_phone_number_2"
+                                                       th:value="${orderer.getGeneralPhoneNumber2()}" maxlength="4"
+                                                       onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"/>
                                             </div>
                                         </dd>
                                     </dl>
@@ -156,17 +258,24 @@
                                         <dt>휴대전화번호</dt>
                                         <dd>
                                             <div class="inp">
-                                                <select>
-                                                    <option>010</option>
-                                                </select>
+                                                <input type="text" id="orderer_cell_phone_number_1" maxlength="4"
+                                                       onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"
+                                                       th:value="${orderer.getCellPhoneNumber() == null || orderer.getCellPhoneNumber() == ''} ? '' : ${orderer.getCellPhoneNumber().substring(0, 3)}">
                                                 <em>-</em>
-                                                <input type="text">
+                                                <input type="text" id="orderer_cell_phone_number_2" maxlength="4"
+                                                       onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"
+                                                       th:value="${orderer.getCellPhoneNumber() == null || orderer.getCellPhoneNumber() == ''} ? '' : ${orderer.getCellPhoneNumber().substring(3, 7)}">
                                                 <em>-</em>
-                                                <input type="text">
+                                                <input type="text" id="orderer_cell_phone_number_3" maxlength="4"
+                                                       onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"
+                                                       th:value="${orderer.getCellPhoneNumber() == null || orderer.getCellPhoneNumber() == ''} ? '' : ${orderer.getCellPhoneNumber().substring(7, 11)}">
                                             </div>
                                             <div class="chk">
-                                                <label class="checkbox"><input type="checkbox"><i></i>
-                                                    <p>주문관련 SMS를 수신합니다.</p></label>
+                                                <label class="checkbox">
+                                                    <input type="checkbox" id="orderer_available_receive_sms"
+                                                           th:checked="${orderer.isAvailableReceiveSms()}"><i></i>
+                                                    <p>주문관련 SMS를 수신합니다.</p>
+                                                </label>
                                             </div>
                                         </dd>
                                     </dl>
@@ -174,9 +283,12 @@
                                         <dt>이메일</dt>
                                         <dd>
                                             <div class="inp">
-                                                <input type="text">
+                                                <input type="text" id="orderer_email_1"
+                                                       th:value="${orderer.getEmail() == null || orderer.getEmail() == ''} ? '' : ${orderer.getEmail().split('@')[0]}">
                                                 <em>@</em>
-                                                <select style="width:178px">
+                                                <input type="text" id="orderer_email_2"
+                                                       th:value="${orderer.getEmail() == null || orderer.getEmail() == ''} ? '' : ${orderer.getEmail().split('@')[1]}">
+                                                <select style="width:178px; display: none;">
                                                     <option>직접입력</option>
                                                 </select>
                                             </div>
@@ -184,21 +296,30 @@
                                     </dl>
                                 </div>
                             </div>
+                            <!-- 배송지 입력 -->
                             <div class="desc">
-                                <div class="tit">할인/혜택 사용</div>
+                                <div class="tit">배송지 입력</div>
                                 <div class="txt">* 반드시 받으시는 분의 전화번호를 기재하셔야 통관 진행됩니다.</div>
                                 <div class="con">
                                     <dl>
                                         <dt>기존 배송지</dt>
                                         <dd>
                                             <div class="inp">
-                                                <select style="width:372px">
-                                                    <option>새로운 주소 입력</option>
-                                                </select>
+                                                <label class="radiobox">
+                                                    <input type="radio" name="available_original_address" value="new"
+                                                           onchange="onChangeAvailableOriginalAddress(event)" checked>
+                                                    <i></i>
+                                                    <p>새로운 주소 입력</p>
+                                                </label>
                                             </div>
                                             <div class="chk">
-                                                <label class="checkbox"><input type="checkbox"><i></i>
-                                                    <p>주문인 정보와 동일</p></label>
+                                                <label class="radiobox">
+                                                    <input type="radio" name="available_original_address"
+                                                           value="original"
+                                                           onchange="onChangeAvailableOriginalAddress(event)">
+                                                    <i></i>
+                                                    <p>주문인 정보와 동일</p>
+                                                </label>
                                             </div>
                                         </dd>
                                     </dl>
@@ -206,7 +327,7 @@
                                         <dt>받으시는 분</dt>
                                         <dd>
                                             <div class="inp">
-                                                <input type="text" value="홍길동">
+                                                <input type="text" id="recipient_name">
                                             </div>
                                             <div class="guide">반드시 고유통관부호와 일치하는 실명 및 여권이름을 기재하셔야합니다.</div>
                                         </dd>
@@ -215,13 +336,82 @@
                                         <dt>전화번호</dt>
                                         <dd>
                                             <div class="inp">
-                                                <select>
-                                                    <option>02</option>
+                                                <select name="regionNumber" id="recipient_region_number">
+                                                    <option value="02"
+                                                            th:selected="${orderer.getRegionNumber()} == '02'">
+                                                        02
+                                                    </option>
+                                                    <option value="031"
+                                                            th:selected="${orderer.getRegionNumber()} == '031'">
+                                                        031
+                                                    </option>
+                                                    <option value="032"
+                                                            th:selected="${orderer.getRegionNumber()} == '032'">
+                                                        032
+                                                    </option>
+                                                    <option value="033"
+                                                            th:selected="${orderer.getRegionNumber()} == '033'">
+                                                        033
+                                                    </option>
+                                                    <option value="041"
+                                                            th:selected="${orderer.getRegionNumber()} == '041'">
+                                                        041
+                                                    </option>
+                                                    <option value="042"
+                                                            th:selected="${orderer.getRegionNumber()} == '042'">
+                                                        042
+                                                    </option>
+                                                    <option value="043"
+                                                            th:selected="${orderer.getRegionNumber()} == '043'">
+                                                        043
+                                                    </option>
+                                                    <option value="044[c]"
+                                                            th:selected="${orderer.getRegionNumber()} == '044[c]'">
+                                                        044[c]
+                                                    </option>
+                                                    <option value="051"
+                                                            th:selected="${orderer.getRegionNumber()} == '051'">
+                                                        051
+                                                    </option>
+                                                    <option value="052(2)"
+                                                            th:selected="${orderer.getRegionNumber()} == '052(2)'">
+                                                        052(2)
+                                                    </option>
+                                                    <option value="053"
+                                                            th:selected="${orderer.getRegionNumber()} == '053'">
+                                                        053
+                                                    </option>
+                                                    <option value="054"
+                                                            th:selected="${orderer.getRegionNumber()} == '054'">
+                                                        054
+                                                    </option>
+                                                    <option value="055"
+                                                            th:selected="${orderer.getRegionNumber()} == '055'">
+                                                        055
+                                                    </option>
+                                                    <option value="061"
+                                                            th:selected="${orderer.getRegionNumber()} == '061'">
+                                                        061
+                                                    </option>
+                                                    <option value="062"
+                                                            th:selected="${orderer.getRegionNumber()} == '062'">
+                                                        062
+                                                    </option>
+                                                    <option value="063"
+                                                            th:selected="${orderer.getRegionNumber()} == '063'">
+                                                        063
+                                                    </option>
+                                                    <option value="064(7)"
+                                                            th:selected="${orderer.getRegionNumber()} == '064(7)'">
+                                                        064(7)
+                                                    </option>
                                                 </select>
                                                 <em>-</em>
-                                                <input type="text">
+                                                <input type="text" id="recipient_general_phone_number_1" maxlength="4"
+                                                       onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"/>
                                                 <em>-</em>
-                                                <input type="text">
+                                                <input type="text" id="recipient_general_phone_number_2" maxlength="4"
+                                                       onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"/>
                                             </div>
                                         </dd>
                                     </dl>
@@ -229,13 +419,14 @@
                                         <dt>휴대전화번호</dt>
                                         <dd>
                                             <div class="inp">
-                                                <select>
-                                                    <option>010</option>
-                                                </select>
+                                                <input type="text" id="recipient_cell_phone_number_1" maxlength="3"
+                                                       onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"/>
                                                 <em>-</em>
-                                                <input type="text">
+                                                <input type="text" id="recipient_cell_phone_number_2" maxlength="4"
+                                                       onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"/>
                                                 <em>-</em>
-                                                <input type="text">
+                                                <input type="text" id="recipient_cell_phone_number_3" maxlength="4"
+                                                       onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"/>
                                             </div>
                                             <div class="guide">반드시 받으시는 분의 전화번호 기재하셔야 통관 진행됩니다.</div>
                                         </dd>
@@ -244,13 +435,17 @@
                                         <dt>주소</dt>
                                         <dd>
                                             <div class="addr">
-                                                <div class="inp"><input type="text" id="address_zip" placeholder="주소검색">
-                                                    <button type="button" onclick="execDaumPostcode()">우편번호 찾기</button>
+                                                <div class="inp">
+                                                    <input type="text" id="address_postcode" placeholder="우편번호"
+                                                           readonly/>
+                                                    <button type="button" onclick="execDaumPostcode()">주소 검색</button>
                                                 </div>
-                                                <div class="inp"><input type="text" id="address_doro"
-                                                                        placeholder="도로명주소"></div>
-                                                <div class="inp"><input type="text" id="address_detail"
-                                                                        placeholder="상세주소"></div>
+                                                <div class="inp">
+                                                    <input type="text" id="address_road" placeholder="도로명주소" readonly/>
+                                                </div>
+                                                <div class="inp">
+                                                    <input type="text" id="address_detail" placeholder="상세주소"/>
+                                                </div>
                                             </div>
                                         </dd>
                                     </dl>
@@ -258,9 +453,8 @@
                                         <dt>기존 배송지</dt>
                                         <dd>
                                             <div class="inp">
-                                                <select>
-                                                    <option>문 앞에 놔주세요.</option>
-                                                </select>
+                                                <input type="text" id="delivery_memo" placeholder="배송 요청사항 입력"
+                                                       value="문 앞에 놔주세요.">
                                             </div>
                                         </dd>
                                     </dl>
@@ -268,14 +462,17 @@
                                         <dt>주문시 요청사항</dt>
                                         <dd>
                                             <div class="inp">
-                                                <input type="text" placeholder="요청사항 입력">
+                                                <input type="text" id="order_memo" placeholder="상품 요청사항 입력">
                                             </div>
                                         </dd>
                                     </dl>
                                 </div>
                                 <div class="save">
-                                    <label class="checkbox"><input type="checkbox"><i></i>
-                                        <p>현재 배송지 정보를 회원정보로 저장</p></label>
+                                    <label class="checkbox">
+                                        <input type="checkbox"
+                                               id="change_shipping_address_to_member_information"><i></i>
+                                        <p>현재 배송지 정보를 회원정보로 저장</p>
+                                    </label>
                                 </div>
                             </div>
                         </div>
@@ -311,33 +508,49 @@
                                     <div class="con">
                                         <ul>
                                             <li>
-                                                <label class="radiobox"><input type="radio" name="payMethod"><i></i>
-                                                    <p>카카오페이</p></label>
+                                                <label class="radiobox">
+                                                    <input type="radio" name="paymentType" value="card-payment" checked><i></i>
+                                                    <p>신용카드</p>
+                                                </label>
                                             </li>
                                             <li>
-                                                <label class="radiobox"><input type="radio" name="payMethod"><i></i>
-                                                    <p>신용카드</p></label>
+                                                <label class="radiobox">
+                                                    <input type="radio" name="paymentType"
+                                                           value="virtual-account"><i></i>
+                                                    <p>가상계좌</p>
+                                                </label>
                                             </li>
                                             <li>
-                                                <label class="radiobox"><input type="radio" name="payMethod"><i></i>
-                                                    <p>에스크로 가상계좌</p></label>
+                                                <label class="radiobox">
+                                                    <input type="radio" name="paymentType" value="wire-transfer"><i></i>
+                                                    <p>계좌이체</p>
+                                                </label>
                                             </li>
                                             <li>
-                                                <label class="radiobox"><input type="radio" name="payMethod"
-                                                                               checked><i></i>
-                                                    <p>무통장 입금</p></label>
+                                                <label class="radiobox" style="display: none;">
+                                                    <input type="radio" name="paymentType"><i></i>
+                                                    <p>카카오페이</p>
+                                                </label>
+                                            </li>
+                                            <li>
+                                                <label class="radiobox" style="display: none;">
+                                                    <input type="radio" name="paymentType">
+                                                    <i></i>
+                                                    <p>무통장 입금</p>
+                                                </label>
                                             </li>
                                         </ul>
                                     </div>
                                     <div class="guide">* 주문신청 후 3일 이내에 입금 확인이 되지 않으면 자동취소 됩니다.</div>
                                 </div>
                                 <div class="agree">
-                                    <label class="checkbox"><input type="checkbox"><i></i>
+                                    <label class="checkbox">
+                                        <input type="checkbox" id="agree_to_purchase"><i></i>
                                         <div class="text">구매 제품, 옵션, 결제정보를 확인하였으며, 구매진행에 동의합니다.</div>
                                     </label>
                                 </div>
                                 <div class="button">
-                                    <a href="javascript:;" class="btn btn_01">주문하기</a>
+                                    <a href="javascript: paymentOrder();" class="btn btn_01">주문하기</a>
                                 </div>
                             </div>
                         </div>
@@ -370,9 +583,9 @@
                                     } else {
                                         document.getElementById("address_detail").value = '';
                                     }
-                                    document.getElementById('address_zip').value = data.zonecode;
-                                    document.getElementById("address_doro").value = addr;
-                                    document.getElementById("address_doro").focus();
+                                    document.getElementById('address_postcode').value = data.zonecode;
+                                    document.getElementById("address_road").value = addr;
+                                    document.getElementById("address_road").focus();
                                 }
                             }).open();
                         }
@@ -381,5 +594,153 @@
             </div>
         </div>
     </div>
+    <script type="application/javascript" th:inline="javascript">
+        /* <![CDATA[ */
+        const items = [[${items}]];
+        const postcode = [[${orderer.postcode}]];
+        const road = [[${orderer.road}]];
+        const detail = [[${orderer.detail}]];
+        console.log(items);
+
+        const orderName = document.getElementById("orderer_name");
+        const ordererRegionNumber = document.getElementById("orderer_region_number");
+        const ordererGeneralPhoneNumber1 = document.getElementById("orderer_general_phone_number_1");
+        const ordererGeneralPhoneNumber2 = document.getElementById("orderer_general_phone_number_2");
+        const ordererCellPhoneNumber1 = document.getElementById("orderer_cell_phone_number_1");
+        const ordererCellPhoneNumber2 = document.getElementById("orderer_cell_phone_number_2");
+        const ordererCellPhoneNumber3 = document.getElementById("orderer_cell_phone_number_3");
+        const ordererAvailableReceiveSms = document.getElementById("orderer_available_receive_sms");
+        const ordererEmail1 = document.getElementById("orderer_email_1");
+        const ordererEmail2 = document.getElementById("orderer_email_2");
+
+        const changeShippingAddressToMemberInformation = document.getElementById("change_shipping_address_to_member_information");
+
+        const recipientName = document.getElementById("recipient_name");
+        const recipientRegionNumber = document.getElementById("recipient_region_number");
+        const recipientGeneralPhoneNumber1 = document.getElementById("recipient_general_phone_number_1");
+        const recipientGeneralPhoneNumber2 = document.getElementById("recipient_general_phone_number_2");
+        const recipientCellPhoneNumber1 = document.getElementById("recipient_cell_phone_number_1");
+        const recipientCellPhoneNumber2 = document.getElementById("recipient_cell_phone_number_2");
+        const recipientCellPhoneNumber3 = document.getElementById("recipient_cell_phone_number_3");
+        const addressPostcode = document.getElementById("address_postcode");
+        const addressRoad = document.getElementById("address_road");
+        const addressDetail = document.getElementById("address_detail");
+        const deliveryMemo = document.getElementById("delivery_memo");
+        const orderMemo = document.getElementById("order_memo");
+        const agreeToPurchase = document.getElementById("agree_to_purchase");
+
+        /* 주문 등록, 결제 */
+        async function paymentOrder() {
+            let order = {};
+            if (!agreeToPurchase.checked) {
+                alert('구매진행에 동의해주세요');
+                return;
+            }
+
+            order = saveOrder();
+
+            const useragent = isMobile ? 'WM' : 'WP';
+            const body = {
+                paymentType: document.querySelector('input[name="paymentType"]:checked').value,
+                useragent: useragent, // 사용자 환경 (WP: PC Web, WM: Mobile Web)
+            }
+
+            await fetch('/api/orders/' + order.id + '/payment/ready', {
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                method: 'POST',
+                body: JSON.stringify(body)
+            }).then(response => {
+                if (!response.ok) {
+                    throw Error('');
+                }
+                console.log(response.status);
+                return response.json();
+            }).then(data => {
+                order = data.order;
+                console.log(order);
+            }).catch(errors => {
+                console.log(errors);
+            })
+        }
+
+        /**
+         * 주문 등록
+         */
+        async function saveOrder() {
+            let order = {};
+            const body = {
+                ordererName: orderName.value,
+                ordererGeneralPhoneNumber: ordererRegionNumber.value + ordererGeneralPhoneNumber1.value + ordererGeneralPhoneNumber2.value,
+                ordererCellPhoneNumber: ordererCellPhoneNumber1.value + ordererCellPhoneNumber2.value + ordererCellPhoneNumber3.value,
+                ordererAvailableReceiveSms: ordererAvailableReceiveSms.checked,
+                ordererEmail: ordererEmail1.value + '@' + ordererEmail2.value,
+
+                changeShippingAddressToMemberInformation: changeShippingAddressToMemberInformation.checked,
+
+                recipientName: recipientName.value,
+                recipientGeneralPhoneNumber: recipientRegionNumber.value + recipientGeneralPhoneNumber1.value + recipientGeneralPhoneNumber2.value,
+                recipientCellPhoneNumber: recipientCellPhoneNumber1.value + recipientCellPhoneNumber2.value + recipientCellPhoneNumber3.value,
+                deliveryMemo: deliveryMemo.value,
+                orderMemo: orderMemo.value,
+                recipientAddress: {
+                    postcode: addressPostcode.value,
+                    road: addressRoad.value,
+                    detail: addressDetail.value
+                },
+                items: items
+            };
+
+            await fetch('/api/orders', {
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                method: 'POST',
+                body: JSON.stringify(body)
+            }).then(response => {
+                console.log(response.status);
+                return response.json();
+            }).then(data => {
+                order = data.order;
+                console.log(order);
+            }).catch(errors => {
+                console.log(errors);
+            })
+            return order;
+        }
+
+        /* 배송지 정보 주문인 정보와 동일 */
+        function onChangeAvailableOriginalAddress(event) {
+            if (event.target.value === 'new') {
+                recipientName.value = '';
+                recipientRegionNumber.value = '02';
+                recipientGeneralPhoneNumber1.value = '';
+                recipientGeneralPhoneNumber2.value = '';
+                recipientCellPhoneNumber1.value = '010';
+                recipientCellPhoneNumber2.value = '';
+                recipientCellPhoneNumber3.value = '';
+                addressPostcode.value = '';
+                addressRoad.value = '';
+                addressDetail.value = '';
+            } else if (event.target.value === 'original') {
+                recipientName.value = orderName.value;
+                recipientRegionNumber.value = ordererRegionNumber.value;
+                recipientGeneralPhoneNumber1.value = ordererGeneralPhoneNumber1.value;
+                recipientGeneralPhoneNumber2.value = ordererGeneralPhoneNumber2.value;
+                recipientCellPhoneNumber1.value = ordererCellPhoneNumber1.value;
+                recipientCellPhoneNumber2.value = ordererCellPhoneNumber2.value;
+                recipientCellPhoneNumber3.value = ordererCellPhoneNumber3.value;
+                addressPostcode.value = postcode;
+                addressRoad.value = road;
+                addressDetail.value = detail;
+            }
+        }
+
+        const isMobile = () => {
+            return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+        }
+        /* ]]> */
+    </script>
 </div>
 </html>
