@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin/fragments/header :: adminHead">
+<body id="wrap">
+<th:block th:replace="admin/fragments/header :: adminHeader()"></th:block>
+
+<main id="container">
+    <div id="tool">
+        <div class="info">
+            <div class="title">관리자페이지</div>
+        </div>
+        <div class="logout">
+            <a href="#">로그아웃</a>
+        </div>
+    </div>
+    <div id="contain">
+        <div id="h1">
+            <strong>게시판 관리</strong>
+            <span>게시판 관리 > 공지사항 > 공지사항FROM</span>
+        </div>
+        <div id="product" class="content product">
+            <form id="noticeForm" method="post" action="/admin/notice/" th:object="${item}">
+                <input type="hidden" name="isNew" th:value="${isNew}"/>
+                <input type="hidden" name="id" th:value="*{id}"/>
+                <div class="write">
+                    <dl>
+                        <dt>제목</dt>
+                        <dd>
+                            <input type="text" name="title" id="title" th:field="*{title}"/>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt>내용</dt>
+                        <dd>
+                            <textarea name="content" id="content"  th:field="*{content}"></textarea>
+                        </dd>
+                    </dl>
+                </div>
+            </form>
+            <div class="button">
+                <ul class="fl">
+                    <li><a href="javascript:window.history.back();" class="btn btn_03">목록</a></li>
+                    <li><a href="javascript:window.history.back();" class="btn btn_01">취소</a></li>
+                </ul>
+                <ul class="fr">
+                    <li>
+                        <button class="btn btn_02" onclick="submit()">저장</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</main>
+<script type="application/javascript" th:inline="javascript">
+    /* <![CDATA[ */
+    const isNew = /*[[${isNew}]]*/ null;
+
+    function submit() {
+        const title = $("#title").val();
+        if (!title) {
+            alert('제목을 입력하세요');
+            $("#title").focus();
+            return;
+        }
+        const content = $("#content").val();
+        if (!content) {
+            alert('내용을 입력하세요');
+            $("#content").focus();
+            return;
+        }
+
+        var frmData = $("#noticeForm").serialize();
+
+        $.ajax({
+            url: './form',
+            data: frmData,
+            type: 'POST',
+            dataType: "json",
+            success: function(result){
+                if (result.status === 'success') {
+                    alert('저장이 완료되었습니다.');
+                    location.href='./notice_list';
+                } else {
+                    alert('저장이 실패되었습니다.\n잠시 후에 시도하여 주세요');
+                }
+            },
+            error: function(request, status, error) {
+                alert('저장이 실패되었습니다.\n잠시 후에 시도하여 주세요');
+            }
+        });
+
+        return false;
+    }
+    /* ]]> */
+</script>
+</body>
+</html>

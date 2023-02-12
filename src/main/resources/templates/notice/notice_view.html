@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layouts/layout2}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+
+<!-- 사용자 CSS 추가 -->
+<th:block layout:fragment="css">
+    <style>
+    </style>
+</th:block>
+
+<div layout:fragment="content">
+    <section id="container">
+        <div id="notice">
+            <div class="wrap">
+                <div id="heading">NOTICE</div>
+                <div class="detail">
+                    <div class="head">
+                        <div class="desc">
+                            <dl class="subject">
+                                <dt>제목</dt>
+                                <dd><p th:text="${item.getTitle()}">제목</p></dd>
+                            </dl>
+                            <dl class="view">
+                                <dt>조회수</dt>
+                                <dd th:text="${#numbers.formatInteger(item.getViewCount(), 0, 'COMMA')}">3</dd>
+                            </dl>
+                        </div>
+                        <div class="desc">
+                            <dl class="date">
+                                <dt>작성일</dt>
+                                <dd th:text="${#temporals.format(item.getCreatedDateTime(), 'yyyy-MM-dd')}">2022-06-24</dd>
+                            </dl>
+                        </div>
+                    </div>
+                    <div class="cont">
+                        <p th:utext="${#strings.replace(item.getContent(), '\r\n', '<br />')}"></p>
+                    </div>
+                    <div class="bottom">
+                        <div class="desc">
+                            <a href="javascript:history.go(-1);" class="btn btn_01">목록</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+</html>
