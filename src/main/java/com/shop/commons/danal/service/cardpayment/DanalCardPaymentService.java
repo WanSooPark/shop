@@ -1,8 +1,8 @@
-package com.shop.commons.danal.service;
+package com.shop.commons.danal.service.cardpayment;
 
-import com.shop.commons.danal.dto.complete.ready.CardPaymentCompleteResponse;
-import com.shop.commons.danal.dto.ready.CardPaymentReadyRequest;
-import com.shop.commons.danal.dto.ready.CardPaymentReadyResponse;
+import com.shop.commons.danal.dto.cardpayment.complete.CardPaymentCompleteResponse;
+import com.shop.commons.danal.dto.cardpayment.ready.CardPaymentReadyRequest;
+import com.shop.commons.danal.dto.cardpayment.ready.CardPaymentReadyResponse;
 import com.shop.models.orders.domain.Order;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

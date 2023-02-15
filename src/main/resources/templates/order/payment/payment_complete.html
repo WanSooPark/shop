@@ -16,6 +16,23 @@
         </span><br>
         <span th:if="${!complete.isSuccess()}" th:text="${complete.getMessage()}">결제 메시지</span>
     </div>
+    <div th:if="${complete.getPaymentType()} == VIRTUAL_ACCOUNT">
+        입금은행코드: <span th:text="${complete.getBankCode()}"></span>
+        <br>
+        입금은행이름: <span th:text="${complete.getBankName()}"></span>
+        <br>
+        입금가상계좌: <span th:text="${complete.getVirtualAccount()}"></span>
+        <br>
+        예금주명: <%=CP_ACCOUNT_HOLDER_NAME%>
+        <br>
+        <br>
+        입금액: <span th:text="${complete.getVirtualAccountAmount()}"></span>원
+        <br>
+        입금 만료일시: <span th:text="${complete.getExpireDate()}"></span> <span th:text="${complete.getExpireTime()}"></span>
+        <br>
+        <br>
+        현금영수증발급여부: <span th:text="${complete.getIsCashReceipt()}"></span>
+    </div>
     <div>
         <button onclick="close()">닫기</button>
     </div>

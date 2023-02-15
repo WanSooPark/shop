@@ -9,6 +9,8 @@ public class PaymentCompleteDto {
     @Builder
     public static class Request {
         private String RETURNPARAMS;
+        private String orderId;
+        private String paymentType;
     }
 
 }

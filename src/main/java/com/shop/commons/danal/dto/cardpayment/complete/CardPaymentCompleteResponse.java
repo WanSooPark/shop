@@ -1,4 +1,4 @@
-package com.shop.commons.danal.dto.complete.ready;
+package com.shop.commons.danal.dto.cardpayment.complete;
 
 import lombok.Builder;
 import lombok.Data;

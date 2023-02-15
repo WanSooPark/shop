@@ -1,4 +1,4 @@
-package com.shop.commons.danal.service;
+package com.shop.commons.danal.service.virtualaccount;
 
 import kr.co.danal.jsinbi.HttpClient;
 import lombok.Getter;
@@ -20,45 +20,47 @@ import java.util.Set;
 
 @Getter
 @Component
-public class DanalCardPayment {
+public class DanalVirtualAccountPayment {
     /*****************************************************
-     * 다날 신용카드 결제
+     * 다날 가상계좌 결제
      *****************************************************/
 
     /*****************************************************
      * 연동에 필요한 Function 및 변수값 설정
      *
-     * 연동에 대한 문의사항 있으시면 기술지원팀으로 연락 주십시오.
+     * 연동에 대한 문의사항 있으시면 아래 메일주소로 연락 주십시오.
      * DANAL Commerce Division Technique supporting Team
-     * EMail : tech@danal.co.kr
+     * EMail : vac_tech@danal.co.kr
      ******************************************************/
 
     /******************************************************
-     *  DN_CREDIT_URL	: 결제 서버 정의
+     *  DN_TX_URL	: 결제 서버 정의
      ******************************************************/
-    static final String DN_CREDIT_URL = "https://tx-creditcard.danalpay.com/credit/";
+    private static final String DN_TX_URL = "https://tx-vaccount.danalpay.com/vaccount/";
 
     /******************************************************
      *  Set Timeout
      ******************************************************/
-    static final int DN_CONNECT_TIMEOUT = 5000;
-    static final int DN_TIMEOUT = 30000; // SO_TIMEOUT setting.
+    private static final int DN_CONNECT_TIMEOUT = 5000;
+    private static final int DN_TIMEOUT = 30000; //SO_Timeout setting
 
-    static final String ERC_NETWORK_ERROR = "-1";
-    static final String ERM_NETWORK = "Network Error";
+    private static final String ERC_NETWORK_ERROR = "-1";
+    private static final String ERM_NETWORK = "Network Error";
 
     /******************************************************
-     *  CPID, CRYPTOKEY 		: 다날에서 제공해 드린 CPID, 암/복호화 pwd
+     * CPID		: 다날에서 제공해 드린 CPID
+     * CRYPTOKEY	: 다날에서 제공해 드린 암복호화 PW
      ******************************************************/
-    private final String IVKEY = "d7d02c92cb930b661f107cb92690fc83"; // IV 고정값.
     @Value("${danal.cpid}")
     private String CPID; // 실서비스를 위해서는 반드시 교체필요.
-    @Value("${danal.service.card-payment.pwd}")
+    @Value("${danal.service.virtual-account.pwd}")
     private String CRYPTOKEY; // 암호화Key. 실서비스를 위해서는 반드시 교체필요.
+    private String IV = "45b913a44d61353d20402a2518de592a"; // 수정하지 마세요.
 
-//    private String TEST_AMOUNT = "301";
+    public String CHARSET = "EUC-KR";
+    private String CP_ACCOUNT_HOLDER_NAME = "계좌주명"; // CP계좌에 적힌 계좌주명
 
-    public Map CallCredit(Map REQ_DATA, boolean Debug) {
+    public Map CallVAccount(Map REQ_DATA, boolean Debug) {
         String REQ_STR = toEncrypt(data2str(REQ_DATA));
         REQ_STR = "CPID=" + CPID + "&DATA=" + REQ_STR;
 
@@ -66,7 +68,7 @@ public class DanalCardPayment {
         hc.setConnectionTimeout(DN_CONNECT_TIMEOUT);
         hc.setTimeout(DN_TIMEOUT);
 
-        int Result = hc.retrieve("POST", DN_CREDIT_URL, REQ_STR, "euc-kr", "euc-kr");
+        int Result = hc.retrieve("POST", DN_TX_URL, REQ_STR, CHARSET, CHARSET);
 
         String RES_STR = "";
         if (Result == HttpClient.EOK && hc.getResponseCode() == 200) {
@@ -78,20 +80,17 @@ public class DanalCardPayment {
         }
 
         if (Debug) {
+            System.out.println("ReqDATA[" + data2str(REQ_DATA) + "]");
             System.out.println("Req[" + REQ_STR + "]");
-            System.out.println("Ret[" + Result + "/" + hc.getResponseCode() + "]");
+            System.out.println("Ret[" + Result + "/" + hc.getResponseCode()	+ "]");
             System.out.println("Res[" + RES_STR + "]");
         }
 
         Map resMap = str2data(RES_STR);
-        RES_STR = (String) resMap.get("DATA");
-
-        if (RES_STR != null && !"".equals(RES_STR)) { // 암호화된 정상응답값
-            RES_STR = toDecrypt((String) resMap.get("DATA"));
-            return str2data(RES_STR);
-        } else {
-            return resMap;
+        if( resMap.containsKey("DATA") ){
+            resMap = str2data( toDecrypt((String) resMap.get("DATA")) );
         }
+        return resMap;
     }
 
     public Map str2data(String str) {
@@ -101,15 +100,15 @@ public class DanalCardPayment {
         for (int i = 0; i < st.length; i++) {
             int index = st[i].indexOf('=');
             if (index > 0)
-                map.put(st[i].substring(0, index), urlDecode(st[i].substring(index + 1)));
+                map.put(st[i].substring(0, index),
+                        urlDecode(st[i].substring(index + 1)));
         }
 
         return map;
     }
 
     public String data2str(Map data) {
-        Iterator i = data.keySet()
-                .iterator();
+        Iterator i = data.keySet().iterator();
         StringBuffer sb = new StringBuffer();
         while (i.hasNext()) {
             Object key = i.next();
@@ -154,12 +153,14 @@ public class DanalCardPayment {
      *  urlEncode
      */
     public String urlEncode(Object obj) {
-        if (obj == null)
+        if (obj == null) {
             return null;
+        }
 
         try {
             return URLEncoder.encode(obj.toString(), "EUC-KR");
         } catch (Exception e) {
+            e.printStackTrace();
             return obj.toString();
         }
     }
@@ -168,8 +169,9 @@ public class DanalCardPayment {
      *  urlDecode
      */
     public String urlDecode(Object obj) {
-        if (obj == null)
+        if (obj == null) {
             return null;
+        }
 
         try {
             return URLDecoder.decode(obj.toString(), "EUC-KR");
@@ -179,13 +181,12 @@ public class DanalCardPayment {
     }
 
     public String toEncrypt(String originalMsg) {
+        System.out.println("OrgMsg: " + originalMsg);
         String AESMode = "AES/CBC/PKCS5Padding";
         String SecetKeyAlgorithmString = "AES";
 
-        IvParameterSpec ivspec = new IvParameterSpec(
-                hexToByteArray(IVKEY));
-        SecretKey keySpec = new SecretKeySpec(hexToByteArray(CRYPTOKEY),
-                SecetKeyAlgorithmString);
+        IvParameterSpec ivspec = new IvParameterSpec(hexToByteArray(IV));
+        SecretKey keySpec = new SecretKeySpec(hexToByteArray(CRYPTOKEY), SecetKeyAlgorithmString);
         try {
             Cipher cipher = Cipher.getInstance(AESMode);
             cipher.init(Cipher.ENCRYPT_MODE, keySpec, ivspec);
@@ -198,19 +199,19 @@ public class DanalCardPayment {
     }
 
     public String toDecrypt(String originalMsg) {
+        System.out.println("To be decrypted msg: " + originalMsg);
         String AESMode = "AES/CBC/PKCS5Padding";
         String SecetKeyAlgorithmString = "AES";
 
-        IvParameterSpec ivspec = new IvParameterSpec(
-                hexToByteArray(IVKEY));
+        IvParameterSpec ivspec = new IvParameterSpec(hexToByteArray(IV));
         SecretKey keySpec = new SecretKeySpec(hexToByteArray(CRYPTOKEY),
                 SecetKeyAlgorithmString);
         try {
             Cipher cipher = Cipher.getInstance(AESMode);
             cipher.init(Cipher.DECRYPT_MODE, keySpec, ivspec);
-            byte[] decrypted = cipher.doFinal(Base64.decodeBase64(originalMsg
-                    .getBytes()));
+            byte[] decrypted = cipher.doFinal(Base64.decodeBase64(originalMsg.getBytes()));
             String retValue = new String(decrypted);
+            System.out.println(retValue);
             return retValue;
         } catch (Exception e) {
             e.printStackTrace();

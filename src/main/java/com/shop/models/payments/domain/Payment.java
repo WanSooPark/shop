@@ -24,6 +24,7 @@ public class Payment extends BaseEntity {
 
     private String tid;
 
+    /* 신용카드 필드 */
     private String trxAmount;
     private String tranDate;
     private String tranTime;
@@ -33,6 +34,15 @@ public class Payment extends BaseEntity {
     private String quota;
     private String cardAuthNo;
     private String username;
+
+    /* 가상계좌 필드 */
+    private String bankCode;
+    private String bankName;
+    private String expireDate;
+    private String expireTime;
+    private String virtualAccount;
+    private String isCashReceipt;
+    private String virtualAccountAmount;
 
     private String lastCode;
     private String lastMessage;
@@ -45,6 +55,7 @@ public class Payment extends BaseEntity {
 
     private LocalDateTime readyDateTime;
     private LocalDateTime completeDateTime;
+    private LocalDateTime issuanceVirtualAccountDateTime;
     private LocalDateTime successDateTime;
 
     public void lastStatus(String lastCode, String lastMessage) {
@@ -59,7 +70,7 @@ public class Payment extends BaseEntity {
         this.readyDateTime = LocalDateTime.now();
     }
 
-    public void success(String trxAmount, String tranDate, String tranTime, String cardCode, String cardName, String cardNo, String quota, String cardAuthNo, String username) {
+    public void successCardPayment(String trxAmount, String tranDate, String tranTime, String cardCode, String cardName, String cardNo, String quota, String cardAuthNo, String username) {
         this.status = PaymentStatus.SUCCESS;
         this.trxAmount = trxAmount;
         this.tranDate = tranDate;
@@ -78,5 +89,18 @@ public class Payment extends BaseEntity {
     public void complete() {
         this.status = PaymentStatus.COMPLETE;
         this.successDateTime = LocalDateTime.now();
+    }
+
+    public void issuanceOfVirtualAccount(String bankCode, String bankName, String expireDate, String expireTime, String virtualAccount, String isCashReceipt, String amount) {
+        this.bankCode = bankCode;
+        this.bankName = bankName;
+        this.expireDate = expireDate;
+        this.expireTime = expireTime;
+        this.virtualAccount = virtualAccount;
+        this.isCashReceipt = isCashReceipt;
+        this.virtualAccountAmount = amount;
+
+        this.status = PaymentStatus.ISSUANCE_VIRTUAL_ACCOUNT;
+        this.issuanceVirtualAccountDateTime = LocalDateTime.now();
     }
 }

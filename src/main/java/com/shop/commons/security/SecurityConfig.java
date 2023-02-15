@@ -90,6 +90,23 @@ public class SecurityConfig {
     }
 
     @Bean
+    public SecurityFilterChain danalFilterChain(HttpSecurity http) throws Exception {
+        http.formLogin()
+                .disable();
+
+        http.csrf()
+                .disable();
+
+        http.antMatcher("/danal/**")
+                .authorizeRequests()
+                .anyRequest()
+                .permitAll()
+        ;
+
+        return http.build();
+    }
+
+    @Bean
     public SecurityFilterChain serviceFilterChain(HttpSecurity http) throws Exception {
         http.formLogin()
                 .loginPage("/login")

@@ -12,10 +12,7 @@ import com.shop.services.service.orders.service.ServiceOrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -36,15 +33,15 @@ public class ServiceOrderPaymentController {
         return "order/payment/payment_start";
     }
 
-    @PostMapping("/complete")
-    public String completeView(@CurrentAccount Member member, PaymentCompleteDto.Request dto, Model model) {
-        ServiceOrderPaymentCompleteDto.Response response = serviceOrderPaymentService.complete(dto.getRETURNPARAMS());
+    @PostMapping("/{paymentType}/complete")
+    public String completeView(@CurrentAccount Member member, @PathVariable String paymentType, PaymentCompleteDto.Request dto, Model model) {
+        ServiceOrderPaymentCompleteDto.Response response = serviceOrderPaymentService.complete(paymentType, dto.getRETURNPARAMS());
         model.addAttribute("complete", response);
         return "order/payment/payment_complete";
     }
 
-    @PostMapping("/cancel")
-    public String cancelCompleteView(@CurrentAccount Member member, @RequestParam Map map, PaymentCompleteDto.Request dto, Model model) {
+    @PostMapping("/{paymentType}/cancel")
+    public String cancelCompleteView(@CurrentAccount Member member, @PathVariable String paymentType, @RequestParam Map map, PaymentCompleteDto.Request dto, Model model) {
 //        ServiceOrderPaymentCompleteDto.Response response = serviceOrderPaymentService.complete(dto.getRETURNPARAMS());
 //        model.addAttribute("complete", response);
         System.out.println("");

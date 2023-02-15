@@ -6,7 +6,7 @@ import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 
-public class ServiceOrderPaymentCompleteDto {
+public class ServiceOrderPaymentNotiDto {
 
     @Data
     public static class Request {
