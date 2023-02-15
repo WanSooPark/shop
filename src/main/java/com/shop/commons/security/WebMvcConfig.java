@@ -15,7 +15,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     private final ServiceViewInterceptor serviceViewInterceptor;
     private final AdminViewInterceptor adminViewInterceptor;
-    @Value("${uploadPath}")
+    @Value("${upload_path}")
     private String uploadPath;
 
     @Override

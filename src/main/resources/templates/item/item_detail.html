@@ -16,14 +16,18 @@
                         <div class="thumbnail">
                             <div class="image">
                                 <div class="swiper-wrapper">
-                                    <div class="swiper-slide"><img src="/img/detail.png"></div>
-                                    <div class="swiper-slide"><img src="/img/detail.png"></div>
+                                    <div class="swiper-slide"><img th:src="${item.getMainImageUrl()}"></div>
+                                    <th:block th:each="url: ${item.getImageUrls()}">
+                                        <div class="swiper-slide"><img th:src="${url}"></div>
+                                    </th:block>
                                 </div>
                             </div>
                             <div class="thumb">
                                 <div class="swiper-wrapper">
-                                    <div class="swiper-slide"><img src="/img/detail.png"></div>
-                                    <div class="swiper-slide"><img src="/img/detail.png"></div>
+                                    <div class="swiper-slide"><img th:src="${item.getMainImageUrl()}"></div>
+                                    <th:block th:each="url: ${item.getImageUrls()}">
+                                        <div class="swiper-slide"><img th:src="${url}"></div>
+                                    </th:block>
                                 </div>
                             </div>
                             <script>
@@ -173,7 +177,10 @@
                         </div>
                         <div class="product tab-box active">
                             <div class="image">
-                                <img src="/img/detail_detail.png">
+                                <img th:src="${item.getMainImageUrl()}">
+                                <th:block th:each="url: ${item.getImageUrls()}">
+                                    <img th:src="${url}"
+                                </th:block>
                             </div>
                             <div class="button">
                                 <a href="#" class="btn btn_03">예상 관부가세 계산하기 <em>복잡한 관부가세 계산, 편리하게 예상하세요.</em></a>
