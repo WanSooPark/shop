@@ -30,7 +30,8 @@ public class ServiceOrderFormDto {
                         Long itemPrice = cartItemResponse.getPrice();
                         Long optionPrice = ObjectUtils.isEmpty(cartItemResponse.getOption()) ? 0 : cartItemResponse.getOption()
                                 .getPrice();
-                        return itemPrice + optionPrice;
+                        Long count = cartItemResponse.getCount();
+                        return (itemPrice + optionPrice) * count;
                     })
                     .sum();
         }

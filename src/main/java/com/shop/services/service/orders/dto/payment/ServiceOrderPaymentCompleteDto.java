@@ -45,6 +45,14 @@ public class ServiceOrderPaymentCompleteDto {
         private String virtualAccount;
         private String isCashReceipt;
         private String virtualAccountAmount;
+
+        private String accountNo; // 출금계좌번호 뒷5자리(앞부분은 *로 표시)
+//        private String bankCode; // 출금은행코드
+        private String transTime; // 출금처리시간(yyyyMMDDmmHHss)
+        private String username;
+        private String userId;
+        private String userPhone;
+        private String userEmail;
     }
 
 }

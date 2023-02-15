@@ -6,8 +6,12 @@ import com.shop.commons.danal.dto.cardpayment.ready.CardPaymentReadyResponse;
 import com.shop.commons.danal.dto.virtualaccount.complete.VirtualAccountPaymentCompleteResponse;
 import com.shop.commons.danal.dto.virtualaccount.ready.VirtualAccountPaymentReadyRequest;
 import com.shop.commons.danal.dto.virtualaccount.ready.VirtualAccountPaymentReadyResponse;
+import com.shop.commons.danal.dto.wiretransfer.complete.WireTransferPaymentCompleteResponse;
+import com.shop.commons.danal.dto.wiretransfer.ready.WireTransferPaymentReadyRequest;
+import com.shop.commons.danal.dto.wiretransfer.ready.WireTransferPaymentReadyResponse;
 import com.shop.commons.danal.service.cardpayment.DanalCardPaymentService;
 import com.shop.commons.danal.service.virtualaccount.DanalVirtualAccountPaymentService;
+import com.shop.commons.danal.service.wiretransfer.DanalWireTransferPaymentService;
 import com.shop.models.carts.service.CartItemService;
 import com.shop.models.members.domain.Member;
 import com.shop.models.orders.domain.Order;
@@ -16,6 +20,7 @@ import com.shop.models.orders.service.OrderService;
 import com.shop.models.payments.domain.Payment;
 import com.shop.models.payments.domain.PaymentType;
 import com.shop.models.payments.service.PaymentService;
+import com.shop.services.service.orders.dto.payment.ServiceOrderPaymentCancelDto;
 import com.shop.services.service.orders.dto.payment.ServiceOrderPaymentCompleteDto;
 import com.shop.services.service.orders.dto.payment.ServiceOrderPaymentReadyDto;
 import lombok.RequiredArgsConstructor;
@@ -39,6 +44,7 @@ public class ServiceOrderPaymentService {
     private final CartItemService cartItemService;
     private final DanalCardPaymentService danalCardPaymentService;
     private final DanalVirtualAccountPaymentService danalVirtualAccountPaymentService;
+    private final DanalWireTransferPaymentService danalWireTransferPaymentService;
     @Value("${infra.server_domain}")
     private String serverDomain;
 
@@ -52,8 +58,8 @@ public class ServiceOrderPaymentService {
         String userId = String.valueOf(member.getId());
         String userEmail = member.getEmail();
         String returnUrl = serverDomain + "/order/payment/" + paymentType.name() + "/complete";
-        String cancelUrl = serverDomain + "/order/payment/" + paymentType.name() + "/cancel";
-        String notiUrl = serverDomain + "/danal/payment/noti";
+        String cancelUrl = serverDomain + "/order/payment/" + paymentType.name() + "/cancel?orderId=" + orderId;
+        String notiUrl = serverDomain + "/danal/payment/noti?orderId=" + orderId;
 
         ServiceOrderPaymentReadyDto.Response response = null;
         if (paymentType.equals(PaymentType.CARD_PAYMENT)) {
@@ -113,6 +119,33 @@ public class ServiceOrderPaymentService {
                     .orderId(virtualAccountPaymentReadyResponse.getOrderId())
                     .amount(virtualAccountPaymentReadyResponse.getAmount())
                     .build();
+        } else if (paymentType.equals(PaymentType.WIRE_TRANSFER)) {
+            WireTransferPaymentReadyRequest wireTransferPaymentReadyRequest = WireTransferPaymentReadyRequest.builder()
+                    .amount(amount)
+                    .name(name)
+                    .orderId(orderId)
+                    .itemName(itemName)
+                    .useragent(useragent)
+                    .userId(userId)
+                    .userEmail(userEmail)
+                    .returnUrl(returnUrl)
+                    .cancelUrl(cancelUrl)
+                    .byPassValue("orderId=" + orderId + ";paymentType=" + paymentType.name())
+                    .build();
+
+            WireTransferPaymentReadyResponse wireTransferPaymentReadyResponse = danalWireTransferPaymentService.ready(wireTransferPaymentReadyRequest);
+
+            response = ServiceOrderPaymentReadyDto.Response.builder()
+                    .success(wireTransferPaymentReadyResponse.isSuccess())
+                    .message(wireTransferPaymentReadyResponse.getReturnMessage())
+                    .returnCode(wireTransferPaymentReadyResponse.getReturnCode())
+                    .returnMessage(wireTransferPaymentReadyResponse.getReturnMessage())
+                    .startUrl(wireTransferPaymentReadyResponse.getStartUrl())
+                    .startParams(wireTransferPaymentReadyResponse.getStartParams())
+                    .tid(wireTransferPaymentReadyResponse.getTid())
+                    .orderId(wireTransferPaymentReadyResponse.getOrderId())
+                    .amount(wireTransferPaymentReadyResponse.getAmount())
+                    .build();
         }
 
         if (Objects.requireNonNull(response)
@@ -129,12 +162,14 @@ public class ServiceOrderPaymentService {
     public ServiceOrderPaymentCompleteDto.Response complete(String paymentTypeString, String returnParams) {
         PaymentType paymentType = PaymentType.getStringToEnum(paymentTypeString);
 
+        Order order = null;
+
         ServiceOrderPaymentCompleteDto.Response response = null;
         if (paymentType.equals(PaymentType.CARD_PAYMENT)) {
             Map complete = danalCardPaymentService.decodeParams(returnParams);
 
             String orderId = (String) complete.get("ORDERID");
-            Order order = orderService.findById(Long.valueOf(orderId));
+            order = orderService.findById(Long.valueOf(orderId));
             Payment payment = order.getPayment();
             if (!ObjectUtils.isEmpty(payment)) {
                 payment.complete();
@@ -157,26 +192,19 @@ public class ServiceOrderPaymentService {
                             cardPaymentResponse.getUsername()
                     );
                     payment.lastStatus(cardPaymentResponse.getReturnCode(), cardPaymentResponse.getReturnMessage());
-
-                    List<OrderItem> items = order.getItems();
-                    List<Long> cartItemIds = items.stream()
-                            .map(OrderItem::getCartItemId)
-                            .filter(cartItemId -> !ObjectUtils.isEmpty(cartItemId))
-                            .collect(Collectors.toList());
-                    cartItemService.deleteByIds(cartItemIds);
                 }
             }
 
             response = ServiceOrderPaymentCompleteDto.Response.builder()
-                    .success(response.isSuccess())
-                    .message(response.getReturnMessage())
+                    .success(cardPaymentResponse.isSuccess())
+                    .message(cardPaymentResponse.getReturnMessage())
                     .paymentType(paymentTypeString)
                     .build();
         } else if (paymentType.equals(PaymentType.VIRTUAL_ACCOUNT)) {
             Map complete = danalVirtualAccountPaymentService.decodeParams(returnParams);
 
             String orderId = (String) complete.get("ORDERID");
-            Order order = orderService.findById(Long.valueOf(orderId));
+            order = orderService.findById(Long.valueOf(orderId));
             Payment payment = order.getPayment();
             if (!ObjectUtils.isEmpty(payment)) {
                 payment.complete();
@@ -197,25 +225,12 @@ public class ServiceOrderPaymentService {
                             virtualAccountPaymentResponse.getAmount()
                     );
                     payment.lastStatus(virtualAccountPaymentResponse.getReturnCode(), virtualAccountPaymentResponse.getReturnMessage());
-
-                    List<OrderItem> items = order.getItems();
-                    List<Long> cartItemIds = items.stream()
-                            .map(OrderItem::getCartItemId)
-                            .filter(cartItemId -> !ObjectUtils.isEmpty(cartItemId))
-                            .collect(Collectors.toList());
-                    cartItemService.deleteByIds(cartItemIds);
                 }
-            } else {
-                response = ServiceOrderPaymentCompleteDto.Response.builder()
-                        .success(false)
-                        .message("잘못된 paymentType 입니다.")
-                        .paymentType("")
-                        .build();
             }
 
             response = ServiceOrderPaymentCompleteDto.Response.builder()
-                    .success(response.isSuccess())
-                    .message(response.getReturnMessage())
+                    .success(virtualAccountPaymentResponse.isSuccess())
+                    .message(virtualAccountPaymentResponse.getReturnMessage())
                     .paymentType(paymentTypeString)
                     .bankCode(virtualAccountPaymentResponse.getBankCode())
                     .bankName(virtualAccountPaymentResponse.getBankName())
@@ -225,8 +240,73 @@ public class ServiceOrderPaymentService {
                     .isCashReceipt(virtualAccountPaymentResponse.getIsCashReceipt())
                     .virtualAccountAmount(virtualAccountPaymentResponse.getAmount())
                     .build();
+        } else if (paymentType.equals(PaymentType.WIRE_TRANSFER)) {
+            Map complete = danalWireTransferPaymentService.decodeParams(returnParams);
+
+            String orderId = (String) complete.get("ORDERID");
+            order = orderService.findById(Long.valueOf(orderId));
+            Payment payment = order.getPayment();
+            if (!ObjectUtils.isEmpty(payment)) {
+                payment.complete();
+                payment.lastStatus((String) complete.get("RETURNCODE"), (String) complete.get("RETURNMSG"));
+            }
+
+            WireTransferPaymentCompleteResponse wireTransferPaymentCompleteResponse = danalWireTransferPaymentService.complete(order, complete);
+
+            if (!ObjectUtils.isEmpty(wireTransferPaymentCompleteResponse)) {
+                if (wireTransferPaymentCompleteResponse.isSuccess()) {
+                    payment.successWireTransfer(
+                            wireTransferPaymentCompleteResponse.getAccountNo(),
+                            wireTransferPaymentCompleteResponse.getBankCode(),
+                            wireTransferPaymentCompleteResponse.getTransTime(),
+                            wireTransferPaymentCompleteResponse.getUsername(),
+                            wireTransferPaymentCompleteResponse.getUserId(),
+                            wireTransferPaymentCompleteResponse.getUserPhone(),
+                            wireTransferPaymentCompleteResponse.getUserEmail()
+                    );
+                    payment.lastStatus(wireTransferPaymentCompleteResponse.getReturnCode(), wireTransferPaymentCompleteResponse.getReturnMessage());
+                }
+            }
+
+            response = ServiceOrderPaymentCompleteDto.Response.builder()
+                    .success(wireTransferPaymentCompleteResponse.isSuccess())
+                    .message(wireTransferPaymentCompleteResponse.getReturnMessage())
+                    .paymentType(paymentTypeString)
+                    .accountNo(wireTransferPaymentCompleteResponse.getAccountNo())
+                    .bankCode(wireTransferPaymentCompleteResponse.getBankCode())
+                    .transTime(wireTransferPaymentCompleteResponse.getTransTime())
+                    .username(wireTransferPaymentCompleteResponse.getUsername())
+                    .userId(wireTransferPaymentCompleteResponse.getUserId())
+                    .userPhone(wireTransferPaymentCompleteResponse.getUserPhone())
+                    .userEmail(wireTransferPaymentCompleteResponse.getUserEmail())
+                    .build();
+        } else {
+            response = ServiceOrderPaymentCompleteDto.Response.builder()
+                    .success(false)
+                    .message("잘못된 paymentType 입니다.")
+                    .paymentType("")
+                    .build();
+        }
+
+        if (response.isSuccess() && !ObjectUtils.isEmpty(order)) {
+            List<OrderItem> items = order.getItems();
+            List<Long> cartItemIds = items.stream()
+                    .map(OrderItem::getCartItemId)
+                    .filter(cartItemId -> !ObjectUtils.isEmpty(cartItemId))
+                    .collect(Collectors.toList());
+            cartItemService.deleteByIds(cartItemIds);
         }
 
         return response;
+    }
+
+    public ServiceOrderPaymentCancelDto.Response cancel(Long orderId, String paymentType) {
+        Order order = orderService.findById(orderId);
+        order.cancel();
+        return ServiceOrderPaymentCancelDto.Response.builder()
+                .success(true)
+                .message("주문 결제 취소")
+                .paymentType(paymentType)
+                .build();
     }
 }

@@ -110,4 +110,9 @@ public class Order extends BaseEntity {
         this.status = OrderStatus.PREPARING_FOR_DELIVERY;
     }
 
+    public void cancel() {
+        this.status = OrderStatus.CANCEL;
+        this.payment.cancel();
+        this.cancelDateTime = LocalDateTime.now();
+    }
 }

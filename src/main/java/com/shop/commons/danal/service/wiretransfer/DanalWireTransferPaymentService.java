@@ -1,8 +1,8 @@
-package com.shop.commons.danal.service.virtualaccount;
+package com.shop.commons.danal.service.wiretransfer;
 
-import com.shop.commons.danal.dto.virtualaccount.complete.VirtualAccountPaymentCompleteResponse;
-import com.shop.commons.danal.dto.virtualaccount.ready.VirtualAccountPaymentReadyRequest;
-import com.shop.commons.danal.dto.virtualaccount.ready.VirtualAccountPaymentReadyResponse;
+import com.shop.commons.danal.dto.wiretransfer.complete.WireTransferPaymentCompleteResponse;
+import com.shop.commons.danal.dto.wiretransfer.ready.WireTransferPaymentReadyRequest;
+import com.shop.commons.danal.dto.wiretransfer.ready.WireTransferPaymentReadyResponse;
 import com.shop.models.orders.domain.Order;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,14 +15,14 @@ import java.util.Map;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class DanalVirtualAccountPaymentService {
+public class DanalWireTransferPaymentService {
 
-    private final DanalVirtualAccountPayment danalVirtualAccountPayment;
+    private final DanalWireTransferPayment danalVirtualAccountPayment;
 
-    public VirtualAccountPaymentReadyResponse ready(VirtualAccountPaymentReadyRequest virtualAccountPaymentReadyRequest) {
-        VirtualAccountPaymentReadyResponse response = null;
-        Map REQ_DATA = virtualAccountPaymentReadyRequest.toMap();
-        Map RES_DATA = danalVirtualAccountPayment.CallVAccount(REQ_DATA, true);
+    public WireTransferPaymentReadyResponse ready(WireTransferPaymentReadyRequest wireTransferPaymentReadyRequest) {
+        WireTransferPaymentReadyResponse response = null;
+        Map REQ_DATA = wireTransferPaymentReadyRequest.toMap();
+        Map RES_DATA = danalVirtualAccountPayment.CallDanalBank(REQ_DATA, true);
 
         String RETURNCODE = (String) RES_DATA.get("RETURNCODE"); // 결과코드
         String RETURNMSG = "";
@@ -44,7 +44,7 @@ public class DanalVirtualAccountPaymentService {
             BackURL = "Javascript:self.close()";
         }
 
-        return VirtualAccountPaymentReadyResponse.builder()
+        return WireTransferPaymentReadyResponse.builder()
                 .returnCode(RETURNCODE)
                 .returnMessage(RETURNMSG)
                 .startUrl(STARTURL)
@@ -71,7 +71,7 @@ public class DanalVirtualAccountPaymentService {
         return retMap;
     }
 
-    public VirtualAccountPaymentCompleteResponse complete(Order order, Map retMap) {
+    public WireTransferPaymentCompleteResponse complete(Order order, Map retMap) {
         String returnCode = (String) retMap.get("RETURNCODE");
         String returnMsg = (String) retMap.get("RETURNMSG");
 
@@ -81,7 +81,7 @@ public class DanalVirtualAccountPaymentService {
         if (returnCode == null || !"0000".equals(returnCode)) {
             // returnCode가 없거나 또는 그 결과가 성공이 아니라면 발급요청을 하지 않아야 함.
             System.out.println("Authentication failed. " + returnMsg + "[" + returnCode + "]");
-            return VirtualAccountPaymentCompleteResponse.builder()
+            return WireTransferPaymentCompleteResponse.builder()
                     .returnCode(returnCode)
                     .returnMessage(returnMsg)
                     .build();
@@ -102,7 +102,7 @@ public class DanalVirtualAccountPaymentService {
         REQ_DATA.put("TXTYPE", "ISSUEVACCOUNT");
         REQ_DATA.put("SERVICETYPE", "DANALVACCOUNT");
 
-        Map RES_DATA = danalVirtualAccountPayment.CallVAccount(REQ_DATA, false);
+        Map RES_DATA = danalVirtualAccountPayment.CallDanalBank(REQ_DATA, false);
 
         String RETURNCODE = (String) RES_DATA.get("RETURNCODE"); // 결과코드
         String RETURNMSG = (String) RES_DATA.get("RETURNMSG");
@@ -124,7 +124,7 @@ public class DanalVirtualAccountPaymentService {
             AMOUNT = (String) RES_DATA.get("AMOUNT");
         }
 
-        return VirtualAccountPaymentCompleteResponse.builder()
+        return WireTransferPaymentCompleteResponse.builder()
                 .returnCode(RETURNCODE)
                 .returnMessage(RETURNMSG)
                 .bankCode(BANKCODE)

@@ -3,8 +3,10 @@ package com.shop.services.service.orders.controller;
 import com.shop.commons.security.CurrentAccount;
 import com.shop.models.members.domain.Member;
 import com.shop.services.service.orders.dto.ServiceOrderResponse;
+import com.shop.services.service.orders.dto.payment.ServiceOrderPaymentCancelDto;
 import com.shop.services.service.orders.dto.payment.ServiceOrderPaymentCompleteDto;
 import com.shop.services.service.orders.dto.payment.ServiceOrderPaymentReadyDto;
+import com.shop.services.service.orders.dto.popup.payment.PaymentCancelDto;
 import com.shop.services.service.orders.dto.popup.payment.PaymentCompleteDto;
 import com.shop.services.service.orders.dto.popup.payment.PaymentStartDto;
 import com.shop.services.service.orders.service.ServiceOrderPaymentService;
@@ -12,9 +14,10 @@ import com.shop.services.service.orders.service.ServiceOrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.Map;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/order/payment")
@@ -40,11 +43,10 @@ public class ServiceOrderPaymentController {
         return "order/payment/payment_complete";
     }
 
-    @PostMapping("/{paymentType}/cancel")
-    public String cancelCompleteView(@CurrentAccount Member member, @PathVariable String paymentType, @RequestParam Map map, PaymentCompleteDto.Request dto, Model model) {
-//        ServiceOrderPaymentCompleteDto.Response response = serviceOrderPaymentService.complete(dto.getRETURNPARAMS());
-//        model.addAttribute("complete", response);
-        System.out.println("");
+    @GetMapping("/{paymentType}/cancel")
+    public String cancelCompleteView(@CurrentAccount Member member, @PathVariable String paymentType, PaymentCancelDto.Request dto, Model model) {
+        ServiceOrderPaymentCancelDto.Response response = serviceOrderPaymentService.cancel(dto.getOrderId(), paymentType);
+        model.addAttribute("complete", response);
         return "order/payment/payment_complete";
     }
 

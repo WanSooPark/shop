@@ -36,13 +36,22 @@ public class Payment extends BaseEntity {
     private String username;
 
     /* 가상계좌 필드 */
-    private String bankCode;
+    private String bankCode; // 출금은행코드
     private String bankName;
     private String expireDate;
     private String expireTime;
     private String virtualAccount;
     private String isCashReceipt;
     private String virtualAccountAmount;
+
+    /* 계좌이체 필드*/
+    private String accountNo; // 출금계좌번호 뒷5자리(앞부분은 *로 표시)
+    private String transTime; // 출금처리시간(yyyyMMDDmmHHss)
+    private String userId;
+    private String userPhone;
+    private String userEmail;
+    //    private String bankCode; // 출금은행코드
+    //    private String username;
 
     private String lastCode;
     private String lastMessage;
@@ -57,6 +66,7 @@ public class Payment extends BaseEntity {
     private LocalDateTime completeDateTime;
     private LocalDateTime issuanceVirtualAccountDateTime;
     private LocalDateTime successDateTime;
+    private LocalDateTime cancelDateTime;
 
     public void lastStatus(String lastCode, String lastMessage) {
         this.lastCode = lastCode;
@@ -102,5 +112,23 @@ public class Payment extends BaseEntity {
 
         this.status = PaymentStatus.ISSUANCE_VIRTUAL_ACCOUNT;
         this.issuanceVirtualAccountDateTime = LocalDateTime.now();
+    }
+
+    public void cancel() {
+        this.status = PaymentStatus.CANCELED;
+        this.cancelDateTime = LocalDateTime.now();
+    }
+
+    public void successWireTransfer(String accountNo, String bankCode, String transTime, String username, String userId, String userPhone, String userEmail) {
+        this.accountNo = accountNo;
+        this.bankCode = bankCode;
+        this.transTime = transTime;
+        this.username = username;
+        this.userId = userId;
+        this.userPhone = userPhone;
+        this.userEmail = userEmail;
+
+        this.status = PaymentStatus.SUCCESS;
+        this.successDateTime = LocalDateTime.now();
     }
 }

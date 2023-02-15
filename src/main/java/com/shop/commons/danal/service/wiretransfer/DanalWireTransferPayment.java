@@ -1,4 +1,4 @@
-package com.shop.commons.danal.service.virtualaccount;
+package com.shop.commons.danal.service.wiretransfer;
 
 import kr.co.danal.jsinbi.HttpClient;
 import lombok.Getter;
@@ -20,9 +20,9 @@ import java.util.Set;
 
 @Getter
 @Component
-public class DanalVirtualAccountPayment {
+public class DanalWireTransferPayment {
     /*****************************************************
-     * 다날 가상계좌 결제
+     * 다날 계좌이체 결제
      *****************************************************/
 
     /*****************************************************
@@ -30,13 +30,13 @@ public class DanalVirtualAccountPayment {
      *
      * 연동에 대한 문의사항 있으시면 아래 메일주소로 연락 주십시오.
      * DANAL Commerce Division Technique supporting Team
-     * EMail : vac_tech@danal.co.kr
+     * EMail : trans_tech@danal.co.kr
      ******************************************************/
 
     /******************************************************
      *  DN_TX_URL	: 결제 서버 정의
      ******************************************************/
-    private static final String DN_TX_URL = "https://tx-vaccount.danalpay.com/vaccount/";
+    private static final String DN_TX_URL = "https://tx-wiretransfer.danalpay.com/bank/";
 
     /******************************************************
      *  Set Timeout
@@ -47,19 +47,19 @@ public class DanalVirtualAccountPayment {
     private static final String ERC_NETWORK_ERROR = "-1";
     private static final String ERM_NETWORK = "Network Error";
 
+    public String CHARSET = "EUC-KR";
+    public String TEST_AMOUNT = "1004";
     /******************************************************
      * CPID		: 다날에서 제공해 드린 CPID
      * CRYPTOKEY	: 다날에서 제공해 드린 암복호화 PW
      ******************************************************/
-    private String IV = "45b913a44d61353d20402a2518de592a"; // 수정하지 마세요.
+    private final String IV = "31363032313523404542616e6b456e63"; // 고정값. 수정하지 마시오.
     @Value("${danal.cpid}")
-    private String CPID; // 실서비스를 위해서는 반드시 교체필요.
-    @Value("${danal.service.virtual-account.pwd}")
-    private String CRYPTOKEY; // 암호화Key. 실서비스를 위해서는 반드시 교체필요.
+    private String CPID; // 영업담당자에게 문의
+    @Value("${danal.service.wire-transfer.pwd}")
+    private String CRYPTOKEY; // 영업담당자에게 문의
 
-    public String CHARSET = "EUC-KR";
-
-    public Map CallVAccount(Map REQ_DATA, boolean Debug) {
+    public Map CallDanalBank(Map REQ_DATA, boolean Debug) {
         String REQ_STR = toEncrypt(data2str(REQ_DATA));
         REQ_STR = "CPID=" + CPID + "&DATA=" + REQ_STR;
 
@@ -67,7 +67,7 @@ public class DanalVirtualAccountPayment {
         hc.setConnectionTimeout(DN_CONNECT_TIMEOUT);
         hc.setTimeout(DN_TIMEOUT);
 
-        int Result = hc.retrieve("POST", DN_TX_URL, REQ_STR, "euc-kr", "euc-kr");
+        int Result = hc.retrieve("POST", DN_TX_URL, REQ_STR, CHARSET, CHARSET);
 
         String RES_STR = "";
         if (Result == HttpClient.EOK && hc.getResponseCode() == 200) {
@@ -79,17 +79,15 @@ public class DanalVirtualAccountPayment {
         }
 
         if (Debug) {
-            System.out.println("ReqDATA[" + data2str(REQ_DATA) + "]");
+            System.out.println("ReqData[" + data2str(REQ_DATA) + "]");
             System.out.println("Req[" + REQ_STR + "]");
-            System.out.println("Ret[" + Result + "/" + hc.getResponseCode()	+ "]");
+            System.out.println("Ret[" + Result + "/" + hc.getResponseCode() + "]");
             System.out.println("Res[" + RES_STR + "]");
         }
 
         Map resMap = str2data(RES_STR);
-        if(resMap.containsKey("DATA")){
-            resMap = str2data( toDecrypt((String) resMap.get("DATA")) );
-        }
-        return resMap;
+        RES_STR = toDecrypt((String) resMap.get("DATA"));
+        return str2data(RES_STR);
     }
 
     public Map str2data(String str) {
@@ -99,15 +97,15 @@ public class DanalVirtualAccountPayment {
         for (int i = 0; i < st.length; i++) {
             int index = st[i].indexOf('=');
             if (index > 0)
-                map.put(st[i].substring(0, index),
-                        urlDecode(st[i].substring(index + 1)));
+                map.put(st[i].substring(0, index), urlDecode(st[i].substring(index + 1)));
         }
 
         return map;
     }
 
     public String data2str(Map data) {
-        Iterator i = data.keySet().iterator();
+        Iterator i = data.keySet()
+                .iterator();
         StringBuffer sb = new StringBuffer();
         while (i.hasNext()) {
             Object key = i.next();
@@ -203,8 +201,7 @@ public class DanalVirtualAccountPayment {
         String SecetKeyAlgorithmString = "AES";
 
         IvParameterSpec ivspec = new IvParameterSpec(hexToByteArray(IV));
-        SecretKey keySpec = new SecretKeySpec(hexToByteArray(CRYPTOKEY),
-                SecetKeyAlgorithmString);
+        SecretKey keySpec = new SecretKeySpec(hexToByteArray(CRYPTOKEY), SecetKeyAlgorithmString);
         try {
             Cipher cipher = Cipher.getInstance(AESMode);
             cipher.init(Cipher.DECRYPT_MODE, keySpec, ivspec);
@@ -225,8 +222,7 @@ public class DanalVirtualAccountPayment {
 
         byte[] ba = new byte[hex.length() / 2];
         for (int i = 0; i < ba.length; i++) {
-            ba[i] = (byte) Integer
-                    .parseInt(hex.substring(2 * i, 2 * i + 2), 16);
+            ba[i] = (byte) Integer.parseInt(hex.substring(2 * i, 2 * i + 2), 16);
         }
         return ba;
     }

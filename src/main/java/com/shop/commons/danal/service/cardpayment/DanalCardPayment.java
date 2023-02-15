@@ -56,8 +56,6 @@ public class DanalCardPayment {
     @Value("${danal.service.card-payment.pwd}")
     private String CRYPTOKEY; // 암호화Key. 실서비스를 위해서는 반드시 교체필요.
 
-//    private String TEST_AMOUNT = "301";
-
     public Map CallCredit(Map REQ_DATA, boolean Debug) {
         String REQ_STR = toEncrypt(data2str(REQ_DATA));
         REQ_STR = "CPID=" + CPID + "&DATA=" + REQ_STR;
