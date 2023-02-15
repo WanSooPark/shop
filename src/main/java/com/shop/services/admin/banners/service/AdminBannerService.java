@@ -1,6 +1,7 @@
 package com.shop.services.admin.banners.service;
 
 import com.shop.commons.entity.BasePage;
+import com.shop.commons.file.FileUploader;
 import com.shop.models.banners.domain.Banner;
 import com.shop.models.banners.domain.BannerStatus;
 import com.shop.models.banners.service.BannerService;
@@ -14,6 +15,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 @Transactional
@@ -21,6 +23,7 @@ import org.springframework.util.ObjectUtils;
 public class AdminBannerService {
 
     private final BannerService bannerService;
+    private final FileUploader fileUploader;
 
     public AdminBannerSearchDto.Response search(AdminBannerSearchDto.Request dto, Pageable pageable) {
         Page<Banner> bannerPage = bannerService.searchForAdmin(dto, pageable);
@@ -36,11 +39,13 @@ public class AdminBannerService {
     }
 
     public AdminBannerResponse add(AdminBannerForm dto) {
-        Banner banner = dto.toEntity();
-        String imageFile = dto.getImageFile();
-        if (!ObjectUtils.isEmpty(imageFile)) {
+        String imageUrl = "";
+        MultipartFile imageFile = dto.getImageFile();
+        if (!ObjectUtils.isEmpty(imageFile) && !imageFile.isEmpty()) {
             // TODO 파일 업로드
+            imageUrl = fileUploader.upload2(imageFile, "BANNERS");
         }
+        Banner banner = dto.toEntity(imageUrl);
 
         banner = bannerService.add(banner);
         return AdminBannerResponse.of(banner);
@@ -48,10 +53,11 @@ public class AdminBannerService {
 
     public AdminBannerResponse update(AdminBannerForm dto) {
         Banner banner = bannerService.findById(dto.getId());
-        String imageUrl = dto.getImageUrl();
-        String imageFile = dto.getImageFile();
-        if (!ObjectUtils.isEmpty(imageFile)) {
-            // TODO 파일 업로드
+        String imageUrl = banner.getImageUrl();
+        MultipartFile imageFile = dto.getImageFile();
+        if (!ObjectUtils.isEmpty(imageFile) && !imageFile.isEmpty()) {
+            // TODO 기존 이미지 삭제
+            imageUrl = fileUploader.upload2(imageFile, "BANNERS");
         }
         banner.update(dto.getText1(), dto.getText2(), dto.getText3(), dto.getText4(), imageUrl, BannerStatus.getStringToEnum(dto.getStatus()));
         return AdminBannerResponse.of(banner);

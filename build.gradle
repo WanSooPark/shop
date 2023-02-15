@@ -58,6 +58,8 @@ dependencies {
     implementation group: 'javax.validation', name: 'validation-api'
 
     implementation fileTree(dir: 'libs', includes: ['*.jar'])
+
+    implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE' // aws
 }
 
 tasks.named('test') {

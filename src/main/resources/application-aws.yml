@@ -1,0 +1,23 @@
+spring:
+  profiles:
+    include:
+      - aws_credentials
+
+cloud:
+  aws:
+    s3:
+      bucket: allddaom
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false
+    credentials:
+      instance-profile: true
+
+# aws 에러 안보이도록
+logging:
+  level:
+    com:
+      amazonaws:
+        util:
+          EC2MetadataUtils: error

@@ -44,6 +44,7 @@
                     </div>
                     <script>
                         //<![CDATA[
+                        // /img/visual_bg.png
                         var swiper = new Swiper('.visual .swiper-container', {
                             loop: true,
                             slidesPerView: 1,
@@ -153,7 +154,7 @@
                                         <div class="inner">
                                             <div class="img">
                                                 <a th:href="@{'/item/' + ${item.getId()}}">
-                                                    <img src="/img/dummy_product1.png"></a>
+                                                    <img th:src="${item.getMainImageUrl()}"></a>
                                             </div>
                                             <div class="con">
                                                 <p class="text" th:text="${item.getBasicDescription()}">선물하기 딱 좋은 식용유
@@ -211,7 +212,7 @@
             </div>
             <!-- 기획전 상품 -->
             <div class="exhibition">
-                <div class="wrap">
+                <div class="wrap" th:if="${showMainTopic != null}">
                     <div class="title">
                         <div class="tit">기획전 상품
                             (<span th:text="${showMainTopic.getName()}"></span>)
@@ -227,7 +228,7 @@
                                         <div class="inner">
                                             <div class="img">
                                                 <a th:href="@{'/item/' + ${item.getId()}}"><img
-                                                        src="/img/dummy_product1.png"></a>
+                                                        th:src="${item.getMainImageUrl()}"></a>
                                             </div>
                                             <div class="con">
                                                 <a href="#">
@@ -337,7 +338,7 @@
                         </div>
                         <div class="act">
                             <!-- TODO 위 버튼에 선택된 값을 링크로 연결해야함 -->
-                            <a th:href="@{'/category/' + ${recItemsCategories.get(0).getId()} + '/item'}"
+                            <a th:if="${recItemsCategories.size() > 0}" th:href="@{'/category/' + ${recItemsCategories.get(0).getId()} + '/item'}"
                                id="recCategoryListButton">더보기 +</a>
                         </div>
                     </div>
@@ -351,7 +352,7 @@
                                         <div class="inner">
                                             <div class="img">
                                                 <a th:href="@{'/category/' + ${item.getId()} + '/item'}">
-                                                    <img src="/img/dummy_product1.png">
+                                                    <img th:src="${item.getMainImageUrl()}">
                                                 </a>
                                             </div>
                                             <div class="con">
@@ -413,7 +414,7 @@
             </div>
             <!-- 신상품 -->
             <div class="newitem">
-                <div class="wrap">
+                <div class="wrap" th:if="${newTopic != null}">
                     <div class="title">
                         <div class="tit">신상품</div>
                         <div class="act"><a href="#">더보기 +</a></div>
@@ -426,7 +427,7 @@
                                         <div class="inner">
                                             <div class="img">
                                                 <a th:href="@{'/item/' + ${item.getId()}}">
-                                                    <img src="/img/dummy_product1.png"></a>
+                                                    <img th:src="${item.getMainImageUrl()}"></a>
                                             </div>
                                             <div class="con">
                                                 <a th:href="@{'/item/' + ${item.getId()}}">
@@ -809,7 +810,7 @@
             </div>
             <!-- 이벤트 프로모션 -->
             <div class="event">
-                <div class="wrap">
+                <div class="wrap" th:if="${hotItemItemsCategory != null}">
                     <div class="title">
                         <div class="tit">이벤트 프로모션</div>
                     </div>
@@ -819,7 +820,7 @@
                                 <li>
                                     <a th:href="@{'/item/' + ${item.getId()}}">
                                         <div class="img">
-                                            <img src="/img/dummy_event.png">
+                                            <img th:src="${item.getMainImageUrl()}">
                                         </div>
                                         <div class="con">
                                             <p class="cate" th:text="${item.getCategoryName()}">HOT ITEM</p>
@@ -834,7 +835,7 @@
             </div>
             <!-- MD 추천기획전 -->
             <div class="exhibition">
-                <div class="wrap">
+                <div class="wrap" th:if="${mdRecTopic != null}">
                     <div class="title">
                         <div class="tit" th:text="${mdRecTopic.getName()}">MD 추천 기획전</div>
                         <div class="act">
@@ -849,7 +850,7 @@
                                         <div class="inner">
                                             <div class="img">
                                                 <a th:href="@{'/item/' + ${item.getId()}}">
-                                                    <img src="/img/dummy_product1.png">
+                                                    <img th:src="${item.getMainImageUrl()}">
                                                 </a>
                                             </div>
                                             <div class="con">
@@ -879,7 +880,7 @@
             </div>
             <!-- 타임특가 -->
             <div class="timesale">
-                <div class="wrap">
+                <div class="wrap" th:if="${timeSaleTopic != null}">
                     <div class="title">
                         <div class="tit" th:text="${timeSaleTopic.getName()}">올따옴 타임특가</div>
                         <div class="txt">단 하루뿐인 세일</div>
@@ -895,7 +896,7 @@
                                     <li class="swiper-slide">
                                         <a th:href="@{'/item/' + ${item.getId()}}">
                                             <div class="img">
-                                                <img src="/img/dummy_product1.png">
+                                                <img th:src="${item.getMainImageUrl()}">
                                             </div>
                                             <div class="con">
                                                 <p class="name">

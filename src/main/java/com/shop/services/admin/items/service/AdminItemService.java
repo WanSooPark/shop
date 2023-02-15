@@ -3,6 +3,7 @@ package com.shop.services.admin.items.service;
 import com.shop.commons.entity.BasePage;
 import com.shop.commons.file.FileInfo;
 import com.shop.commons.file.FileService;
+import com.shop.commons.file.FileUploader;
 import com.shop.models.badges.domain.Badge;
 import com.shop.models.badges.service.BadgeService;
 import com.shop.models.categories.domain.Category;
@@ -45,6 +46,7 @@ public class AdminItemService {
     private final BadgeService badgeService;
 
     private final FileService fileService;
+    private final FileUploader fileUploader;
 
     /**
      * 상품 추가
@@ -52,6 +54,7 @@ public class AdminItemService {
     public AdminItemResponse addItem(AdminItemForm dto) {
         List<ItemOptionBuilder> optionBuilders = addItemOptionBuilders(dto.getOptionBuilders());
         List<ItemOption> options = addItemOptions(dto.getOptions());
+        ItemImage mainImage = addItemImage(dto.getMainImageFile());
         List<ItemImage> images = addItemImages(dto.getImageFiles());
         List<Badge> badges = getBadges(dto.getBadges());
         Category category = getCategory(dto.getCategoryId());
@@ -59,6 +62,7 @@ public class AdminItemService {
         Item item = dto.entityBuilder()
                 .optionBuilders(optionBuilders)
                 .options(options)
+                .mainImage(mainImage)
                 .images(images)
                 .badges(badges)
                 .category(category)
@@ -83,13 +87,25 @@ public class AdminItemService {
         itemOptionService.deleteAll(options); // 기존거 지우고
         options = addItemOptions(dto.getOptions()); // 새로 저장
 
-        List<ItemImage> images = addItemImages(dto.getImageFiles());
+        ItemImage mainImage = item.getMainImage();
+        if (!dto.getMainImageFile().isEmpty()) {
+            // TODO 삭제해야함
+            mainImage = addItemImage(dto.getMainImageFile());
+        }
+
+        List<ItemImage> images = item.getImages();
+        if (!ObjectUtils.isEmpty(dto.getImageFiles())) {
+            // TODO 삭제해야함
+            images = addItemImages(dto.getImageFiles());
+        }
+
         List<Badge> badges = getBadges(dto.getBadges());
         Category category = getCategory(dto.getCategoryId());
 
         item = dto.entityBuilder()
                 .optionBuilders(optionBuilders)
                 .options(options)
+                .mainImage(mainImage)
                 .images(images)
                 .badges(badges)
                 .category(category)
@@ -139,17 +155,22 @@ public class AdminItemService {
             return null;
         }
         return imageFiles.stream()
-                .map(imageFile -> {
-                    FileInfo fileInfo = fileService.uploadFile(imageFile);
-
-                    ItemImage itemImage = new ItemImage();
-                    itemImage.setName(fileInfo.getName()); // 원본 이미지 명
-                    itemImage.setOriginName(fileInfo.getOriginName()); // 저장한 이미지 명
-                    itemImage.setUrl(fileInfo.getUrl()); // 이미지 주소
-                    itemImage = itemImageService.add(itemImage);
-                    return itemImage;
-                })
+                .map(this::addItemImage)
                 .collect(Collectors.toList());
+    }
+
+    private ItemImage addItemImage(MultipartFile imageFile) {
+        if (imageFile.isEmpty()) {
+            return null;
+        }
+        String imageUrl = fileUploader.upload2(imageFile, "ITEMS");
+
+        ItemImage itemImage = new ItemImage();
+        itemImage.setName(imageFile.getName()); // 원본 이미지 명
+        itemImage.setOriginName(imageFile.getOriginalFilename()); // 저장한 이미지 명
+        itemImage.setUrl(imageUrl); // 이미지 주소
+        itemImage = itemImageService.add(itemImage);
+        return itemImage;
     }
 
     /**

@@ -74,6 +74,10 @@ public class Item extends BaseEntity {
     private Season season; // 시즌 (FW, SS)
     private String color; // 색상
 
+    /* 메인 이미지 */
+    @OneToOne
+    private ItemImage mainImage;
+
     /* 이미지 */
     @OneToMany
     @JoinTable(

@@ -56,7 +56,7 @@
                                             <button type="button" class="zzim on"><i></i></button>
                                             <div class="img">
                                                 <a th:href="@{'/item/' + ${item.getId()}}">
-                                                    <img src="/img/raffle_image01.png">
+                                                    <img th:src="${item.getMainImageUrl()}">
                                                 </a>
                                             </div>
                                             <div class="con">

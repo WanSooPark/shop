@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.util.ObjectUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 @Data
 @Builder
@@ -19,7 +21,7 @@ public class AdminBannerForm {
     private String text3;
     private String text4;
     private String imageUrl;
-    private String imageFile;
+    private MultipartFile imageFile;
     private String status;
 
     public static AdminBannerForm of(Banner banner) {
@@ -43,15 +45,14 @@ public class AdminBannerForm {
                 .build();
     }
 
-    public Banner toEntity() {
+    public Banner toEntity(String imageUrl) {
         Banner banner = new Banner();
         banner.setId(this.id);
         banner.setText1(this.text1);
         banner.setText2(this.text2);
         banner.setText3(this.text3);
         banner.setText4(this.text4);
-        banner.setImageUrl(this.imageUrl);
-//        banner.setimageFile(this.imageFile);
+        banner.setImageUrl(ObjectUtils.isEmpty(imageUrl) ? "/img/visual_bg.png" : imageUrl);
         banner.setStatus(BannerStatus.getStringToEnum(this.status));
         return banner;
     }

@@ -90,6 +90,10 @@ public class AdminItemForm {
     private String color; // 색상
 
     /* 이미지 */
+    private String mainImageUrl; // 메인 이미지 url
+    private MultipartFile mainImageFile; // 메인 이미지 파일
+    @Builder.Default
+    private List<String> imageUrls = null; // 이미지 Url 목록
     private List<MultipartFile> imageFiles; // 이미지 파일 목록
 
     @Lob
@@ -184,6 +188,9 @@ public class AdminItemForm {
             optionBuilderValue3 = itemOptionBuilderForm3.getValue();
         }
 
+        ItemImage mainImage = item.getMainImage();
+        List<ItemImage> images = item.getImages();
+
         return AdminItemForm.builder()
                 .id(item.getId())
                 .name(item.getName())
@@ -221,6 +228,10 @@ public class AdminItemForm {
                 .season(item.getSeason()
                         .name()
                         .toLowerCase())
+                .mainImageUrl(ObjectUtils.isEmpty(mainImage) ? "" : mainImage.getUrl())
+                .imageUrls(ObjectUtils.isEmpty(images) ? null : images.stream()
+                        .map(ItemImage::getUrl)
+                        .collect(Collectors.toList()))
                 .color(item.getColor())
                 .detailDescription(item.getDetailDescription())
                 .topDescription(item.getTopDescription())
@@ -239,6 +250,7 @@ public class AdminItemForm {
                 .managerAndPhoneNumber(item.getManagerAndPhoneNumber())
                 .bestBadge(item.isBestBadge())
                 .newBadge(item.isNewBadge())
+                .recBadge(item.isRecBadge())
                 .categoryId(ObjectUtils.isEmpty(item.getCategory()) ? null : item.getCategory()
                         .getId())
 
@@ -265,6 +277,12 @@ public class AdminItemForm {
         return AdminItemForm.builder()
                 .id(0L)
                 .build();
+    }
+
+    public List<MultipartFile> getImageFiles() {
+        return this.imageFiles.stream()
+                .filter(file -> !file.isEmpty())
+                .collect(Collectors.toList());
     }
 
     public VatType getVatType() {
@@ -335,6 +353,8 @@ public class AdminItemForm {
 
         ItemBuilder options(List<ItemOption> options);
 
+        ItemBuilder mainImage(ItemImage mainImage);
+
         ItemBuilder images(List<ItemImage> images);
 
         ItemBuilder badges(List<Badge> badges);
@@ -372,8 +392,18 @@ public class AdminItemForm {
         }
 
         @Override
+        public ItemBuilder mainImage(ItemImage mainImage) {
+            if (!ObjectUtils.isEmpty(mainImage)) {
+                this.item.setMainImage(mainImage);
+            }
+            return this;
+        }
+
+        @Override
         public ItemBuilder images(List<ItemImage> images) {
-            this.item.setImages(images);
+            if (!ObjectUtils.isEmpty(images)) {
+                this.item.setImages(images);
+            }
             return this;
         }
 
@@ -444,7 +474,7 @@ public class AdminItemForm {
 
             this.item.setBestBadge(dto.isBestBadge());
             this.item.setNewBadge(dto.isNewBadge());
-            this.item.setNewBadge(dto.isRecBadge());
+            this.item.setRecBadge(dto.isRecBadge());
             return this.item;
         }
     }

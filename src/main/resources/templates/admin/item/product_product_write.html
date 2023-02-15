@@ -839,73 +839,80 @@
                         <tr>
                             <th scope="row"><label for="it_img1">대표이미지</label></th>
                             <td>
-                                <input type="file" name="it_img1" id="it_img1"
+                                <input type="file" name="mainImageFile" id="it_img1"
                                        onchange="(function(e){img_1 = event.target.files[0];console.log(`basic_kr_name`,img_1)})()"/>
+                                <th:block th:if="${item.getMainImageUrl() != null && item.getMainImageUrl() != ''}">
+                                    <img th:src="${item.getMainImageUrl()}" width="50" height="50" alt="">
+                                </th:block>
                             </td>
                         </tr>
                         <tr>
-                            <th scope="row"><label for="it_img2">이미지2</label></th>
+                            <th scope="row"><label for="it_img2">이미지</label></th>
                             <td>
-                                <input type="file" name="it_img2" id="it_img2"
+
+                                <input type="file" name="imageFiles" id="it_img2" multiple
                                        onchange="(function(e){img_2 = event.target.files[0];console.log(`basic_kr_name`,img_1)})()"/>
+                                <th:block th:if="${item.getImageUrls() != null && item.getImageUrls().size() > 0}" th:each="imageUrl: ${item.getImageUrls()}">
+                                    <img th:src="${imageUrl}" width="50" height="50" alt="">
+                                </th:block>
                             </td>
                         </tr>
-                        <tr>
-                            <th scope="row"><label for="it_img3">이미지3</label></th>
-                            <td>
-                                <input type="file" name="it_img3" id="it_img3"
-                                       onchange="(function(e){img_3 = event.target.files[0];console.log(`basic_kr_name`,img_1)})()"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row"><label for="it_img4">이미지4</label></th>
-                            <td>
-                                <input type="file" name="it_img4" id="it_img4"
-                                       onchange="(function(e){img_4 = event.target.files[0];console.log(`basic_kr_name`,img_1)})()"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row"><label for="it_img5">이미지5</label></th>
-                            <td>
-                                <input type="file" name="it_img5" id="it_img5"
-                                       onchange="(function(e){img_5 = event.target.files[0];console.log(`basic_kr_name`,img_1)})()"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row"><label for="it_img6">이미지6</label></th>
-                            <td>
-                                <input type="file" name="it_img6" id="it_img6"
-                                       onchange="(function(e){img_6 = event.target.files[0];console.log(`basic_kr_name`,img_1)})()"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row"><label for="it_img7">이미지7</label></th>
-                            <td>
-                                <input type="file" name="it_img7" id="it_img7"
-                                       onchange="(function(e){img_7 = event.target.files[0];console.log(`basic_kr_name`,img_1)})()"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row"><label for="it_img8">이미지8</label></th>
-                            <td>
-                                <input type="file" name="it_img8" id="it_img8"
-                                       onchange="(function(e){img_8 = event.target.files[0];console.log(`basic_kr_name`,img_1)})()"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row"><label for="it_img9">이미지9</label></th>
-                            <td>
-                                <input type="file" name="it_img9" id="it_img9"
-                                       onchange="(function(e){img_9 = event.target.files[0];console.log(`basic_kr_name`,img_1)})()"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row"><label for="it_img10">이미지10</label></th>
-                            <td>
-                                <input type="file" name="it_img10" id="it_img10"
-                                       onchange="(function(e){img_10 = event.target.files[0];console.log(`basic_kr_name`,img_1)})()"/>
-                            </td>
-                        </tr>
+<!--                        <tr>-->
+<!--                            <th scope="row"><label for="it_img3">이미지3</label></th>-->
+<!--                            <td>-->
+<!--                                <input type="file" name="imageFiles" id="it_img3" multiple-->
+<!--                                       onchange="(function(e){img_3 = event.target.files[0];console.log(`basic_kr_name`,img_1)})()"/>-->
+<!--                            </td>-->
+<!--                        </tr>-->
+<!--                        <tr>-->
+<!--                            <th scope="row"><label for="it_img4">이미지4</label></th>-->
+<!--                            <td>-->
+<!--                                <input type="file" name="imageFiles" id="it_img4"-->
+<!--                                       onchange="(function(e){img_4 = event.target.files[0];console.log(`basic_kr_name`,img_1)})()"/>-->
+<!--                            </td>-->
+<!--                        </tr>-->
+<!--                        <tr>-->
+<!--                            <th scope="row"><label for="it_img5">이미지5</label></th>-->
+<!--                            <td>-->
+<!--                                <input type="file" name="imageFiles" id="it_img5"-->
+<!--                                       onchange="(function(e){img_5 = event.target.files[0];console.log(`basic_kr_name`,img_1)})()"/>-->
+<!--                            </td>-->
+<!--                        </tr>-->
+<!--                        <tr>-->
+<!--                            <th scope="row"><label for="it_img6">이미지6</label></th>-->
+<!--                            <td>-->
+<!--                                <input type="file" name="imageFiles" id="it_img6"-->
+<!--                                       onchange="(function(e){img_6 = event.target.files[0];console.log(`basic_kr_name`,img_1)})()"/>-->
+<!--                            </td>-->
+<!--                        </tr>-->
+<!--                        <tr>-->
+<!--                            <th scope="row"><label for="it_img7">이미지7</label></th>-->
+<!--                            <td>-->
+<!--                                <input type="file" name="imageFiles" id="it_img7"-->
+<!--                                       onchange="(function(e){img_7 = event.target.files[0];console.log(`basic_kr_name`,img_1)})()"/>-->
+<!--                            </td>-->
+<!--                        </tr>-->
+<!--                        <tr>-->
+<!--                            <th scope="row"><label for="it_img8">이미지8</label></th>-->
+<!--                            <td>-->
+<!--                                <input type="file" name="imageFiles" id="it_img8"-->
+<!--                                       onchange="(function(e){img_8 = event.target.files[0];console.log(`basic_kr_name`,img_1)})()"/>-->
+<!--                            </td>-->
+<!--                        </tr>-->
+<!--                        <tr>-->
+<!--                            <th scope="row"><label for="it_img9">이미지9</label></th>-->
+<!--                            <td>-->
+<!--                                <input type="file" name="imageFiles" id="it_img9"-->
+<!--                                       onchange="(function(e){img_9 = event.target.files[0];console.log(`basic_kr_name`,img_1)})()"/>-->
+<!--                            </td>-->
+<!--                        </tr>-->
+<!--                        <tr>-->
+<!--                            <th scope="row"><label for="it_img10">이미지10</label></th>-->
+<!--                            <td>-->
+<!--                                <input type="file" name="imageFiles" id="it_img10"-->
+<!--                                       onchange="(function(e){img_10 = event.target.files[0];console.log(`basic_kr_name`,img_1)})()"/>-->
+<!--                            </td>-->
+<!--                        </tr>-->
                         </tbody>
                     </table>
                 </div>

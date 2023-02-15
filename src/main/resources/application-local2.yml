@@ -1,0 +1,1 @@
+# 로컬환경 + 운영 DBserver:  port: 8081spring:  profiles:    active: rn00n_local  jpa:    hibernate:      ddl-auto: updateitemImgLocation: /Users/rn00n/dev/shop/files/imagesuploadPath: file:////Users/rn00n/dev/shop/files/imagesinit_data: trueinfra:  server_domain: http://localhost:${server.port}
