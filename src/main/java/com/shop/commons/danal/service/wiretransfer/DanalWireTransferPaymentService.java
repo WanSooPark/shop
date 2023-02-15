@@ -107,33 +107,33 @@ public class DanalWireTransferPaymentService {
         String RETURNCODE = (String) RES_DATA.get("RETURNCODE"); // 결과코드
         String RETURNMSG = (String) RES_DATA.get("RETURNMSG");
 
+        String ACOUNTNO = "";
         String BANKCODE = "";
-        String BANKNAME = "";
-        String EXPIREDATE = "";
-        String EXPIRETIME = "";
-        String VIRTUALACCOUNT = "";
-        String ISCASHRECEIPT = "";
-        String AMOUNT = "";
+        String TRANSTIME = "";
+        String USERNAME = "";
+        String USERID = "";
+        String USERPHONE = "";
+        String USEREMAIL = "";
         if (RETURNCODE.equals("0000")) {
+            ACOUNTNO = (String) RES_DATA.get("ACOUNTNO");
             BANKCODE = (String) RES_DATA.get("BANKCODE");
-            BANKNAME = (String) RES_DATA.get("BANKNAME");
-            EXPIREDATE = (String) RES_DATA.get("EXPIREDATE");
-            EXPIRETIME = (String) RES_DATA.get("EXPIRETIME");
-            VIRTUALACCOUNT = (String) RES_DATA.get("VIRTUALACCOUNT");
-            ISCASHRECEIPT = (String) RES_DATA.get("ISCASHRECEIPT");
-            AMOUNT = (String) RES_DATA.get("AMOUNT");
+            TRANSTIME = (String) RES_DATA.get("TRANSTIME");
+            USERNAME = (String) RES_DATA.get("USERNAME");
+            USERID = (String) RES_DATA.get("USERID");
+            USERPHONE = (String) RES_DATA.get("USERPHONE");
+            USEREMAIL = (String) RES_DATA.get("USEREMAIL");
         }
 
         return WireTransferPaymentCompleteResponse.builder()
                 .returnCode(RETURNCODE)
                 .returnMessage(RETURNMSG)
+                .accountNo(ACOUNTNO)
                 .bankCode(BANKCODE)
-                .bankName(BANKNAME)
-                .expireDate(EXPIREDATE)
-                .expireTime(EXPIRETIME)
-                .virtualAccount(VIRTUALACCOUNT)
-                .isCashReceipt(ISCASHRECEIPT)
-                .amount(AMOUNT)
+                .transTime(TRANSTIME)
+                .username(USERNAME)
+                .userId(USERID)
+                .userPhone(USERPHONE)
+                .userEmail(USEREMAIL)
                 .build();
     }
 
