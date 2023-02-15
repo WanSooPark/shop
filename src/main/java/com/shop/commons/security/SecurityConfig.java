@@ -135,6 +135,11 @@ public class SecurityConfig {
                 .authenticated()
         ;
 
+        http.rememberMe()
+                .key("shop")
+                .rememberMeParameter("rememberMe")
+                .tokenValiditySeconds(2419200);
+
         return http.build();
     }
 
