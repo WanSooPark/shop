@@ -133,6 +133,8 @@ public class ServiceOrderService {
                         .count(cartItemCount)
                         .option(option)
                         .cartItemId(cartItemId)
+                        .mainImageUrl(ObjectUtils.isEmpty(item.getMainImage()) ? "/img/detail.png" : item.getMainImage()
+                                .getUrl())
                         .build();
 
                 items.add(orderItem);

@@ -14,6 +14,7 @@ public class ServiceCartItemResponse {
     private Long id;
     private String name;
     private String brand;
+    private String mainImageUrl;
     private Long price; // 판매가
     private Long count;
     @Builder.Default
@@ -37,6 +38,8 @@ public class ServiceCartItemResponse {
                 .price(price)
                 .count(cartItem.getCount())
                 .option(ServiceCartItemOptionResponse.of(cartItemOption))
+                .mainImageUrl(ObjectUtils.isEmpty(item.getMainImage()) ? "/img/detail.png" : item.getMainImage()
+                        .getUrl())
                 .build();
     }
 

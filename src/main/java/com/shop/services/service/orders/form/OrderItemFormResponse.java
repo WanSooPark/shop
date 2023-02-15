@@ -14,6 +14,7 @@ public class OrderItemFormResponse {
     private Long id;
     private String name;
     private String brand;
+    private String mainImageUrl;
     private Long price; // 판매가
     private Long count;
     @Builder.Default

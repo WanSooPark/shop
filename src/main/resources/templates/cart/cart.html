@@ -59,7 +59,7 @@
                                             <td>
                                                 <div class="prod">
                                                     <div class="img">
-                                                        <img src="/img/detail.png"></div>
+                                                        <img th:src="${cartItem.getMainImageUrl()}"></div>
                                                     <div class="con">
                                                         <div class="tit">
                                                             <span th:if="${cartItem.getBrand() != null && cartItem.getBrand() != ''}">
