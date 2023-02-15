@@ -483,24 +483,29 @@
                                     <div class="con">
                                         <dl>
                                             <dt>주문금액</dt>
-                                            <dd>174,900원<em>($135,58)</em></dd>
+                                            <dd th:text="${#numbers.formatInteger(totalPrice, 0, 'COMMA')} + '원'"></dd>
                                         </dl>
                                         <dl>
                                             <dt>배송비</dt>
-                                            <dd>+ 10,000원</dd>
+                                            <dd th:text="'+ ' + ${#numbers.formatInteger(deliveryCost, 0, 'COMMA')} + '원'"></dd>
                                         </dl>
                                         <dl>
-                                            <dt>총적립금 <i><img src="/img/icon_qm.png">
-                                                <p>총적립금이란?</p></i></dt>
-                                            <dd>1,749원</dd>
+                                            <dt>
+                                                총적립금 <i><img src="/img/icon_qm.png">
+                                                <p>총적립금이란?</p></i>
+                                            </dt>
+                                            <dd th:text="${#numbers.formatInteger(reserves, 0, 'COMMA')} + '원'">
+                                            </dd>
                                         </dl>
                                     </div>
                                 </div>
                                 <div class="total">
                                     <div class="text">총 결제금액</div>
                                     <div class="price">
-                                        <div class="won">174,900<em>원</em></div>
-                                        <div class="dollar">($135,58)</div>
+                                        <div class="won">
+                                            <span th:text="${#numbers.formatInteger(totalAmount, 0, 'COMMA')}">10,000</span><em>원</em>
+                                        </div>
+<!--                                        <div class="dollar">($135,58)</div>-->
                                     </div>
                                 </div>
                                 <div class="desc method">
@@ -553,7 +558,8 @@
                                 <div class="button">
                                     <a href="javascript: paymentOrder();" class="btn btn_01">주문하기</a>
                                 </div>
-                                <form id="order_complete_form" name="orderComplete" method="get" action="/order/complete"></form>
+                                <form id="order_complete_form" name="orderComplete" method="get"
+                                      action="/order/complete"></form>
                             </div>
                         </div>
                     </div>
@@ -657,7 +663,7 @@
 
             var popupX = (document.body.offsetWidth / 2) - (700 / 2);
             // 만들 팝업창 width 크기의 1/2 만큼 보정값으로 빼주었음
-            var popupY= (window.screen.height / 2) - (500 / 2);
+            var popupY = (window.screen.height / 2) - (500 / 2);
             // 만들 팝업창 height 크기의 1/2 만큼 보정값으로 빼주었음
 
             let paymentPopup = window.open('/order/payment/start?' + query, 'orderPayment', 'width=700,height=500,top=' + popupX + ',left=' + popupY);

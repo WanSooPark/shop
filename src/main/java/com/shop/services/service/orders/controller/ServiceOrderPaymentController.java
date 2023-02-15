@@ -43,4 +43,12 @@ public class ServiceOrderPaymentController {
         return "order/payment/payment_complete";
     }
 
+    @PostMapping("/cancel")
+    public String cancelCompleteView(@CurrentAccount Member member, @RequestParam Map map, PaymentCompleteDto.Request dto, Model model) {
+//        ServiceOrderPaymentCompleteDto.Response response = serviceOrderPaymentService.complete(dto.getRETURNPARAMS());
+//        model.addAttribute("complete", response);
+        System.out.println("");
+        return "order/payment/payment_complete";
+    }
+
 }
