@@ -6,7 +6,6 @@ import com.shop.services.service.orders.dto.ServiceOrderCompleteDto;
 import com.shop.services.service.orders.dto.ServiceOrderFormDto;
 import com.shop.services.service.orders.dto.ServiceOrderResponse;
 import com.shop.services.service.orders.dto.ServiceOrdererProfileResponse;
-import com.shop.services.service.orders.form.OrderItemFormResponse;
 import com.shop.services.service.orders.service.ServiceOrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -14,8 +13,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.List;
 
 @Controller
 @RequestMapping("/order")
@@ -41,7 +38,7 @@ public class ServiceOrderController {
     public String orderCompleteView(@CurrentAccount Member member, ServiceOrderCompleteDto.Request dto, Model model) {
         ServiceOrderResponse order = serviceOrderService.getOrder(dto.getOrderId());
         model.addAttribute("order", order);
-        return "/order/order_complete";
+        return "order/order_complete";
     }
 
 }
