@@ -1,4 +1,4 @@
-package com.shop.commons.danal.dto;
+package com.shop.commons.danal.dto.ready;
 
 import lombok.Builder;
 import lombok.Data;
@@ -13,11 +13,12 @@ public class CardPaymentReadyRequest {
     private String orderId;
     private String itemName;
     private String useragent;
-    private String username;
+    private String name;
     private String userId;
     private String userEmail;
     private String returnUrl;
     private String cancelUrl;
+    private String byPassValue; // BYPASSVALUE
 
     public Map toMap() {
         /*[ 필수 데이터 ]***************************************/
@@ -48,7 +49,7 @@ public class CardPaymentReadyRequest {
         /**************************************************
          * 고객 정보
          **************************************************/
-        REQ_DATA.put("USERNAME", this.username); // 구매자 이름
+        REQ_DATA.put("USERNAME", this.name); // 구매자 이름
         REQ_DATA.put("USERID", this.userId); // 사용자 ID
         REQ_DATA.put("USEREMAIL", this.userEmail); // 소보법 email 수신처
 
@@ -64,7 +65,7 @@ public class CardPaymentReadyRequest {
         REQ_DATA.put("TXTYPE", "AUTH");
         REQ_DATA.put("SERVICETYPE", "DANALCARD");
         REQ_DATA.put("ISNOTI", "N");
-        REQ_DATA.put("BYPASSVALUE", "this=is;a=test;bypass=value"); // BILL 응답 또는 Noti 에서 돌려받을 값. '&'를 사용할 경우 값이 잘리게되므로 유의.
+        REQ_DATA.put("BYPASSVALUE", this.byPassValue); // BILL 응답 또는 Noti 에서 돌려받을 값. '&'를 사용할 경우 값이 잘리게되므로 유의.
         return REQ_DATA;
     }
 }

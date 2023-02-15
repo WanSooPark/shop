@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>주문결제</title>
+</head>
+<body>
+<div>
+    <div>
+        <span>주문 결제</span>
+    </div>
+    <div>
+        <span>
+            결제 <span th:text="${complete.isSuccess()} ? '성공' : '실패'">결과</span>
+        </span><br>
+        <span th:if="${!complete.isSuccess()}" th:text="${complete.getMessage()}">결제 메시지</span>
+    </div>
+    <div>
+        <button onclick="close()">닫기</button>
+    </div>
+</div>
+<script type="application/javascript" th:inline="javascript">
+    /* <![CDATA[ */
+    const complete = [[${complete}]];
+    /* ]]> */
+</script>
+</body>
+</html>

@@ -2,7 +2,9 @@ package com.shop.services.service.orders.controller;
 
 import com.shop.commons.security.CurrentAccount;
 import com.shop.models.members.domain.Member;
+import com.shop.services.service.orders.dto.ServiceOrderCompleteDto;
 import com.shop.services.service.orders.dto.ServiceOrderFormDto;
+import com.shop.services.service.orders.dto.ServiceOrderResponse;
 import com.shop.services.service.orders.dto.ServiceOrdererProfileResponse;
 import com.shop.services.service.orders.service.ServiceOrderService;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +31,9 @@ public class ServiceOrderController {
     }
 
     @GetMapping("/complete")
-    public String orderCompleteView(@CurrentAccount Member member, Model model) {
+    public String orderCompleteView(@CurrentAccount Member member, ServiceOrderCompleteDto.Request dto, Model model) {
+        ServiceOrderResponse order = serviceOrderService.getOrder(dto.getOrderId());
+        model.addAttribute("order", order);
         return "/order/order_complete";
     }
 

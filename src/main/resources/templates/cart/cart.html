@@ -81,21 +81,23 @@
                                                 </div>
                                             </td>
                                             <td>
-                                                <span th:text="${#numbers.formatInteger(cartItem.getPrice(), 0, 'COMMA')}">349,000</span>원
+                                                <span th:text="${#numbers.formatInteger(cartItem.getPrice(), 0, 'COMMA')}" th:id="cart_item_price_+${cartItem.getId()}">349,000</span>원
                                                 <!-- <br><em>($135,58)</em>-->
                                             </td>
                                             <td>
                                                 <div class="amount">
                                                     <div class="inp">
-                                                        <input type="text" th:value="${cartItem.getCount()}" th:id="item_count_ + ${cartItem.getId()}">
+                                                        <input type="text" onchange="changeCountCartItem(event)"
+                                                               th:value="${cartItem.getCount()}" th:id="item_count_ + ${cartItem.getId()}"
+                                                               onKeyup="this.value=this.value.replace(/[^0-9]/g,'');">
                                                     </div>
                                                     <div class="ctl">
-                                                        <button type="button">
-                                                            <img src="/img/icon_amount_up.png">
-                                                        </button>
-                                                        <button type="button">
-                                                            <img src="/img/icon_amount_down.png">
-                                                        </button>
+                                                        <a onclick="changeOneCount('add', event)" th:id="cart_item_add_+${cartItem.getId()}">
+                                                            <img src="/img/icon_amount_up.png" th:id="cart_item_add_+${cartItem.getId()}">
+                                                        </a>
+                                                        <a onclick="changeOneCount('dec', event)" th:id="cart_item_dec_+${cartItem.getId()}">
+                                                            <img src="/img/icon_amount_down.png" th:id="cart_item_dec_+${cartItem.getId()}">
+                                                        </a>
                                                     </div>
                                                 </div>
                                                 <div class="change" style="display: none;">
@@ -103,7 +105,7 @@
                                                 </div>
                                             </td>
                                             <td>
-                                                <strong>
+                                                <strong th:id="cart_item_amount_ + ${cartItem.getId()}">
                                                     <strong th:text="${#numbers.formatInteger(cartItem.getPrice()*cartItem.getCount(), 0, 'COMMA')}">349,000</strong>원
                                                 </strong>
                                                 <!-- <br><em>($135,58)</em>-->
@@ -123,7 +125,7 @@
                             </div>
                             <div class="control">
                                 <button type="button" onclick="continueShopping()">계속 쇼핑하기</button>
-                                <button type="button" onclick="allItemOrder()">전체상품 주문하기</button>
+                                <button type="button" onclick="orderAllItems()">전체상품 주문하기</button>
                             </div>
                             <div class="caution">
                                 <dl>
@@ -163,7 +165,7 @@
                                     </div>
                                 </div>
                                 <div class="button">
-                                    <a href="javascript: checkItemOrder();" class="btn btn_01">선택상품 주문하기</a>
+                                    <a href="javascript: orderCheckedItems();" class="btn btn_01">선택상품 주문하기</a>
                                 </div>
                             </div>
                         </div>
@@ -175,8 +177,8 @@
     </div>
     <script type="application/javascript" th:inline="javascript">
         /* <![CDATA[ */
-        const cart = [[${cart}]];
-        const cartItems = [[${cart.cartItems}]];
+        let cart = [[${cart}]];
+        let cartItems = [[${cart.cartItems}]];
 
         const deliveryCost = document.getElementById("delivery_cost");
         const totalPrice = document.getElementById("total_price");
@@ -187,9 +189,11 @@
         const selectItem = [];
 
         let allCheckBox = document.getElementById("all_check_box");
+
+        /* 상품 선택 변화 */
         function onChangeCheckBox() {
             let deliveryCostValue = 0;
-            let totalPriceValue = 0;
+            let totalAmountValue = 0;
 
             const checkBoxList = document.getElementsByName("cartItemCheck");
             let checkedFilter = Object.entries(checkBoxList).filter(([index, elem], key) => {
@@ -212,13 +216,13 @@
 
             for (let i = 0; i < cartItems.length; i++) {
                 if (checkedIndexList.includes(String(i))) {
-                    totalPriceValue += cartItems[i].price;
+                    totalAmountValue += (cartItems[i].price * cartItems[i].count);
                 }
             }
 
             deliveryCost.innerHTML = deliveryCostValue.toLocaleString('ko-KR');
-            totalPrice.innerHTML = totalPriceValue.toLocaleString('ko-KR');
-            totalAmount.innerHTML = (totalPriceValue + deliveryCostValue).toLocaleString('ko-KR');
+            totalPrice.innerHTML = totalAmountValue.toLocaleString('ko-KR');
+            totalAmount.innerHTML = (totalAmountValue + deliveryCostValue).toLocaleString('ko-KR');
         }
 
         // All 체크박스 동작
@@ -233,7 +237,9 @@
         }
 
         const orderForm = document.getElementById("order_form");
-        function allItemOrder() {
+
+        /* 모든 상품 주문 */
+        function orderAllItems() {
             const checkBoxList = document.getElementsByName("cartItemCheck");
             let checkedIdList = Object.entries(checkBoxList).map(([index, elem], key) => {
                 return elem.id.replace("check_", "");
@@ -256,7 +262,9 @@
 
             orderForm.submit();
         }
-        function checkItemOrder() {
+
+        /* 선택한 상품 주문 */
+        function orderCheckedItems() {
             const checkBoxList = document.getElementsByName("cartItemCheck");
             let checkedFilter = Object.entries(checkBoxList).filter(([index, elem], key) => {
                     return elem.checked;
@@ -283,8 +291,78 @@
 
             orderForm.submit();
         }
-        function continueShopping() {
 
+        /* 수량 하나 변경 */
+        async function changeOneCount(operator, event) {
+            let id = event.target.id;
+            id = id.replace('cart_item_' + operator + '_', '');
+            const itemCountField = document.getElementById('item_count_' + id);
+            let value = itemCountField.value;
+            if (operator === 'add') {
+                value++;
+            } else if (operator === 'dec') {
+                value--;
+            }
+
+            let cartItem = await changeCartItemCount(id, value);
+            itemCountField.value = cartItem.count;
+        }
+
+        /* 장바구니 상품 수량 변경 */
+        async function changeCountCartItem(event) {
+            let id = event.target.id;
+            id = id.replace('item_count_', '');
+
+            await changeCartItemCount(id, event.target.value);
+        }
+
+        /* 수량변경 요청 */
+        async function changeCartItemCount(id, count) {
+            let cartItem = {};
+            const body = {
+                count: count
+            }
+
+            await fetch('/api/cart-items/' + id, {
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                method: 'PATCH',
+                body: JSON.stringify(body)
+            }).then(response => {
+                return response.json();
+            }).then(data => {
+                cartItem = data;
+            }).catch(errors => {
+                console.log(errors);
+            })
+
+            await reloadCartInfo(); // 카트정보 재검색
+
+            // 총금액 재계산
+            const cartItemAmount = document.getElementById('cart_item_amount_' + id);
+            Object(cartItems).map(cartItem => {
+                if (cartItem.id === Number(id)) {
+                    cartItemAmount.innerHTML = (cartItem.price * cartItem.count).toLocaleString('ko-KR') + '원';
+                }
+            });
+
+            await onChangeCheckBox(); // 선택상품 재계산
+
+            return cartItem;
+        }
+
+        /* 카트 정보 업데이트 */
+        async function reloadCartInfo() {
+            await fetch('/api/cart')
+                .then(response => {
+                return response.json();
+            }).then(data => {
+                cart = data;
+                cartItems = cart.cartItems;
+            }).catch(errors => {
+                console.log(errors);
+            })
         }
         /* ]]> */
     </script>

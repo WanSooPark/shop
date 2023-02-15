@@ -75,6 +75,7 @@ public class ServiceOrderService {
                     orderItem.setName(item.getName());
                     orderItem.setPrice(item.getSalePrice());
                     orderItem.setCount(itemDto.getCount());
+                    orderItem.setCartItemId(itemDto.getCartItemId());
 
                     ServiceOrderItemOptionDto.Request option = itemDto.getOption();
                     OrderItemOption orderItemOption = mapOrderItemOption(option);
@@ -131,6 +132,7 @@ public class ServiceOrderService {
                         .price(price)
                         .count(cartItemCount)
                         .option(option)
+                        .cartItemId(cartItemId)
                         .build();
 
                 items.add(orderItem);
@@ -140,5 +142,10 @@ public class ServiceOrderService {
         return ServiceOrderFormDto.Response.builder()
                 .items(items)
                 .build();
+    }
+
+    public ServiceOrderResponse getOrder(Long orderId) {
+        Order order = orderService.findById(orderId);
+        return ServiceOrderResponse.of(order);
     }
 }

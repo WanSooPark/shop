@@ -26,6 +26,11 @@ public class CartItemService {
     }
 
     public CartItem findById(Long id) {
-        return repository.findById(id).orElseThrow(() -> new NoContentException("유효하지 않은 장바구나 상품 id 입니다."));
+        return repository.findById(id)
+                .orElseThrow(() -> new NoContentException("유효하지 않은 장바구나 상품 id 입니다."));
+    }
+
+    public void deleteByIds(List<Long> ids) {
+        repository.deleteByIdIn(ids);
     }
 }

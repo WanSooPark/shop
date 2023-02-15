@@ -1,7 +1,8 @@
-package com.shop.commons.danal.dto;
+package com.shop.commons.danal.dto.ready;
 
 import lombok.Builder;
 import lombok.Data;
+import org.springframework.util.ObjectUtils;
 
 @Data
 @Builder
@@ -13,4 +14,8 @@ public class CardPaymentReadyResponse {
     private String tid; // 다날 거래 키
     private String orderId; // 가맹점 주문번호
     private String amount; // 결제금액
+
+    public boolean isSuccess() {
+        return !ObjectUtils.isEmpty(returnCode) && returnCode.equals("0000");
+    }
 }

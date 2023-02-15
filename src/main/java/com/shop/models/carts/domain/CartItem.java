@@ -30,4 +30,7 @@ public class CartItem extends BaseEntity {
     @OneToOne(cascade = CascadeType.ALL)
     private CartItemOption cartItemOption;
 
+    public void changeCount(Long count) {
+        this.count = count;
+    }
 }

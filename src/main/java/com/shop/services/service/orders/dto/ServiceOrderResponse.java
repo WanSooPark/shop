@@ -2,8 +2,10 @@ package com.shop.services.service.orders.dto;
 
 import com.shop.models.orders.domain.Order;
 import com.shop.services.service.orders.dto.item.ServiceOrderItemResponse;
+import com.shop.services.service.orders.dto.payment.ServicePaymentResponse;
 import lombok.Builder;
 import lombok.Data;
+import org.springframework.util.ObjectUtils;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -14,7 +16,8 @@ public class ServiceOrderResponse {
     private Long id;
     private Long amount;
     private List<ServiceOrderItemResponse> items;
-    private String orderStatus; // 주문상태
+    private String status; // 주문상태
+    private ServicePaymentResponse payment;
 //    private LocalDateTime orderDateTime; // 주문일시
 //    private LocalDateTime paidDateTime; // 결제일시
 //    private LocalDateTime cancelDateTime; // 취소일시
@@ -30,8 +33,9 @@ public class ServiceOrderResponse {
                         .stream()
                         .map(ServiceOrderItemResponse::of)
                         .collect(Collectors.toList()))
-                .orderStatus(order.getOrderStatus()
+                .status(order.getStatus()
                         .name())
+                .payment(ObjectUtils.isEmpty(order.getPayment()) ? null : ServicePaymentResponse.of(order.getPayment()))
                 .build();
     }
 }

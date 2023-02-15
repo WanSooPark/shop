@@ -45,7 +45,7 @@ public class ServiceOrderDto {
             Order order = new Order();
             order.setMember(member);
             order.setAddress(address);
-            order.setOrderStatus(OrderStatus.PENDING);
+            order.setStatus(OrderStatus.PENDING);
             order.setOrdererName(this.ordererName);
             order.setOrdererGeneralPhoneNumber(this.ordererGeneralPhoneNumber);
             order.setOrdererCellPhoneNumber(this.ordererCellPhoneNumber);

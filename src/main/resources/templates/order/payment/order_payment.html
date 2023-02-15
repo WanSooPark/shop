@@ -553,7 +553,7 @@
                                 <div class="button">
                                     <a href="javascript: paymentOrder();" class="btn btn_01">주문하기</a>
                                 </div>
-                                <form id="order_complete_form" name="orderComplete" method="get" action="/order/complete"></form>
+                                <form id="start_payment_form" name="startPaymentForm" method="post"></form>
                             </div>
                         </div>
                     </div>
@@ -632,6 +632,18 @@
 
         /* 주문 등록, 결제 */
         async function paymentOrder() {
+            let paymentPopup = window.open('/order/payment', 'orderPayment', "width=500,height=500,top=100,left=100");
+            let interval = setInterval(function () {
+                if (paymentPopup.closed) {
+                    console.log('닫힘');
+                    alert('닫힘');
+                    clearInterval(interval);
+                } else {
+                    console.log('안닫힘');
+                }
+            }, 1000);
+            return;
+
             let orderResult = {};
             if (!agreeToPurchase.checked) {
                 alert('구매진행에 동의해주세요');
@@ -644,40 +656,26 @@
                 return;
             }
 
-            const useragent = isMobile() ? 'WM' : 'WP';
-            const params = {
-                orderId: orderResult.order.id,
-                paymentType: document.querySelector('input[name="paymentType"]:checked').value,
-                useragent: useragent
+            const readyResult = await readyRequest(orderResult.order);
+            if (!readyResult.success) {
+                alert(readyResult.message);
+                return;
             }
 
-            let query = Object.keys(params)
-                .map(k => encodeURIComponent(k) + '=' + encodeURIComponent(params[k]))
-                .join('&');
-
-            var popupX = (document.body.offsetWidth / 2) - (700 / 2);
-            // 만들 팝업창 width 크기의 1/2 만큼 보정값으로 빼주었음
-            var popupY= (window.screen.height / 2) - (500 / 2);
-            // 만들 팝업창 height 크기의 1/2 만큼 보정값으로 빼주었음
-
-            let paymentPopup = window.open('/order/payment/start?' + query, 'orderPayment', 'width=700,height=500,top=' + popupX + ',left=' + popupY);
-            let interval = setInterval(function () {
-                if (paymentPopup.closed) {
-                    clearInterval(interval);
-
-                    let orderCompleteForm = document.getElementById("order_complete_form");
-                    const orderIdInput = document.createElement('input');
-                    orderIdInput.setAttribute("type", "hidden");
-                    orderIdInput.setAttribute("name", "orderId");
-                    orderIdInput.setAttribute("value", orderResult.order.id);
-                    orderCompleteForm.appendChild(orderIdInput);
-                    orderCompleteForm.submit();
-                } else {
-                }
-            }, 1000);
+            /* 결제 시작 */
+            let startPaymentForm = document.getElementById("start_payment_form");
+            startPaymentForm.action = readyResult.startUrl;
+            const startParamsInput = document.createElement('input');
+            startParamsInput.setAttribute("type", "hidden");
+            startParamsInput.setAttribute("name", "STARTPARAMS");
+            startParamsInput.setAttribute("value", readyResult.startParams);
+            startPaymentForm.appendChild(startParamsInput);
+            startPaymentForm.submit();
         }
 
-        /* 주문 등록 */
+        /**
+         * 주문 등록
+         */
         async function saveOrder() {
             let orderResult = {
                 success: false,
@@ -722,6 +720,44 @@
                 orderResult.message = errors.message;
             })
             return orderResult;
+        }
+
+        /* 결제 준비 요청 */
+        async function readyRequest(order) {
+            let readyResult = {
+                success: false,
+                message: '',
+                startUrl: '',
+                startParams: ''
+            }
+
+            const useragent = isMobile() ? 'WM' : 'WP';
+            let paymentType = document.querySelector('input[name="paymentType"]:checked').value;
+            const body = {
+                paymentType: paymentType,
+                useragent: useragent, // 사용자 환경 (WP: PC Web, WM: Mobile Web)
+            }
+
+            await fetch('/api/orders/' + order.id + '/payment/ready', {
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                method: 'POST',
+                body: JSON.stringify(body)
+            }).then(response => {
+                if (!response.ok) {
+                    throw Error('');
+                }
+                console.log(response);
+                return response.json();
+            }).then(data => {
+                readyResult = data;
+            }).catch(errors => {
+                console.log(errors);
+                readyResult.message = errors.message;
+                readyResult.returnMessage = errors.returnMessage;
+            })
+            return readyResult;
         }
 
         /* 배송지 정보 주문인 정보와 동일 */

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>주문결제</title>
+</head>
+<body>
+<div>
+    <span>주문 결제</span>
+    <form id="start_payment_form" name="startPaymentForm" method="post"></form>
+</div>
+<script type="application/javascript" th:inline="javascript">
+    /* <![CDATA[ */
+    const order = [[${order}]];
+    const ready = [[${ready}]];
+
+    let startPaymentForm = document.getElementById("start_payment_form");
+    startPaymentForm.action = ready.startUrl;
+    const startParamsInput = document.createElement('input');
+    startParamsInput.setAttribute("type", "hidden");
+    startParamsInput.setAttribute("name", "STARTPARAMS");
+    startParamsInput.setAttribute("value", ready.startParams);
+    startPaymentForm.appendChild(startParamsInput);
+    startPaymentForm.submit();
+
+    /* 결제 준비 요청 비동기 */
+    async function readyRequest(order) {
+        let readyResult = {
+            success: false,
+            message: '',
+            startUrl: '',
+            startParams: ''
+        }
+
+        const useragent = isMobile() ? 'WM' : 'WP';
+        let paymentType = document.querySelector('input[name="paymentType"]:checked').value;
+        const body = {
+            paymentType: paymentType,
+            useragent: useragent, // 사용자 환경 (WP: PC Web, WM: Mobile Web)
+        }
+
+        await fetch('/api/orders/' + order.id + '/payment/ready', {
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            method: 'POST',
+            body: JSON.stringify(body)
+        }).then(response => {
+            if (!response.ok) {
+                throw Error('');
+            }
+            console.log(response);
+            return response.json();
+        }).then(data => {
+            readyResult = data;
+        }).catch(errors => {
+            console.log(errors);
+            readyResult.message = errors.message;
+            readyResult.returnMessage = errors.returnMessage;
+        })
+        return readyResult;
+    }
+    /* ]]> */
+</script>
+</body>
+</html>

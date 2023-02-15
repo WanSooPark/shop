@@ -9,6 +9,7 @@ public class ServiceOrderItemDto {
         private Long id;
         private Long count;
         private ServiceOrderItemOptionDto.Request option;
+        private Long cartItemId;
     }
 
 }

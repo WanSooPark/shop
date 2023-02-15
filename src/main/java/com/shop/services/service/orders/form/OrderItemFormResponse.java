@@ -20,4 +20,6 @@ public class OrderItemFormResponse {
     private Long earnedPoints = 0L;
 
     private OrderItemOptionFormResponse option;
+
+    private Long cartItemId;
 }

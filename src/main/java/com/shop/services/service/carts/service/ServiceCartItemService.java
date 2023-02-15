@@ -1,5 +1,6 @@
 package com.shop.services.service.carts.service;
 
+import com.shop.commons.errors.exceptions.AccessDeniedException;
 import com.shop.commons.errors.exceptions.NoContentException;
 import com.shop.models.carts.domain.CartItem;
 import com.shop.models.carts.domain.CartItemOption;
@@ -63,5 +64,15 @@ public class ServiceCartItemService {
                 .success(true)
                 .cartItem(ServiceCartItemResponse.of(cartItem))
                 .build();
+    }
+
+    public ServiceCartItemResponse changeCartItemCount(Long cartItemId, ServiceCartItemDto.ChangeCountRequest dto, Member member) {
+        CartItem cartItem = cartItemService.findById(cartItemId);
+
+        if (!cartItem.getMember().equals(member)) {
+            throw new AccessDeniedException("권한이 없는 장바구니 상품 입니다.");
+        }
+        cartItem.changeCount(dto.getCount());
+        return ServiceCartItemResponse.of(cartItem);
     }
 }

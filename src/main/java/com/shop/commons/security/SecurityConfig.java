@@ -48,11 +48,16 @@ public class SecurityConfig {
                 .authorizeRequests()
                 .mvcMatchers("/css/**", "/js/**", "/img/**", "/admin/css/**", "/admin/js/**", "/admin/img/**")
                 .permitAll()
-                .mvcMatchers("/admin", "/admin/login", "/admin/notice","/admin/notice/**", "/admin/item", "/admin/item/**", "/admin/category", "/admin/category/**", "/admin/topic", "/admin/topic/**", "/admin/banner" , "/admin/banner/**")
+                .mvcMatchers("/admin", "/admin/login", "/admin/notice", "/admin/notice/**", "/admin/item", "/admin/item/**", "/admin/category", "/admin/category/**", "/admin/topic", "/admin/topic/**", "/admin/banner", "/admin/banner/**")
                 .permitAll()
                 .anyRequest()
                 .authenticated()
         ;
+
+        http.rememberMe()
+                .key("shop")
+                .rememberMeParameter("rememberMe")
+                .tokenValiditySeconds(2419200);
 
         return http.build();
     }

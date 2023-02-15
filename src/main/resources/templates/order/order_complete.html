@@ -12,11 +12,19 @@
 <div layout:fragment="content">
     <div id="container">
         <div>
-            <span>주문 완료</span>
+            <span>임시 주문 완료 페이지</span>
+        </div>
+        <div th:if="${order != null}">
+            <div th:if="${order.getPayment() != null}">
+                <span th:text="${order.getPayment().getStatus() == 'SUCCESS'} ? '결제 성공' : '결제 실패'">결과</span><br>
+                <span th:if="${order.getPayment().getStatus() != 'SUCCESS'}" th:text="${order.getPayment().getLastMessage()}"></span>
+            </div>
         </div>
     </div>
     <script type="application/javascript" th:inline="javascript">
         /* <![CDATA[ */
+        const order = [[${order}]];
+        console.log(order);
         /* ]]> */
     </script>
 </div>

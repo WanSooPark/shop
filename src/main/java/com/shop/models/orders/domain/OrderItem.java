@@ -33,6 +33,8 @@ public class OrderItem {
 
     private Long count; // 수량
 
+    private Long cartItemId; // 장바구니 상품 아이디
+
     public Long getAmount() {
         long optionPrice = 0;
         if (!ObjectUtils.isEmpty(this.option)) {

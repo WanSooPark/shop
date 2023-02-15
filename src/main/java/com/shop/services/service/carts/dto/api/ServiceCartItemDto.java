@@ -4,12 +4,19 @@ import com.shop.services.service.carts.dto.ServiceCartItemResponse;
 import lombok.Builder;
 import lombok.Data;
 
+import java.util.List;
+
 public class ServiceCartItemDto {
 
     @Data
     public static class Request {
         private Long itemId;
         private Long optionId;
+        private Long count;
+    }
+
+    @Data
+    public static class ChangeCountRequest {
         private Long count;
     }
 

@@ -3,6 +3,7 @@ package com.shop.models.orders.domain;
 import com.shop.commons.entity.BaseEntity;
 import com.shop.models.addresses.domain.Address;
 import com.shop.models.members.domain.Member;
+import com.shop.models.payments.domain.Payment;
 import lombok.*;
 import org.springframework.util.ObjectUtils;
 
@@ -50,7 +51,7 @@ public class Order extends BaseEntity {
     private String orderMemo; // 주문 메모
 
     @Enumerated(EnumType.STRING)
-    private OrderStatus orderStatus; // 주문상태
+    private OrderStatus status; // 주문상태
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "order")
     private List<OrderItem> items;
@@ -63,6 +64,9 @@ public class Order extends BaseEntity {
 
     @ManyToOne(cascade = CascadeType.ALL)
     private Address address; // 배송지 주소
+
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "order")
+    private Payment payment;
 
     public void setItems(List<OrderItem> orderItems) {
         this.items = orderItems;
@@ -95,4 +99,15 @@ public class Order extends BaseEntity {
         }
         return itemName;
     }
+
+    public void ready(Payment payment) {
+        this.status = OrderStatus.BEFORE_DEPOSIT; // 입금 전
+        this.payment = payment;
+        payment.setOrder(this);
+    }
+
+    public void complete() {
+        this.status = OrderStatus.PREPARING_FOR_DELIVERY;
+    }
+
 }
