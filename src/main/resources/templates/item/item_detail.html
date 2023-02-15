@@ -179,7 +179,7 @@
                             <div class="image">
                                 <img th:src="${item.getMainImageUrl()}">
                                 <th:block th:each="url: ${item.getImageUrls()}">
-                                    <img th:src="${url}"
+                                    <img th:src="${url}">
                                 </th:block>
                             </div>
                             <div class="button">
