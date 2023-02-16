@@ -2,6 +2,7 @@ package com.allddaom.services.service.carts.controller;//package com.shop.servic
 
 import com.allddaom.commons.security.CurrentAccount;
 import com.allddaom.models.members.domain.Member;
+import com.allddaom.services.service.carts.dto.ServiceCartItemDeleteDto;
 import com.allddaom.services.service.carts.dto.ServiceCartResponse;
 import com.allddaom.services.service.carts.service.ServiceCartService;
 import lombok.RequiredArgsConstructor;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
@@ -32,6 +34,17 @@ public class ServiceCartController {
         }
         model.addAttribute("cart", cart);
         return "cart/cart";
+    }
+
+    @PostMapping("/delete")
+    public String cartItemDelete(@CurrentAccount Member member, HttpServletRequest request, ServiceCartItemDeleteDto.Request dto, Model model) {
+        if (!ObjectUtils.isEmpty(member)) {
+            serviceCartService.deleteCartItemByMember(dto, member);
+        } else {
+            HttpSession session = request.getSession();
+            serviceCartService.deleteCartItemBySessionId(dto, session.getId());
+        }
+        return "redirect:/cart";
     }
 
 }

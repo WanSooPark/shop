@@ -46,23 +46,23 @@
                         <button type="submit"><img src="/img/icon_search.png"></button>
                     </form>
                 </div>
-                <span sec:authorize="isAuthenticated()">
-                    <div class="link">
+                <div class="link">
+                    <th:block sec:authorize="isAuthenticated()">
                         <a th:href="@{/mypage}">
                             <div class="ico">
                                 <img src="/img/icon_mypage.png">
                             </div>
                             <div class="txt">마이페이지</div>
                         </a>
-                        <a th:href="@{/cart}">
-                            <div class="ico">
-                                <img src="/img/icon_cart.png">
-                                <p class="num">2</p>
-                            </div>
-                            <div class="txt">장바구니</div>
-                        </a>
-                    </div>
-                </span>
+                    </th:block>
+                    <a th:href="@{/cart}">
+                        <div class="ico">
+                            <img src="/img/icon_cart.png">
+                            <p class="num">2</p>
+                        </div>
+                        <div class="txt">장바구니</div>
+                    </a>
+                </div>
             </div>
         </div>
         <div class="head-navi">

@@ -37,4 +37,12 @@ public class CartItemService {
     public List<CartItem> findBySessionId(String sessionId) {
         return repository.findBySessionId(sessionId);
     }
+
+    public void delete(CartItem cartItem) {
+        repository.delete(cartItem);
+    }
+
+    public List<CartItem> findByIdIn(List<Long> ids) {
+        return repository.findByIdIn(ids);
+    }
 }

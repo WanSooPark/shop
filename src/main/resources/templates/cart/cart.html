@@ -25,8 +25,8 @@
                     <div class="cartbox">
                         <div class="cart">
                             <div class="tool">
-                                <button type="button">선택상품 삭제하기</button>
-                                <button type="button">전체상품 삭제하기</button>
+                                <button type="button" onclick="deleteCheckedCartItem()">선택상품 삭제하기</button>
+                                <button type="button" onclick="deleteAllCartItem()">전체상품 삭제하기</button>
                             </div>
                             <div class="list">
                                 <table id="cart_table">
@@ -122,8 +122,8 @@
                                                 <span th:text="${cartItem.getEarnedPoints()}">0</span>원
                                             </td>
                                             <td>
-                                                <a href="javascript:;">
-                                                    <img src="/img/icon_trash.png">
+                                                <a onclick="deleteOneCartItem(event)" th:id="cart_item_delete_ + ${cartItem.getId()}">
+                                                    <img src="/img/icon_trash.png" th:id="cart_item_delete_ + ${cartItem.getId()}">
                                                 </a>
                                             </td>
                                         </tr>
@@ -185,6 +185,7 @@
             </div>
         </div>
     </div>
+    <form id="cart_item_delete_form" method="post" action="/cart/delete"></form>
     <script type="application/javascript" th:inline="javascript">
         /* <![CDATA[ */
         let cart = [[${cart}]];
@@ -254,6 +255,12 @@
             let checkedIdList = Object.entries(checkBoxList).map(([index, elem], key) => {
                 return elem.id.replace("check_", "");
             });
+
+            if (checkedIdList.length === 0) {
+                alert('하나 이상의 상품을 선택해주세요');
+                return;
+            }
+
             checkedIdList.forEach(id => {
                 const idInput = document.createElement('input');
                 idInput.setAttribute("type", "hidden");
@@ -283,6 +290,12 @@
             let checkedIdList = checkedFilter.map(([index, elem], key) => {
                 return elem.id.replace("check_", "");
             });
+
+            if (checkedIdList.length === 0) {
+                alert('하나 이상의 상품을 선택해주세요');
+                return;
+            }
+
             checkedIdList.forEach(id => {
                 const idInput = document.createElement('input');
                 idInput.setAttribute("type", "hidden");
@@ -373,6 +386,54 @@
                 }).catch(errors => {
                     console.log(errors);
                 })
+        }
+
+        let cartItemDeleteForm = document.getElementById("cart_item_delete_form");
+
+        /* 장바구니에서 모든 상품 제거 */
+        function deleteAllCartItem() {
+            const checkBoxList = document.getElementsByName("cartItemCheck");
+            let checkedIdList = Object.entries(checkBoxList).map(([index, elem], key) => {
+                return elem.id.replace("check_", "");
+            });
+
+            deleteCartItem(checkedIdList);
+        }
+
+        /* 장바구니에서 체크한 상품 제거 */
+        function deleteCheckedCartItem() {
+            const checkBoxList = document.getElementsByName("cartItemCheck");
+            let checkedFilter = Object.entries(checkBoxList).filter(([index, elem], key) => {
+                    return elem.checked;
+                }
+            );
+            let checkedIdList = checkedFilter.map(([index, elem], key) => {
+                return elem.id.replace("check_", "");
+            });
+
+            deleteCartItem(checkedIdList);
+        }
+
+        /* 장바구니에서 상품 하나 제거 */
+        function deleteOneCartItem(event) {
+            let id = event.target.id.replace('cart_item_delete_', '');
+            const ids = [id];
+
+            deleteCartItem(ids);
+        }
+
+        /* 장바구니에서 상품 제거 */
+        function deleteCartItem(ids) {
+            ids.forEach(itemId => {
+                const cartItemIdInput = document.createElement('input');
+                cartItemIdInput.setAttribute("type", "hidden");
+                cartItemIdInput.setAttribute("name", "cartItemIds");
+                cartItemIdInput.setAttribute("value", itemId);
+
+                cartItemDeleteForm.appendChild(cartItemIdInput);
+            })
+
+            cartItemDeleteForm.submit();
         }
 
         /* ]]> */
