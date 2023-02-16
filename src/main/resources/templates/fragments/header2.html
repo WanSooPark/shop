@@ -58,7 +58,7 @@
                     <a th:href="@{/cart}">
                         <div class="ico">
                             <img src="/img/icon_cart.png">
-                            <p class="num">2</p>
+                            <p class="num" th:if="${cartItemCount > 0}" th:text="${cartItemCount}">2</p>
                         </div>
                         <div class="txt">장바구니</div>
                     </a>

@@ -14,4 +14,8 @@ public interface CartItemRepository extends JpaRepository<CartItem, Long> {
     List<CartItem> findBySessionId(String sessionId);
 
     List<CartItem> findByIdIn(List<Long> ids);
+
+    Long countByMember(Member member);
+
+    Long countBySessionId(String sessionId);
 }

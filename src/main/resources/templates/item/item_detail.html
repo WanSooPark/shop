@@ -163,7 +163,7 @@
                                             return alert('장바구니 등록 실패 : ' + errors.message);
                                         });
 
-                                    if (confirm('제목?', message + ', 장바구니로 이동하시겠습니까?')) {
+                                    if (confirm(message + ', 장바구니로 이동하시겠습니까?')) {
                                         location.href = '/cart';
                                     }
                                 }

@@ -45,4 +45,13 @@ public class CartItemService {
     public List<CartItem> findByIdIn(List<Long> ids) {
         return repository.findByIdIn(ids);
     }
+
+    public Long countByMember(Member member) {
+        return repository.countByMember(member);
+    }
+
+    public Long countBySessionId(String sessionId) {
+        return repository.countBySessionId(sessionId);
+    }
+
 }
