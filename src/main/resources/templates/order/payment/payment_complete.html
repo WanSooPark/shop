@@ -23,10 +23,10 @@
         <br>
         입금가상계좌: <span th:text="${complete.getVirtualAccount()}"></span>
         <br>
-        예금주명: <%=CP_ACCOUNT_HOLDER_NAME%>
+        예금주명: <span th:text="${complete.getAccountHolder()}"></span>
         <br>
         <br>
-        입금액: <span th:text="${complete.getVirtualAccountAmount()}"></span>원
+        입금액: <span th:text="${complete.getAmount()}"></span>원
         <br>
         입금 만료일시: <span th:text="${complete.getExpireDate()}"></span> <span th:text="${complete.getExpireTime()}"></span>
         <br>

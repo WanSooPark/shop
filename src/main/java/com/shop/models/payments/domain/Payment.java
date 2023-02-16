@@ -23,6 +23,11 @@ public class Payment extends BaseEntity {
     private Order order;
 
     private String tid;
+    private String username;
+    private String userId;
+
+    private String bankCode;
+    private String bankName;
 
     /* 신용카드 필드 */
     private String trxAmount;
@@ -33,25 +38,23 @@ public class Payment extends BaseEntity {
     private String cardNo;
     private String quota;
     private String cardAuthNo;
-    private String username;
 
     /* 가상계좌 필드 */
-    private String bankCode; // 출금은행코드
-    private String bankName;
+    private String amount;
+    private String virtualAccount;
+    private String accountHolder;
+    private String userMail;
+    private String itemName;
+    private String byPassValue;
     private String expireDate;
     private String expireTime;
-    private String virtualAccount;
     private String isCashReceipt;
-    private String virtualAccountAmount;
 
     /* 계좌이체 필드*/
     private String accountNo; // 출금계좌번호 뒷5자리(앞부분은 *로 표시)
     private String transTime; // 출금처리시간(yyyyMMDDmmHHss)
-    private String userId;
     private String userPhone;
     private String userEmail;
-    //    private String bankCode; // 출금은행코드
-    //    private String username;
 
     private String lastCode;
     private String lastMessage;
@@ -68,11 +71,17 @@ public class Payment extends BaseEntity {
     private LocalDateTime successDateTime;
     private LocalDateTime cancelDateTime;
 
+    /**
+     * 마지막 상태 저장
+     */
     public void lastStatus(String lastCode, String lastMessage) {
         this.lastCode = lastCode;
         this.lastMessage = lastMessage;
     }
 
+    /**
+     * 결제 준비
+     */
     public void ready(String tid, PaymentType paymentType) {
         this.status = PaymentStatus.READY;
         this.tid = tid;
@@ -80,6 +89,9 @@ public class Payment extends BaseEntity {
         this.readyDateTime = LocalDateTime.now();
     }
 
+    /**
+     * 신용카드 결제 성공
+     */
     public void successCardPayment(String trxAmount, String tranDate, String tranTime, String cardCode, String cardName, String cardNo, String quota, String cardAuthNo, String username) {
         this.status = PaymentStatus.SUCCESS;
         this.trxAmount = trxAmount;
@@ -96,37 +108,61 @@ public class Payment extends BaseEntity {
         this.order.complete();
     }
 
+    /**
+     * 요청 성공
+     * (결제 성공x)
+     */
     public void complete() {
         this.status = PaymentStatus.COMPLETE;
         this.successDateTime = LocalDateTime.now();
     }
 
-    public void issuanceOfVirtualAccount(String bankCode, String bankName, String expireDate, String expireTime, String virtualAccount, String isCashReceipt, String amount) {
-        this.bankCode = bankCode;
-        this.bankName = bankName;
+    /**
+     * 가상계좌 발급
+     */
+    public void issuanceOfVirtualAccount(String tid, String amount, String virtualAccount, String accountHolder, String username, String userId, String userMail, String itemName, String byPassValue, String expireDate, String expireTime, String bankCode, String bankName, String isCashReceipt) {
+        this.tid = tid;
+        this.amount = amount;
+        this.virtualAccount = virtualAccount;
+        this.accountHolder = accountHolder;
+        this.username = username;
+        this.userId = userId;
+        this.userMail = userMail;
+        this.itemName = itemName;
+        this.byPassValue = byPassValue;
         this.expireDate = expireDate;
         this.expireTime = expireTime;
-        this.virtualAccount = virtualAccount;
+        this.bankCode = bankCode;
+        this.bankName = bankName;
         this.isCashReceipt = isCashReceipt;
-        this.virtualAccountAmount = amount;
 
         this.status = PaymentStatus.ISSUANCE_VIRTUAL_ACCOUNT;
         this.issuanceVirtualAccountDateTime = LocalDateTime.now();
     }
 
+    /**
+     * 취소
+     */
     public void cancel() {
         this.status = PaymentStatus.CANCELED;
         this.cancelDateTime = LocalDateTime.now();
     }
 
-    public void successWireTransfer(String accountNo, String bankCode, String transTime, String username, String userId, String userPhone, String userEmail) {
+    /**
+     * 계좌이체 성공
+     */
+    public void successWireTransfer(String tid, String itemName, String amount, String accountNo, String bankCode, String transTime, String username, String userId, String userPhone, String userMail, String byPassValue) {
+        this.tid = tid;
+        this.itemName = itemName;
+        this.amount = amount;
         this.accountNo = accountNo;
         this.bankCode = bankCode;
         this.transTime = transTime;
         this.username = username;
         this.userId = userId;
         this.userPhone = userPhone;
-        this.userEmail = userEmail;
+        this.userMail = userMail;
+        this.byPassValue = byPassValue;
 
         this.status = PaymentStatus.SUCCESS;
         this.successDateTime = LocalDateTime.now();

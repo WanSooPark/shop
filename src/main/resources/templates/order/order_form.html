@@ -650,11 +650,10 @@
                 return;
             }
 
-            const useragent = isMobile() ? 'WM' : 'WP';
             const params = {
                 orderId: orderResult.order.id,
                 paymentType: document.querySelector('input[name="paymentType"]:checked').value,
-                useragent: useragent
+                isMobile: isMobile()
             }
 
             let query = Object.keys(params)
@@ -666,7 +665,7 @@
             var popupY = (window.screen.height / 2) - (500 / 2);
             // 만들 팝업창 height 크기의 1/2 만큼 보정값으로 빼주었음
 
-            let paymentPopup = window.open('/order/payment/start?' + query, 'orderPayment', 'width=700,height=500,top=' + popupX + ',left=' + popupY);
+            let paymentPopup = window.open('/order/payment/start?' + query, 'orderPayment', 'width=700,height=800,top=' + popupX + ',left=' + popupY);
             let interval = setInterval(function () {
                 if (paymentPopup.closed) {
                     clearInterval(interval);

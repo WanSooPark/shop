@@ -31,7 +31,7 @@ public class ServiceOrderPaymentController {
     public String paymentView(@CurrentAccount Member member, PaymentStartDto.Request dto, Model model) {
         ServiceOrderResponse order = serviceOrderService.getOrder(dto.getOrderId());
         model.addAttribute("order", order);
-        ServiceOrderPaymentReadyDto.Response ready = serviceOrderPaymentService.ready(dto.getOrderId(), dto.getPaymentType(), dto.getUseragent(), member);
+        ServiceOrderPaymentReadyDto.Response ready = serviceOrderPaymentService.ready(dto.getOrderId(), dto.getPaymentType(), dto.isMobile(), member);
         model.addAttribute("ready", ready);
         return "order/payment/payment_start";
     }

@@ -14,7 +14,11 @@ public class ServiceOrderPaymentReadyDto {
         private String paymentType;
         //        private Long finalAmount;
 //        private String itemName;
-        private String useragent; // 사용자 환경 (WP: PC Web, WM: Mobile Web)
+        private boolean isMobile;
+        // card payment 사용자 환경 (WP: PC Web, WM: Mobile Web)
+        // virtual account (PC: PC Web, MW: Mobile Web)
+        // wire transfer (PC: PC Web, MW: Mobile Web)
+//        private String useragent;
 //        private String returnUrl;
 //        private String cancelUrl;
 

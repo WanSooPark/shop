@@ -22,7 +22,7 @@ public class DanalVirtualAccountPaymentService {
     public VirtualAccountPaymentReadyResponse ready(VirtualAccountPaymentReadyRequest virtualAccountPaymentReadyRequest) {
         VirtualAccountPaymentReadyResponse response = null;
         Map REQ_DATA = virtualAccountPaymentReadyRequest.toMap();
-        Map RES_DATA = danalVirtualAccountPayment.CallVAccount(REQ_DATA, true);
+        Map RES_DATA = danalVirtualAccountPayment.CallVAccount(REQ_DATA, false);
 
         String RETURNCODE = (String) RES_DATA.get("RETURNCODE"); // 결과코드
         String RETURNMSG = "";
@@ -107,33 +107,57 @@ public class DanalVirtualAccountPaymentService {
         String RETURNCODE = (String) RES_DATA.get("RETURNCODE"); // 결과코드
         String RETURNMSG = (String) RES_DATA.get("RETURNMSG");
 
-        String BANKCODE = "";
-        String BANKNAME = "";
+        String TID = "";
+        String ORDERID = "";
+        String AMOUNT = "";
+        String VIRTUALACCOUNT = "";
+        String ACCOUNTHOLDER = "";
+        String USERNAME = "";
+        String USERID = "";
+        String USERMAIL = "";
+        String ITEMNAME = "";
+        String BYPASSVALUE = "";
         String EXPIREDATE = "";
         String EXPIRETIME = "";
-        String VIRTUALACCOUNT = "";
+        String BANKCODE = "";
+        String BANKNAME = "";
         String ISCASHRECEIPT = "";
-        String AMOUNT = "";
         if (RETURNCODE.equals("0000")) {
-            BANKCODE = (String) RES_DATA.get("BANKCODE");
-            BANKNAME = (String) RES_DATA.get("BANKNAME");
+            TID = (String) RES_DATA.get("TID");
+            ORDERID = (String) RES_DATA.get("ORDERID");
+            AMOUNT = (String) RES_DATA.get("AMOUNT");
+            VIRTUALACCOUNT = (String) RES_DATA.get("VIRTUALACCOUNT");
+            ACCOUNTHOLDER = (String) RES_DATA.get("ACCOUNTHOLDER");
+            USERNAME = (String) RES_DATA.get("USERNAME");
+            USERID = (String) RES_DATA.get("USERID");
+            USERMAIL = (String) RES_DATA.get("USERMAIL");
+            ITEMNAME = (String) RES_DATA.get("ITEMNAME");
+            BYPASSVALUE = (String) RES_DATA.get("BYPASSVALUE");
             EXPIREDATE = (String) RES_DATA.get("EXPIREDATE");
             EXPIRETIME = (String) RES_DATA.get("EXPIRETIME");
-            VIRTUALACCOUNT = (String) RES_DATA.get("VIRTUALACCOUNT");
+            BANKCODE = (String) RES_DATA.get("BANKCODE");
+            BANKNAME = (String) RES_DATA.get("BANKNAME");
             ISCASHRECEIPT = (String) RES_DATA.get("ISCASHRECEIPT");
-            AMOUNT = (String) RES_DATA.get("AMOUNT");
         }
 
         return VirtualAccountPaymentCompleteResponse.builder()
                 .returnCode(RETURNCODE)
                 .returnMessage(RETURNMSG)
-                .bankCode(BANKCODE)
-                .bankName(BANKNAME)
+                .tid(TID)
+                .orderId(ORDERID)
+                .amount(AMOUNT)
+                .virtualAccount(VIRTUALACCOUNT)
+                .accountHolder(ACCOUNTHOLDER)
+                .username(USERNAME)
+                .userId(USERID)
+                .userMail(USERMAIL)
+                .itemName(ITEMNAME)
+                .byPassValue(BYPASSVALUE)
                 .expireDate(EXPIREDATE)
                 .expireTime(EXPIRETIME)
-                .virtualAccount(VIRTUALACCOUNT)
+                .bankCode(BANKCODE)
+                .bankName(BANKNAME)
                 .isCashReceipt(ISCASHRECEIPT)
-                .amount(AMOUNT)
                 .build();
     }
 

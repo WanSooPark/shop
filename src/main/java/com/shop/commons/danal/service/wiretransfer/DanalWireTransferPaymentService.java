@@ -22,7 +22,7 @@ public class DanalWireTransferPaymentService {
     public WireTransferPaymentReadyResponse ready(WireTransferPaymentReadyRequest wireTransferPaymentReadyRequest) {
         WireTransferPaymentReadyResponse response = null;
         Map REQ_DATA = wireTransferPaymentReadyRequest.toMap();
-        Map RES_DATA = danalVirtualAccountPayment.CallDanalBank(REQ_DATA, true);
+        Map RES_DATA = danalVirtualAccountPayment.CallDanalBank(REQ_DATA, false);
 
         String RETURNCODE = (String) RES_DATA.get("RETURNCODE"); // 결과코드
         String RETURNMSG = "";
@@ -107,6 +107,11 @@ public class DanalWireTransferPaymentService {
         String RETURNCODE = (String) RES_DATA.get("RETURNCODE"); // 결과코드
         String RETURNMSG = (String) RES_DATA.get("RETURNMSG");
 
+
+        String TID = "";
+        String ORDERID = "";
+        String ITEMNAME = "";
+        String AMOUNT = "";
         String ACOUNTNO = "";
         String BANKCODE = "";
         String TRANSTIME = "";
@@ -114,7 +119,12 @@ public class DanalWireTransferPaymentService {
         String USERID = "";
         String USERPHONE = "";
         String USEREMAIL = "";
+        String BYPASSVALUE = "";
         if (RETURNCODE.equals("0000")) {
+            TID = (String) RES_DATA.get("TID");
+            ORDERID = (String) RES_DATA.get("ORDERID");
+            ITEMNAME = (String) RES_DATA.get("ITEMNAME");
+            AMOUNT = (String) RES_DATA.get("AMOUNT");
             ACOUNTNO = (String) RES_DATA.get("ACOUNTNO");
             BANKCODE = (String) RES_DATA.get("BANKCODE");
             TRANSTIME = (String) RES_DATA.get("TRANSTIME");
@@ -122,18 +132,24 @@ public class DanalWireTransferPaymentService {
             USERID = (String) RES_DATA.get("USERID");
             USERPHONE = (String) RES_DATA.get("USERPHONE");
             USEREMAIL = (String) RES_DATA.get("USEREMAIL");
+            BYPASSVALUE = (String) RES_DATA.get("BYPASSVALUE");
         }
 
         return WireTransferPaymentCompleteResponse.builder()
                 .returnCode(RETURNCODE)
                 .returnMessage(RETURNMSG)
+                .tid(TID)
+                .orderId(ORDERID)
+                .itemName(ITEMNAME)
+                .amount(AMOUNT)
                 .accountNo(ACOUNTNO)
                 .bankCode(BANKCODE)
                 .transTime(TRANSTIME)
                 .username(USERNAME)
                 .userId(USERID)
                 .userPhone(USERPHONE)
-                .userEmail(USEREMAIL)
+                .userMail(USEREMAIL)
+                .byPassValue(BYPASSVALUE)
                 .build();
     }
 

@@ -48,7 +48,7 @@ public class ServiceOrderPaymentService {
     @Value("${infra.server_domain}")
     private String serverDomain;
 
-    public ServiceOrderPaymentReadyDto.Response ready(Long id, PaymentType paymentType, String useragent, Member member) {
+    public ServiceOrderPaymentReadyDto.Response ready(Long id, PaymentType paymentType, boolean isMobile, Member member) {
         Order order = orderService.findById(id);
 
         String amount = String.valueOf(order.getFinalAmount());
@@ -59,10 +59,10 @@ public class ServiceOrderPaymentService {
         String userEmail = member.getEmail();
         String returnUrl = serverDomain + "/order/payment/" + paymentType.name() + "/complete";
         String cancelUrl = serverDomain + "/order/payment/" + paymentType.name() + "/cancel?orderId=" + orderId;
-        String notiUrl = serverDomain + "/danal/payment/noti?orderId=" + orderId;
 
         ServiceOrderPaymentReadyDto.Response response = null;
         if (paymentType.equals(PaymentType.CARD_PAYMENT)) {
+            String useragent = isMobile ? "WM" : "WP"; // (WP: PC Web, WM: Mobile Web)
             CardPaymentReadyRequest cardPaymentReadyRequest = CardPaymentReadyRequest.builder()
                     .amount(amount)
                     .orderId(orderId)
@@ -90,6 +90,8 @@ public class ServiceOrderPaymentService {
                     .amount(cardPaymentReadyResponse.getAmount())
                     .build();
         } else if (paymentType.equals(PaymentType.VIRTUAL_ACCOUNT)) {
+            String notiUrl = serverDomain + "/danal/payment/virtual-account/noti?orderId=" + orderId;
+            String useragent = isMobile ? "MW" : "PC"; // (PC: PC Web, MW: Mobile Web)
             VirtualAccountPaymentReadyRequest cardPaymentReadyRequest = VirtualAccountPaymentReadyRequest.builder()
                     .amount(amount)
                     .name(name)
@@ -120,6 +122,7 @@ public class ServiceOrderPaymentService {
                     .amount(virtualAccountPaymentReadyResponse.getAmount())
                     .build();
         } else if (paymentType.equals(PaymentType.WIRE_TRANSFER)) {
+            String useragent = isMobile ? "MW" : "PC"; // (PC: PC Web, MW: Mobile Web)
             WireTransferPaymentReadyRequest wireTransferPaymentReadyRequest = WireTransferPaymentReadyRequest.builder()
                     .amount(amount)
                     .name(name)
@@ -165,7 +168,7 @@ public class ServiceOrderPaymentService {
         Order order = null;
 
         ServiceOrderPaymentCompleteDto.Response response = null;
-        if (paymentType.equals(PaymentType.CARD_PAYMENT)) {
+        if (paymentType.equals(PaymentType.CARD_PAYMENT)) { // 신용카드
             Map complete = danalCardPaymentService.decodeParams(returnParams);
 
             String orderId = (String) complete.get("ORDERID");
@@ -200,7 +203,7 @@ public class ServiceOrderPaymentService {
                     .message(cardPaymentResponse.getReturnMessage())
                     .paymentType(paymentTypeString)
                     .build();
-        } else if (paymentType.equals(PaymentType.VIRTUAL_ACCOUNT)) {
+        } else if (paymentType.equals(PaymentType.VIRTUAL_ACCOUNT)) { // 가상계좌
             Map complete = danalVirtualAccountPaymentService.decodeParams(returnParams);
 
             String orderId = (String) complete.get("ORDERID");
@@ -216,13 +219,20 @@ public class ServiceOrderPaymentService {
             if (!ObjectUtils.isEmpty(virtualAccountPaymentResponse)) {
                 if (virtualAccountPaymentResponse.isSuccess()) {
                     payment.issuanceOfVirtualAccount(
-                            virtualAccountPaymentResponse.getBankCode(),
-                            virtualAccountPaymentResponse.getBankName(),
+                            virtualAccountPaymentResponse.getTid(),
+                            virtualAccountPaymentResponse.getAmount(),
+                            virtualAccountPaymentResponse.getVirtualAccount(),
+                            virtualAccountPaymentResponse.getAccountHolder(),
+                            virtualAccountPaymentResponse.getUsername(),
+                            virtualAccountPaymentResponse.getUserId(),
+                            virtualAccountPaymentResponse.getUserMail(),
+                            virtualAccountPaymentResponse.getItemName(),
+                            virtualAccountPaymentResponse.getByPassValue(),
                             virtualAccountPaymentResponse.getExpireDate(),
                             virtualAccountPaymentResponse.getExpireTime(),
-                            virtualAccountPaymentResponse.getVirtualAccount(),
-                            virtualAccountPaymentResponse.getIsCashReceipt(),
-                            virtualAccountPaymentResponse.getAmount()
+                            virtualAccountPaymentResponse.getBankCode(),
+                            virtualAccountPaymentResponse.getBankName(),
+                            virtualAccountPaymentResponse.getIsCashReceipt()
                     );
                     payment.lastStatus(virtualAccountPaymentResponse.getReturnCode(), virtualAccountPaymentResponse.getReturnMessage());
                 }
@@ -232,15 +242,20 @@ public class ServiceOrderPaymentService {
                     .success(virtualAccountPaymentResponse.isSuccess())
                     .message(virtualAccountPaymentResponse.getReturnMessage())
                     .paymentType(paymentTypeString)
-                    .bankCode(virtualAccountPaymentResponse.getBankCode())
-                    .bankName(virtualAccountPaymentResponse.getBankName())
+                    .virtualAccount(virtualAccountPaymentResponse.getVirtualAccount())
+                    .accountHolder(virtualAccountPaymentResponse.getAccountHolder())
+                    .username(virtualAccountPaymentResponse.getUsername())
+                    .userId(virtualAccountPaymentResponse.getUserId())
+                    .userMail(virtualAccountPaymentResponse.getUserMail())
+                    .itemName(virtualAccountPaymentResponse.getItemName())
+                    .byPassValue(virtualAccountPaymentResponse.getByPassValue())
                     .expireDate(virtualAccountPaymentResponse.getExpireDate())
                     .expireTime(virtualAccountPaymentResponse.getExpireTime())
-                    .virtualAccount(virtualAccountPaymentResponse.getVirtualAccount())
+                    .bankCode(virtualAccountPaymentResponse.getBankCode())
+                    .bankName(virtualAccountPaymentResponse.getBankName())
                     .isCashReceipt(virtualAccountPaymentResponse.getIsCashReceipt())
-                    .virtualAccountAmount(virtualAccountPaymentResponse.getAmount())
                     .build();
-        } else if (paymentType.equals(PaymentType.WIRE_TRANSFER)) {
+        } else if (paymentType.equals(PaymentType.WIRE_TRANSFER)) { // 계좌 이체
             Map complete = danalWireTransferPaymentService.decodeParams(returnParams);
 
             String orderId = (String) complete.get("ORDERID");
@@ -256,13 +271,17 @@ public class ServiceOrderPaymentService {
             if (!ObjectUtils.isEmpty(wireTransferPaymentCompleteResponse)) {
                 if (wireTransferPaymentCompleteResponse.isSuccess()) {
                     payment.successWireTransfer(
+                            wireTransferPaymentCompleteResponse.getTid(),
+                            wireTransferPaymentCompleteResponse.getItemName(),
+                            wireTransferPaymentCompleteResponse.getAmount(),
                             wireTransferPaymentCompleteResponse.getAccountNo(),
                             wireTransferPaymentCompleteResponse.getBankCode(),
                             wireTransferPaymentCompleteResponse.getTransTime(),
                             wireTransferPaymentCompleteResponse.getUsername(),
                             wireTransferPaymentCompleteResponse.getUserId(),
                             wireTransferPaymentCompleteResponse.getUserPhone(),
-                            wireTransferPaymentCompleteResponse.getUserEmail()
+                            wireTransferPaymentCompleteResponse.getUserMail(),
+                            wireTransferPaymentCompleteResponse.getByPassValue()
                     );
                     payment.lastStatus(wireTransferPaymentCompleteResponse.getReturnCode(), wireTransferPaymentCompleteResponse.getReturnMessage());
                 }
@@ -278,7 +297,7 @@ public class ServiceOrderPaymentService {
                     .username(wireTransferPaymentCompleteResponse.getUsername())
                     .userId(wireTransferPaymentCompleteResponse.getUserId())
                     .userPhone(wireTransferPaymentCompleteResponse.getUserPhone())
-                    .userEmail(wireTransferPaymentCompleteResponse.getUserEmail())
+                    .userEmail(wireTransferPaymentCompleteResponse.getUserMail())
                     .build();
         } else {
             response = ServiceOrderPaymentCompleteDto.Response.builder()
