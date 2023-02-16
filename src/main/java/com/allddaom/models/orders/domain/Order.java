@@ -106,7 +106,7 @@ public class Order extends BaseEntity {
         payment.setOrder(this);
     }
 
-    public void complete() {
+    public void successPayment() {
         this.status = OrderStatus.PREPARING_FOR_DELIVERY;
     }
 

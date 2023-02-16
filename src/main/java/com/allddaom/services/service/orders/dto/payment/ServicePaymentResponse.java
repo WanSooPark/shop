@@ -8,6 +8,7 @@ import lombok.Data;
 @Builder
 public class ServicePaymentResponse {
     private Long id;
+    private Long amount;
     private String status;
     private String type;
     private String lastMessage;
@@ -15,6 +16,7 @@ public class ServicePaymentResponse {
     public static ServicePaymentResponse of(Payment payment) {
         return ServicePaymentResponse.builder()
                 .id(payment.getId())
+                .amount(Long.valueOf(payment.getAmount()))
                 .status(payment.getStatus()
                         .name())
                 .type(payment.getType()

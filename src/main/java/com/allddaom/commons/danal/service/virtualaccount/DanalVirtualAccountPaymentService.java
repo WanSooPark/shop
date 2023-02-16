@@ -1,6 +1,7 @@
 package com.allddaom.commons.danal.service.virtualaccount;
 
 import com.allddaom.commons.danal.dto.virtualaccount.complete.VirtualAccountPaymentCompleteResponse;
+import com.allddaom.commons.danal.dto.virtualaccount.noti.VirtualAccountPaymentNotiResponse;
 import com.allddaom.commons.danal.dto.virtualaccount.ready.VirtualAccountPaymentReadyRequest;
 import com.allddaom.commons.danal.dto.virtualaccount.ready.VirtualAccountPaymentReadyResponse;
 import com.allddaom.models.orders.domain.Order;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -55,6 +57,10 @@ public class DanalVirtualAccountPaymentService {
                 .build();
     }
 
+    /**
+     * complete 데이터 바인딩
+     * 다날결제창 완료 후
+     */
     public Map decodeParams(String returnParams) {
         String RES_STR = danalVirtualAccountPayment.toDecrypt(returnParams);
         Map retMap = danalVirtualAccountPayment.str2data(RES_STR);
@@ -71,6 +77,9 @@ public class DanalVirtualAccountPaymentService {
         return retMap;
     }
 
+    /**
+     * 바인딩 받은 complete 데이터 검증
+     */
     public VirtualAccountPaymentCompleteResponse complete(Order order, Map retMap) {
         String returnCode = (String) retMap.get("RETURNCODE");
         String returnMsg = (String) retMap.get("RETURNMSG");
@@ -149,6 +158,87 @@ public class DanalVirtualAccountPaymentService {
                 .virtualAccount(VIRTUALACCOUNT)
                 .accountHolder(ACCOUNTHOLDER)
                 .username(USERNAME)
+                .userId(USERID)
+                .userMail(USERMAIL)
+                .itemName(ITEMNAME)
+                .byPassValue(BYPASSVALUE)
+                .expireDate(EXPIREDATE)
+                .expireTime(EXPIRETIME)
+                .bankCode(BANKCODE)
+                .bankName(BANKNAME)
+                .isCashReceipt(ISCASHRECEIPT)
+                .build();
+    }
+
+    /**
+     * 노티 데이터 바인딩
+     */
+    public VirtualAccountPaymentNotiResponse noti(Map reqMap) {
+        /*
+         * 결제 통지 데이터는 POST로 수신하며, KEY는 'DATA', VALUE는 '암호화 문자열' 이며 결제 정보 데이터를 포함하고 있습니다.
+         * DATA 형식 : aes256( "BILLING_DATA" )
+         * BILLING_DATA 형식 : KEY1=urlencode(VALUE1)[&KEY2=urlencode(VALUE2)...]
+         *
+         * 데이터 처리 방법
+         * - POST 변수에서 'DATA'의 value를 읽어 옵니다.
+         * - DATA 값을 복호화합니다.
+         * - 복호화한 문자열은 결제 완료 정보를 포함하며, =&로 구분되는 key value pair 문자열입니다. (value-urlencoded)
+         * - 해당 문자열을 =&로 구분(파싱)하여 사용할 수 있습니다.
+         */
+        String QueryString = danalVirtualAccountPayment.data2str(reqMap);
+        //System.out.println("QueryString: " + QueryString);
+
+        Map resMap = danalVirtualAccountPayment.str2data(QueryString);
+
+        String RES_STR = (String) resMap.get("DATA"); // POST 변수에서 'DATA'의 value를 읽어 옵니다.
+
+        if (RES_STR != null && !"".equals(RES_STR)) {
+            RES_STR = danalVirtualAccountPayment.toDecrypt(RES_STR); // urldecode한 value를 복호화합니다.
+        } else {
+            RES_STR = "Data not found";
+        }
+
+        // CPID=9010006839&TID=202302170416571491321450&AMOUNT=200&EXPIREDATE=20230220&EXPIRETIME=235959&BANKCODE=004&BANKNAME=%B1%B9%B9%CE%C0%BA%C7%E0&VIRTUALACCOUNT=73249072334651&ACCOUNTHOLDER=%B9%AE%BA%B4%B7%AE&ISCASHRECEIPT=N&TRANDATE=20230217&TRANTIME=041745&RETURNCODE=0000&RETURNMSG=%BC%BA%B0%F8&DEPOSITUSERNAME=%B9%AE%BA%B4%B7%AE&ITEMNAME=%B3%CA%B1%B8%B8%AE&ORDERID=11&USERID=1
+
+        Map<String, String> map = new HashMap<>();
+        String[] fields = RES_STR.split("&");
+        Arrays.stream(fields)
+                .forEach(field -> {
+                    String[] split = field.split("=");
+                    map.put(split[0], split[1]);
+                });
+
+        String RETURNCODE = map.get("RETURNCODE"); // 결과 값
+        String RETURNMSG = map.get("RETURNMSG"); // 결과 메시지
+        String TID = map.get("TID"); // 다날 거래 번호
+        String ORDERID = map.get("ORDERID"); // CP 주문번호
+        String AMOUNT = map.get("AMOUNT"); // 입금 금액
+        String TRANDATE = map.get("TRANDATE"); // 입금처리 일자
+        String TRANTIME = map.get("TRANTIME"); // 입금처리 시간
+        String VIRTUALACCOUNT = map.get("VIRTUALACCOUNT"); // 가상계좌 번호
+        String ACCOUNTHOLDER = map.get("ACCOUNTHOLDER"); // CP 명(예금주 명)
+        String DEPOSITUSERNAME = map.get("DEPOSITUSERNAME"); // 입금의뢰인 명
+        String USERID = map.get("USERID"); // 구매자 ID
+        String USERMAIL = map.get("USERMAIL"); // 구매자 EMAIL
+        String ITEMNAME = map.get("ITEMNAME"); // 상품명
+        String BYPASSVALUE = map.get("BYPASSVALUE"); // 추가필드 값 (ex) Field1=abc;Field2=def; )
+        String EXPIREDATE = map.get("EXPIREDATE"); // 입금 마감 기한(YYYYMMDD)
+        String EXPIRETIME = map.get("EXPIRETIME"); // 입금 마감 시간
+        String BANKCODE = map.get("BANKCODE"); // 은행코드
+        String BANKNAME = map.get("BANKNAME"); // 	은행 명
+        String ISCASHRECEIPT = map.get("ISCASHRECEIPT"); // 현금영수증 설정 유무(Y / N)
+
+        return VirtualAccountPaymentNotiResponse.builder()
+                .returnCode(RETURNCODE)
+                .returnMsg(RETURNMSG)
+                .tid(TID)
+                .orderId(ORDERID)
+                .amount(AMOUNT)
+                .tranDate(TRANDATE)
+                .tranTime(TRANTIME)
+                .virtualAccount(VIRTUALACCOUNT)
+                .accountHolder(ACCOUNTHOLDER)
+                .depositUsername(DEPOSITUSERNAME)
                 .userId(USERID)
                 .userMail(USERMAIL)
                 .itemName(ITEMNAME)

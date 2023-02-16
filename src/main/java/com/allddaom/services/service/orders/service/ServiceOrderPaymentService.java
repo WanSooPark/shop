@@ -194,8 +194,8 @@ public class ServiceOrderPaymentService {
                             cardPaymentResponse.getCardAuthNo(),
                             cardPaymentResponse.getUsername()
                     );
-                    payment.lastStatus(cardPaymentResponse.getReturnCode(), cardPaymentResponse.getReturnMessage());
                 }
+                payment.lastStatus(cardPaymentResponse.getReturnCode(), cardPaymentResponse.getReturnMessage());
             }
 
             response = ServiceOrderPaymentCompleteDto.Response.builder()
@@ -234,14 +234,16 @@ public class ServiceOrderPaymentService {
                             virtualAccountPaymentResponse.getBankName(),
                             virtualAccountPaymentResponse.getIsCashReceipt()
                     );
-                    payment.lastStatus(virtualAccountPaymentResponse.getReturnCode(), virtualAccountPaymentResponse.getReturnMessage());
                 }
+                payment.lastStatus(virtualAccountPaymentResponse.getReturnCode(), virtualAccountPaymentResponse.getReturnMessage());
             }
 
             response = ServiceOrderPaymentCompleteDto.Response.builder()
                     .success(virtualAccountPaymentResponse.isSuccess())
                     .message(virtualAccountPaymentResponse.getReturnMessage())
                     .paymentType(paymentTypeString)
+                    .tid(virtualAccountPaymentResponse.getTid())
+                    .amount(virtualAccountPaymentResponse.getAmount())
                     .virtualAccount(virtualAccountPaymentResponse.getVirtualAccount())
                     .accountHolder(virtualAccountPaymentResponse.getAccountHolder())
                     .username(virtualAccountPaymentResponse.getUsername())
@@ -283,8 +285,8 @@ public class ServiceOrderPaymentService {
                             wireTransferPaymentCompleteResponse.getUserMail(),
                             wireTransferPaymentCompleteResponse.getByPassValue()
                     );
-                    payment.lastStatus(wireTransferPaymentCompleteResponse.getReturnCode(), wireTransferPaymentCompleteResponse.getReturnMessage());
                 }
+                payment.lastStatus(wireTransferPaymentCompleteResponse.getReturnCode(), wireTransferPaymentCompleteResponse.getReturnMessage());
             }
 
             response = ServiceOrderPaymentCompleteDto.Response.builder()

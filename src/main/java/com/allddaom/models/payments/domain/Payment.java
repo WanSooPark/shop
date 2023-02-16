@@ -43,6 +43,7 @@ public class Payment extends BaseEntity {
     private String amount;
     private String virtualAccount;
     private String accountHolder;
+    private String depositUsername;
     private String userMail;
     private String itemName;
     private String byPassValue;
@@ -105,7 +106,7 @@ public class Payment extends BaseEntity {
         this.username = username;
 
         this.successDateTime = LocalDateTime.now();
-        this.order.complete();
+        this.order.successPayment();
     }
 
     /**
@@ -166,5 +167,32 @@ public class Payment extends BaseEntity {
 
         this.status = PaymentStatus.SUCCESS;
         this.successDateTime = LocalDateTime.now();
+        this.order.successPayment();
+    }
+
+    /**
+     * 가상계좌 결제 성공
+     */
+    public void successVirtualAccount(String tid, String amount, String tranDate, String tranTime, String virtualAccount, String accountHolder, String depositUsername, String userId, String userMail, String itemName, String byPassValue, String expireDate, String expireTime, String bankCode, String bankName, String isCashReceipt) {
+        this.tid = tid;
+        this.amount = amount;
+        this.tranDate = tranDate;
+        this.tranTime = tranTime;
+        this.virtualAccount = virtualAccount;
+        this.accountHolder = accountHolder;
+        this.depositUsername = depositUsername;
+        this.userId = userId;
+        this.userMail = userMail;
+        this.itemName = itemName;
+        this.byPassValue = byPassValue;
+        this.expireDate = expireDate;
+        this.expireTime = expireTime;
+        this.bankCode = bankCode;
+        this.bankName = bankName;
+        this.isCashReceipt = isCashReceipt;
+
+        this.status = PaymentStatus.SUCCESS;
+        this.successDateTime = LocalDateTime.now();
+        this.order.successPayment();
     }
 }
