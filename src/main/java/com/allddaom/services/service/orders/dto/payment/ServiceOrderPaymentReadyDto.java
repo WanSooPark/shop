@@ -39,6 +39,7 @@ public class ServiceOrderPaymentReadyDto {
         private String tid; // 다날 거래 키
         private String orderId; // 가맹점 주문번호
         private String amount; // 결제금액
+        private String orderNo; // 주문번호
     }
 
 }

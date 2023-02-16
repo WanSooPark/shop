@@ -30,6 +30,8 @@ public class ServiceOrderPaymentCompleteDto {
         private boolean success;
         private String paymentType;
 
+        private String orderNo;
+
         private String tid;
         private String username;
         private String userId;

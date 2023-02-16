@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 @Builder
 public class ServiceOrderResponse {
     private Long id;
+    private String orderNo;
     private Long amount;
     private List<ServiceOrderItemResponse> items;
     private String status; // 주문상태
@@ -28,6 +29,7 @@ public class ServiceOrderResponse {
     public static ServiceOrderResponse of(Order order) {
         return ServiceOrderResponse.builder()
                 .id(order.getId())
+                .orderNo(order.getOrderNo())
                 .amount(order.getAmount())
                 .items(order.getItems()
                         .stream()

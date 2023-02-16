@@ -25,6 +25,8 @@ public class Order extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String orderNo; // 주문번호
+
     private Long amount; // 주문 금액
 
     private Long deliveryCost; // 배송비

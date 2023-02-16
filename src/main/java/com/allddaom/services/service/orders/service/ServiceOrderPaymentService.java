@@ -157,6 +157,8 @@ public class ServiceOrderPaymentService {
             payment.ready(response.getTid(), paymentType);
             payment.lastStatus(response.getReturnCode(), response.getReturnMessage());
             order.ready(payment);
+
+            response.setOrderNo(order.getOrderNo());
         }
 
         return response;
@@ -316,6 +318,8 @@ public class ServiceOrderPaymentService {
                     .filter(cartItemId -> !ObjectUtils.isEmpty(cartItemId))
                     .collect(Collectors.toList());
             cartItemService.deleteByIds(cartItemIds);
+
+            response.setOrderNo(order.getOrderNo());
         }
 
         return response;
