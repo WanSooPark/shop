@@ -21,4 +21,9 @@ public class ServiceCartService {
         List<CartItem> cartItems = cartItemService.findByMember(member);
         return ServiceCartResponse.of(cartItems);
     }
+
+    public ServiceCartResponse findCartItemBySessionId(String sessionId) {
+        List<CartItem> cartItems = cartItemService.findBySessionId(sessionId);
+        return ServiceCartResponse.of(cartItems);
+    }
 }

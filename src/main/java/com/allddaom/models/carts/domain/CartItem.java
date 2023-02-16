@@ -22,6 +22,8 @@ public class CartItem extends BaseEntity {
     @ManyToOne
     private Member member;
 
+    private String sessionId;
+
     @ManyToOne
     private Item item;
 

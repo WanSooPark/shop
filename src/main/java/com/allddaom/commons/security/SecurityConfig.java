@@ -131,9 +131,10 @@ public class SecurityConfig {
                 .permitAll()
                 .mvcMatchers(HttpMethod.GET, "/items", "/items/**", "/categories", "/categories/**")
                 .permitAll()
-                .mvcMatchers("/cart/**", "/order/**")
+                .mvcMatchers("/cart/**", "/order/**", "/order/payment/start")
                 .permitAll()
-//                .hasAnyAuthority("USER", "Anonymous")
+                .mvcMatchers("/api/orders", "/api/cart", "/api/cart-items", "/api/cart-items/**")
+                .permitAll()
                 .anyRequest()
                 .authenticated()
         ;

@@ -33,4 +33,8 @@ public class CartItemService {
     public void deleteByIds(List<Long> ids) {
         repository.deleteByIdIn(ids);
     }
+
+    public List<CartItem> findBySessionId(String sessionId) {
+        return repository.findBySessionId(sessionId);
+    }
 }

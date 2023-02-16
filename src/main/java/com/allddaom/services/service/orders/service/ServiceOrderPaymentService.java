@@ -55,7 +55,7 @@ public class ServiceOrderPaymentService {
         String name = ObjectUtils.isEmpty(member) ? order.getOrdererName() : member.getName();
         String orderId = String.valueOf(order.getId());
         String itemName = order.getItemName();
-        String userId = ObjectUtils.isEmpty(member) ? "" : String.valueOf(member.getId());
+        String userId = ObjectUtils.isEmpty(member) ? "0" : String.valueOf(member.getId());
         String userEmail = ObjectUtils.isEmpty(member) ? order.getOrdererEmail() : member.getEmail();
         String returnUrl = serverDomain + "/order/payment/" + paymentType.name() + "/complete";
         String cancelUrl = serverDomain + "/order/payment/" + paymentType.name() + "/cancel?orderId=" + orderId;

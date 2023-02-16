@@ -15,14 +15,19 @@
     const order = [[${order}]];
     const ready = [[${ready}]];
 
-    let startPaymentForm = document.getElementById("start_payment_form");
-    startPaymentForm.action = ready.startUrl;
-    const startParamsInput = document.createElement('input');
-    startParamsInput.setAttribute("type", "hidden");
-    startParamsInput.setAttribute("name", "STARTPARAMS");
-    startParamsInput.setAttribute("value", ready.startParams);
-    startPaymentForm.appendChild(startParamsInput);
-    startPaymentForm.submit();
+    if (ready.success) {
+        let startPaymentForm = document.getElementById("start_payment_form");
+        startPaymentForm.action = ready.startUrl;
+        const startParamsInput = document.createElement('input');
+        startParamsInput.setAttribute("type", "hidden");
+        startParamsInput.setAttribute("name", "STARTPARAMS");
+        startParamsInput.setAttribute("value", ready.startParams);
+        startPaymentForm.appendChild(startParamsInput);
+        startPaymentForm.submit();
+    } else {
+        alert('에러: ' + ready.message);
+    }
+
 
     /* 결제 준비 요청 비동기 */
     async function readyRequest(order) {

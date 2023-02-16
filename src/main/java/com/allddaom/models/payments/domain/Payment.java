@@ -26,11 +26,12 @@ public class Payment extends BaseEntity {
     private String username;
     private String userId;
 
+    private String amount;
+
     private String bankCode;
     private String bankName;
 
     /* 신용카드 필드 */
-    private String trxAmount;
     private String tranDate;
     private String tranTime;
     private String cardCode;
@@ -40,7 +41,6 @@ public class Payment extends BaseEntity {
     private String cardAuthNo;
 
     /* 가상계좌 필드 */
-    private String amount;
     private String virtualAccount;
     private String accountHolder;
     private String depositUsername;
@@ -95,7 +95,7 @@ public class Payment extends BaseEntity {
      */
     public void successCardPayment(String trxAmount, String tranDate, String tranTime, String cardCode, String cardName, String cardNo, String quota, String cardAuthNo, String username) {
         this.status = PaymentStatus.SUCCESS;
-        this.trxAmount = trxAmount;
+        this.amount = trxAmount;
         this.tranDate = tranDate;
         this.tranTime = tranTime;
         this.cardCode = cardCode;
