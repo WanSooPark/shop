@@ -52,11 +52,11 @@ public class ServiceOrderPaymentService {
         Order order = orderService.findById(id);
 
         String amount = String.valueOf(order.getFinalAmount());
-        String name = member.getName();
+        String name = ObjectUtils.isEmpty(member) ? order.getOrdererName() : member.getName();
         String orderId = String.valueOf(order.getId());
         String itemName = order.getItemName();
-        String userId = String.valueOf(member.getId());
-        String userEmail = member.getEmail();
+        String userId = ObjectUtils.isEmpty(member) ? "" : String.valueOf(member.getId());
+        String userEmail = ObjectUtils.isEmpty(member) ? order.getOrdererEmail() : member.getEmail();
         String returnUrl = serverDomain + "/order/payment/" + paymentType.name() + "/complete";
         String cancelUrl = serverDomain + "/order/payment/" + paymentType.name() + "/cancel?orderId=" + orderId;
 

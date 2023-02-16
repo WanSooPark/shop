@@ -1,5 +1,6 @@
 package com.allddaom.services.service.orders.service;
 
+import com.allddaom.commons.errors.exceptions.BadRequestException;
 import com.allddaom.models.addresses.domain.Address;
 import com.allddaom.models.carts.domain.CartItem;
 import com.allddaom.models.carts.domain.CartItemOption;
@@ -99,46 +100,88 @@ public class ServiceOrderService {
     }
 
     public ServiceOrderFormDto.Response getOrderForm(ServiceOrderFormDto.Request dto) {
-        Long[] cartItemIds = dto.getCartItemIds();
-        Long[] cartItemCounts = dto.getCartItemCounts();
         List<OrderItemFormResponse> items = new LinkedList<>();
-        if (!ObjectUtils.isEmpty(cartItemIds) && cartItemIds.length == cartItemCounts.length) {
-            for (int i = 0; i < cartItemIds.length; i++) {
-                Long cartItemId = cartItemIds[i];
-                Long cartItemCount = cartItemCounts[i];
 
-                CartItem cartItem = cartItemService.findById(cartItemId);
-                Item item = cartItem.getItem();
+        String type = dto.getType();
+        if (type.equals("cart")) { // 장바구니 구매
+            Long[] cartItemIds = dto.getCartItemIds();
+            Long[] cartItemCounts = dto.getCartItemCounts();
 
-                CartItemOption cartItemOption = cartItem.getCartItemOption();
-                OrderItemOptionFormResponse option = null;
-                if (!ObjectUtils.isEmpty(cartItemOption)) {
-                    ItemOption itemOption = cartItemOption.getItemOption();
+            if (!ObjectUtils.isEmpty(cartItemIds) && cartItemIds.length == cartItemCounts.length) {
+                for (int i = 0; i < cartItemIds.length; i++) {
+                    Long cartItemId = cartItemIds[i];
+                    Long cartItemCount = cartItemCounts[i];
 
+                    CartItem cartItem = cartItemService.findById(cartItemId);
+                    Item item = cartItem.getItem();
+
+                    CartItemOption cartItemOption = cartItem.getCartItemOption();
+                    OrderItemOptionFormResponse option = null;
+                    if (!ObjectUtils.isEmpty(cartItemOption)) {
+                        ItemOption itemOption = cartItemOption.getItemOption();
+
+                        option = OrderItemOptionFormResponse.builder()
+                                .id(itemOption.getId())
+                                .name(itemOption.getName())
+                                .price(itemOption.getPrice())
+                                .build();
+                    }
+
+                    Long price = item.getSalePrice();
+                    price += ObjectUtils.isEmpty(option) ? 0L : option.getPrice();
+
+                    OrderItemFormResponse orderItem = OrderItemFormResponse.builder()
+                            .id(item.getId())
+                            .name(item.getName())
+                            .brand(item.getBrand())
+                            .price(price)
+                            .count(cartItemCount)
+                            .option(option)
+                            .cartItemId(cartItemId)
+                            .mainImageUrl(ObjectUtils.isEmpty(item.getMainImage()) ? "/img/detail.png" : item.getMainImage()
+                                    .getUrl())
+                            .build();
+
+                    items.add(orderItem);
+                }
+            }
+        } else if (type.equals("item")) {
+            Long itemId = dto.getItemId();
+            Long itemCount = dto.getItemCount();
+            Long itemOptionId = dto.getItemOptionId();
+
+            Item item = itemService.findById(itemId);
+
+            OrderItemOptionFormResponse option = null;
+            if (!ObjectUtils.isEmpty(itemOptionId) && itemOptionId != 0) { // 옵션 정보 있을경우만
+                ItemOption itemOption = itemOptionService.findById(itemOptionId);
+                if (!ObjectUtils.isEmpty(itemOption)) {
                     option = OrderItemOptionFormResponse.builder()
-                            .id(cartItemOption.getId())
+                            .id(itemOption.getId())
                             .name(itemOption.getName())
                             .price(itemOption.getPrice())
                             .build();
                 }
-
-                Long price = item.getSalePrice();
-                price += ObjectUtils.isEmpty(option) ? 0L : option.getPrice();
-
-                OrderItemFormResponse orderItem = OrderItemFormResponse.builder()
-                        .id(item.getId())
-                        .name(item.getName())
-                        .brand(item.getBrand())
-                        .price(price)
-                        .count(cartItemCount)
-                        .option(option)
-                        .cartItemId(cartItemId)
-                        .mainImageUrl(ObjectUtils.isEmpty(item.getMainImage()) ? "/img/detail.png" : item.getMainImage()
-                                .getUrl())
-                        .build();
-
-                items.add(orderItem);
             }
+
+            Long price = item.getSalePrice();
+            price += ObjectUtils.isEmpty(option) ? 0L : option.getPrice();
+
+            OrderItemFormResponse orderItem = OrderItemFormResponse.builder()
+                    .id(item.getId())
+                    .name(item.getName())
+                    .brand(item.getBrand())
+                    .price(price)
+                    .count(itemCount)
+                    .option(option)
+                    .cartItemId(null)
+                    .mainImageUrl(ObjectUtils.isEmpty(item.getMainImage()) ? "/img/detail.png" : item.getMainImage()
+                            .getUrl())
+                    .build();
+
+            items.add(orderItem);
+        } else {
+            throw new BadRequestException("잘못된 type");
         }
 
         return ServiceOrderFormDto.Response.builder()

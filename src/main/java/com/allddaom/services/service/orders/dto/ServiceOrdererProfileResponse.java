@@ -41,4 +41,9 @@ public class ServiceOrdererProfileResponse {
                 .availableReceiveSms(member.isAvailableReceiveSms())
                 .build();
     }
+
+    public static ServiceOrdererProfileResponse anonymous() {
+        return ServiceOrdererProfileResponse.builder()
+                .build();
+    }
 }

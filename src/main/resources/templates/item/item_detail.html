@@ -125,12 +125,16 @@
                             </div>
                             <div class="button">
                                 <a href="javascript: addCartItem();" class="btn btn_02">장바구니</a>
-                                <a href="javascript:;" class="btn btn_01">바로구매</a>
+                                <a href="javascript: buyNow();" class="btn btn_01">바로구매</a>
+                                <form id="order_form" method="post" action="/order/form">
+                                    <input type="hidden" name="type" value="item"/>
+                                </form>
                             </div>
                             <script type="application/javascript" th:inline="javascript">
                                 /* <![CDATA[ */
                                 const itemId = [[${item.getId()}]];
 
+                                /* 장바구니에 추가*/
                                 function addCartItem() {
                                     const itemOptionId = null;
                                     const count = 1;
@@ -155,6 +159,33 @@
                                         .catch(function (errors) {
                                             console.log(errors)
                                         });
+                                }
+
+                                const orderForm = document.getElementById("order_form");
+
+                                /* 바로구매 */
+                                function buyNow() {
+                                    const idInput = document.createElement('input');
+                                    idInput.setAttribute("type", "hidden");
+                                    idInput.setAttribute("name", "itemId");
+                                    idInput.setAttribute("value", itemId);
+
+                                    // const itemCountField = document.getElementById("item_count");
+                                    const countInput = document.createElement('input');
+                                    countInput.setAttribute("type", "hidden");
+                                    countInput.setAttribute("name", "itemCount");
+                                    countInput.setAttribute("value", 1);
+
+                                    // const itemOptionId = document.createElement('input');
+                                    // itemOptionId.setAttribute("type", "hidden");
+                                    // itemOptionId.setAttribute("name", "itemOptionId");
+                                    // itemOptionId.setAttribute("value", 0);
+
+                                    orderForm.appendChild(idInput);
+                                    orderForm.appendChild(countInput);
+                                    // orderForm.appendChild(itemOptionId);
+
+                                    orderForm.submit();
                                 }
 
                                 /* ]]> */

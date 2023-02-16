@@ -10,6 +10,7 @@ import com.allddaom.services.service.orders.service.ServiceOrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,7 +26,12 @@ public class ServiceOrderController {
     public String getOrderView(@CurrentAccount Member member, ServiceOrderFormDto.Request dto, Model model) {
         ServiceOrderFormDto.Response response = serviceOrderService.getOrderForm(dto);
         model.addAttribute("items", response.getItems());
-        ServiceOrdererProfileResponse orderer = ServiceOrdererProfileResponse.of(member);
+        ServiceOrdererProfileResponse orderer = null;
+        if (ObjectUtils.isEmpty(member)) {
+            orderer = ServiceOrdererProfileResponse.anonymous();
+        } else {
+            orderer = ServiceOrdererProfileResponse.of(member);
+        }
         model.addAttribute("orderer", orderer);
         model.addAttribute("totalPrice", response.getTotalPrice());
         model.addAttribute("deliveryCost", response.getDeliveryCost());

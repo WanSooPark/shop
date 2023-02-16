@@ -11,8 +11,12 @@ public class ServiceOrderFormDto {
 
     @Data
     public static class Request {
+        private String type; // cart: 장바구니, item: 바로구매
         private Long[] cartItemIds;
         private Long[] cartItemCounts;
+        private Long itemId;
+        private Long itemCount;
+        private Long itemOptionId;
     }
 
     @Data

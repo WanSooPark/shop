@@ -52,7 +52,9 @@
                                         <tr>
                                             <td>
                                                 <label class="checkbox">
-                                                    <input type="checkbox" name="cartItemCheck" th:id="check_ + ${cartItem.getId()}" onchange="onChangeCheckBox()"><i></i>
+                                                    <input type="checkbox" name="cartItemCheck"
+                                                           th:id="check_ + ${cartItem.getId()}"
+                                                           onchange="onChangeCheckBox()"><i></i>
                                                     <p class="skip">상품 선택</p>
                                                 </label>
                                             </td>
@@ -81,22 +83,28 @@
                                                 </div>
                                             </td>
                                             <td>
-                                                <span th:text="${#numbers.formatInteger(cartItem.getPrice(), 0, 'COMMA')}" th:id="cart_item_price_+${cartItem.getId()}">349,000</span>원
+                                                <span th:text="${#numbers.formatInteger(cartItem.getPrice(), 0, 'COMMA')}"
+                                                      th:id="cart_item_price_+${cartItem.getId()}">349,000</span>원
                                                 <!-- <br><em>($135,58)</em>-->
                                             </td>
                                             <td>
                                                 <div class="amount">
                                                     <div class="inp">
                                                         <input type="text" onchange="changeCountCartItem(event)"
-                                                               th:value="${cartItem.getCount()}" th:id="item_count_ + ${cartItem.getId()}"
+                                                               th:value="${cartItem.getCount()}"
+                                                               th:id="item_count_ + ${cartItem.getId()}"
                                                                onKeyup="this.value=this.value.replace(/[^0-9]/g,'');">
                                                     </div>
                                                     <div class="ctl">
-                                                        <a onclick="changeOneCount('add', event)" th:id="cart_item_add_+${cartItem.getId()}">
-                                                            <img src="/img/icon_amount_up.png" th:id="cart_item_add_+${cartItem.getId()}">
+                                                        <a onclick="changeOneCount('add', event)"
+                                                           th:id="cart_item_add_+${cartItem.getId()}">
+                                                            <img src="/img/icon_amount_up.png"
+                                                                 th:id="cart_item_add_+${cartItem.getId()}">
                                                         </a>
-                                                        <a onclick="changeOneCount('dec', event)" th:id="cart_item_dec_+${cartItem.getId()}">
-                                                            <img src="/img/icon_amount_down.png" th:id="cart_item_dec_+${cartItem.getId()}">
+                                                        <a onclick="changeOneCount('dec', event)"
+                                                           th:id="cart_item_dec_+${cartItem.getId()}">
+                                                            <img src="/img/icon_amount_down.png"
+                                                                 th:id="cart_item_dec_+${cartItem.getId()}">
                                                         </a>
                                                     </div>
                                                 </div>
@@ -169,7 +177,9 @@
                                 </div>
                             </div>
                         </div>
-                        <form id="order_form" method="post" action="/order/form"></form>
+                        <form id="order_form" method="post" action="/order/form">
+                            <input type="hidden" name="type" value="cart"/>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -356,14 +366,15 @@
         async function reloadCartInfo() {
             await fetch('/api/cart')
                 .then(response => {
-                return response.json();
-            }).then(data => {
-                cart = data;
-                cartItems = cart.cartItems;
-            }).catch(errors => {
-                console.log(errors);
-            })
+                    return response.json();
+                }).then(data => {
+                    cart = data;
+                    cartItems = cart.cartItems;
+                }).catch(errors => {
+                    console.log(errors);
+                })
         }
+
         /* ]]> */
     </script>
 </div>
