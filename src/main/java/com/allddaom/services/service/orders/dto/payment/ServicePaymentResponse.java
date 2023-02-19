@@ -3,6 +3,7 @@ package com.allddaom.services.service.orders.dto.payment;
 import com.allddaom.models.payments.domain.Payment;
 import lombok.Builder;
 import lombok.Data;
+import org.springframework.util.ObjectUtils;
 
 @Data
 @Builder
@@ -16,7 +17,7 @@ public class ServicePaymentResponse {
     public static ServicePaymentResponse of(Payment payment) {
         return ServicePaymentResponse.builder()
                 .id(payment.getId())
-                .amount(Long.valueOf(payment.getAmount()))
+                .amount(ObjectUtils.isEmpty(payment.getAmount()) ? 0L : Long.valueOf(payment.getAmount()))
                 .status(payment.getStatus()
                         .name())
                 .type(payment.getType()
