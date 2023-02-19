@@ -210,9 +210,11 @@
                                 <li><a href="#detail04">Q&A(<span th:text="${countOfQNA}"></span>)</a></li>
                             </ul>
                         </div>
+                        <!-- 배송과정 영역 -->
                         <div class="process tab-box">
                             정품안심배송과정 영역
                         </div>
+                        <!-- 상세정보 영역 -->
                         <div class="product tab-box active">
                             <div class="image">
                                 <img th:src="${item.getMainImageUrl()}">
@@ -262,9 +264,14 @@
                                 </div>
                             </div>
                         </div>
+                        <!-- 리뷰 영역 -->
                         <div class="review tab-box">
                             리뷰영역
+                            <div>
+                                <span><a th:href="@{'/item/' + ${item.getId()} + '/review'}">...더보기</a></span>
+                            </div>
                         </div>
+                        <!-- QNA 영역 -->
                         <div class="qna tab-box">
                             QNA 영역
                         </div>

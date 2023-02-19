@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layouts/layout2}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<!-- 사용자 CSS 추가 -->
+<th:block layout:fragment="css">
+    <style>
+    </style>
+</th:block>
+<div layout:fragment="content">
+    <section id="container">
+        <div id="review">
+            <div class="wrap">
+                <div id="heading">REVIEW</div>
+                <div class="tool">
+                    <div class="tabs">
+                        <ul>
+                            <li class="active"><a href="javascript:;">최신순</a></li>
+                            <li><a href="javascript:;">추천순</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="list">
+                    <ul>
+                        <li>
+                            <div class="num">31</div>
+                            <div class="img"><img src="/img/detail.png"></div>
+                            <div class="con">
+                                <div class="name">[조말론] 상품명노출...</div>
+                                <div class="subj">자주 사용하는 상품입니다.</div>
+                                <div class="text">너무 향도 좋고 건조한데 좋아요~</div>
+                                <div class="more">
+                                    <button type="button" class="modalOpen" data-modal="review_slider">더보기</button>
+                                </div>
+                            </div>
+                            <div class="star">
+                                <img src="/img/icon_star04.png">
+                            </div>
+                            <div class="user">kwe***</div>
+                            <div class="date">2022-11-08</div>
+                        </li>
+                        <li>
+                            <div class="num">30</div>
+                            <div class="img"><img src="/img/detail.png"></div>
+                            <div class="con">
+                                <div class="name">[조말론] 상품명노출...</div>
+                                <div class="subj">자주 사용하는 상품입니다.</div>
+                                <div class="text">너무 향도 좋고 건조한데 좋아요~</div>
+                                <div class="more">
+                                    <button type="button" class="modalOpen" data-modal="review_slider">더보기</button>
+                                </div>
+                            </div>
+                            <div class="star">
+                                <img src="/img/icon_star04.png">
+                            </div>
+                            <div class="user">kwe***</div>
+                            <div class="date">2022-11-08</div>
+                        </li>
+                        <li>
+                            <div class="num">29</div>
+                            <div class="img"><img src="/img/detail.png"></div>
+                            <div class="con">
+                                <div class="name">[조말론] 상품명노출...</div>
+                                <div class="subj">자주 사용하는 상품입니다.</div>
+                                <div class="text">너무 향도 좋고 건조한데 좋아요~</div>
+                                <div class="more">
+                                    <button type="button" class="modalOpen" data-modal="review_slider">더보기</button>
+                                </div>
+                            </div>
+                            <div class="star">
+                                <img src="/img/icon_star04.png">
+                            </div>
+                            <div class="user">kwe***</div>
+                            <div class="date">2022-11-08</div>
+                        </li>
+                        <li>
+                            <div class="num">28</div>
+                            <div class="img"><img src="/img/detail.png"></div>
+                            <div class="con">
+                                <div class="name">[조말론] 상품명노출...</div>
+                                <div class="subj">자주 사용하는 상품입니다.</div>
+                                <div class="text">너무 향도 좋고 건조한데 좋아요~</div>
+                                <div class="more">
+                                    <button type="button" class="modalOpen" data-modal="review_slider">더보기</button>
+                                </div>
+                            </div>
+                            <div class="star">
+                                <img src="/img/icon_star04.png">
+                            </div>
+                            <div class="user">kwe***</div>
+                            <div class="date">2022-11-08</div>
+                        </li>
+                        <li>
+                            <div class="num">27</div>
+                            <div class="img"><img src="/img/detail.png"></div>
+                            <div class="con">
+                                <div class="name">[조말론] 상품명노출...</div>
+                                <div class="subj">자주 사용하는 상품입니다.</div>
+                                <div class="text">너무 향도 좋고 건조한데 좋아요~</div>
+                                <div class="more">
+                                    <button type="button" class="modalOpen" data-modal="review_slider">더보기</button>
+                                </div>
+                            </div>
+                            <div class="star">
+                                <img src="/img/icon_star04.png">
+                            </div>
+                            <div class="user">kwe***</div>
+                            <div class="date">2022-11-08</div>
+                        </li>
+                        <li>
+                            <div class="num">26</div>
+                            <div class="img"><img src="/img/detail.png"></div>
+                            <div class="con">
+                                <div class="name">[조말론] 상품명노출...</div>
+                                <div class="subj">자주 사용하는 상품입니다.</div>
+                                <div class="text">너무 향도 좋고 건조한데 좋아요~</div>
+                                <div class="more">
+                                    <button type="button" class="modalOpen" data-modal="review_slider">더보기</button>
+                                </div>
+                            </div>
+                            <div class="star">
+                                <img src="/img/icon_star04.png">
+                            </div>
+                            <div class="user">kwe***</div>
+                            <div class="date">2022-11-08</div>
+                        </li>
+                        <li>
+                            <div class="num">25</div>
+                            <div class="img"><img src="/img/detail.png"></div>
+                            <div class="con">
+                                <div class="name">[조말론] 상품명노출...</div>
+                                <div class="subj">자주 사용하는 상품입니다.</div>
+                                <div class="text">너무 향도 좋고 건조한데 좋아요~</div>
+                                <div class="more">
+                                    <button type="button" class="modalOpen" data-modal="review_slider">더보기</button>
+                                </div>
+                            </div>
+                            <div class="star">
+                                <img src="/img/icon_star04.png">
+                            </div>
+                            <div class="user">kwe***</div>
+                            <div class="date">2022-11-08</div>
+                        </li>
+                        <li>
+                            <div class="num">24</div>
+                            <div class="img"><img src="/img/detail.png"></div>
+                            <div class="con">
+                                <div class="name">[조말론] 상품명노출...</div>
+                                <div class="subj">자주 사용하는 상품입니다.</div>
+                                <div class="text">너무 향도 좋고 건조한데 좋아요~</div>
+                                <div class="more">
+                                    <button type="button" class="modalOpen" data-modal="review_slider">더보기</button>
+                                </div>
+                            </div>
+                            <div class="star">
+                                <img src="/img/icon_star04.png">
+                            </div>
+                            <div class="user">kwe***</div>
+                            <div class="date">2022-11-08</div>
+                        </li>
+                        <li>
+                            <div class="num">23</div>
+                            <div class="img"><img src="/img/detail.png"></div>
+                            <div class="con">
+                                <div class="name">[조말론] 상품명노출...</div>
+                                <div class="subj">자주 사용하는 상품입니다.</div>
+                                <div class="text">너무 향도 좋고 건조한데 좋아요~</div>
+                                <div class="more">
+                                    <button type="button" class="modalOpen" data-modal="review_slider">더보기</button>
+                                </div>
+                            </div>
+                            <div class="star">
+                                <img src="/img/icon_star04.png">
+                            </div>
+                            <div class="user">kwe***</div>
+                            <div class="date">2022-11-08</div>
+                        </li>
+                        <li>
+                            <div class="num">22</div>
+                            <div class="img"><img src="/img/detail.png"></div>
+                            <div class="con">
+                                <div class="name">[조말론] 상품명노출...</div>
+                                <div class="subj">자주 사용하는 상품입니다.</div>
+                                <div class="text">너무 향도 좋고 건조한데 좋아요~</div>
+                                <div class="more">
+                                    <button type="button" class="modalOpen" data-modal="review_slider">더보기</button>
+                                </div>
+                            </div>
+                            <div class="star">
+                                <img src="/img/icon_star04.png">
+                            </div>
+                            <div class="user">kwe***</div>
+                            <div class="date">2022-11-08</div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="paging">
+                    <a href="#" class="first">&lt;&lt;</a>
+                    <a href="#" class="prev">&lt;</a>
+                    <a href="#" class="current">1</a>
+                    <a href="#">2</a>
+                    <a href="#">3</a>
+                    <a href="#">4</a>
+                    <a href="#">5</a>
+                    <a href="#">6</a>
+                    <a href="#" class="next">&gt;</a>
+                    <a href="#" class="end">&gt;&gt;</a>
+                </div>
+                <div class="search">
+                    <form class="inner">
+                        <select>
+                            <option>전체</option>
+                        </select>
+                        <input type="text" placeholder="검색어를 입력해 주세요.">
+                        <button type="submit"><img src="/img/icon_search_b.png">
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="modal-container" id="review_slider">
+            <div class="modal-wrapper">
+                <div class="slider">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <div class="product">
+                                <div class="img"><img src="/img/detail.png"></div>
+                                <div class="con">
+                                    <div class="name">[조말론] 상품명노출...</div>
+                                    <div class="subj">자주 사용하는 상품입니다.</div>
+                                </div>
+                                <div class="star"><img src="/img/icon_star04.png">
+                                    <p>(4.5)</p></div>
+                            </div>
+                            <div class="content">
+                                <div class="user">
+                                    <span class="id">kwe***</span>
+                                    <span class="date">2022-11-08</span>
+                                    <span class="tool">
+                                        <a href="#">수정</a>
+                                    </span>
+                                </div>
+                                <div class="text">
+                                    <div class="tit">아무리 발라도 부드러워요.</div>
+                                    <div class="txt">아무리 발라도 부드러워요.</div>
+                                </div>
+                            </div>
+                            <div class="help">
+                                <span class="txt">해당 상품후기가 도움이 되었어요?</span>
+                                <div class="act">
+                                    <a href="javascript:;" class="on">좋아요</a>
+                                    <a href="javascript:;">싫어요</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="product">
+                                <div class="img"><img src="/img/detail.png"></div>
+                                <div class="con">
+                                    <div class="name">[조말론] 상품명노출...</div>
+                                    <div class="subj">자주 사용하는 상품입니다.</div>
+                                </div>
+                                <div class="star"><img src="/img/icon_star04.png">
+                                    <p>(4.5)</p></div>
+                            </div>
+                            <div class="content">
+                                <div class="user">
+                                    <span class="id">kwe***</span>
+                                    <span class="date">2022-11-08</span>
+                                    <span class="tool">
+                                        <a href="#">수정</a>
+                                    </span>
+                                </div>
+                                <div class="text">
+                                    <div class="tit">아무리 발라도 부드러워요.</div>
+                                    <div class="txt">아무리 발라도 부드러워요.</div>
+                                </div>
+                            </div>
+                            <div class="help">
+                                <span class="txt">해당 상품후기가 도움이 되었어요?</span>
+                                <div class="act">
+                                    <a href="javascript:;" class="on">좋아요</a>
+                                    <a href="javascript:;">싫어요</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="product">
+                                <div class="img"><img src="/img/detail.png"></div>
+                                <div class="con">
+                                    <div class="name">[조말론] 상품명노출...</div>
+                                    <div class="subj">자주 사용하는 상품입니다.</div>
+                                </div>
+                                <div class="star"><img src="/img/icon_star04.png">
+                                    <p>(4.5)</p></div>
+                            </div>
+                            <div class="content">
+                                <div class="user">
+                                    <span class="id">kwe***</span>
+                                    <span class="date">2022-11-08</span>
+                                    <span class="tool">
+                                        <a href="#">수정</a>
+                                    </span>
+                                </div>
+                                <div class="text">
+                                    <div class="tit">아무리 발라도 부드러워요.</div>
+                                    <div class="txt">아무리 발라도 부드러워요.</div>
+                                </div>
+                            </div>
+                            <div class="help">
+                                <span class="txt">해당 상품후기가 도움이 되었어요?</span>
+                                <div class="act">
+                                    <a href="javascript:;" class="on">좋아요</a>
+                                    <a href="javascript:;">싫어요</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="swiper-prev"><img
+                        src="/img/icon_modal_prev.png"></button>
+                <button type="button" class="swiper-next"><img
+                        src="/img/icon_modal_next.png"></button>
+                <div class="close">
+                    <img src="/img/icon_modal_close.png" class="modalClose">
+                </div>
+                <script>
+                    //<![CDATA[
+                    var swiper = new Swiper('#review_slider .slider', {
+                        slidesPerView: 1,
+                        pagination: false,
+                        navigation: {
+                            nextEl: '#review_slider .swiper-next',
+                            prevEl: '#review_slider .swiper-prev',
+                        },
+                        spaceBetween: 60,
+                    });
+                    //]]>
+                </script>
+            </div>
+        </div>
+    </section>
+</div>
+</html>
+
