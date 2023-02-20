@@ -12,6 +12,10 @@ public class ServiceOrderAddressDto {
         private String postcode; // 우편번호
         private String road; // 도로명
         private String detail; // 상세주소
+        private String recipientName;
+        private String recipientGeneralPhoneNumber;
+        private String recipientCellPhoneNumber;
+        private String deliveryMemo;
     }
 
 }

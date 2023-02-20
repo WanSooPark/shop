@@ -1,7 +1,6 @@
 package com.allddaom.models.orders.domain;
 
 import com.allddaom.commons.entity.BaseEntity;
-import com.allddaom.models.addresses.domain.Address;
 import com.allddaom.models.members.domain.Member;
 import com.allddaom.models.payments.domain.Payment;
 import lombok.*;
@@ -65,7 +64,7 @@ public class Order extends BaseEntity {
     private LocalDateTime returnDateTime; // 반품일시
 
     @ManyToOne(cascade = CascadeType.ALL)
-    private Address address; // 배송지 주소
+    private OrderAddress address; // 배송지 주소
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "order")
     private Payment payment;

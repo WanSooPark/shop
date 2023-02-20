@@ -1,9 +1,11 @@
-package com.allddaom.models.addresses.domain;
+package com.allddaom.models.orders.domain;
 
-import com.allddaom.models.members.domain.Member;
 import lombok.*;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Getter
 @Setter
@@ -11,26 +13,17 @@ import javax.persistence.*;
 @EqualsAndHashCode(of = "id", callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
-public class Address {
+public class OrderAddress {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    private Member member;
-
-    private String name; // 주소록 이름
-
     private String postcode; // 우편번호
 
     private String road; // 도로명
 
-    private String jibun; // 지번
-
     private String detail; // 상세주소
-
-    private String extra; // 참고항목
 
     private String recipientName; // 받는사람 이름
 
@@ -40,7 +33,6 @@ public class Address {
 
     private String deliveryMemo; // 배달 메모
 
-    @Override
     public String toString() {
         return this.postcode + "_" + this.road + "_" + this.detail;
     }

@@ -706,7 +706,11 @@
                 recipientAddress: {
                     postcode: addressPostcode.value,
                     road: addressRoad.value,
-                    detail: addressDetail.value
+                    detail: addressDetail.value,
+                    recipientName: recipientName.value,
+                    recipientGeneralPhoneNumber: recipientRegionNumber.value + recipientGeneralPhoneNumber1.value + recipientGeneralPhoneNumber2.value,
+                    recipientCellPhoneNumber: recipientCellPhoneNumber1.value + recipientCellPhoneNumber2.value + recipientCellPhoneNumber3.value,
+                    deliveryMemo: deliveryMemo.value,
                 },
                 items: items
             };

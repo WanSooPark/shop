@@ -1,8 +1,8 @@
 package com.allddaom.services.service.orders.dto;
 
-import com.allddaom.models.addresses.domain.Address;
 import com.allddaom.models.members.domain.Member;
 import com.allddaom.models.orders.domain.Order;
+import com.allddaom.models.orders.domain.OrderAddress;
 import com.allddaom.models.orders.domain.OrderStatus;
 import com.allddaom.services.service.orders.dto.address.ServiceOrderAddressDto;
 import com.allddaom.services.service.orders.dto.item.ServiceOrderItemDto;
@@ -41,7 +41,7 @@ public class ServiceOrderDto {
         @NotNull
         private List<ServiceOrderItemDto.Request> items;
 
-        public Order toEntity(Member member, Address address) {
+        public Order toEntity(Member member, OrderAddress address) {
             Order order = new Order();
             order.setMember(member);
             order.setAddress(address);

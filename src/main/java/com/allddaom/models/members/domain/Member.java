@@ -3,7 +3,6 @@ package com.allddaom.models.members.domain;
 import com.allddaom.commons.entity.BaseEntity;
 import com.allddaom.models.addresses.domain.Address;
 import lombok.*;
-import org.springframework.util.ObjectUtils;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -69,14 +68,14 @@ public class Member extends BaseEntity {
     private LocalDateTime leftDateTime;
 
     public void updateAddress(Address address) {
-        if (!ObjectUtils.isEmpty(this.address)) {
-            if (this.address.toString()
+        if (this.address != null) {
+            if (address.toString()
                     .equals(this.address.toString())) {
-                return;
+                address.setId(this.address.getId());
             }
         }
         this.address = address;
-        this.address.setMemberId(this.id);
+        this.address.setMember(this);
     }
 
     public void withdraw() {

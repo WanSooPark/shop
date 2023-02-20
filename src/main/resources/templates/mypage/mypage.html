@@ -77,8 +77,8 @@
                                 <dd>
                                     <ul>
                                         <li><a th:href="@{/order}">주문/배송현황</a></li>
-                                        <li><a href="#">취소/교환/반품 내역</a></li>
-                                        <li><a href="#">배송 주소록 관리</a></li>
+                                        <li><a th:href="@{'/order?statusGroup=invalid'}">취소/교환/반품 내역</a></li>
+                                        <li><a th:href="@{/address}">배송 주소록 관리</a></li>
                                     </ul>
                                 </dd>
                             </dl>

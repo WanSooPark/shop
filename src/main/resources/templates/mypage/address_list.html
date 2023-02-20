@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layouts/layout2}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+
+<!-- 사용자 CSS 추가 -->
+<th:block layout:fragment="css">
+    <style>
+    </style>
+</th:block>
+
+<div layout:fragment="content">
+    <section id="container">
+        <div id="mypage">
+            <div id="myaddress">
+                <div class="wrap">
+                    <div id="heading">
+                        배송 주소록 관리
+                        <div class="txt">자주 쓰는 배송지를 등록 관리하실 수 있습니다.</div>
+                    </div>
+                    <div class="table tbl pc-only">
+                        <table>
+                            <colgroup>
+                                <col style="width:120px">
+                                <col style="width:100px">
+                                <col style="width:100px">
+                                <col>
+                                <col style="width:100px">
+                            </colgroup>
+                            <thead>
+                            <tr>
+                                <th scope="col">기본 배송지</th>
+                                <th scope="col">배송지명</th>
+                                <th scope="col">수령인</th>
+                                <th scope="col">주소</th>
+                                <th scope="col">수정</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:if="${addresses == null || addresses.size() == 0}">
+                                <td class="empty" colspan="7">등록된 주소가 없습니다.</td>
+                            </tr>
+                            <th:block th:each="address: ${addresses}">
+                                <tr>
+                                    <td th:text="${address.isDefault()} ? '기본' : ''">기본</td>
+                                    <td th:text="${address.getName()}">우리집</td>
+                                    <td th:text="${address.getRecipientName()}">홍길동</td>
+                                    <td th:text="${address.getRoad()  + ' '+ address.getDetail()}">서울특별시</td>
+                                    <td><a th:href="@{'/address/form?id=' + ${address.getId()}}">수정</a></td>
+                                </tr>
+                            </th:block>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="list mo-only">
+                        <ul>
+                            <li>
+                                <dl>
+                                    <dt>주소록 고정</dt>
+                                    <dd>주소록고정</dd>
+                                </dl>
+                                <dl>
+                                    <dt>배송지명</dt>
+                                    <dd>우리집</dd>
+                                </dl>
+                                <dl>
+                                    <dt>수령인</dt>
+                                    <dd>홍길동</dd>
+                                </dl>
+                                <dl>
+                                    <dt>일반전화</dt>
+                                    <dd>010-1234-5678</dd>
+                                </dl>
+                                <dl>
+                                    <dt>휴대전화</dt>
+                                    <dd>010-1234-5678</dd>
+                                </dl>
+                                <dl>
+                                    <dt>주소</dt>
+                                    <dd>서울특별시</dd>
+                                </dl>
+                                <dl>
+                                    <dt>수정</dt>
+                                    <dd><a href="#">수정</a></dd>
+                                </dl>
+                            </li>
+                            <li class="empty">등록된 주소가 없습니다.</li>
+                        </ul>
+                    </div>
+                    <div class="button">
+                        <a th:href="@{/mypage/address/form}" class="btn btn_03">배송지 등록</a>
+                    </div>
+                    <div class="text">
+                        <div class="tit">배송 주소록 유의사항</div>
+                        <div class="txt">
+                            <p><strong>1</strong> 배송 주소록은 최대 10개까지 등록할 수 있으며, 별도로 등록하지 않을 경우 최근 배송 주소록 기준으로 자동 업데이트됩니다.
+                            </p>
+                            <p><strong>2</strong> 자동 업데이트를 원하지 않을 경우 주소록 고정 선택을 선택하시면 선택된 주소록은 업데이트 대상에서 제외됩니다.</p>
+                            <p><strong>3</strong> 기본 배송지는 1개만 저장됩니다. 다른 배송지를 기본 배송지로 설정하시면 기본 배송지가 변경됩니다.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+</html>
+

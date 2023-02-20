@@ -24,6 +24,7 @@ public class MypageProfileService {
     }
 
     public ServiceProfileForm getProfileForm(Member member) {
+        member = memberService.findByUsername(member.getUsername());
         return ServiceProfileForm.of(member);
     }
 

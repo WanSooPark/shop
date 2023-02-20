@@ -3,6 +3,7 @@ package com.allddaom.services.service.orders.service;
 import com.allddaom.commons.entity.BasePage;
 import com.allddaom.commons.errors.exceptions.BadRequestException;
 import com.allddaom.models.addresses.domain.Address;
+import com.allddaom.models.addresses.service.event.ChangeDefaultAddressEvent;
 import com.allddaom.models.carts.domain.CartItem;
 import com.allddaom.models.carts.domain.CartItemOption;
 import com.allddaom.models.carts.service.CartItemService;
@@ -11,10 +12,7 @@ import com.allddaom.models.items.domain.ItemOption;
 import com.allddaom.models.items.service.ItemOptionService;
 import com.allddaom.models.items.service.ItemService;
 import com.allddaom.models.members.domain.Member;
-import com.allddaom.models.orders.domain.Order;
-import com.allddaom.models.orders.domain.OrderItem;
-import com.allddaom.models.orders.domain.OrderItemOption;
-import com.allddaom.models.orders.domain.OrderStatus;
+import com.allddaom.models.orders.domain.*;
 import com.allddaom.models.orders.service.OrderService;
 import com.allddaom.services.service.orders.dto.ServiceOrderDto;
 import com.allddaom.services.service.orders.dto.ServiceOrderFormDto;
@@ -26,6 +24,7 @@ import com.allddaom.services.service.orders.dto.serarch.ServiceOrderSearchDto;
 import com.allddaom.services.service.orders.form.OrderItemFormResponse;
 import com.allddaom.services.service.orders.form.OrderItemOptionFormResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -49,11 +48,17 @@ public class ServiceOrderService {
     private final ItemService itemService;
     private final ItemOptionService itemOptionService;
 
-    private static Address mapAddress(ServiceOrderAddressDto.Request recipientAddressDto) {
-        Address address = new Address();
+    private final ApplicationEventPublisher eventPublisher;
+
+    private OrderAddress mapAddress(ServiceOrderAddressDto.Request recipientAddressDto) {
+        OrderAddress address = new OrderAddress();
         address.setPostcode(recipientAddressDto.getPostcode());
         address.setRoad(recipientAddressDto.getRoad());
         address.setDetail(recipientAddressDto.getDetail());
+        address.setRecipientName(recipientAddressDto.getRecipientName());
+        address.setRecipientGeneralPhoneNumber(recipientAddressDto.getRecipientGeneralPhoneNumber());
+        address.setRecipientCellPhoneNumber(recipientAddressDto.getRecipientCellPhoneNumber());
+        address.setDeliveryMemo(recipientAddressDto.getDeliveryMemo());
         return address;
     }
 
@@ -61,9 +66,22 @@ public class ServiceOrderService {
         List<OrderItem> orderItems = mapOrderItems(dto.getItems());
 
         ServiceOrderAddressDto.Request recipientAddressDto = dto.getRecipientAddress();
-        Address address = mapAddress(recipientAddressDto);
+        OrderAddress orderAddress = mapAddress(recipientAddressDto);
 
-        Order order = dto.toEntity(member, address);
+        if (dto.isChangeShippingAddressToMemberInformation()) { // 기본 배송지 변경
+            eventPublisher.publishEvent(ChangeDefaultAddressEvent.builder()
+                    .member(member)
+                    .postcode(orderAddress.getPostcode())
+                    .road(orderAddress.getRoad())
+                    .detail(orderAddress.getDetail())
+                    .recipientName(orderAddress.getRecipientName())
+                    .recipientGeneralPhoneNumber(orderAddress.getRecipientGeneralPhoneNumber())
+                    .recipientCellPhoneNumber(orderAddress.getRecipientCellPhoneNumber())
+                    .deliveryMemo(orderAddress.getDeliveryMemo())
+                    .build());
+        }
+
+        Order order = dto.toEntity(member, orderAddress);
         order.setItems(orderItems);
 
         order = orderService.add(order);
