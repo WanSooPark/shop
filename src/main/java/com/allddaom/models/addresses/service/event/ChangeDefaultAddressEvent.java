@@ -9,6 +9,7 @@ import lombok.Data;
 @Builder
 public class ChangeDefaultAddressEvent {
     private Member member;
+    private String name; // 우편번호
     private String postcode; // 우편번호
     private String road; // 도로명
     private String detail; // 상세주소
@@ -19,6 +20,7 @@ public class ChangeDefaultAddressEvent {
 
     public Address getAddress() {
         Address address = new Address();
+        address.setName(this.name);
         address.setPostcode(this.postcode);
         address.setRoad(this.road);
         address.setDetail(this.detail);

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layouts/layout2}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+
+<!-- 사용자 CSS 추가 -->
+<th:block layout:fragment="css">
+    <style>
+    </style>
+</th:block>
+
+<div layout:fragment="content">
+    <section id="container">
+        <div id="mypage">
+            <div id="myaddress">
+                <div class="wrap">
+                    <div id="heading">
+                        배송 주소록 관리
+                        <div class="txt">자주 쓰는 배송지를 등록 관리하실 수 있습니다.</div>
+                    </div>
+                    <div class="write">
+                        <form id="address_form" th:object="${address}" action="/address" method="post">
+                            <div class="form">
+                                <dl>
+                                    <dt>배송지명 <em class="req">*</em></dt>
+                                    <dd>
+                                        <div class="inp">
+                                            <input type="text" th:field="*{name}">
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt>성명 <em class="req">*</em></dt>
+                                    <dd>
+                                        <div class="inp">
+                                            <input type="text" th:field="*{recipientName}">
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt>주소 <em class="req">*</em></dt>
+                                    <dd>
+                                        <div class="inp">
+                                            <input type="text" th:field="*{postcode}" readonly>
+                                            <button type="button" class="btn btn_01">우편번호</button>
+                                        </div>
+                                        <div class="inp">
+                                            <input type="text" th:field="*{road}"> 기본주소
+                                        </div>
+                                        <div class="inp">
+                                            <input type="text" th:field="*{detail}"> 나머지주소(선택입력가능)
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt>일반전화</dt>
+                                    <dd>
+                                        <div class="inp">
+                                            <input type="text" id="general_phone_number_1"
+                                                   th:value="${address.getRecipientGeneralPhoneNumber() == null || address.getRecipientGeneralPhoneNumber() == ''} ? '' : ${address.getRecipientGeneralPhoneNumber().substring(0, 3)}">
+                                            <em>-</em>
+                                            <input type="text" id="general_phone_number_2"
+                                                   th:value="${address.getRecipientGeneralPhoneNumber() == null || address.getRecipientGeneralPhoneNumber() == ''} ? '' : ${address.getRecipientGeneralPhoneNumber().substring(3, 7)}">
+                                            <em>-</em>
+                                            <input type="text" id="general_phone_number_3"
+                                                   th:value="${address.getRecipientGeneralPhoneNumber() == null || address.getRecipientGeneralPhoneNumber() == ''} ? '' : ${address.getRecipientGeneralPhoneNumber().substring(7, 11)}">
+                                        </div>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt>휴대전화 <em class="req">*</em></dt>
+                                    <dd>
+                                        <div class="inp">
+                                            <input type="text" id="cel_phone_number_1"
+                                                   th:value="${address.getRecipientCellPhoneNumber() == null || address.getRecipientCellPhoneNumber() == ''} ? '' : ${address.getRecipientCellPhoneNumber().substring(0, 3)}">
+                                            <em>-</em>
+                                            <input type="text" id="cel_phone_number_2"
+                                                   th:value="${address.getRecipientCellPhoneNumber() == null || address.getRecipientCellPhoneNumber() == ''} ? '' : ${address.getRecipientCellPhoneNumber().substring(3, 7)}">
+                                            <em>-</em>
+                                            <input type="text" id="cel_phone_number_3"
+                                                   th:value="${address.getRecipientCellPhoneNumber() == null || address.getRecipientCellPhoneNumber() == ''} ? '' : ${address.getRecipientCellPhoneNumber().substring(7, 11)}">
+                                        </div>
+                                    </dd>
+                                </dl>
+                            </div>
+                            <div class="save">
+                                <label class="checkbox">
+                                    <input type="checkbox" id="default_address" th:checked="${address.isDefaultAddress()}"><i></i>
+                                    <p>기본 배송지로 저장</p>
+                                </label>
+                            </div>
+                        </form>
+                        <div class="button">
+                            <a onclick="formSubmit()" class="btn btn_03">등록</a>
+                            <a href="javascript:window.history.back();" class="btn btn_04">취소</a>
+                        </div>
+                        <script>
+                            let addressForm = document.getElementById("address_form");
+
+                            let generalPhoneNumber1 = document.getElementById("general_phone_number_1");
+                            let generalPhoneNumber2 = document.getElementById("general_phone_number_2");
+                            let generalPhoneNumber3 = document.getElementById("general_phone_number_3");
+                            let celPhoneNumber1 = document.getElementById("cel_phone_number_1");
+                            let celPhoneNumber2 = document.getElementById("cel_phone_number_2");
+                            let celPhoneNumber3 = document.getElementById("cel_phone_number_3");
+                            let defaultAddress = document.getElementById("default_address");
+
+                            function formSubmit() {
+                                const generalPhoneNumberInput = document.createElement('generalPhoneNumberInput');
+                                generalPhoneNumberInput.setAttribute("type", "hidden");
+                                generalPhoneNumberInput.setAttribute("name", "recipientGeneralPhoneNumber");
+                                generalPhoneNumberInput.setAttribute("value", generalPhoneNumber1.value + generalPhoneNumber2.value + generalPhoneNumber3.value);
+
+                                const cellPhoneNumberInput = document.createElement('cellPhoneNumberInput');
+                                cellPhoneNumberInput.setAttribute("type", "hidden");
+                                cellPhoneNumberInput.setAttribute("name", "cellPhoneNumber");
+                                cellPhoneNumberInput.setAttribute("value", celPhoneNumber1.value + celPhoneNumber2.value + celPhoneNumber3.value);
+
+                                const defaultAddressInput = document.createElement('isDefaultAddress');
+                                defaultAddressInput.setAttribute("type", "hidden");
+                                defaultAddressInput.setAttribute("name", "recipientCellPhoneNumber");
+                                defaultAddressInput.setAttribute("value", defaultAddress.checked);
+
+                                addressForm.appendChild(generalPhoneNumberInput);
+                                addressForm.appendChild(cellPhoneNumberInput);
+                                addressForm.appendChild(defaultAddressInput);
+
+                                addressForm.submit();
+                            }
+                        </script>
+                        <div class="text">
+                            <div class="tit">배송 주소록 유의사항</div>
+                            <div class="txt">
+                                <p><strong>1</strong> 배송 주소록은 최대 10개까지 등록할 수 있으며, 별도로 등록하지 않을 경우 최근 배송 주소록 기준으로 자동
+                                    업데이트됩니다.</p>
+                                <p><strong>2</strong> 자동 업데이트를 원하지 않을 경우 주소록 고정 선택을 선택하시면 선택된 주소록은 업데이트 대상에서 제외됩니다.</p>
+                                <p><strong>3</strong> 기본 배송지는 1개만 저장됩니다. 다른 배송지를 기본 배송지로 설정하시면 기본 배송지가 변경됩니다.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+</html>
+
