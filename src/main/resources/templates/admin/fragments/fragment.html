@@ -22,7 +22,10 @@
             <i class="xi-step-backward"></i><span class="skip">이전</span>
         </a>
 
-        <th:block th:each="i: ${#numbers.sequence(
+        <th:block th:if="${!page.hasContent()}">
+            <a th:href="@{${url} + '?page=0'}" class="current"><span>1</span></a>
+        </th:block>
+        <th:block th:if="${page.hasContent()}" th:each="i: ${#numbers.sequence(
         ( ((page.getTotalPages()-1)-(page.getPage()+2)) <= 0 ?
                 ( (page.getPage()-2+((page.getTotalPages()-1)-(page.getPage()+2))) < 0 ?
                         0 :

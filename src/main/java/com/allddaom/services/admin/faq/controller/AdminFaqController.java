@@ -27,7 +27,7 @@ public class AdminFaqController {
     private final AdminFaqService adminFaqService;
 
 
-    @GetMapping("/faq_list")
+    @GetMapping
     public String faq_list(@Valid AdminFaqSearchDto.Request searchDto, @PageableDefault(size = 5, sort = "id", direction = Sort.Direction.DESC) Pageable pageable, Model model) {
         AdminFaqSearchDto.Response response = adminFaqService.search(searchDto, pageable);
         model.addAttribute("itemPage", response.getFaqPage());

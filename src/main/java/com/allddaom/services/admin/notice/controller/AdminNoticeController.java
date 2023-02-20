@@ -26,8 +26,7 @@ public class AdminNoticeController {
 
     private final AdminNoticeService adminNoticeService;
 
-
-    @GetMapping("/notice_list")
+    @GetMapping
     public String noticeList(@Valid AdminNoticeSearchDto.Request searchDto, @PageableDefault(size = 5, sort = "id", direction = Sort.Direction.DESC) Pageable pageable, Model model) {
         AdminNoticeSearchDto.Response response = adminNoticeService.search(searchDto, pageable);
         model.addAttribute("itemPage", response.getNoticePage());

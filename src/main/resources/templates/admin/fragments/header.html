@@ -28,8 +28,9 @@
             <ul class="dp1">
 
                 <li class="dl1">
-                    <a href="./member.html" class="da1"><span>회원관리</span></a>
-                    <button class="openMenu"><i class="xi-caret-down-min"></i></button>
+                    <!--                    <a href="./member.html" class="da1"><span>회원관리</span></a>-->
+                    <label for="memberMenu" class="da1"><span>회원 관리</span></label>
+                    <button id="memberMenu" class="openMenu"><i class="xi-caret-down-min"></i></button>
                     <ul class="dp2">
                         <li class="dl2"><a href="./member.html" class="da2">회원관리</a></li>
                         <li class="dl2"><a href="./point.html" class="da2">포인트관리</a></li>
@@ -38,11 +39,11 @@
 
                 <li class="dl1">
                     <!--                    <a href="./board_product.html" class="da1"><span>게시판 관리</span></a>-->
-                    <label for="itemMenu" class="da1"><span>게시판 관리</span></label>
-                    <button class="openMenu"><i class="xi-caret-down-min"></i></button>
+                    <label for="boardMenu" class="da1"><span>게시판 관리</span></label>
+                    <button id="boardMenu" class="openMenu"><i class="xi-caret-down-min"></i></button>
                     <ul class="dp2">
-                        <li class="dl2"><a th:href="@{/admin/notice/notice_list}" class="da2">공지사항</a></li>
-                        <li class="dl2"><a th:href="@{/admin/faq/faq_list}" class="da2">FAQ</a></li>
+                        <li class="dl2"><a th:href="@{/admin/notice}" class="da2">공지사항</a></li>
+                        <li class="dl2"><a th:href="@{/admin/faq}" class="da2">FAQ</a></li>
                         <li class="dl2"><a href="./board_product.html" class="da2">신고관리</a></li>
                     </ul>
                 </li>
@@ -60,8 +61,8 @@
 
                 <li class="dl1">
                     <!--                    <a href="./product_product.html" class="da1"><span>SHOP 관리</span></a>-->
-                    <label for="openMenu" class="da1"><span>SHOP 관리</span></label>
-                    <button id="openMenu" class="openMenu"><i class="xi-caret-down-min"></i></button>
+                    <label for="shopMenu" class="da1"><span>SHOP 관리</span></label>
+                    <button id="shopMenu" class="openMenu"><i class="xi-caret-down-min"></i></button>
                     <ul class="dp2">
                         <li class="dl2"><a th:href="@{/admin/topic}" class="da2">기획전관리</a></li>
                         <th:block th:each="topicMenu: ${topicMenus}">
@@ -92,22 +93,25 @@
                 </li>
 
                 <li class="dl1">
-                    <a href="./customer_support.html" class="da1"><span>고객지원 관리</span></a>
-                    <button class="openMenu"><i class="xi-caret-down-min"></i></button>
+                    <!--                    <a href="./customer_support.html" class="da1"><span>고객지원 관리</span></a>-->
+                    <label for="supportManagementMenu" class="da1"><span>고객지원 관리</span></label>
+                    <button id="supportManagementMenu" class="openMenu"><i class="xi-caret-down-min"></i></button>
                     <ul class="dp2">
                         <li class="dl2"><a href="./customer_support.html" class="da2">고객지원</a></li>
                     </ul>
                 </li>
                 <li class="dl1">
-                    <a href="./online_inquiry.html" class="da1"><span>고객 문의</span></a>
-                    <button class="openMenu"><i class="xi-caret-down-min"></i></button>
+                    <!--                    <a href="./online_inquiry.html" class="da1"><span>고객 문의</span></a>-->
+                    <label for="contactSupportMenu" class="da1"><span>고객 문의</span></label>
+                    <button id="contactSupportMenu" class="openMenu"><i class="xi-caret-down-min"></i></button>
                     <ul class="dp2">
                         <li class="dl2"><a href="./online_inquiry.html" class="da2">고객 문의</a></li>
                     </ul>
                 </li>
                 <li class="dl1">
-                    <a href="./footer_privacy.html" class="da1"><span>하단정보 관리</span></a>
-                    <button class="openMenu"><i class="xi-caret-down-min"></i></button>
+                    <!--                    <a href="./footer_privacy.html" class="da1"><span>하단정보 관리</span></a>-->
+                    <label for="bottomInfoMenu" class="da1"><span>하단정보 관리</span></label>
+                    <button id="bottomInfoMenu" class="openMenu"><i class="xi-caret-down-min"></i></button>
                     <ul class="dp2">
                         <li class="dl2"><a th:href="@{/admin/privacy-policy}" class="da2">개인정보 처리방침</a></li>
                         <li class="dl2"><a th:href="@{/admin/terms}" class="da2">이용약관</a></li>
