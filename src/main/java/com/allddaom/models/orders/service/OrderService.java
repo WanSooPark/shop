@@ -45,4 +45,9 @@ public class OrderService {
     public long countByMemberAndCreatedDateTimeBetweenAndStatusIn(Member member, LocalDateTime startDateTime, LocalDateTime endDateTime, List<OrderStatus> statusList) {
         return repository.countByMemberAndCreatedDateTimeBetweenAndStatusIn(member, startDateTime, endDateTime, statusList);
     }
+
+    public Page<Order> searchForAdmin(String statusGroup, LocalDateTime startDateTime, LocalDateTime endDateTime, Pageable pageable) {
+        return repository.searchForAdmin(statusGroup, startDateTime, endDateTime, pageable);
+    }
+
 }

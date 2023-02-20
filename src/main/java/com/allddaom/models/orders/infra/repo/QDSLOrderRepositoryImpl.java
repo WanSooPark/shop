@@ -53,4 +53,20 @@ public class QDSLOrderRepositoryImpl extends CustomQuerydslRepositorySupport imp
         QueryResults<Order> fetchResults = jpqlQuery.fetchResults();
         return new PageImpl<>(fetchResults.getResults(), pageable, fetchResults.getTotal());
     }
+
+    @Override
+    public Page<Order> searchForAdmin(String statusGroup, LocalDateTime startDateTime, LocalDateTime endDateTime, Pageable pageable) {
+        QOrder order = QOrder.order;
+
+        JPQLQuery<Order> query = from(order);
+        query
+                .where(
+                        this.between(order.createdDateTime, startDateTime, endDateTime)
+                )
+                .orderBy(order.createdDateTime.desc());
+
+        JPQLQuery<Order> jpqlQuery = getQuerydsl().applyPagination(pageable, query);
+        QueryResults<Order> fetchResults = jpqlQuery.fetchResults();
+        return new PageImpl<>(fetchResults.getResults(), pageable, fetchResults.getTotal());
+    }
 }

@@ -9,4 +9,6 @@ import java.time.LocalDateTime;
 
 public interface QDSLOrderRepository {
     Page<Order> search(String statusGroup, LocalDateTime startDateTime, LocalDateTime endDateTime, Member member, Pageable pageable);
+
+    Page<Order> searchForAdmin(String statusGroup, LocalDateTime startDateTime, LocalDateTime endDateTime, Pageable pageable);
 }

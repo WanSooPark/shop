@@ -81,10 +81,11 @@
                     </ul>
                 </li>
                 <li class="dl1">
-                    <a href="./business_etc.html" class="da1"><span>주문/매출 관리</span></a>
-                    <button class="openMenu"><i class="xi-caret-down-min"></i></button>
+<!--                    <a href="./business_etc.html" class="da1"><span>주문/매출 관리</span></a>-->
+                    <label for="orderMenu" class="da1"><span>주문/매출 관리</span></label>
+                    <button id="orderMenu" class="openMenu"><i class="xi-caret-down-min"></i></button>
                     <ul class="dp2">
-                        <li class="dl2"><a href="#" class="da2">주문내역</a></li>
+                        <li class="dl2"><a th:href="@{/admin/order}" class="da2">주문내역</a></li>
                         <li class="dl2"><a href="#" class="da2">판매분석</a></li>
                     </ul>
                 </li>
