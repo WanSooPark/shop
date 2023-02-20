@@ -14,7 +14,7 @@ public class ServiceFaqController {
 
     private final ServiceFaqService serviceFaqService;
 
-    @GetMapping("/list")
+    @GetMapping
     public String faq_all(Model model) {
         model.addAttribute("list", serviceFaqService.findAll());
         return "faq/faq_list";
