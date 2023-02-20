@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layouts/layout2}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+
+<!-- 사용자 CSS 추가 -->
+<th:block layout:fragment="css">
+    <style>
+    </style>
+</th:block>
+
+<div layout:fragment="content">
+    <section id="container">
+        <div id="mypage">
+            <div id="myboard">
+                <div class="wrap">
+                    <div id="heading">게시물 관리</div>
+                    <div class="option">
+                        <span>분류 선택</span>
+                        <select name="" id="">
+                            <option>작성 일자별</option>
+                        </select>
+                    </div>
+                    <div class="table tbl">
+                        <table>
+                            <thead>
+                            <tr>
+                                <th scope="col">번호</th>
+                                <th scope="col">분류</th>
+                                <th scope="col">제목</th>
+                                <th scope="col">작성자</th>
+                                <th scope="col">작성일</th>
+                                <th scope="col">조회</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td class="empty" colspan="6">게시물이 없습니다.</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="search">
+                        <select>
+                            <option>제목</option>
+                        </select>
+                        <input type="text">
+                        <button type="submit">찾기</button>
+                    </div>
+                    <div class="review tab-area">
+                        <div class="tab-btn">
+                            <ul>
+                                <li class="active"><a href="javascript:;">작성 가능한 리뷰 0</a></li>
+                                <li><a href="javascript:;">내가 작성한 리뷰 0</a></li>
+                            </ul>
+                        </div>
+                        <div class="tab-box active">
+                            <ul>
+                                <li class="empty">
+                                    <strong>현재 작성 가능한 리뷰가 없습니다.</strong>
+                                    <span>배송이 완료된 상품만 목록에 노출됩니다.</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="tab-box">
+                            <ul>
+                                <li class="empty">
+                                    <strong>내가 작성한 리뷰가 없습니다.</strong>
+                                    <span>배송이 완료된 상품만 목록에 노출됩니다.</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+</html>
