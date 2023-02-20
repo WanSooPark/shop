@@ -44,6 +44,7 @@ public class ServiceAddressService {
         if (form.isDefaultAddress()) {
             eventPublisher.publishEvent(ChangeDefaultAddressEvent.builder()
                     .member(member)
+                    .id(address.getId())
                     .name(address.getName())
                     .postcode(address.getPostcode())
                     .road(address.getRoad())
@@ -60,12 +61,11 @@ public class ServiceAddressService {
     }
 
     public ServiceAddressResponse update(ServiceAddressForm form, Member member) {
-        Address address = addressService.findById(form.getId());
-
-        address = form.toEntity(member);
+        Address address = form.toEntity(member);
         if (form.isDefaultAddress()) {
             eventPublisher.publishEvent(ChangeDefaultAddressEvent.builder()
                     .member(member)
+                    .id(address.getId())
                     .name(address.getName())
                     .postcode(address.getPostcode())
                     .road(address.getRoad())
@@ -79,5 +79,14 @@ public class ServiceAddressService {
 
         address = addressService.add(address);
         return ServiceAddressResponse.of(address);
+    }
+
+    public void deleteAddress(Long id, Member member) {
+        Address address = addressService.findById(id);
+        if (!address.getMember().equals(member)) {
+            throw new AccessDeniedException("권한이 없는 주소 id 입니다.");
+        }
+
+        addressService.delete(address);
     }
 }

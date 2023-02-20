@@ -19,7 +19,7 @@ public class ServiceAddressForm {
     private String recipientCellPhoneNumber; // 받는사람 휴대폰번호
     private String deliveryMemo; // 배달 메모
 
-    private boolean isDefaultAddress; // 현재 배송지 정보를 회원정보로 저장 여부
+    private boolean defaultAddress; // 현재 배송지 정보를 회원정보로 저장 여부
 
     public static ServiceAddressForm of(Address address) {
         return ServiceAddressForm.builder()
@@ -32,7 +32,7 @@ public class ServiceAddressForm {
                 .recipientGeneralPhoneNumber(address.getRecipientGeneralPhoneNumber())
                 .recipientCellPhoneNumber(address.getRecipientCellPhoneNumber())
                 .deliveryMemo(address.getDeliveryMemo())
-                .isDefaultAddress(!ObjectUtils.isEmpty(address.getMember()) && address.getMember()
+                .defaultAddress(!ObjectUtils.isEmpty(address.getMember()) && address.getMember()
                         .getAddress()
                         .equals(address))
                 .build();
@@ -46,6 +46,7 @@ public class ServiceAddressForm {
 
     public Address toEntity(Member member) {
         Address address = new Address();
+        address.setId(this.id);
         address.setMember(member);
         address.setName(this.name);
         address.setPostcode(this.postcode);

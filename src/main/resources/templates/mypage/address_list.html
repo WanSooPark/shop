@@ -26,6 +26,7 @@
                                 <col style="width:100px">
                                 <col>
                                 <col style="width:100px">
+                                <col style="width:100px">
                             </colgroup>
                             <thead>
                             <tr>
@@ -34,6 +35,7 @@
                                 <th scope="col">수령인</th>
                                 <th scope="col">주소</th>
                                 <th scope="col">수정</th>
+                                <th scope="col">삭제</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -46,11 +48,17 @@
                                     <td th:text="${address.getName()}">우리집</td>
                                     <td th:text="${address.getRecipientName()}">홍길동</td>
                                     <td th:text="${address.getRoad()  + ' '+ address.getDetail()}">서울특별시</td>
-                                    <td><a th:href="@{'/address/form?id=' + ${address.getId()}}">수정</a></td>
+                                    <td>
+                                        <a th:href="@{'/address/form?id=' + ${address.getId()}}">수정</a>
+                                    </td>
+                                    <td>
+                                        <a onclick="removeAddress(event)" th:id="address_remove_ + ${address.getId()}">삭제</a>
+                                    </td>
                                 </tr>
                             </th:block>
                             </tbody>
                         </table>
+
                     </div>
                     <div class="list mo-only">
                         <ul>
@@ -100,6 +108,20 @@
                         </div>
                     </div>
                 </div>
+                <form id="address_delete_form" method="post" action="/address/delete"></form>
+                <script>
+                    let addressDeleteForm = document.getElementById("address_delete_form");
+                    function removeAddress(event) {
+                        let id = event.target.id.replace('address_remove_', '');
+
+                        const input = document.createElement('input');
+                        input.setAttribute("type", "hidden");
+                        input.setAttribute("name", "id");
+                        input.setAttribute("value", id);
+                        addressDeleteForm.appendChild(input);
+                        addressDeleteForm.submit();
+                    }
+                </script>
             </div>
         </div>
     </section>

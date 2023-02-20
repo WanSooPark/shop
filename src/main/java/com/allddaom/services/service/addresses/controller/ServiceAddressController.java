@@ -69,4 +69,10 @@ public class ServiceAddressController {
         return "redirect:/address";
     }
 
+    @PostMapping("/delete")
+    public String deleteAddress(@CurrentAccount Member member, @Valid @RequestParam Long id, RedirectAttributes attributes) {
+        serviceAddressService.deleteAddress(id, member);
+        return "redirect:/address";
+    }
+
 }
