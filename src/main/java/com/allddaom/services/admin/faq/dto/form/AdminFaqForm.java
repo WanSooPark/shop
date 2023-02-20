@@ -1,6 +1,6 @@
 package com.allddaom.services.admin.faq.dto.form;
 
-import com.allddaom.models.faq.domain.Faq;
+import com.allddaom.models.faqs.domain.Faq;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

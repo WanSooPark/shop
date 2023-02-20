@@ -1,6 +1,6 @@
 package com.allddaom.services.service.notice.dto.form;
 
-import com.allddaom.models.notice.domain.Notice;
+import com.allddaom.models.notices.domain.Notice;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

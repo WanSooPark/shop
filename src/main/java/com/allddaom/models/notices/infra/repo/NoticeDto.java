@@ -1,4 +1,4 @@
-package com.allddaom.models.notice.infra.repo;
+package com.allddaom.models.notices.infra.repo;
 
 import lombok.Data;
 
@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * A DTO for the {@link com.allddaom.models.notice.domain.Notice} entity
+ * A DTO for the {@link com.allddaom.models.notices.domain.Notice} entity
  */
 @Data
 public class NoticeDto implements Serializable {

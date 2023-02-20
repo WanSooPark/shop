@@ -1,8 +1,8 @@
 package com.allddaom.services.admin.faq.service;
 
 import com.allddaom.commons.entity.BasePage;
-import com.allddaom.models.faq.domain.Faq;
-import com.allddaom.models.faq.service.FaqService;
+import com.allddaom.models.faqs.domain.Faq;
+import com.allddaom.models.faqs.service.FaqService;
 import com.allddaom.services.admin.faq.dto.form.AdminFaqForm;
 import com.allddaom.services.admin.faq.dto.search.AdminFaqSearchDto;
 import com.allddaom.services.admin.faq.dto.search.AdminFaqSearchResponse;

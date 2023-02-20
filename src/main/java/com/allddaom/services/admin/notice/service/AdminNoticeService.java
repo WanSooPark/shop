@@ -1,8 +1,8 @@
 package com.allddaom.services.admin.notice.service;
 
 import com.allddaom.commons.entity.BasePage;
-import com.allddaom.models.notice.domain.Notice;
-import com.allddaom.models.notice.service.NoticeService;
+import com.allddaom.models.notices.domain.Notice;
+import com.allddaom.models.notices.service.NoticeService;
 import com.allddaom.services.admin.notice.dto.form.AdminNoticeForm;
 import com.allddaom.services.admin.notice.dto.search.AdminNoticeSearchDto;
 import com.allddaom.services.admin.notice.dto.search.AdminNoticeSearchResponse;

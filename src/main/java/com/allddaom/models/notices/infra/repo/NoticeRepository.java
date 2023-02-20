@@ -1,6 +1,6 @@
-package com.allddaom.models.notice.infra.repo;
+package com.allddaom.models.notices.infra.repo;
 
-import com.allddaom.models.notice.domain.Notice;
+import com.allddaom.models.notices.domain.Notice;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

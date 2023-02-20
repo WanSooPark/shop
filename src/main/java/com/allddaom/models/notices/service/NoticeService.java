@@ -1,8 +1,8 @@
-package com.allddaom.models.notice.service;
+package com.allddaom.models.notices.service;
 
 import com.allddaom.commons.errors.exceptions.NoContentException;
-import com.allddaom.models.notice.domain.Notice;
-import com.allddaom.models.notice.infra.repo.NoticeRepository;
+import com.allddaom.models.notices.domain.Notice;
+import com.allddaom.models.notices.infra.repo.NoticeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

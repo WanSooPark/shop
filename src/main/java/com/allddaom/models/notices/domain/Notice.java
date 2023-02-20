@@ -1,7 +1,11 @@
-package com.allddaom.models.faq.domain;
+package com.allddaom.models.notices.domain;
 
+import com.allddaom.commons.entity.BaseEntity;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
+import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
@@ -16,7 +20,7 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(of = "id", callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
-public class Faq {
+public class Notice extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,15 +31,21 @@ public class Faq {
     @Column(name = "title", nullable = false)
     private String title;
 
-    @Size(max = 255)
-    @NotNull
-    @Column(name = "category", nullable = false)
-    private String category;
-
     @NotNull
     @Lob
     @Column(name = "content", nullable = false)
     private String content;
+
+    @Column(name = "view_count", nullable = false)
+    @ColumnDefault("0")
+    private Long viewCount;
+
+    @CreatedBy
+    @Column(updatable = false)
+    private String createdBy;
+
+    @LastModifiedBy
+    private String modifiedBy;
 
     @CreatedDate
     @Column(updatable = false)

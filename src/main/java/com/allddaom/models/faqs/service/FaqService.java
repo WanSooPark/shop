@@ -1,8 +1,8 @@
-package com.allddaom.models.faq.service;
+package com.allddaom.models.faqs.service;
 
 import com.allddaom.commons.errors.exceptions.NoContentException;
-import com.allddaom.models.faq.domain.Faq;
-import com.allddaom.models.faq.infra.repo.FaqRepository;
+import com.allddaom.models.faqs.domain.Faq;
+import com.allddaom.models.faqs.infra.repo.FaqRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

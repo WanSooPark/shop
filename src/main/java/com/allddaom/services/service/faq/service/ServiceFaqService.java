@@ -1,7 +1,7 @@
 package com.allddaom.services.service.faq.service;
 
-import com.allddaom.models.faq.domain.Faq;
-import com.allddaom.models.faq.service.FaqService;
+import com.allddaom.models.faqs.domain.Faq;
+import com.allddaom.models.faqs.service.FaqService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
