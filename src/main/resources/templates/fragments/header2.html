@@ -16,10 +16,10 @@
                 <div class="tool">
                     <th:block sec:authorize="isAuthenticated()">
                         <span>
-                            <a href="#">장바구니</a>
+                            <a th:href="@{/cart}">장바구니</a>
                         </span>
                         <span>
-                            <a href="#">구매이력</a>
+                            <a th:href="@{/order}">구매이력</a>
                         </span>
                         <span>
                             <a th:href="@{/logout}">로그아웃</a>

@@ -6,6 +6,7 @@ import com.allddaom.services.service.orders.dto.ServiceOrderCompleteDto;
 import com.allddaom.services.service.orders.dto.ServiceOrderFormDto;
 import com.allddaom.services.service.orders.dto.ServiceOrderResponse;
 import com.allddaom.services.service.orders.dto.ServiceOrdererProfileResponse;
+import com.allddaom.services.service.orders.dto.serarch.ServiceOrderSearchDto;
 import com.allddaom.services.service.orders.service.ServiceOrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -21,6 +22,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ServiceOrderController {
 
     private final ServiceOrderService serviceOrderService;
+
+    @GetMapping
+    public String orderListView(@CurrentAccount Member member, ServiceOrderSearchDto.Request dto, Model model) {
+        return "order/order_list";
+    }
 
     @PostMapping("/form")
     public String getOrderView(@CurrentAccount Member member, ServiceOrderFormDto.Request dto, Model model) {
