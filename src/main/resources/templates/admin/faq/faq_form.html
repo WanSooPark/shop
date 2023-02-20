@@ -47,7 +47,7 @@
                     <dl>
                         <dt>내용</dt>
                         <dd>
-                            <textarea name="content" id="content"  th:field="*{content}"></textarea>
+                            <textarea name="content" id="content" th:field="*{content}"></textarea>
                         </dd>
                     </dl>
                 </div>
@@ -100,21 +100,22 @@
             data: frmData,
             type: 'POST',
             dataType: "json",
-            success: function(result){
+            success: function (result) {
                 if (result.status === 'success') {
                     alert('저장이 완료되었습니다.');
-                    location.href='./faq_list';
+                    location.href = './faq_list';
                 } else {
                     alert('저장이 실패되었습니다.\n잠시 후에 시도하여 주세요');
                 }
             },
-            error: function(request, status, error) {
+            error: function (request, status, error) {
                 alert('저장이 실패되었습니다.\n잠시 후에 시도하여 주세요');
             }
         });
 
         return false;
     }
+
     /* ]]> */
 </script>
 </body>

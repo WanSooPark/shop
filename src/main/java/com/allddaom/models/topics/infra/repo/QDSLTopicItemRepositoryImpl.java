@@ -1,12 +1,12 @@
 package com.allddaom.models.topics.infra.repo;
 
-import com.querydsl.core.QueryResults;
-import com.querydsl.jpa.JPQLQuery;
 import com.allddaom.commons.querydsl.CustomQuerydslRepositorySupport;
 import com.allddaom.models.topics.domain.QTopicItem;
 import com.allddaom.models.topics.domain.Topic;
 import com.allddaom.models.topics.domain.TopicItem;
 import com.allddaom.models.topics.domain.TopicItemStatus;
+import com.querydsl.core.QueryResults;
+import com.querydsl.jpa.JPQLQuery;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;

@@ -87,7 +87,8 @@ public class AdminItemService {
         options = addItemOptions(dto.getOptions()); // 새로 저장
 
         ItemImage mainImage = item.getMainImage();
-        if (!dto.getMainImageFile().isEmpty()) {
+        if (!dto.getMainImageFile()
+                .isEmpty()) {
             // TODO 삭제해야함
             mainImage = addItemImage(dto.getMainImageFile());
         }

@@ -1,13 +1,13 @@
 package com.allddaom.models.items.infra.repo;
 
-import com.querydsl.core.QueryResults;
-import com.querydsl.core.types.dsl.BooleanExpression;
-import com.querydsl.jpa.JPQLQuery;
 import com.allddaom.commons.querydsl.CustomQuerydslRepositorySupport;
 import com.allddaom.models.categories.domain.Category;
 import com.allddaom.models.categories.domain.QCategory;
 import com.allddaom.models.items.domain.Item;
 import com.allddaom.models.items.domain.QItem;
+import com.querydsl.core.QueryResults;
+import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.jpa.JPQLQuery;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;

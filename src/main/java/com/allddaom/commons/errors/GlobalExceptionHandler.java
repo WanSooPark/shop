@@ -47,12 +47,11 @@ public class GlobalExceptionHandler {
 
         final ErrorCode errorCode = ErrorCode.BAD_REQUEST_EXCEPTION;
 
-        StringBuilder message = new StringBuilder();
-        message.append("Validation failed for Object '")
-                .append(errors.getObjectName())
-                .append("' Bad Request");
+        String message = "Validation failed for Object '" +
+                errors.getObjectName() +
+                "' Bad Request";
 
-        final ErrorResponse response = ErrorResponse.of(errorCode, message.toString(), errors);
+        final ErrorResponse response = ErrorResponse.of(errorCode, message, errors);
         return ResponseEntity.status(HttpStatus.valueOf(errorCode.getStatus()))
                 .headers(httpHeaders)
                 .body(response);

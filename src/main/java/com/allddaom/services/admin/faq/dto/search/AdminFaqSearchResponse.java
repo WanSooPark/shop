@@ -1,7 +1,6 @@
 package com.allddaom.services.admin.faq.dto.search;
 
 import com.allddaom.models.faq.domain.Faq;
-import com.allddaom.models.notice.domain.Notice;
 import lombok.Builder;
 import lombok.Data;
 

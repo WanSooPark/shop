@@ -14,29 +14,29 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ServiceNoticeForm {
-   @Builder.Default
-   private Long id = 0L;
-   private String title;
-   private String content;
-   private Boolean isNew;
-   private Long viewCount;
-   private LocalDateTime createdDateTime;
+    @Builder.Default
+    private Long id = 0L;
+    private String title;
+    private String content;
+    private Boolean isNew;
+    private Long viewCount;
+    private LocalDateTime createdDateTime;
 
-   public static ServiceNoticeForm of(Notice item) {
-      return ServiceNoticeForm.builder()
-              .id(item.getId())
-              .title(item.getTitle())
-              .content(StringUtils.replace(item.getContent(), "\n", "<br/>"))
-              .viewCount(item.getViewCount())
-              .createdDateTime(item.getCreatedDateTime())
-              .build();
-   }
+    public static ServiceNoticeForm of(Notice item) {
+        return ServiceNoticeForm.builder()
+                .id(item.getId())
+                .title(item.getTitle())
+                .content(StringUtils.replace(item.getContent(), "\n", "<br/>"))
+                .viewCount(item.getViewCount())
+                .createdDateTime(item.getCreatedDateTime())
+                .build();
+    }
 
-   public Notice entityBuilder() {
-      return Notice.builder()
-              .id(this.getId())
-              .title(this.getTitle())
-              .content(this.getContent())
-              .build();
-   }
+    public Notice entityBuilder() {
+        return Notice.builder()
+                .id(this.getId())
+                .title(this.getTitle())
+                .content(this.getContent())
+                .build();
+    }
 }

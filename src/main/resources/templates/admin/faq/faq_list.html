@@ -85,7 +85,8 @@
                     <li><a th:href="@{/admin/faq/form}" class="btn btn_02">추가</a></li>
                 </ul>
             </div>
-            <th:block th:replace="admin/fragments/fragment :: pagination(${itemPage}, '/admin/faq/faq_list')"></th:block>
+            <th:block
+                    th:replace="admin/fragments/fragment :: pagination(${itemPage}, '/admin/faq/faq_list')"></th:block>
         </div>
     </div>
 </main>
@@ -93,12 +94,12 @@
     function deleteFaq() {
         let list = [];
 
-        $("input[name='chk']:checked").each(function() {
+        $("input[name='chk']:checked").each(function () {
             var tmpVal = $(this).val();
             list.push(Number(tmpVal));
         });
 
-        if( list.length < 1 ){
+        if (list.length < 1) {
             alert("삭제할 FAQ 글을 선택해주시기 바랍니다.");
             return;
         }
@@ -111,15 +112,15 @@
             },
             type: 'POST',
             dataType: "json",
-            success: function(result){
+            success: function (result) {
                 if (result.status === 'success') {
                     alert('삭제가 완료되었습니다.');
-                    location.href='./faq_list';
+                    location.href = './faq_list';
                 } else {
                     alert('삭제가 실패되었습니다.\n잠시 후에 시도하여 주세요');
                 }
             },
-            error: function(request, status, error) {
+            error: function (request, status, error) {
                 alert('삭제가 실패되었습니다.\n잠시 후에 시도하여 주세요');
             }
         });

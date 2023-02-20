@@ -19,139 +19,139 @@ import org.springframework.security.web.SecurityFilterChain;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-   private final UserDetailsService userDetailsService;
+    private final UserDetailsService userDetailsService;
 
-   @Bean
-   public WebSecurityCustomizer webSecurityCustomizer() {
-      return (web) -> web.ignoring()
-              .antMatchers("/img/**", "/admin/**", "/css/**", "/images/**", "/js/**",
-                      "/favicon.ico", "/resources/**", "/error", "/admin/error");
-   }
+    @Bean
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        return (web) -> web.ignoring()
+                .antMatchers("/img/**", "/admin/**", "/css/**", "/images/**", "/js/**",
+                        "/favicon.ico", "/resources/**", "/error", "/admin/error");
+    }
 
-   @Order(Ordered.HIGHEST_PRECEDENCE)
-   @Bean
-   public SecurityFilterChain adminFilterChain(HttpSecurity http) throws Exception {
-      http.formLogin()
-              .loginPage("/admin/login")
-              .defaultSuccessUrl("/admin")
-              .failureUrl("/admin/login/error")
-              .and()
-              .logout()
-              .logoutSuccessUrl("/")
+    @Order(Ordered.HIGHEST_PRECEDENCE)
+    @Bean
+    public SecurityFilterChain adminFilterChain(HttpSecurity http) throws Exception {
+        http.formLogin()
+                .loginPage("/admin/login")
+                .defaultSuccessUrl("/admin")
+                .failureUrl("/admin/login/error")
+                .and()
+                .logout()
+                .logoutSuccessUrl("/")
 //                .logoutRequestMatcher(new AntPathRequestMatcher("/members/logout"))
-      ;
+        ;
 
-      http.csrf()
-              .disable();
+        http.csrf()
+                .disable();
 
-      http.antMatcher("/admin/**")
-              .authorizeRequests()
-              .mvcMatchers("/css/**", "/js/**", "/img/**", "/admin/css/**", "/admin/js/**", "/admin/img/**")
-              .permitAll()
-              .mvcMatchers("/admin", "/admin/login", "/admin/faq", "/admin/faq/**", "/admin/notice", "/admin/notice/**", "/admin/item", "/admin/item/**",
-                      "/admin/category", "/admin/category/**", "/admin/topic", "/admin/topic/**", "/admin/banner", "/admin/banner/**", "/admin/banner", "/admin/banner/**", "/admin/terms", "/admin/terms/**")
-              .permitAll()
-              .anyRequest()
-              .authenticated()
-      ;
+        http.antMatcher("/admin/**")
+                .authorizeRequests()
+                .mvcMatchers("/css/**", "/js/**", "/img/**", "/admin/css/**", "/admin/js/**", "/admin/img/**")
+                .permitAll()
+                .mvcMatchers("/admin", "/admin/login", "/admin/faq", "/admin/faq/**", "/admin/notice", "/admin/notice/**", "/admin/item", "/admin/item/**",
+                        "/admin/category", "/admin/category/**", "/admin/topic", "/admin/topic/**", "/admin/banner", "/admin/banner/**", "/admin/banner", "/admin/banner/**", "/admin/terms", "/admin/terms/**")
+                .permitAll()
+                .anyRequest()
+                .authenticated()
+        ;
 
-      http.rememberMe()
-              .key("shop")
-              .rememberMeParameter("rememberMe")
-              .tokenValiditySeconds(2419200);
+        http.rememberMe()
+                .key("shop")
+                .rememberMeParameter("rememberMe")
+                .tokenValiditySeconds(2419200);
 
-      return http.build();
-   }
+        return http.build();
+    }
 
-   @Order(Ordered.HIGHEST_PRECEDENCE)
-   @Bean
-   public SecurityFilterChain adminApiFilterChain(HttpSecurity http) throws Exception {
-      http.formLogin()
-              .loginPage("/admin/login")
-              .defaultSuccessUrl("/admin")
-              .failureUrl("/admin/login/error")
-              .and()
-              .logout()
-              .logoutSuccessUrl("/")
+    @Order(Ordered.HIGHEST_PRECEDENCE)
+    @Bean
+    public SecurityFilterChain adminApiFilterChain(HttpSecurity http) throws Exception {
+        http.formLogin()
+                .loginPage("/admin/login")
+                .defaultSuccessUrl("/admin")
+                .failureUrl("/admin/login/error")
+                .and()
+                .logout()
+                .logoutSuccessUrl("/")
 //                .logoutRequestMatcher(new AntPathRequestMatcher("/members/logout"))
-      ;
+        ;
 
-      http.csrf()
-              .disable();
+        http.csrf()
+                .disable();
 
-      http.antMatcher("/api/admin/**")
-              .authorizeRequests()
-              .mvcMatchers("/api/admin/**")
-              .permitAll()
-              .anyRequest()
-              .authenticated()
-      ;
+        http.antMatcher("/api/admin/**")
+                .authorizeRequests()
+                .mvcMatchers("/api/admin/**")
+                .permitAll()
+                .anyRequest()
+                .authenticated()
+        ;
 
-      return http.build();
-   }
+        return http.build();
+    }
 
-   @Bean
-   public SecurityFilterChain danalFilterChain(HttpSecurity http) throws Exception {
-      http.formLogin()
-              .disable();
+    @Bean
+    public SecurityFilterChain danalFilterChain(HttpSecurity http) throws Exception {
+        http.formLogin()
+                .disable();
 
-      http.csrf()
-              .disable();
+        http.csrf()
+                .disable();
 
-      http.antMatcher("/danal/**")
-              .authorizeRequests()
-              .anyRequest()
-              .permitAll()
-      ;
+        http.antMatcher("/danal/**")
+                .authorizeRequests()
+                .anyRequest()
+                .permitAll()
+        ;
 
-      return http.build();
-   }
+        return http.build();
+    }
 
-   @Bean
-   public SecurityFilterChain serviceFilterChain(HttpSecurity http) throws Exception {
-      http.formLogin()
-              .loginPage("/login")
-              .defaultSuccessUrl("/")
-              .failureUrl("/login/error")
-              .and()
-              .logout()
-              .logoutSuccessUrl("/")
+    @Bean
+    public SecurityFilterChain serviceFilterChain(HttpSecurity http) throws Exception {
+        http.formLogin()
+                .loginPage("/login")
+                .defaultSuccessUrl("/")
+                .failureUrl("/login/error")
+                .and()
+                .logout()
+                .logoutSuccessUrl("/")
 //                .logoutRequestMatcher(new AntPathRequestMatcher("/members/logout"))
-      ;
+        ;
 
-      http.csrf()
-              .disable();
+        http.csrf()
+                .disable();
 
-      http.antMatcher("/**")
-              .authorizeRequests()
-              .mvcMatchers("/css/**", "/js/**", "/img/**")
-              .permitAll()
-              .mvcMatchers("/", "/login", "/login/**", "/sign/up", "/index")
-              .permitAll()
-              .mvcMatchers(HttpMethod.GET, "/item", "/item/**", "/category/**", "/topic/**", "/banner/**", "/notice/**", "/faq/**")
-              .permitAll()
-              .mvcMatchers(HttpMethod.GET, "/items", "/items/**", "/categories", "/categories/**")
-              .permitAll()
-              .mvcMatchers("/cart/**", "/order/**", "/order/payment/start")
-              .permitAll()
-              .mvcMatchers("/api/orders", "/api/cart", "/api/cart-items", "/api/cart-items/**")
-              .permitAll()
-              .anyRequest()
-              .authenticated()
-      ;
+        http.antMatcher("/**")
+                .authorizeRequests()
+                .mvcMatchers("/css/**", "/js/**", "/img/**")
+                .permitAll()
+                .mvcMatchers("/", "/login", "/login/**", "/sign/up", "/index")
+                .permitAll()
+                .mvcMatchers(HttpMethod.GET, "/item", "/item/**", "/category/**", "/topic/**", "/banner/**", "/notice/**", "/faq/**")
+                .permitAll()
+                .mvcMatchers(HttpMethod.GET, "/items", "/items/**", "/categories", "/categories/**")
+                .permitAll()
+                .mvcMatchers("/cart/**", "/order/**", "/order/payment/start")
+                .permitAll()
+                .mvcMatchers("/api/orders", "/api/cart", "/api/cart-items", "/api/cart-items/**")
+                .permitAll()
+                .anyRequest()
+                .authenticated()
+        ;
 
-      http.rememberMe()
-              .key("shop")
-              .rememberMeParameter("rememberMe")
-              .tokenValiditySeconds(2419200);
+        http.rememberMe()
+                .key("shop")
+                .rememberMeParameter("rememberMe")
+                .tokenValiditySeconds(2419200);
 
-      return http.build();
-   }
+        return http.build();
+    }
 
-   @Bean
-   public PasswordEncoder passwordEncoder() {
-      return new BCryptPasswordEncoder();
-   }
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
 //    @Bean
 //    public HttpSessionCsrfTokenRepository sessionCsrfRepository() {

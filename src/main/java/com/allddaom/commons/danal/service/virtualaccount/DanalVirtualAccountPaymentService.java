@@ -87,7 +87,7 @@ public class DanalVirtualAccountPaymentService {
         /**************************************************
          * 가상계좌 발급전처리 결과
          **************************************************/
-        if (returnCode == null || !"0000".equals(returnCode)) {
+        if (!"0000".equals(returnCode)) {
             // returnCode가 없거나 또는 그 결과가 성공이 아니라면 발급요청을 하지 않아야 함.
             System.out.println("Authentication failed. " + returnMsg + "[" + returnCode + "]");
             return VirtualAccountPaymentCompleteResponse.builder()
@@ -102,7 +102,7 @@ public class DanalVirtualAccountPaymentService {
         /**************************************************
          * 결제 정보
          **************************************************/
-        REQ_DATA.put("TID", (String) retMap.get("TID"));
+        REQ_DATA.put("TID", retMap.get("TID"));
         REQ_DATA.put("AMOUNT", String.valueOf(order.getFinalAmount()));
 
         /**************************************************

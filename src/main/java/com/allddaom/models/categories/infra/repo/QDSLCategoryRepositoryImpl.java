@@ -1,10 +1,10 @@
 package com.allddaom.models.categories.infra.repo;
 
-import com.querydsl.core.QueryResults;
-import com.querydsl.jpa.JPQLQuery;
 import com.allddaom.commons.querydsl.CustomQuerydslRepositorySupport;
 import com.allddaom.models.categories.domain.Category;
 import com.allddaom.models.categories.domain.QCategory;
+import com.querydsl.core.QueryResults;
+import com.querydsl.jpa.JPQLQuery;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;

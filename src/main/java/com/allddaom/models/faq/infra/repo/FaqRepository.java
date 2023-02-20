@@ -11,13 +11,15 @@ import java.util.List;
 
 public interface FaqRepository extends JpaRepository<Faq, Long> {
 
-   Page<Faq> findAll(Pageable pageable);
+    Page<Faq> findAll(Pageable pageable);
 
-   @Query("select f from Faq f order by f.id DESC")
-   List<Faq> findByOrderByIdDesc();
-   Page<Faq> findByTitleContainsOrContentContains(String title, String content, Pageable pageable);
+    @Query("select f from Faq f order by f.id DESC")
+    List<Faq> findByOrderByIdDesc();
 
-   Page<Faq> findByCategoryOrderByCreatedDateTimeDesc(String category, Pageable pageable);
+    Page<Faq> findByTitleContainsOrContentContains(String title, String content, Pageable pageable);
 
-   void deleteByIdIn(Collection<Long> ids);
+    Page<Faq> findByCategoryOrderByCreatedDateTimeDesc(String category, Pageable pageable);
+
+    void deleteByIdIn(Collection<Long> ids);
+
 }

@@ -46,18 +46,16 @@ public class DanalVirtualAccountPayment {
 
     private static final String ERC_NETWORK_ERROR = "-1";
     private static final String ERM_NETWORK = "Network Error";
-
+    public String CHARSET = "EUC-KR";
     /******************************************************
      * CPID		: 다날에서 제공해 드린 CPID
      * CRYPTOKEY	: 다날에서 제공해 드린 암복호화 PW
      ******************************************************/
-    private String IV = "45b913a44d61353d20402a2518de592a"; // 수정하지 마세요.
+    private final String IV = "45b913a44d61353d20402a2518de592a"; // 수정하지 마세요.
     @Value("${danal.cpid}")
     private String CPID; // 실서비스를 위해서는 반드시 교체필요.
     @Value("${danal.service.virtual-account.pwd}")
     private String CRYPTOKEY; // 암호화Key. 실서비스를 위해서는 반드시 교체필요.
-
-    public String CHARSET = "EUC-KR";
 
     public Map CallVAccount(Map REQ_DATA, boolean Debug) {
         String REQ_STR = toEncrypt(data2str(REQ_DATA));
@@ -81,13 +79,13 @@ public class DanalVirtualAccountPayment {
         if (Debug) {
             System.out.println("ReqDATA[" + data2str(REQ_DATA) + "]");
             System.out.println("Req[" + REQ_STR + "]");
-            System.out.println("Ret[" + Result + "/" + hc.getResponseCode()	+ "]");
+            System.out.println("Ret[" + Result + "/" + hc.getResponseCode() + "]");
             System.out.println("Res[" + RES_STR + "]");
         }
 
         Map resMap = str2data(RES_STR);
-        if(resMap.containsKey("DATA")){
-            resMap = str2data( toDecrypt((String) resMap.get("DATA")) );
+        if (resMap.containsKey("DATA")) {
+            resMap = str2data(toDecrypt((String) resMap.get("DATA")));
         }
         return resMap;
     }
@@ -107,7 +105,8 @@ public class DanalVirtualAccountPayment {
     }
 
     public String data2str(Map data) {
-        Iterator i = data.keySet().iterator();
+        Iterator i = data.keySet()
+                .iterator();
         StringBuffer sb = new StringBuffer();
         while (i.hasNext()) {
             Object key = i.next();

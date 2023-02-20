@@ -1,6 +1,5 @@
 package com.allddaom.services.service.faq.controller;
 
-import com.allddaom.services.service.faq.dto.search.ServiceFaqSearchDto;
 import com.allddaom.services.service.faq.service.ServiceFaqService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -20,4 +19,5 @@ public class ServiceFaqController {
         model.addAttribute("list", serviceFaqService.findAll());
         return "faq/faq_list";
     }
+
 }

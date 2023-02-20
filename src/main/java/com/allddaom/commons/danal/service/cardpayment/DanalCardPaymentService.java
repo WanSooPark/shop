@@ -91,7 +91,7 @@ public class DanalCardPaymentService {
         /**************************************************
          * 결제 정보
          **************************************************/
-        REQ_DATA.put("TID", (String) retMap.get("TID"));
+        REQ_DATA.put("TID", retMap.get("TID"));
         REQ_DATA.put("AMOUNT", String.valueOf(order.getFinalAmount())); // 최초 결제요청(AUTH)시에 보냈던 금액과 동일한 금액을 전송
 
         /**************************************************

@@ -24,66 +24,67 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AdminFaqController {
 
-   private final AdminFaqService adminFaqService;
+    private final AdminFaqService adminFaqService;
 
 
-   @GetMapping("/faq_list")
-   public String faq_list(@Valid AdminFaqSearchDto.Request searchDto, @PageableDefault(size = 5, sort = "id", direction = Sort.Direction.DESC) Pageable pageable, Model model) {
-      AdminFaqSearchDto.Response response = adminFaqService.search(searchDto, pageable);
-      model.addAttribute("itemPage", response.getFaqPage());
-      return "admin/faq/faq_list";
-   }
+    @GetMapping("/faq_list")
+    public String faq_list(@Valid AdminFaqSearchDto.Request searchDto, @PageableDefault(size = 5, sort = "id", direction = Sort.Direction.DESC) Pageable pageable, Model model) {
+        AdminFaqSearchDto.Response response = adminFaqService.search(searchDto, pageable);
+        model.addAttribute("itemPage", response.getFaqPage());
+        return "admin/faq/faq_list";
+    }
 
-   @GetMapping("/form")
-   public String itemListView(@RequestParam(required = false) Long id, Model model) {
-      boolean isNew = true;
+    @GetMapping("/form")
+    public String itemListView(@RequestParam(required = false) Long id, Model model) {
+        boolean isNew = true;
 
-      AdminFaqForm form = new AdminFaqForm();
-      if (!ObjectUtils.isEmpty(id)) {
-         try {
-            form = adminFaqService.getFaqForm(id);
-            isNew = false;
-         } catch (NoContentException noContentException) {
-         }
-      }
+        AdminFaqForm form = new AdminFaqForm();
+        if (!ObjectUtils.isEmpty(id)) {
+            try {
+                form = adminFaqService.getFaqForm(id);
+                isNew = false;
+            } catch (NoContentException noContentException) {
+            }
+        }
 
-      model.addAttribute("item", form);
-      model.addAttribute("isNew", isNew);
-      return "admin/faq/faq_form";
-   }
+        model.addAttribute("item", form);
+        model.addAttribute("isNew", isNew);
+        return "admin/faq/faq_form";
+    }
 
 
-   @PostMapping("/form")
-   public @ResponseBody HashMap<String, Object> newNotice(@Valid AdminFaqForm dto, Authentication authentication) {
-      HashMap<String, Object> retMap = new HashMap<>();
+    @PostMapping("/form")
+    public @ResponseBody HashMap<String, Object> newNotice(@Valid AdminFaqForm dto, Authentication authentication) {
+        HashMap<String, Object> retMap = new HashMap<>();
 
-      try {
-         if (dto.getIsNew()) {
-            adminFaqService.addFaq(dto);
-         } else {
-            adminFaqService.updateNotice(dto);
-         }
+        try {
+            if (dto.getIsNew()) {
+                adminFaqService.addFaq(dto);
+            } else {
+                adminFaqService.updateNotice(dto);
+            }
 
-         retMap.put("status", "success");
-      } catch (BusinessException businessException) {
-         retMap.put("status", "fail");
-      }
+            retMap.put("status", "success");
+        } catch (BusinessException businessException) {
+            retMap.put("status", "fail");
+        }
 
-      return retMap;
-   }
+        return retMap;
+    }
 
-   @PostMapping("/delete")
-   public @ResponseBody HashMap<String, Object> deleteNotice(@RequestParam(value="list[]") List<Long> list) {
-      HashMap<String, Object> retMap = new HashMap<>();
+    @PostMapping("/delete")
+    public @ResponseBody HashMap<String, Object> deleteNotice(@RequestParam(value = "list[]") List<Long> list) {
+        HashMap<String, Object> retMap = new HashMap<>();
 
-      try {
-         adminFaqService.delete(list);
+        try {
+            adminFaqService.delete(list);
 
-         retMap.put("status", "success");
-      } catch (BusinessException businessException) {
-         retMap.put("status", "fail");
-      }
+            retMap.put("status", "success");
+        } catch (BusinessException businessException) {
+            retMap.put("status", "fail");
+        }
 
-      return retMap;
-   }
+        return retMap;
+    }
+
 }

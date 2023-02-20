@@ -12,14 +12,14 @@ import java.util.Collection;
 
 public interface NoticeRepository extends JpaRepository<Notice, Long> {
 
-   Page<Notice> findAll(Pageable pageable);
+    Page<Notice> findAll(Pageable pageable);
 
-   Page<Notice> findByTitleContainsOrContentContains(String title, String content, Pageable pageable);
+    Page<Notice> findByTitleContainsOrContentContains(String title, String content, Pageable pageable);
 
-   void deleteByIdIn(Collection<Long> ids);
+    void deleteByIdIn(Collection<Long> ids);
 
-   @Transactional
-   @Modifying
-   @Query("update Notice n set n.viewCount = n.viewCount+1 where n.id = ?1")
-   int updateViewCountById(Long id);
+    @Transactional
+    @Modifying
+    @Query("update Notice n set n.viewCount = n.viewCount+1 where n.id = ?1")
+    int updateViewCountById(Long id);
 }

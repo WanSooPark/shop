@@ -24,7 +24,8 @@ public class AdminTopicItemItemSearchResponse {
                 .name(item.getName())
                 .regularPrice(item.getRegularPrice())
                 .salePrice(item.getSalePrice())
-                .categoryName(ObjectUtils.isEmpty(item.getCategory()) ? "" : item.getCategory().getName())
+                .categoryName(ObjectUtils.isEmpty(item.getCategory()) ? "" : item.getCategory()
+                        .getName())
                 .build();
     }
 }

@@ -25,6 +25,7 @@ public class ItemOptionService {
     }
 
     public ItemOption findById(Long id) {
-        return repository.findById(id).orElseThrow(() -> new NoContentException("유효하지 않은 옵션 id 입니다."));
+        return repository.findById(id)
+                .orElseThrow(() -> new NoContentException("유효하지 않은 옵션 id 입니다."));
     }
 }

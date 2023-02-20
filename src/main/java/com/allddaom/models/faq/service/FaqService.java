@@ -3,8 +3,6 @@ package com.allddaom.models.faq.service;
 import com.allddaom.commons.errors.exceptions.NoContentException;
 import com.allddaom.models.faq.domain.Faq;
 import com.allddaom.models.faq.infra.repo.FaqRepository;
-import com.allddaom.models.notice.domain.Notice;
-import com.allddaom.models.notice.infra.repo.NoticeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

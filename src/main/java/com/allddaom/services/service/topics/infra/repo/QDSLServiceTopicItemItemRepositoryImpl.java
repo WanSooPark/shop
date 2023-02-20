@@ -1,13 +1,13 @@
 package com.allddaom.services.service.topics.infra.repo;
 
-import com.querydsl.jpa.JPQLQuery;
-import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.allddaom.commons.querydsl.CustomQuerydslRepositorySupport;
 import com.allddaom.models.items.domain.Item;
 import com.allddaom.models.topics.domain.QTopicItem;
 import com.allddaom.models.topics.domain.Topic;
 import com.allddaom.models.topics.domain.TopicItem;
 import com.allddaom.models.topics.domain.TopicItemStatus;
+import com.querydsl.jpa.JPQLQuery;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 

@@ -1,10 +1,10 @@
 package com.allddaom.commons.file;
 
+import com.allddaom.commons.errors.exceptions.InternalServerError;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
-import com.allddaom.commons.errors.exceptions.InternalServerError;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
@@ -136,7 +136,6 @@ public class AWSS3FileUploader implements FileUploader {
             imageUrl = uploadToS3(file, path, fileName); // s3로 업로드
         } catch (Exception e) {
             throw new InternalServerError("AWS S3 Upload Exception " + e.getMessage());
-        } finally {
         }
         return imageUrl;
     }

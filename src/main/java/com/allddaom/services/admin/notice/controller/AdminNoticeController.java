@@ -24,66 +24,66 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AdminNoticeController {
 
-   private final AdminNoticeService adminNoticeService;
+    private final AdminNoticeService adminNoticeService;
 
 
-   @GetMapping("/notice_list")
-   public String noticeList(@Valid AdminNoticeSearchDto.Request searchDto, @PageableDefault(size = 5, sort = "id", direction = Sort.Direction.DESC) Pageable pageable, Model model) {
-      AdminNoticeSearchDto.Response response = adminNoticeService.search(searchDto, pageable);
-      model.addAttribute("itemPage", response.getNoticePage());
-      return "admin/notice/notice_list";
-   }
+    @GetMapping("/notice_list")
+    public String noticeList(@Valid AdminNoticeSearchDto.Request searchDto, @PageableDefault(size = 5, sort = "id", direction = Sort.Direction.DESC) Pageable pageable, Model model) {
+        AdminNoticeSearchDto.Response response = adminNoticeService.search(searchDto, pageable);
+        model.addAttribute("itemPage", response.getNoticePage());
+        return "admin/notice/notice_list";
+    }
 
-   @GetMapping("/form")
-   public String itemListView(@RequestParam(required = false) Long id, Model model) {
-      boolean isNew = true;
+    @GetMapping("/form")
+    public String itemListView(@RequestParam(required = false) Long id, Model model) {
+        boolean isNew = true;
 
 //        AdminItemForm form = AdminItemForm.empty();
-      AdminNoticeForm form = new AdminNoticeForm();
-      if (!ObjectUtils.isEmpty(id)) {
-         try {
-            form = adminNoticeService.getNoticeForm(id);
-            isNew = false;
-         } catch (NoContentException noContentException) {
-         }
-      }
+        AdminNoticeForm form = new AdminNoticeForm();
+        if (!ObjectUtils.isEmpty(id)) {
+            try {
+                form = adminNoticeService.getNoticeForm(id);
+                isNew = false;
+            } catch (NoContentException noContentException) {
+            }
+        }
 
-      model.addAttribute("item", form);
-      model.addAttribute("isNew", isNew);
-      return "admin/notice/notice_form";
-   }
+        model.addAttribute("item", form);
+        model.addAttribute("isNew", isNew);
+        return "admin/notice/notice_form";
+    }
 
-   @PostMapping("/form")
-   public @ResponseBody HashMap<String, Object> newNotice(@Valid AdminNoticeForm dto, Authentication authentication) {
-      HashMap<String, Object> retMap = new HashMap<>();
+    @PostMapping("/form")
+    public @ResponseBody HashMap<String, Object> newNotice(@Valid AdminNoticeForm dto, Authentication authentication) {
+        HashMap<String, Object> retMap = new HashMap<>();
 
-      try {
-         if (dto.getIsNew()) {
-            adminNoticeService.addNotice(dto);
-         } else {
-            adminNoticeService.updateNotice(dto);
-         }
+        try {
+            if (dto.getIsNew()) {
+                adminNoticeService.addNotice(dto);
+            } else {
+                adminNoticeService.updateNotice(dto);
+            }
 
-         retMap.put("status", "success");
-      } catch (BusinessException businessException) {
-         retMap.put("status", "fail");
-      }
+            retMap.put("status", "success");
+        } catch (BusinessException businessException) {
+            retMap.put("status", "fail");
+        }
 
-      return retMap;
-   }
+        return retMap;
+    }
 
-   @PostMapping("/delete")
-   public @ResponseBody HashMap<String, Object> deleteNotice(@RequestParam(value="list[]") List<Long> list) {
-      HashMap<String, Object> retMap = new HashMap<>();
+    @PostMapping("/delete")
+    public @ResponseBody HashMap<String, Object> deleteNotice(@RequestParam(value = "list[]") List<Long> list) {
+        HashMap<String, Object> retMap = new HashMap<>();
 
-      try {
-         adminNoticeService.delete(list);
+        try {
+            adminNoticeService.delete(list);
 
-         retMap.put("status", "success");
-      } catch (BusinessException businessException) {
-         retMap.put("status", "fail");
-      }
+            retMap.put("status", "success");
+        } catch (BusinessException businessException) {
+            retMap.put("status", "fail");
+        }
 
-      return retMap;
-   }
+        return retMap;
+    }
 }

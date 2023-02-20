@@ -12,11 +12,11 @@ import java.time.LocalDateTime;
  */
 @Data
 public class NoticeDto implements Serializable {
-   private final LocalDateTime createdDateTime;
-   private final Long id;
-   @Size(max = 255)
-   @NotNull
-   private final String title;
-   @NotNull
-   private final String content;
+    private final LocalDateTime createdDateTime;
+    private final Long id;
+    @Size(max = 255)
+    @NotNull
+    private final String title;
+    @NotNull
+    private final String content;
 }

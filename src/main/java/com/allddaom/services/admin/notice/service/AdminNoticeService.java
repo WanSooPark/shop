@@ -19,38 +19,38 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AdminNoticeService {
 
-   private final NoticeService noticeService;
+    private final NoticeService noticeService;
 
-   public AdminNoticeSearchDto.Response search(AdminNoticeSearchDto.Request searchDto, Pageable pageable) {
-      Page<Notice> noticePage = noticeService.findAll(pageable);
-      Page<AdminNoticeSearchResponse> adminNoticePage = noticePage.map(AdminNoticeSearchResponse::of);
+    public AdminNoticeSearchDto.Response search(AdminNoticeSearchDto.Request searchDto, Pageable pageable) {
+        Page<Notice> noticePage = noticeService.findAll(pageable);
+        Page<AdminNoticeSearchResponse> adminNoticePage = noticePage.map(AdminNoticeSearchResponse::of);
 
-      return AdminNoticeSearchDto.Response.builder()
-              .noticePage(new BasePage<>(adminNoticePage))
-              .build();
-   }
+        return AdminNoticeSearchDto.Response.builder()
+                .noticePage(new BasePage<>(adminNoticePage))
+                .build();
+    }
 
-   public void addNotice(AdminNoticeForm dto) {
-      Notice item = dto.entityBuilder();
-      item.setViewCount(0L);
+    public void addNotice(AdminNoticeForm dto) {
+        Notice item = dto.entityBuilder();
+        item.setViewCount(0L);
 
-      noticeService.add(item);
+        noticeService.add(item);
 //      return AdminNoticeResponse.of(item);
-   }
+    }
 
-   public void updateNotice(AdminNoticeForm dto) {
-      Notice item = dto.entityBuilder();
+    public void updateNotice(AdminNoticeForm dto) {
+        Notice item = dto.entityBuilder();
 
-      noticeService.update(item);
+        noticeService.update(item);
 //      return AdminNoticeResponse.of(item);
-   }
+    }
 
-   public AdminNoticeForm getNoticeForm(Long id) {
-      Notice notice = noticeService.findById(id);
-      return AdminNoticeForm.of(notice);
-   }
+    public AdminNoticeForm getNoticeForm(Long id) {
+        Notice notice = noticeService.findById(id);
+        return AdminNoticeForm.of(notice);
+    }
 
-   public void delete(List<Long> ids) {
-      noticeService.delete(ids);
-   }
+    public void delete(List<Long> ids) {
+        noticeService.delete(ids);
+    }
 }

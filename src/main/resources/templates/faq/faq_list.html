@@ -39,15 +39,17 @@
                                 </div>
                                 <div class="tbl">
                                     <table id="faqTable">
-                                        <tr th:each="item: ${list}" >
-                                            <td th:attr="data-category=${item.category}" style="width:5%;vertical-align:top;">
+                                        <tr th:each="item: ${list}">
+                                            <td th:attr="data-category=${item.category}"
+                                                style="width:5%;vertical-align:top;">
                                                 <span class="check"></span>•
                                             </td>
                                             <td>
-                                               <a th:onclick="|javascript:showContent(${item.id})|" th:text="${item.title}"></a>
+                                                <a th:onclick="|javascript:showContent(${item.id})|"
+                                                   th:text="${item.title}"></a>
                                                 <pre th:id="|faq_${item.id}|"
-                                                   th:utext="${#strings.replace(item.getContent(), '\r\n', '<br />')}"
-                                                   style="font-size: 14px;font-weight: normal;margin-top: 20px;display: table;font-family: inherit;display:none">
+                                                     th:utext="${#strings.replace(item.getContent(), '\r\n', '<br />')}"
+                                                     style="font-size: 14px;font-weight: normal;margin-top: 20px;display: table;font-family: inherit;display:none">
                                                 </pre>
                                             </td>
                                         </tr>
@@ -61,22 +63,22 @@
         </div>
         <script type="application/javascript" th:inline="javascript">
             function showContent(id) {
-                const isDisplay = $('#faq_'+ id).is(':visible');
+                const isDisplay = $('#faq_' + id).is(':visible');
                 if (isDisplay) {
-                    $('#faq_'+ id).hide();
+                    $('#faq_' + id).hide();
                 } else {
-                    $('#faq_'+ id).show().css('display', 'table');
+                    $('#faq_' + id).show().css('display', 'table');
                 }
             }
 
-            function changeCategory(){
+            function changeCategory() {
                 const category = $("#category").val();
                 if (!category) {
                     $("#faqTable > tbody > tr").show();
                 } else {
                     $("#faqTable > tbody > tr").hide();
-                    const list = $("#faqTable > tbody > tr > td:first-child[data-category='"+ category +"']");
-                    for (let i=0; i<list.length; i++) {
+                    const list = $("#faqTable > tbody > tr > td:first-child[data-category='" + category + "']");
+                    for (let i = 0; i < list.length; i++) {
                         $(list[i]).parent().show();
                     }
                 }

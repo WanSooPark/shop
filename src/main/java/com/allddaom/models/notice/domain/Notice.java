@@ -22,35 +22,35 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class Notice extends BaseEntity {
 
-   @Id
-   @GeneratedValue(strategy = GenerationType.IDENTITY)
-   private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-   @Size(max = 255)
-   @NotNull
-   @Column(name = "title", nullable = false)
-   private String title;
+    @Size(max = 255)
+    @NotNull
+    @Column(name = "title", nullable = false)
+    private String title;
 
-   @NotNull
-   @Lob
-   @Column(name = "content", nullable = false)
-   private String content;
+    @NotNull
+    @Lob
+    @Column(name = "content", nullable = false)
+    private String content;
 
-   @Column(name = "view_count", nullable = false)
-   @ColumnDefault("0")
-   private Long viewCount;
+    @Column(name = "view_count", nullable = false)
+    @ColumnDefault("0")
+    private Long viewCount;
 
-   @CreatedBy
-   @Column(updatable = false)
-   private String createdBy;
+    @CreatedBy
+    @Column(updatable = false)
+    private String createdBy;
 
-   @LastModifiedBy
-   private String modifiedBy;
+    @LastModifiedBy
+    private String modifiedBy;
 
-   @CreatedDate
-   @Column(updatable = false)
-   private LocalDateTime createdDateTime;
+    @CreatedDate
+    @Column(updatable = false)
+    private LocalDateTime createdDateTime;
 
-   @LastModifiedDate
-   private LocalDateTime updatedDateTime;
+    @LastModifiedDate
+    private LocalDateTime updatedDateTime;
 }

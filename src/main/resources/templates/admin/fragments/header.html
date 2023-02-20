@@ -37,7 +37,7 @@
                 </li>
 
                 <li class="dl1">
-<!--                    <a href="./board_product.html" class="da1"><span>게시판 관리</span></a>-->
+                    <!--                    <a href="./board_product.html" class="da1"><span>게시판 관리</span></a>-->
                     <label for="itemMenu" class="da1"><span>게시판 관리</span></label>
                     <button class="openMenu"><i class="xi-caret-down-min"></i></button>
                     <ul class="dp2">
@@ -48,7 +48,7 @@
                 </li>
 
                 <li class="dl1">
-<!--                    <a th:href="@{/admin/item}" class="da1"><span>상품 관리</span></a>-->
+                    <!--                    <a th:href="@{/admin/item}" class="da1"><span>상품 관리</span></a>-->
                     <label for="itemMenu" class="da1"><span>상품 관리</span></label>
                     <button id="itemMenu" class="openMenu"><i class="xi-caret-down-min"></i></button>
                     <ul class="dp2">
@@ -59,18 +59,19 @@
                 </li>
 
                 <li class="dl1">
-<!--                    <a href="./product_product.html" class="da1"><span>SHOP 관리</span></a>-->
+                    <!--                    <a href="./product_product.html" class="da1"><span>SHOP 관리</span></a>-->
                     <label for="openMenu" class="da1"><span>SHOP 관리</span></label>
                     <button id="openMenu" class="openMenu"><i class="xi-caret-down-min"></i></button>
                     <ul class="dp2">
                         <li class="dl2"><a th:href="@{/admin/topic}" class="da2">기획전관리</a></li>
                         <th:block th:each="topicMenu: ${topicMenus}">
-                            <li class="dl2"><a th:href="@{'/admin/topic/' + ${topicMenu.getCode()}}" class="da2" th:text="${topicMenu.getName()}">타임특가</a></li>
+                            <li class="dl2"><a th:href="@{'/admin/topic/' + ${topicMenu.getCode()}}" class="da2"
+                                               th:text="${topicMenu.getName()}">타임특가</a></li>
                         </th:block>
                     </ul>
                 </li>
                 <li class="dl1">
-<!--                    <a href="./content_kv.html" class="da1"><span>컨텐츠 관리</span></a>-->
+                    <!--                    <a href="./content_kv.html" class="da1"><span>컨텐츠 관리</span></a>-->
                     <label for="contentMenu" class="da1"><span>컨텐츠 관리</span></label>
                     <button id="contentMenu" class="openMenu"><i class="xi-caret-down-min"></i></button>
                     <ul class="dp2">
@@ -81,7 +82,7 @@
                     </ul>
                 </li>
                 <li class="dl1">
-<!--                    <a href="./business_etc.html" class="da1"><span>주문/매출 관리</span></a>-->
+                    <!--                    <a href="./business_etc.html" class="da1"><span>주문/매출 관리</span></a>-->
                     <label for="orderMenu" class="da1"><span>주문/매출 관리</span></label>
                     <button id="orderMenu" class="openMenu"><i class="xi-caret-down-min"></i></button>
                     <ul class="dp2">

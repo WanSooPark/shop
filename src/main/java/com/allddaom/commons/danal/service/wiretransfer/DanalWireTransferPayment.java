@@ -46,14 +46,13 @@ public class DanalWireTransferPayment {
 
     private static final String ERC_NETWORK_ERROR = "-1";
     private static final String ERM_NETWORK = "Network Error";
-
-    public String CHARSET = "EUC-KR";
-    public String TEST_AMOUNT = "1004";
     /******************************************************
      * CPID		: 다날에서 제공해 드린 CPID
      * CRYPTOKEY	: 다날에서 제공해 드린 암복호화 PW
      ******************************************************/
     private final String IV = "31363032313523404542616e6b456e63"; // 고정값. 수정하지 마시오.
+    public String CHARSET = "EUC-KR";
+    public String TEST_AMOUNT = "1004";
     @Value("${danal.cpid}")
     private String CPID; // 영업담당자에게 문의
     @Value("${danal.service.wire-transfer.pwd}")

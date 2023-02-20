@@ -1,11 +1,7 @@
 package com.allddaom.models.faq.domain;
 
-import com.allddaom.commons.entity.BaseEntity;
 import lombok.*;
-import org.hibernate.annotations.ColumnDefault;
-import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
@@ -20,31 +16,31 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(of = "id", callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
-public class Faq  {
+public class Faq {
 
-   @Id
-   @GeneratedValue(strategy = GenerationType.IDENTITY)
-   private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-   @Size(max = 255)
-   @NotNull
-   @Column(name = "title", nullable = false)
-   private String title;
+    @Size(max = 255)
+    @NotNull
+    @Column(name = "title", nullable = false)
+    private String title;
 
-   @Size(max = 255)
-   @NotNull
-   @Column(name = "category", nullable = false)
-   private String category;
+    @Size(max = 255)
+    @NotNull
+    @Column(name = "category", nullable = false)
+    private String category;
 
-   @NotNull
-   @Lob
-   @Column(name = "content", nullable = false)
-   private String content;
+    @NotNull
+    @Lob
+    @Column(name = "content", nullable = false)
+    private String content;
 
-   @CreatedDate
-   @Column(updatable = false)
-   private LocalDateTime createdDateTime;
+    @CreatedDate
+    @Column(updatable = false)
+    private LocalDateTime createdDateTime;
 
-   @LastModifiedDate
-   private LocalDateTime updatedDateTime;
+    @LastModifiedDate
+    private LocalDateTime updatedDateTime;
 }
