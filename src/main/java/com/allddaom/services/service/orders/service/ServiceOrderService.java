@@ -1,5 +1,6 @@
 package com.allddaom.services.service.orders.service;
 
+import com.allddaom.commons.entity.BasePage;
 import com.allddaom.commons.errors.exceptions.BadRequestException;
 import com.allddaom.models.addresses.domain.Address;
 import com.allddaom.models.carts.domain.CartItem;
@@ -13,6 +14,7 @@ import com.allddaom.models.members.domain.Member;
 import com.allddaom.models.orders.domain.Order;
 import com.allddaom.models.orders.domain.OrderItem;
 import com.allddaom.models.orders.domain.OrderItemOption;
+import com.allddaom.models.orders.domain.OrderStatus;
 import com.allddaom.models.orders.service.OrderService;
 import com.allddaom.services.service.orders.dto.ServiceOrderDto;
 import com.allddaom.services.service.orders.dto.ServiceOrderFormDto;
@@ -20,13 +22,17 @@ import com.allddaom.services.service.orders.dto.ServiceOrderResponse;
 import com.allddaom.services.service.orders.dto.address.ServiceOrderAddressDto;
 import com.allddaom.services.service.orders.dto.item.ServiceOrderItemDto;
 import com.allddaom.services.service.orders.dto.item.ServiceOrderItemOptionDto;
+import com.allddaom.services.service.orders.dto.serarch.ServiceOrderSearchDto;
 import com.allddaom.services.service.orders.form.OrderItemFormResponse;
 import com.allddaom.services.service.orders.form.OrderItemOptionFormResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
+import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -192,5 +198,36 @@ public class ServiceOrderService {
     public ServiceOrderResponse getOrder(Long orderId) {
         Order order = orderService.findById(orderId);
         return ServiceOrderResponse.of(order);
+    }
+
+    public ServiceOrderSearchDto.Response search(ServiceOrderSearchDto.Request dto, Pageable pageable, Member member) {
+        Page<Order> orderPage = orderService.search(dto.getStatusGroup(), dto.getStartDateTime(), dto.getEndDateTime(), member, pageable);
+        Page<ServiceOrderResponse> orderResponsePage = orderPage.map(ServiceOrderResponse::of);
+        return ServiceOrderSearchDto.Response.builder()
+                .orderPage(new BasePage<>(orderResponsePage))
+                .build();
+    }
+
+    public long countContentByValidGroup(ServiceOrderSearchDto.Request dto, Member member) {
+        LocalDateTime startDateTime = dto.getStartDateTime();
+        LocalDateTime endDateTime = dto.getEndDateTime();
+
+        List<OrderStatus> statusList = new LinkedList<>();
+        statusList.add(OrderStatus.BEFORE_DEPOSIT);
+        statusList.add(OrderStatus.PREPARING_FOR_DELIVERY);
+        statusList.add(OrderStatus.IN_DELIVERY);
+        statusList.add(OrderStatus.DELIVERY_COMPLETE);
+        return orderService.countByMemberAndCreatedDateTimeBetweenAndStatusIn(member, startDateTime, endDateTime, statusList);
+    }
+
+    public long countContentByInvalidGroup(ServiceOrderSearchDto.Request dto, Member member) {
+        LocalDateTime startDateTime = dto.getStartDateTime();
+        LocalDateTime endDateTime = dto.getEndDateTime();
+
+        List<OrderStatus> statusList = new LinkedList<>();
+        statusList.add(OrderStatus.CANCEL);
+        statusList.add(OrderStatus.EXCHANGE);
+        statusList.add(OrderStatus.RETURN);
+        return orderService.countByMemberAndCreatedDateTimeBetweenAndStatusIn(member, startDateTime, endDateTime, statusList);
     }
 }

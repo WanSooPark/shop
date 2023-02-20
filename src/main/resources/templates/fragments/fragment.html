@@ -23,7 +23,10 @@
             <i class="xi-step-backward" th:classappend="${page.getPage() < 1} ? button_disabled"></i><span class="skip">이전</span>
         </a>
 
-        <th:block th:each="i: ${#numbers.sequence(
+        <th:block th:if="${!page.hasContent()}">
+            <a th:href="@{${url} + '?page=0&' + ${options}}" class="current">1</a>
+        </th:block>
+        <th:block th:if="${page.hasContent()}" th:each="i: ${#numbers.sequence(
         ( ((page.getTotalPages()-1)-(page.getPage()+2)) <= 0 ?
                 ( (page.getPage()-2+((page.getTotalPages()-1)-(page.getPage()+2))) < 0 ?
                         0 :
@@ -82,7 +85,10 @@
             <i class="xi-step-backward" th:classappend="${page.getPage() < 1} ? button_disabled"></i><span class="skip">이전</span>
         </a>
 
-        <th:block th:each="i: ${#numbers.sequence(
+        <th:block th:if="${!page.hasContent()}">
+            <a th:href="@{${url} + '?page=0&' + ${options}}" class="current">1</a>
+        </th:block>
+        <th:block th:if="${page.hasContent()}" th:each="i: ${#numbers.sequence(
         ( ((page.getTotalPages()-1)-(page.getPage()+2)) <= 0 ?
                 ( (page.getPage()-2+((page.getTotalPages()-1)-(page.getPage()+2))) < 0 ?
                         0 :
@@ -117,6 +123,68 @@
             <i class="xi-step-forward" th:classappend="${page.getPage() >= page.getTotalPages() - 1} ? button_disabled"></i><span class="skip">다음</span>
         </a>
         <a th:href="@{${url} + '&page=' + ${page.getTotalPages() - 1} + '&' + ${options}}"
+           th:classappend="${page.getPage() >= page.getTotalPages() - 1} ? button_disabled">
+            <i class="xi-forward" th:classappend="${page.getPage() >= page.getTotalPages() - 1} ? button_disabled"></i><span class="skip">마지막</span>
+        </a>
+    </div>
+</div>
+
+<div th:fragment="paginationOrders(page, url)">
+    <style>
+        .button_disabled {
+            pointer-events: none;
+            color: #8C8C8C;
+        }
+    </style>
+
+    <div class="page">
+        <a th:href="@{${url} + '&page=0'}"
+           th:classappend="${page.getPage() < 1} ? button_disabled">
+            <i class="xi-backward" th:classappend="${page.getPage() < 1} ? button_disabled"></i><span class="skip">처음</span>
+        </a>
+        <a th:href="@{${url} + '&page=' + ${page.getPage() - 1}}"
+           th:classappend="${page.getPage() < 1} ? button_disabled">
+            <i class="xi-step-backward" th:classappend="${page.getPage() < 1} ? button_disabled"></i><span class="skip">이전</span>
+        </a>
+
+        <th:block th:if="${!page.hasContent()}">
+            <a th:href="@{${url} + '?page=0&' + ${options}}" class="current">1</a>
+        </th:block>
+        <th:block th:if="${page.hasContent()}" th:each="i: ${#numbers.sequence(
+        ( ((page.getTotalPages()-1)-(page.getPage()+2)) <= 0 ?
+                ( (page.getPage()-2+((page.getTotalPages()-1)-(page.getPage()+2))) < 0 ?
+                        0 :
+                        (page.getPage()-2+((page.getTotalPages()-1)-(page.getPage()+2))) ) :
+                ( ((-(page.getPage()-2)) > 0) ?
+                        ( (page.getPage()-2+(-(page.getPage()-2))) < 0 ?
+                                0 :
+                                (page.getPage()-2+(-(page.getPage()-2))) ) :
+                        (((page.getPage()-2) < 0) ?
+                                0 :
+                                (page.getPage()-2) )) )
+        , ( ((page.getTotalPages()-1)-(page.getPage()+2)) <= 0 ?
+                ( (page.getPage()-2+((page.getTotalPages()-1)-(page.getPage()+2))) > (page.getTotalPages()-1) ?
+                        (page.getTotalPages()-1) :
+                        (page.getPage()+2+((page.getTotalPages()-1)-(page.getPage()+2))) ) :
+                ( ((-(page.getPage()-2)) > 0) ?
+                        ( (page.getPage()-2+(-(page.getPage()-2))) > (page.getTotalPages()-1) ?
+                                (page.getTotalPages()-1) :
+                                (page.getPage()+2+(-(page.getPage()-2))) ) :
+                        (((page.getPage()-2) > (page.getTotalPages()-1)) ?
+                                (page.getTotalPages()-1) :
+                                (page.getPage()+2) )) )
+        )}">
+            <a th:href="@{${url} + '&page=' + ${i}}"
+               th:classappend="${i == page.getPage()} ? current">
+                <span th:text="${i + 1}">1</span>
+            </a>
+        </th:block>
+
+        <a th:href="@{${url} + '&page=' + ${page.getPage() + 1}}"
+           th:classappend="${page.getPage() >= page.getTotalPages() - 1} ? button_disabled">
+            <i class="xi-step-forward" th:classappend="${page.getPage() >= page.getTotalPages() - 1} ? button_disabled"></i><span class="skip">다음</span>
+        </a>
+        <a th:href="@{${url} + '&page=' + ${page.getTotalPages() - 1}}"
            th:classappend="${page.getPage() >= page.getTotalPages() - 1} ? button_disabled">
             <i class="xi-forward" th:classappend="${page.getPage() >= page.getTotalPages() - 1} ? button_disabled"></i><span class="skip">마지막</span>
         </a>

@@ -17,9 +17,20 @@
                     <div id="heading">주문조회</div>
                     <div class="tab-btn">
                         <ul>
-                            <li class="active"><a href="javascript:;">주문내역조회 <em>(0)</em></a></li>
-                            <li><a href="javascript:;">취소/반품/교환 내역 <em>(0)</em></a></li>
+                            <li th:classappend="${statusGroup == 'valid'} ? active" onclick="tabOrder('valid')">
+                                <a th:href="@{/order}">주문내역조회 <em>(<span
+                                        th:text="${validContentCount}"></span>)</em></a>
+                            </li>
+                            <li th:classappend="${statusGroup == 'invalid'} ? active" onclick="tabOrder('invalid')">
+                                <a th:href="@{'/order?statusGroup=valid'}">취소/반품/교환 내역 <em>(<span
+                                        th:text="${invalidContentCount}"></span>)</em></a>
+                            </li>
                         </ul>
+                        <script>
+                            function tabOrder(statusGroup) {
+                                location.href = '/order?statusGroup=' + statusGroup;
+                            }
+                        </script>
                     </div>
                     <div class="tab-box active">
                         <div class="option">
@@ -55,14 +66,44 @@
                                         <th scope="col">주문일자<br>(주문번호)</th>
                                         <th scope="col">이미지</th>
                                         <th scope="col">상품정보</th>
-                                        <th scope="col">수량</th>
-                                        <th scope="col">상품구매금액</th>
+                                        <!-- <th scope="col">수량</th>-->
+                                        <th scope="col">주문금액</th>
                                         <th scope="col">주문처리상태</th>
                                         <th scope="col">취소/교환/반품</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
+                                    <th:block th:if="${orderPage.hasContent()}"
+                                              th:each="order: ${orderPage.getContent()}">
+                                        <tr>
+                                            <td>
+                                                <span th:text="${#temporals.format(order.getOrderDateTime(), 'yyyy-MM-dd')}">2023-01-01</span><br>
+                                                <span th:text="${order.getOrderNo()}"></span>
+                                            </td>
+                                            <td>
+                                                <img th:src="${order.getOrderImageUrl()}" width="50" height="50">
+                                            </td>
+                                            <td>
+                                                <span th:text="${order.getOrderItemInfo()}">상품정보</span>
+                                            </td>
+                                            <!-- 수량 스킵-->
+                                            <!-- <td>-->
+                                            <!--     <span th:text="${order.getCount()}"></span>-->
+                                            <!-- </td>-->
+                                            <td>
+                                                <span th:text="${#numbers.formatInteger(order.getAmount(), 0, 'COMMA')}"></span>
+                                            </td>
+                                            <td>
+                                                <span th:text="${order.getStatusName()}"></span>
+                                            </td>
+                                            <td>
+                                                <button>취소</button>
+                                                <button>교환</button>
+                                                <button>반품</button>
+                                            </td>
+                                        </tr>
+                                    </th:block>
+                                    <tr th:if="${!orderPage.hasContent()}">
                                         <td class="empty" colspan="7">주문내역이 없습니다.</td>
                                     </tr>
                                     </tbody>
@@ -100,16 +141,10 @@
                                     </li>
                                 </ul>
                             </div>
-                            <div class="page">
-                                <a href="#">&lt;&lt;</a>
-                                <a href="#">&lt;</a>
-                                <a href="#" class="current">1</a>
-                                <a href="#">&gt;</a>
-                                <a href="#">&gt;&gt;</a>
-                            </div>
+                            <th:block
+                                    th:replace="fragments/fragment :: paginationOrders(${orderPage}, '/order?statusGroup=' + ${statusGroup})"></th:block>
                         </div>
                     </div>
-                    <div class="tab-box"></div>
                 </div>
             </div>
         </div>

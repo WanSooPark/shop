@@ -9,6 +9,8 @@ import com.allddaom.services.service.orders.dto.ServiceOrdererProfileResponse;
 import com.allddaom.services.service.orders.dto.serarch.ServiceOrderSearchDto;
 import com.allddaom.services.service.orders.service.ServiceOrderService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.ObjectUtils;
@@ -24,7 +26,14 @@ public class ServiceOrderController {
     private final ServiceOrderService serviceOrderService;
 
     @GetMapping
-    public String orderListView(@CurrentAccount Member member, ServiceOrderSearchDto.Request dto, Model model) {
+    public String orderListView(@CurrentAccount Member member, ServiceOrderSearchDto.Request dto, @PageableDefault(size = 5) Pageable pageable, Model model) {
+        ServiceOrderSearchDto.Response response = serviceOrderService.search(dto, pageable, member);
+        model.addAttribute("orderPage", response.getOrderPage());
+        long validContentCount = serviceOrderService.countContentByValidGroup(dto, member);
+        long invalidContentCount = serviceOrderService.countContentByInvalidGroup(dto, member);
+        model.addAttribute("validContentCount", validContentCount);
+        model.addAttribute("invalidContentCount", invalidContentCount);
+        model.addAttribute("statusGroup", ObjectUtils.isEmpty(dto.getStatusGroup()) ? "valid" : dto.getStatusGroup());
         return "order/order_list";
     }
 
