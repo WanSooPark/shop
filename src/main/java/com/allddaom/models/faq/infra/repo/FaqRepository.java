@@ -1,6 +1,6 @@
-package com.allddaom.models.faqs.infra.repo;
+package com.allddaom.models.faq.infra.repo;
 
-import com.allddaom.models.faqs.domain.Faq;
+import com.allddaom.models.faq.domain.Faq;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

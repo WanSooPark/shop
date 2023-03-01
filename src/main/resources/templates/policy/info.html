@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layouts/layout2}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+
+<!-- 사용자 CSS 추가 -->
+<th:block layout:fragment="css">
+    <style>
+    </style>
+</th:block>
+
+<div layout:fragment="content">
+    <section id="container">
+        <div style="padding-top:50px;">
+            <div class="wrap">
+                <div id="heading">개인정보처리방침
+                </div>
+            </div>
+        </div>
+
+        <div id="shop">
+            <div id="shop_detail" class="tab-area" style="padding-top: 0px;">
+                <div class="contbox">
+                    <div class="wrap">
+                        <div class="product tab-box active">
+                            <div class="required">
+                                <div class="tbl">
+                                    <pre
+                                         th:utext="${#strings.replace(item.getContent(), '\r\n', '<br />')}"
+                                         style="font-size: 14px;font-weight: normal;margin-top: 20px;display: table;font-family: inherit;">
+                                    </pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+</html>

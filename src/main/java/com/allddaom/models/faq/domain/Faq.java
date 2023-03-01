@@ -1,4 +1,4 @@
-package com.allddaom.models.faqs.domain;
+package com.allddaom.models.faq.domain;
 
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;

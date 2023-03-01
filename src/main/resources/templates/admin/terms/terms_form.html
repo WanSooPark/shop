@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin/fragments/header :: adminHead">
+<body id="wrap">
+<th:block th:replace="admin/fragments/header :: adminHeader()"></th:block>
+
+<main id="container">
+    <div id="tool">
+        <div class="info">
+            <div class="title">관리자페이지</div>
+        </div>
+        <div class="logout">
+            <a href="#">로그아웃</a>
+        </div>
+    </div>
+    <div id="contain">
+        <div id="h1">
+            <strong>이용약관</strong>
+            <span>하단정보 관리 > 이용약관 > 이용약관 FROM</span>
+        </div>
+        <div id="product" class="content product">
+            <form id="noticeForm" method="post" action="/admin/terms/form"  th:object="${item}" >
+                <input type="hidden" name="isNew" value="false"/>
+                <input type="hidden" name="category" value="TERMS"/>
+                <input type="hidden" name="id" th:value="*{id}"/>
+                <div class="write">
+                    <dl>
+                        <dt>내용</dt>
+                        <dd>
+                            <textarea name="content" id="content" rows="30" th:field="*{content}" style="height:100%"></textarea>
+                        </dd>
+                    </dl>
+                </div>
+            </form>
+            <div class="button">
+                <ul class="fr">
+                    <li>
+                        <button class="btn btn_02" onclick="submit()">저장</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</main>
+<script type="application/javascript" th:inline="javascript">
+    function submit() {
+        const content = $("#content").val();
+        if (!content) {
+            alert('내용을 입력하세요');
+            $("#content").focus();
+            return;
+        }
+
+        var frmData = $("#noticeForm").serialize();
+
+        $.ajax({
+            url: './form',
+            data: frmData,
+            type: 'POST',
+            dataType: "json",
+            success: function(result){
+                if (result.status === 'success') {
+                    alert('저장이 완료되었습니다.');
+                    location.href='./form';
+                } else {
+                    alert('저장이 실패되었습니다.\n잠시 후에 시도하여 주세요');
+                }
+            },
+            error: function(request, status, error) {
+                alert('저장이 실패되었습니다.\n잠시 후에 시도하여 주세요');
+            }
+        });
+
+        return false;
+    }
+</script>
+</body>
+</html>
